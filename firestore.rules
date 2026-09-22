@@ -1,0 +1,100 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isDocOwner() {
+      return isSignedIn() && request.auth.uid == resource.data.userId;
+    }
+
+    function isCreatingSelf() {
+      return isSignedIn() && request.auth.uid == request.resource.data.userId;
+    }
+
+    // Connection test document
+    match /test/connection {
+      allow read: if true;
+    }
+
+    // Users
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create, update: if isOwner(userId) && request.resource.data.userId == userId;
+      allow delete: if false;
+    }
+
+    // Knowledge Articles
+    match /knowledgeArticles/{articleId} {
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || resource.data.userId == 'system');
+      allow create: if isCreatingSelf();
+      allow update, delete: if isDocOwner() && (request.resource == null || request.resource.data.userId == request.auth.uid);
+    }
+
+    // Questions
+    match /questions/{questionId} {
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || resource.data.userId == 'system');
+      allow create: if isCreatingSelf();
+      allow update, delete: if isDocOwner() && (request.resource == null || request.resource.data.userId == request.auth.uid);
+    }
+
+    // Review History
+    match /reviewHistory/{historyId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isCreatingSelf();
+      allow update, delete: if isDocOwner();
+    }
+
+    // Coding Problems
+    match /codingProblems/{problemId} {
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || resource.data.userId == 'system');
+      allow create: if isCreatingSelf();
+      allow update, delete: if isDocOwner();
+    }
+
+    // Coding Attempts
+    match /codingAttempts/{attemptId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isCreatingSelf();
+      allow update, delete: if isDocOwner();
+    }
+
+    // Applications
+    match /applications/{applicationId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isCreatingSelf();
+      allow update, delete: if isDocOwner();
+    }
+
+    // Interviews
+    match /interviews/{interviewId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isCreatingSelf();
+      allow update, delete: if isDocOwner();
+    }
+
+    // Interview Questions
+    match /interviewQuestions/{iqId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isCreatingSelf();
+      allow update, delete: if isDocOwner();
+    }
+
+    // Mock Interview Sessions
+    match /mockInterviewSessions/{sessionId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isCreatingSelf();
+      allow update, delete: if isDocOwner();
+    }
+  }
+}

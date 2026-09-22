@@ -1,0 +1,235 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User account and preferences",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 256 },
+        "displayName": { "type": "string", "maxLength": 128 },
+        "photoURL": { "type": "string", "maxLength": 1024 },
+        "theme": { "type": "string", "enum": ["light", "dark", "system"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "email"]
+    },
+    "KnowledgeArticle": {
+      "title": "Knowledge Article",
+      "description": "Technical study note for AI/LLM/RAG/Agent",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 256 },
+        "category": { "type": "string", "maxLength": 128 },
+        "subcategory": { "type": "string", "maxLength": 128 },
+        "tags": { "type": "string", "maxLength": 256 },
+        "summary": { "type": "string", "maxLength": 1000 },
+        "contentMarkdown": { "type": "string", "maxLength": 50000 },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "category", "contentMarkdown"]
+    },
+    "Question": {
+      "title": "Interview Question",
+      "description": "Interview question bank entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 256 },
+        "category": { "type": "string", "maxLength": 128 },
+        "difficulty": { "type": "string", "enum": ["Easy", "Medium", "Hard"] },
+        "tags": { "type": "string", "maxLength": 256 },
+        "conciseAnswer": { "type": "string", "maxLength": 2000 },
+        "detailedAnswer": { "type": "string", "maxLength": 15000 },
+        "followUps": { "type": "string", "maxLength": 5000 },
+        "relatedKnowledgeArticles": { "type": "string", "maxLength": 1000 },
+        "masteryLevel": { "type": "string", "enum": ["Unseen", "Learning", "Reviewing", "Mastered"] },
+        "lastReviewedAt": { "type": "string" },
+        "nextReviewAt": { "type": "string" },
+        "intervalDays": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "category", "difficulty", "conciseAnswer"]
+    },
+    "ReviewHistory": {
+      "title": "Review History Entry",
+      "description": "Spaced repetition review attempt log",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "questionId": { "type": "string", "maxLength": 128 },
+        "questionTitle": { "type": "string", "maxLength": 256 },
+        "reviewedAt": { "type": "string", "format": "date-time" },
+        "rating": { "type": "string", "enum": ["Again", "Hard", "Good", "Easy"] },
+        "previousInterval": { "type": "number" },
+        "newInterval": { "type": "number" }
+      },
+      "required": ["userId", "questionId", "rating"]
+    },
+    "CodingProblem": {
+      "title": "Coding Problem",
+      "description": "Coding lab problem definition",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 256 },
+        "category": { "type": "string", "maxLength": 128 },
+        "difficulty": { "type": "string", "enum": ["Easy", "Medium", "Hard"] },
+        "problemDescription": { "type": "string", "maxLength": 20000 },
+        "codeTemplate": { "type": "string", "maxLength": 20000 },
+        "referenceSolution": { "type": "string", "maxLength": 20000 },
+        "language": { "type": "string", "maxLength": 64 },
+        "complexityAnalysis": { "type": "string", "maxLength": 5000 },
+        "keyPitfalls": { "type": "string", "maxLength": 5000 },
+        "interviewExplanation": { "type": "string", "maxLength": 10000 }
+      },
+      "required": ["userId", "title", "category", "difficulty", "problemDescription"]
+    },
+    "CodingAttempt": {
+      "title": "Coding Attempt",
+      "description": "User practice submission for a coding problem",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "problemId": { "type": "string", "maxLength": 128 },
+        "problemTitle": { "type": "string", "maxLength": 256 },
+        "attemptedAt": { "type": "string", "format": "date-time" },
+        "userCode": { "type": "string", "maxLength": 30000 },
+        "durationMinutes": { "type": "number" },
+        "status": { "type": "string", "enum": ["Completed", "Struggled", "Partial", "Abandoned"] },
+        "selfRating": { "type": "number" },
+        "notes": { "type": "string", "maxLength": 5000 }
+      },
+      "required": ["userId", "problemId", "userCode"]
+    },
+    "Application": {
+      "title": "Job Application CRM Entry",
+      "description": "Job application tracking record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "company": { "type": "string", "maxLength": 128 },
+        "department": { "type": "string", "maxLength": 128 },
+        "position": { "type": "string", "maxLength": 128 },
+        "jobType": { "type": "string", "enum": ["Full-time", "Internship", "Contract", "Remote"] },
+        "location": { "type": "string", "maxLength": 128 },
+        "jobDescription": { "type": "string", "maxLength": 20000 },
+        "source": { "type": "string", "maxLength": 128 },
+        "resumeVersion": { "type": "string", "maxLength": 128 },
+        "applicationDate": { "type": "string" },
+        "status": { "type": "string", "enum": ["Wishlist", "Applied", "Assessment", "Interviewing", "Offer", "Rejected", "Withdrawn"] },
+        "priority": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "notes": { "type": "string", "maxLength": 10000 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "company", "position", "status"]
+    },
+    "Interview": {
+      "title": "Interview Round",
+      "description": "Specific interview session under an application",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "applicationId": { "type": "string", "maxLength": 128 },
+        "companyName": { "type": "string", "maxLength": 128 },
+        "position": { "type": "string", "maxLength": 128 },
+        "roundNumber": { "type": "number" },
+        "roundName": { "type": "string", "maxLength": 128 },
+        "scheduledAt": { "type": "string" },
+        "durationMinutes": { "type": "number" },
+        "result": { "type": "string", "enum": ["Scheduled", "Pending", "Passed", "Failed", "Cancelled"] },
+        "overallSelfRating": { "type": "number" },
+        "retrospective": { "type": "string", "maxLength": 10000 },
+        "rawNotes": { "type": "string", "maxLength": 20000 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "applicationId", "roundName", "result"]
+    },
+    "InterviewQuestion": {
+      "title": "Interview Question Record",
+      "description": "Real interview question logged during or after an interview",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "interviewId": { "type": "string", "maxLength": 128 },
+        "questionId": { "type": "string", "maxLength": 128 },
+        "customQuestion": { "type": "string", "maxLength": 1000 },
+        "myAnswer": { "type": "string", "maxLength": 5000 },
+        "betterAnswer": { "type": "string", "maxLength": 5000 },
+        "performanceScore": { "type": "number" },
+        "notes": { "type": "string", "maxLength": 2000 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "interviewId"]
+    },
+    "MockInterviewSession": {
+      "title": "AI Mock Interview Session",
+      "description": "Interactive mock interview conversation log",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "topic": { "type": "string", "maxLength": 128 },
+        "messages": { "type": "string", "maxLength": 50000 },
+        "score": { "type": "number" },
+        "feedback": { "type": "string", "maxLength": 5000 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "topic"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile information"
+    },
+    "/knowledgeArticles/{articleId}": {
+      "schema": "KnowledgeArticle",
+      "description": "User's technical documentation notes"
+    },
+    "/questions/{questionId}": {
+      "schema": "Question",
+      "description": "User's interview question bank"
+    },
+    "/reviewHistory/{historyId}": {
+      "schema": "ReviewHistory",
+      "description": "Spaced repetition logs"
+    },
+    "/codingProblems/{problemId}": {
+      "schema": "CodingProblem",
+      "description": "Coding lab exercises"
+    },
+    "/codingAttempts/{attemptId}": {
+      "schema": "CodingAttempt",
+      "description": "Coding practice history"
+    },
+    "/applications/{applicationId}": {
+      "schema": "Application",
+      "description": "Job application CRM pipeline"
+    },
+    "/interviews/{interviewId}": {
+      "schema": "Interview",
+      "description": "Application interview rounds"
+    },
+    "/interviewQuestions/{iqId}": {
+      "schema": "InterviewQuestion",
+      "description": "Questions recorded from interviews"
+    },
+    "/mockInterviewSessions/{sessionId}": {
+      "schema": "MockInterviewSession",
+      "description": "AI mock interview logs"
+    }
+  }
+}
