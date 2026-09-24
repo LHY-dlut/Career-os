@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   :root {
@@ -74,3 +75,12 @@
   border-radius: 0.5rem;
   overflow-x: auto;
 }
+
+.markdown-body :is(h1,h2,h3,h4,h5,h6) { scroll-margin-top: 1.5rem; }
+.hljs-keyword, .hljs-selector-tag { color: #c4b5fd; }
+.hljs-string, .hljs-attr { color: #86efac; }
+.hljs-number, .hljs-literal { color: #fbbf24; }
+.hljs-comment { color: #94a3b8; }
+.hljs-title, .hljs-built_in { color: #7dd3fc; }
+:focus-visible { outline: 2px solid #0ea5e9; outline-offset: 3px; }
+button:disabled { opacity: .55; cursor: wait; }

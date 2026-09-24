@@ -35,7 +35,7 @@ const VIEW_TITLES: Record<string, { title: string; subtitle: string }> = {
   applications: { title: 'Job Applications CRM', subtitle: 'Recruitment pipeline & status tracking' },
   interviews: { title: 'Interviews & Retrospective', subtitle: 'Interview logs, questions & debriefs' },
   copilot: { title: 'AI Copilot', subtitle: 'Deep technical explanations, answer grading & mock rounds' },
-  settings: { title: 'Settings & Cloud Sync', subtitle: 'Data backup, export, account & preferences' },
+  settings: { title: 'Settings & Data', subtitle: 'Data backup, export, account & preferences' },
 };
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -208,7 +208,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <p className="text-[11px] text-slate-500 truncate">{currentUser.email}</p>
                     <div className="mt-1 flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400">
                       <ShieldCheck className="w-3 h-3" />
-                      <span>Firestore Sync Active</span>
+                      <span>Cloud Account</span>
                     </div>
                   </div>
                   <button

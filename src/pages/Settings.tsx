@@ -14,34 +14,35 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { useToast } from '../components/common/Toast';
-import {
-  exportAllDataAsJson,
-  importDataFromJson,
-  resetToSeedData,
-} from '../services/db';
 
 interface SettingsProps {
   user: any;
   onSignIn: () => void;
   onSignOut: () => void;
   onRefreshData: () => Promise<void>;
+  onExport: () => Promise<string>;
+  onRestore: (json: string) => Promise<void>;
+  onReset: () => Promise<void>;
+  onLoadStarter: () => Promise<void>;
+  canLoadStarter: boolean;
 }
 
 export const Settings: React.FC<SettingsProps> = ({
   user,
   onSignIn,
   onSignOut,
-  onRefreshData,
+  onRefreshData, onExport, onRestore, onReset, onLoadStarter, canLoadStarter,
 }) => {
   const { showToast } = useToast();
   const [isExporting, setIsExporting] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
+  const [loadingStarter, setLoadingStarter] = useState(false);
 
   // Export JSON
-  const handleExport = () => {
+  const handleExport = async () => {
     setIsExporting(true);
     try {
-      const json = exportAllDataAsJson();
+      const json = await onExport();
       const blob = new Blob([json], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -61,15 +62,17 @@ export const Settings: React.FC<SettingsProps> = ({
   const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    e.target.value = '';
+    if (file.size > 20_000_000) { showToast('Backup exceeds 20 MB.', 'error'); return; }
+    if (!confirm('Replace all data in this guest workspace with this backup? This cannot be undone.')) return;
     const reader = new FileReader();
     reader.onload = async (event) => {
       try {
         const json = event.target?.result as string;
-        importDataFromJson(json);
-        await onRefreshData();
-        showToast('Data imported and synced successfully');
+        await onRestore(json);
+        showToast('Backup restored to this browser’s guest workspace');
       } catch (err: any) {
-        showToast('Failed to parse backup JSON file', 'error');
+        showToast(err.message || 'Backup validation failed. Nothing was replaced.', 'error');
       }
     };
     reader.readAsText(file);
@@ -84,8 +87,7 @@ export const Settings: React.FC<SettingsProps> = ({
     ) {
       setIsResetting(true);
       try {
-        resetToSeedData();
-        await onRefreshData();
+        await onReset();
         showToast('Reset to default seed data complete');
       } catch (err) {
         showToast('Reset failed', 'error');
@@ -102,7 +104,7 @@ export const Settings: React.FC<SettingsProps> = ({
           System & Account Settings
         </h2>
         <p className="text-xs text-zinc-500">
-          Manage your cloud database sync, local backups, and AI environment
+          Manage your account workspace, backups, and study materials
         </p>
       </div>
 
@@ -151,7 +153,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 Guest Mode (Local Storage)
               </div>
               <p className="text-[11px] text-zinc-500 mt-0.5">
-                Sign in with Google to sync your interview questions, notes, and CRM records to cloud Firestore.
+                Sign in to open your separate cloud workspace. Guest records stay in this browser.
               </p>
             </div>
 
@@ -178,7 +180,7 @@ export const Settings: React.FC<SettingsProps> = ({
             <span className="text-[10px] text-zinc-400 uppercase font-bold">Persistence</span>
             <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
               <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>Firestore + Local Sync</span>
+              <span>{user ? 'Firestore account workspace' : 'Local guest workspace'}</span>
             </div>
           </div>
 
@@ -186,7 +188,7 @@ export const Settings: React.FC<SettingsProps> = ({
             <span className="text-[10px] text-zinc-400 uppercase font-bold">AI Engine</span>
             <div className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Gemini 2.5 Flash</span>
+              <span>Server-managed · Sign-in required</span>
             </div>
           </div>
 
@@ -208,10 +210,11 @@ export const Settings: React.FC<SettingsProps> = ({
         </div>
 
         <p className="text-xs text-zinc-600 dark:text-zinc-400">
-          Download your entire preparation database as a portable JSON file, or restore from a previous backup at any time.
+          Export the current workspace as JSON. Restore and reset apply only to the guest workspace; cloud restore/reset are not available. Backups contain study and career records; browser theme preferences are separate.
         </p>
 
         <div className="flex flex-wrap items-center gap-3 pt-2">
+          {canLoadStarter && <button disabled={loadingStarter} className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-medium" onClick={async () => { setLoadingStarter(true); try { await onLoadStarter(); showToast('Starter study materials added. Progress starts from zero.'); } catch (cause) { showToast(cause instanceof Error ? cause.message : 'Could not load starter materials.', 'error'); } finally { setLoadingStarter(false); } }}>Load Starter Study Materials</button>}
           <button
             onClick={handleExport}
             disabled={isExporting}
@@ -221,25 +224,26 @@ export const Settings: React.FC<SettingsProps> = ({
             <span>Export Backup (JSON)</span>
           </button>
 
-          <label className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-xs font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-2xs cursor-pointer">
+          {!user && <label className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-xs font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-2xs cursor-pointer">
             <Upload className="w-3.5 h-3.5 text-emerald-500" />
             <span>Restore Backup</span>
             <input
               type="file"
+              aria-label="Restore Backup"
               accept=".json"
               onChange={handleImport}
-              className="hidden"
+              className="sr-only"
             />
-          </label>
+          </label>}
 
-          <button
+          {!user && <button
             onClick={handleResetSeed}
             disabled={isResetting}
             className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/40 dark:bg-rose-950/20 text-rose-700 dark:text-rose-300 text-xs font-medium hover:bg-rose-100 transition-colors"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span>Reset to Curated Seed Data</span>
-          </button>
+            <span>Reset Local Demo Data</span>
+          </button>}
         </div>
       </div>
     </div>

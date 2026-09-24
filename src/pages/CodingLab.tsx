@@ -1,3 +1,5 @@
+import { Dialog } from '../components/common/Dialog';
+import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useState, useMemo } from 'react';
 import {
   Code2,
@@ -17,7 +19,7 @@ import {
 import type { CodingProblem, CodingAttempt, Difficulty } from '../types';
 import { MarkdownRenderer } from '../components/common/MarkdownRenderer';
 import { useToast } from '../components/common/Toast';
-import { generateId } from '../services/db';
+import { generateId } from '../utils/id';
 
 interface CodingLabProps {
   problems: CodingProblem[];
@@ -34,10 +36,11 @@ export const CodingLab: React.FC<CodingLabProps> = ({
   onSaveAttempt,
   userId,
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { showToast } = useToast();
-  const [activeProblemId, setActiveProblemId] = useState<string>(
-    selectedProblemId || problems[0]?.id || ''
-  );
+  const activeProblemId = selectedProblemId || problems[0]?.id || '';
+  const setActiveProblemId = (id: string) => navigate(`/coding/${encodeURIComponent(id)}`);
 
   const currentProblem = useMemo(() => {
     return problems.find((p) => p.id === activeProblemId) || problems[0];
@@ -84,7 +87,7 @@ export const CodingLab: React.FC<CodingLabProps> = ({
       selfRating: attemptRating,
       notes: attemptNotes,
     };
-    await onSaveAttempt(attempt);
+    try { await onSaveAttempt(attempt); } catch { return; }
     setIsRecording(false);
     setAttemptNotes('');
     showToast('Coding attempt recorded successfully!');
@@ -99,7 +102,7 @@ export const CodingLab: React.FC<CodingLabProps> = ({
   }
 
   return (
-    <div className="flex-1 flex flex-col lg:flex-row h-[calc(100vh-3.75rem)] overflow-hidden bg-[#fbfbfb] dark:bg-[#0c1017]">
+    <div className="flex-1 flex flex-col lg:flex-row h-full min-h-0 overflow-hidden bg-[#fbfbfb] dark:bg-[#0c1017]">
       {/* LEFT COLUMN: Problem Description, Pitfalls & Attempts (50%) */}
       <div className="w-full lg:w-1/2 border-r border-zinc-200 dark:border-zinc-800 flex flex-col overflow-hidden bg-white/70 dark:bg-[#10141e]/70">
         {/* Top Problem Selector Bar */}
@@ -339,26 +342,24 @@ export const CodingLab: React.FC<CodingLabProps> = ({
 
       {/* RECORD ATTEMPT MODAL */}
       {isRecording && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+        <Dialog onClose={() => setIsRecording(false)} aria-label="Record coding attempt" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="w-full max-w-md bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                 Log Coding Practice Attempt
               </h3>
-              <button
+              <button aria-label="Close"
                 onClick={() => setIsRecording(false)}
                 className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              ><X className="w-4 h-4" /></button>
             </div>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="codinglab-field-0" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Completion Status
                 </label>
-                <select
+                <select id="codinglab-field-0"
                   value={attemptStatus}
                   onChange={(e) => setAttemptStatus(e.target.value as any)}
                   className="w-full p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900"
@@ -372,10 +373,10 @@ export const CodingLab: React.FC<CodingLabProps> = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="codinglab-field-1" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Duration (Minutes)
                   </label>
-                  <input
+                  <input id="codinglab-field-1"
                     type="number"
                     value={attemptDuration}
                     onChange={(e) => setAttemptDuration(Number(e.target.value))}
@@ -384,10 +385,10 @@ export const CodingLab: React.FC<CodingLabProps> = ({
                 </div>
 
                 <div>
-                  <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="codinglab-field-2" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Self Rating (1 - 5)
                   </label>
-                  <select
+                  <select id="codinglab-field-2"
                     value={attemptRating}
                     onChange={(e) => setAttemptRating(Number(e.target.value))}
                     className="w-full p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900"
@@ -402,10 +403,10 @@ export const CodingLab: React.FC<CodingLabProps> = ({
               </div>
 
               <div>
-                <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="codinglab-field-3" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Retrospective / Key takeaways
                 </label>
-                <textarea
+                <textarea id="codinglab-field-3"
                   rows={3}
                   value={attemptNotes}
                   onChange={(e) => setAttemptNotes(e.target.value)}
@@ -430,7 +431,7 @@ export const CodingLab: React.FC<CodingLabProps> = ({
               </button>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
     </div>
   );

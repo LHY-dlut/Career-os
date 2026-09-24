@@ -1,3 +1,5 @@
+import { Dialog } from '../components/common/Dialog';
+import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useState, useMemo } from 'react';
 import {
   CalendarDays,
@@ -23,7 +25,7 @@ import type {
   Question,
 } from '../types';
 import { useToast } from '../components/common/Toast';
-import { generateId } from '../services/db';
+import { generateId } from '../utils/id';
 
 interface InterviewsProps {
   interviews: Interview[];
@@ -33,7 +35,7 @@ interface InterviewsProps {
   onSaveInterview: (interview: Interview) => Promise<void>;
   onDeleteInterview: (interviewId: string) => Promise<void>;
   onSaveInterviewQuestion: (iq: InterviewQuestion) => Promise<void>;
-  onAddToQuestionBank: (question: Omit<Question, 'id' | 'userId'>) => Promise<void>;
+  onAddToQuestionBank: (question: Omit<Question, 'id' | 'userId'>, interviewQuestion: InterviewQuestion) => Promise<void>;
   userId: string;
 }
 
@@ -56,10 +58,11 @@ export const Interviews: React.FC<InterviewsProps> = ({
   onAddToQuestionBank,
   userId,
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { showToast } = useToast();
-  const [activeInterviewId, setActiveInterviewId] = useState<string>(
-    selectedInterviewId || interviews[0]?.id || ''
-  );
+  const activeInterviewId = selectedInterviewId || interviews[0]?.id || '';
+  const setActiveInterviewId = (id: string) => navigate(`/interviews/${encodeURIComponent(id)}`);
 
   const currentInterview = useMemo(() => {
     return (
@@ -82,7 +85,8 @@ export const Interviews: React.FC<InterviewsProps> = ({
   const [iqFormData, setIqFormData] = useState<Partial<InterviewQuestion>>({});
 
   const handleOpenAddInterview = () => {
-    const defaultApp = applications[0];
+    const defaultApp = applications.find(a => a.id === new URLSearchParams(location.search).get('application')) || applications[0];
+    if (!defaultApp) { showToast('Create an application before adding an interview.', 'error'); return; }
     setInterviewFormData({
       applicationId: defaultApp?.id || 'manual',
       companyName: defaultApp?.company || 'ByteDance',
@@ -100,6 +104,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
   };
 
   const handleSaveInterview = async () => {
+    if (!applications.some(a => a.id === interviewFormData.applicationId)) { showToast('Select an existing application.', 'error'); return; }
     if (!interviewFormData.companyName?.trim()) {
       showToast('Company name is required', 'error');
       return;
@@ -123,7 +128,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
       createdAt: interviewFormData.createdAt || new Date().toISOString(),
     };
 
-    await onSaveInterview(toSave);
+    try { await onSaveInterview(toSave); } catch { return; }
     setActiveInterviewId(id);
     setIsEditingInterview(false);
     showToast('Interview round saved');
@@ -148,7 +153,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
       createdAt: new Date().toISOString(),
     };
 
-    await onSaveInterviewQuestion(iq);
+    try { await onSaveInterviewQuestion(iq); } catch { return; }
     setIsAddingQuestion(false);
     setIqFormData({});
     showToast('Interview question logged');
@@ -156,27 +161,33 @@ export const Interviews: React.FC<InterviewsProps> = ({
 
   // Convert an interview question into a Question Bank card!
   const handlePromoteToBank = async (iq: InterviewQuestion) => {
-    await onAddToQuestionBank({
+    try { await onAddToQuestionBank({
       title: iq.customQuestion || 'Interview Question',
       category: 'Project Deep Dive',
       difficulty: 'Medium',
       tags: [currentInterview?.companyName || 'Interview', 'RealInterview'],
       conciseAnswer: iq.betterAnswer || iq.myAnswer || 'Key summary of the interview answer...',
       detailedAnswer: `### Question asked at ${currentInterview?.companyName} (${currentInterview?.roundName})\n\n**Candidate's Response:**\n${iq.myAnswer}\n\n**Better Response & Derivation:**\n${iq.betterAnswer}\n\n**Interviewer Notes:**\n${iq.notes}`,
-      followUps: ['How does this scale to larger batch sizes?'],
+      followUps: [],
       masteryLevel: 'Reviewing',
       intervalDays: 3,
-      reviewCount: 1,
-      lastReviewedAt: new Date().toISOString(),
+      reviewCount: 0,
       nextReviewAt: new Date(Date.now() + 86400000 * 3).toISOString(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-    });
+    }, iq); } catch { return; }
     showToast(`Added to Question Bank & Spaced Review!`);
   };
 
+  React.useEffect(() => {
+    if (new URLSearchParams(location.search).get('new') === '1') {
+      handleOpenAddInterview();
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location.search]);
+
   return (
-    <div className="flex-1 flex overflow-hidden h-[calc(100vh-3.75rem)] bg-[#fbfbfb] dark:bg-[#0c1017]">
+    <div className="flex-1 flex overflow-hidden h-full min-h-0 bg-[#fbfbfb] dark:bg-[#0c1017]">
       {/* LEFT LIST: Interview Rounds (320px) */}
       <div className="w-80 border-r border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-[#10141e]/70 flex flex-col shrink-0">
         <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
@@ -290,6 +301,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
 
                 <div className="flex items-center gap-2">
                   <button
+                    aria-label="Edit interview round"
                     onClick={() => {
                       setInterviewFormData(currentInterview);
                       setIsEditingInterview(true);
@@ -299,9 +311,10 @@ export const Interviews: React.FC<InterviewsProps> = ({
                     <Edit3 className="w-4 h-4" />
                   </button>
                   <button
+                    aria-label="Delete interview round"
                     onClick={async () => {
-                      if (confirm(`Delete interview round for ${currentInterview.companyName}?`)) {
-                        await onDeleteInterview(currentInterview.id);
+                      if (confirm(`Delete interview round and all its logged questions for ${currentInterview.companyName}?`)) {
+                        try { await onDeleteInterview(currentInterview.id); } catch { return; }
                         showToast('Interview round deleted');
                       }
                     }}
@@ -372,12 +385,13 @@ export const Interviews: React.FC<InterviewsProps> = ({
 
                         {/* Promote to Bank Button */}
                         <button
+                          disabled={Boolean(iq.questionId)}
                           onClick={() => handlePromoteToBank(iq)}
                           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 text-xs font-semibold hover:bg-indigo-100 transition-colors shrink-0"
                           title="Add to Question Bank & Spaced Review"
                         >
                           <BookOpen className="w-3.5 h-3.5" />
-                          <span>Add to Question Bank</span>
+                          <span>{iq.questionId ? 'Linked to Question Bank' : 'Add to Question Bank'}</span>
                         </button>
                       </div>
 
@@ -414,26 +428,24 @@ export const Interviews: React.FC<InterviewsProps> = ({
 
       {/* LOG QUESTION MODAL */}
       {isAddingQuestion && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+        <Dialog onClose={() => setIsAddingQuestion(false)} aria-label="Interview question editor" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <div className="w-full max-w-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                 Log Question from {currentInterview?.companyName}
               </h3>
-              <button
+              <button aria-label="Close"
                 onClick={() => setIsAddingQuestion(false)}
                 className="text-zinc-400 hover:text-zinc-600"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              ><X className="w-4 h-4" /></button>
             </div>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="interviews-field-0" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Question Asked
                 </label>
-                <input
+                <input id="interviews-field-0"
                   type="text"
                   value={iqFormData.customQuestion || ''}
                   onChange={(e) =>
@@ -445,10 +457,10 @@ export const Interviews: React.FC<InterviewsProps> = ({
               </div>
 
               <div>
-                <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="interviews-field-1" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   What I Said in the Interview
                 </label>
-                <textarea
+                <textarea id="interviews-field-1"
                   rows={3}
                   value={iqFormData.myAnswer || ''}
                   onChange={(e) =>
@@ -460,10 +472,10 @@ export const Interviews: React.FC<InterviewsProps> = ({
               </div>
 
               <div>
-                <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="interviews-field-2" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Better / Ideal Answer after Retrospective
                 </label>
-                <textarea
+                <textarea id="interviews-field-2"
                   rows={4}
                   value={iqFormData.betterAnswer || ''}
                   onChange={(e) =>
@@ -490,32 +502,33 @@ export const Interviews: React.FC<InterviewsProps> = ({
               </button>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
 
       {/* ADD / EDIT INTERVIEW MODAL */}
       {isEditingInterview && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+        <Dialog onClose={() => setIsEditingInterview(false)} aria-label="Interview editor" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <div className="w-full max-w-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                 {interviewFormData.id ? 'Edit Interview Round' : 'Log Interview Round'}
               </h3>
-              <button
+              <button aria-label="Close"
                 onClick={() => setIsEditingInterview(false)}
                 className="text-zinc-400 hover:text-zinc-600"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              ><X className="w-4 h-4" /></button>
             </div>
 
             <div className="space-y-3 text-xs">
+              <label className="block">Application
+                <select aria-label="Application" className="block w-full p-2 rounded bg-zinc-50 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700" value={interviewFormData.applicationId || ''} onChange={e => { const application = applications.find(a => a.id === e.target.value); if (application) setInterviewFormData({ ...interviewFormData, applicationId: application.id, companyName: application.company, position: application.position }); }}>{applications.map(a => <option key={a.id} value={a.id}>{a.company} — {a.position}</option>)}</select>
+              </label>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="interviews-field-3" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Company Name
                   </label>
-                  <input
+                  <input id="interviews-field-3"
                     type="text"
                     value={interviewFormData.companyName || ''}
                     onChange={(e) =>
@@ -528,10 +541,10 @@ export const Interviews: React.FC<InterviewsProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="interviews-field-4" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Position
                   </label>
-                  <input
+                  <input id="interviews-field-4"
                     type="text"
                     value={interviewFormData.position || ''}
                     onChange={(e) =>
@@ -547,10 +560,10 @@ export const Interviews: React.FC<InterviewsProps> = ({
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="interviews-field-5" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Round Number
                   </label>
-                  <input
+                  <input id="interviews-field-5"
                     type="number"
                     value={interviewFormData.roundNumber || 1}
                     onChange={(e) =>
@@ -563,10 +576,10 @@ export const Interviews: React.FC<InterviewsProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="interviews-field-6" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Result Status
                   </label>
-                  <select
+                  <select id="interviews-field-6"
                     value={interviewFormData.result || 'Scheduled'}
                     onChange={(e) =>
                       setInterviewFormData({
@@ -584,10 +597,10 @@ export const Interviews: React.FC<InterviewsProps> = ({
                   </select>
                 </div>
                 <div>
-                  <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="interviews-field-7" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Duration (min)
                   </label>
-                  <input
+                  <input id="interviews-field-7"
                     type="number"
                     value={interviewFormData.durationMinutes || 60}
                     onChange={(e) =>
@@ -602,10 +615,10 @@ export const Interviews: React.FC<InterviewsProps> = ({
               </div>
 
               <div>
-                <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="interviews-field-8" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Round Name / Topic Focus
                 </label>
-                <input
+                <input id="interviews-field-8"
                   type="text"
                   value={interviewFormData.roundName || ''}
                   onChange={(e) =>
@@ -620,10 +633,10 @@ export const Interviews: React.FC<InterviewsProps> = ({
               </div>
 
               <div>
-                <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="interviews-field-9" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Retrospective / Debrief
                 </label>
-                <textarea
+                <textarea id="interviews-field-9"
                   rows={4}
                   value={interviewFormData.retrospective || ''}
                   onChange={(e) =>
@@ -653,7 +666,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
               </button>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
     </div>
   );

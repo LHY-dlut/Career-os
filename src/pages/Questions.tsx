@@ -1,3 +1,5 @@
+import { Dialog } from '../components/common/Dialog';
+import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useState, useMemo } from 'react';
 import {
   Search,
@@ -27,7 +29,7 @@ import type {
 } from '../types';
 import { MarkdownRenderer } from '../components/common/MarkdownRenderer';
 import { useToast } from '../components/common/Toast';
-import { generateId } from '../services/db';
+import { generateId } from '../utils/id';
 
 interface QuestionsProps {
   questions: Question[];
@@ -69,6 +71,8 @@ export const Questions: React.FC<QuestionsProps> = ({
   onNavigateToCopilot,
   userId,
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { showToast } = useToast();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -76,12 +80,8 @@ export const Questions: React.FC<QuestionsProps> = ({
   const [selectedMastery, setSelectedMastery] = useState<string>('all');
 
   // Expanded detailed modal
-  const [activeQuestion, setActiveQuestion] = useState<Question | null>(() => {
-    if (selectedQuestionId) {
-      return questions.find((q) => q.id === selectedQuestionId) || null;
-    }
-    return null;
-  });
+  const activeQuestion = questions.find(q => q.id === selectedQuestionId) || null;
+  const setActiveQuestion = (q: Question | null) => navigate(q ? `/questions/${encodeURIComponent(q.id)}` : '/questions');
 
   // Edit / Add Modal
   const [isEditing, setIsEditing] = useState(false);
@@ -130,6 +130,7 @@ export const Questions: React.FC<QuestionsProps> = ({
     }
     const id = editFormData.id || generateId();
     const toSave: Question = {
+      ...questions.find(q => q.id === id),
       id,
       userId,
       title: editFormData.title || 'Untitled Question',
@@ -147,13 +148,20 @@ export const Questions: React.FC<QuestionsProps> = ({
       updatedAt: new Date().toISOString(),
     };
 
-    await onSaveQuestion(toSave);
+    try { await onSaveQuestion(toSave); } catch { return; }
     if (activeQuestion?.id === id) {
       setActiveQuestion(toSave);
     }
     setIsEditing(false);
     showToast('Question saved successfully');
   };
+
+  React.useEffect(() => {
+    if (new URLSearchParams(location.search).get('new') === '1') {
+      handleOpenAdd();
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location.search]);
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8 space-y-6">
@@ -265,7 +273,7 @@ export const Questions: React.FC<QuestionsProps> = ({
 
       {/* QUESTION DETAIL MODAL */}
       {activeQuestion && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+        <Dialog onClose={() => setActiveQuestion(null)} aria-label="Question details" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <div className="w-full max-w-3xl max-h-[90vh] bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95">
             {/* Modal Header */}
             <div className="flex items-start justify-between p-6 border-b border-zinc-200 dark:border-zinc-800 gap-4">
@@ -304,8 +312,8 @@ export const Questions: React.FC<QuestionsProps> = ({
                 </button>
                 <button
                   onClick={async () => {
-                    if (confirm(`Delete question "${activeQuestion.title}"?`)) {
-                      await onDeleteQuestion(activeQuestion.id);
+                    if (confirm(`Delete question "${activeQuestion.title}" and its review history? Interview notes will be kept without this link.`)) {
+                      try { await onDeleteQuestion(activeQuestion.id); } catch { return; }
                       setActiveQuestion(null);
                       showToast('Question deleted');
                     }
@@ -315,12 +323,10 @@ export const Questions: React.FC<QuestionsProps> = ({
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
-                <button
+                <button aria-label="Close"
                   onClick={() => setActiveQuestion(null)}
                   className="p-1.5 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                ><X className="w-5 h-5" /></button>
               </div>
             </div>
 
@@ -379,7 +385,6 @@ export const Questions: React.FC<QuestionsProps> = ({
                         <button
                           key={title}
                           onClick={() => {
-                            setActiveQuestion(null);
                             onNavigateToKnowledge(title);
                           }}
                           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 hover:border-indigo-400 bg-white dark:bg-zinc-800 text-xs text-indigo-600 dark:text-indigo-400 font-medium transition-colors"
@@ -399,7 +404,6 @@ export const Questions: React.FC<QuestionsProps> = ({
               <button
                 onClick={() => {
                   onNavigateToCopilot(activeQuestion.title, activeQuestion.conciseAnswer);
-                  setActiveQuestion(null);
                 }}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 text-xs font-medium hover:bg-indigo-100"
               >
@@ -416,7 +420,6 @@ export const Questions: React.FC<QuestionsProps> = ({
                 </button>
                 <button
                   onClick={() => {
-                    setActiveQuestion(null);
                     onNavigateToReview(activeQuestion.id);
                   }}
                   className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs"
@@ -427,31 +430,29 @@ export const Questions: React.FC<QuestionsProps> = ({
               </div>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
 
       {/* ADD / EDIT MODAL */}
       {isEditing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+        <Dialog onClose={() => setIsEditing(false)} aria-label="Question editor" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <div className="w-full max-w-2xl max-h-[90vh] bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl flex flex-col overflow-hidden">
             <div className="flex items-center justify-between px-6 py-3.5 border-b border-zinc-200 dark:border-zinc-800">
               <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                 {editFormData.id ? 'Edit Interview Question' : 'New Interview Question'}
               </h3>
-              <button
+              <button aria-label="Close"
                 onClick={() => setIsEditing(false)}
                 className="p-1 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              ><X className="w-4 h-4" /></button>
             </div>
 
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
               <div>
-                <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="questions-field-0" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Question Title
                 </label>
-                <input
+                <input id="questions-field-0"
                   type="text"
                   value={editFormData.title || ''}
                   onChange={(e) => setEditFormData({ ...editFormData, title: e.target.value })}
@@ -462,10 +463,10 @@ export const Questions: React.FC<QuestionsProps> = ({
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="questions-field-1" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Category
                   </label>
-                  <select
+                  <select id="questions-field-1"
                     value={editFormData.category || 'Transformer'}
                     onChange={(e) =>
                       setEditFormData({ ...editFormData, category: e.target.value })
@@ -481,10 +482,10 @@ export const Questions: React.FC<QuestionsProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="questions-field-2" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Difficulty
                   </label>
-                  <select
+                  <select id="questions-field-2"
                     value={editFormData.difficulty || 'Medium'}
                     onChange={(e) =>
                       setEditFormData({
@@ -504,10 +505,10 @@ export const Questions: React.FC<QuestionsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="questions-field-3" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Tags (comma separated)
                 </label>
-                <input
+                <input id="questions-field-3"
                   type="text"
                   value={editFormData.tags?.join(', ') || ''}
                   onChange={(e) =>
@@ -525,10 +526,10 @@ export const Questions: React.FC<QuestionsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="questions-field-4" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   30-Second Elevator Pitch Answer
                 </label>
-                <textarea
+                <textarea id="questions-field-4"
                   rows={3}
                   value={editFormData.conciseAnswer || ''}
                   onChange={(e) =>
@@ -540,10 +541,10 @@ export const Questions: React.FC<QuestionsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="questions-field-5" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Detailed Technical Answer (Markdown & LaTeX)
                 </label>
-                <textarea
+                <textarea id="questions-field-5"
                   rows={8}
                   value={editFormData.detailedAnswer || ''}
                   onChange={(e) =>
@@ -555,10 +556,10 @@ export const Questions: React.FC<QuestionsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="questions-field-6" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Interviewer Follow-ups (one per line)
                 </label>
-                <textarea
+                <textarea id="questions-field-6"
                   rows={3}
                   value={editFormData.followUps?.join('\n') || ''}
                   onChange={(e) =>
@@ -588,7 +589,7 @@ export const Questions: React.FC<QuestionsProps> = ({
               </button>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
     </div>
   );

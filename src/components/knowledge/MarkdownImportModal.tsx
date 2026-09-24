@@ -1,3 +1,4 @@
+import { Dialog } from '../common/Dialog';
 import React, { useState, useRef } from 'react';
 import {
   Upload,
@@ -18,7 +19,7 @@ import {
   parseMarkdownWithFrontmatter,
   ParsedMarkdownResult,
 } from '../../utils/markdownFrontmatter';
-import { generateId } from '../../services/db';
+import { generateId } from '../../utils/id';
 import { useToast } from '../common/Toast';
 import { MarkdownRenderer } from '../common/MarkdownRenderer';
 
@@ -210,7 +211,7 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+    <Dialog onClose={() => onClose()} aria-label="Import Markdown" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
       <div className="w-full max-w-4xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Modal Header */}
         <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/50">
@@ -227,12 +228,10 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
               </p>
             </div>
           </div>
-          <button
+          <button aria-label="Close"
             onClick={onClose}
             className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          ><X className="w-5 h-5" /></button>
         </div>
 
         {/* Modal Body */}
@@ -401,10 +400,10 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                   {previewTab === 'details' && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                       <div className="sm:col-span-2">
-                        <label className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
+                        <label htmlFor="markdownimportmodal-field-0" className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
                           Article Title
                         </label>
-                        <input
+                        <input id="markdownimportmodal-field-0"
                           type="text"
                           value={activeStaged.parsed.title}
                           onChange={(e) => handleUpdateActiveField('title', e.target.value)}
@@ -413,10 +412,10 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                       </div>
 
                       <div>
-                        <label className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
+                        <label htmlFor="markdownimportmodal-field-1" className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
                           Category
                         </label>
-                        <select
+                        <select id="markdownimportmodal-field-1"
                           value={activeStaged.parsed.category}
                           onChange={(e) =>
                             handleUpdateActiveField('category', e.target.value as KnowledgeCategory)
@@ -432,10 +431,10 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                       </div>
 
                       <div>
-                        <label className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
+                        <label htmlFor="markdownimportmodal-field-2" className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
                           Subcategory (Optional)
                         </label>
-                        <input
+                        <input id="markdownimportmodal-field-2"
                           type="text"
                           value={activeStaged.parsed.subcategory}
                           onChange={(e) => handleUpdateActiveField('subcategory', e.target.value)}
@@ -445,10 +444,10 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                       </div>
 
                       <div className="sm:col-span-2">
-                        <label className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
+                        <label htmlFor="markdownimportmodal-field-3" className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
                           Tags (comma separated)
                         </label>
-                        <input
+                        <input id="markdownimportmodal-field-3"
                           type="text"
                           value={activeStaged.parsed.tags.join(', ')}
                           onChange={(e) =>
@@ -462,10 +461,10 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                       </div>
 
                       <div className="sm:col-span-2">
-                        <label className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
+                        <label htmlFor="markdownimportmodal-field-4" className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
                           Summary / Pitch
                         </label>
-                        <textarea
+                        <textarea id="markdownimportmodal-field-4"
                           rows={2}
                           value={activeStaged.parsed.summary}
                           onChange={(e) => handleUpdateActiveField('summary', e.target.value)}
@@ -510,6 +509,6 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
           </button>
         </div>
       </div>
-    </div>
+    </Dialog>
   );
 };

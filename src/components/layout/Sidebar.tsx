@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import React from 'react';
 import {
   LayoutDashboard,
@@ -90,7 +91,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     },
     {
       id: 'settings',
-      label: 'Settings & Sync',
+      label: 'Settings & Data',
       icon: Settings,
       badge: null,
     },
@@ -140,9 +141,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           const Icon = item.icon;
 
           return (
-            <button
+            <NavLink
               key={item.id}
-              onClick={() => onNavigate(item.id)}
+              to={`/${item.id}`}
+              aria-label={item.label}
               className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-medium transition-all group ${
                 isActive
                   ? 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 font-semibold border border-sky-200/80 dark:border-sky-800/60 shadow-2xs'
@@ -172,7 +174,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   )}
                 </div>
               )}
-            </button>
+            </NavLink>
           );
         })}
       </nav>

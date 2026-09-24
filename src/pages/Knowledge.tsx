@@ -1,3 +1,6 @@
+import { Dialog } from '../components/common/Dialog';
+import { extractHeadings } from '../utils/markdownHeadings';
+import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useState, useMemo, useRef } from 'react';
 import {
   BookOpen,
@@ -26,7 +29,7 @@ import {
 import type { KnowledgeArticle, KnowledgeCategory } from '../types';
 import { MarkdownRenderer } from '../components/common/MarkdownRenderer';
 import { useToast } from '../components/common/Toast';
-import { generateId } from '../services/db';
+import { generateId } from '../utils/id';
 import {
   serializeArticleToMarkdown,
   downloadMarkdownFile,
@@ -62,10 +65,11 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
   onNavigateToCopilot,
   userId,
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { showToast } = useToast();
-  const [activeArticleId, setActiveArticleId] = useState<string>(
-    selectedArticleId || articles[0]?.id || ''
-  );
+  const activeArticleId = selectedArticleId || articles[0]?.id || '';
+  const setActiveArticleId = (id: string) => navigate(`/knowledge/${encodeURIComponent(id)}`);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [isEditing, setIsEditing] = useState(false);
@@ -77,6 +81,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
 
   // Search Grounding Live Research State
   const [isResearchModalOpen, setIsResearchModalOpen] = useState(false);
+  const [researchError, setResearchError] = useState('');
   const [isResearchLoading, setIsResearchLoading] = useState(false);
   const [researchData, setResearchData] = useState<{
     content: string;
@@ -88,10 +93,13 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
     if (!currentArticle) return;
     setIsResearchModalOpen(true);
     setIsResearchLoading(true);
+    setResearchData(null);
+    setResearchError('');
     try {
       const data = await requestSearchResearch(currentArticle.title);
       setResearchData(data);
     } catch (err: any) {
+      setResearchError(err.message || 'Research could not be loaded.');
       showToast(err.message || 'Error fetching live research', 'error');
     } finally {
       setIsResearchLoading(false);
@@ -130,22 +138,12 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
     );
   }, [articles, activeArticleId, filteredArticles]);
 
-  // Extract headings from current article for table of contents
-  const tableOfContents = useMemo(() => {
-    if (!currentArticle?.contentMarkdown) return [];
-    const lines = currentArticle.contentMarkdown.split('\n');
-    const headings: Array<{ level: number; text: string; id: string }> = [];
-    lines.forEach((line) => {
-      const match = line.match(/^(#{1,3})\s+(.+)$/);
-      if (match) {
-        const level = match[1].length;
-        const text = match[2].trim();
-        const id = text.toLowerCase().replace(/[^\w]+/g, '-');
-        headings.push({ level, text, id });
-      }
-    });
-    return headings;
-  }, [currentArticle]);
+  const tableOfContents = useMemo(() => extractHeadings(currentArticle?.contentMarkdown || ''), [currentArticle?.contentMarkdown]);
+  React.useEffect(() => {
+    if (location.hash) {
+      try { document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView(); } catch { /* malformed fragment */ }
+    }
+  }, [location.hash, currentArticle?.id]);
 
   // Handle open editor
   const handleOpenEdit = (article?: KnowledgeArticle) => {
@@ -184,7 +182,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
       updatedAt: new Date().toISOString(),
     };
 
-    await onSaveArticle(articleToSave);
+    try { await onSaveArticle(articleToSave); } catch { return; }
     setActiveArticleId(id);
     setIsEditing(false);
     showToast('Knowledge article saved successfully');
@@ -194,7 +192,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
   const handleExportSingleArticle = (article: KnowledgeArticle) => {
     const markdownWithFrontmatter = serializeArticleToMarkdown(article);
     const safeTitle = article.title
-      .replace(/[^\w\s-]/g, '')
+      .replace(/[^\p{L}\p{N}\s-]/gu, '')
       .replace(/\s+/g, '_');
     downloadMarkdownFile(`${safeTitle}.md`, markdownWithFrontmatter);
     showToast(`Exported "${article.title}" as Markdown`);
@@ -221,7 +219,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
       const art = articles[i];
       const markdown = serializeArticleToMarkdown(art);
       const safeTitle = art.title
-        .replace(/[^\w\s-]/g, '')
+        .replace(/[^\p{L}\p{N}\s-]/gu, '')
         .replace(/\s+/g, '_');
 
       // Slight timeout between downloads to allow browser to handle multiple downloads
@@ -234,17 +232,24 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
   // Handle batch or single import from Modal
   const handleImportArticles = async (importedArticles: KnowledgeArticle[]) => {
     for (const art of importedArticles) {
-      await onSaveArticle(art);
+      try { await onSaveArticle(art); } catch { return; }
     }
     if (importedArticles.length > 0) {
       setActiveArticleId(importedArticles[0].id);
     }
   };
 
+  React.useEffect(() => {
+    if (new URLSearchParams(location.search).get('new') === '1') {
+      handleOpenEdit();
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location.search]);
+
   return (
-    <div className="flex-1 flex overflow-hidden h-[calc(100vh-3.75rem)]">
+    <div className="flex-1 flex overflow-hidden h-full min-h-0">
       {/* LEFT COLUMN: Category Tree & Article List (280px) */}
-      <div className="w-72 border-r border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xs flex flex-col shrink-0">
+      <div className="hidden md:flex w-64 border-r border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xs flex flex-col shrink-0">
         {/* Search & Add / Import Bar */}
         <div className="p-3 border-b border-slate-200 dark:border-slate-800 space-y-2.5">
           <div className="flex items-center justify-between">
@@ -306,7 +311,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                       : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                   }`}
                 >
-                  {cat.split(' ')[1]} ({count})
+                  {cat.replace(/^\d+ /, '')} ({count})
                 </button>
               );
             })}
@@ -373,8 +378,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
         </div>
       </div>
 
+      {/* Mobile document selector */}
+      <select aria-label="Choose article" className="md:hidden absolute mt-2 ml-3 max-w-[65vw] z-10 bg-slate-100 dark:bg-slate-800 rounded p-2 text-xs" value={currentArticle?.id || ''} onChange={e => setActiveArticleId(e.target.value)}><option value="" disabled>Choose article</option>{articles.map(a => <option key={a.id} value={a.id}>{a.title}</option>)}</select>
       {/* CENTER: Main Article Content */}
-      <div className="flex-1 overflow-y-auto bg-slate-50/50 dark:bg-[#090d16] p-6 lg:p-10 transition-colors">
+      <div className="flex-1 min-w-0 overflow-y-auto bg-slate-50/50 dark:bg-[#090d16] px-4 pt-16 md:p-6 lg:p-10 transition-colors">
         {currentArticle ? (
           <div className="max-w-3xl mx-auto space-y-6">
             {/* Article Top Actions & Badges */}
@@ -472,7 +479,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                 <button
                   onClick={async () => {
                     if (confirm(`Delete "${currentArticle.title}"?`)) {
-                      await onDeleteArticle(currentArticle.id);
+                      try { await onDeleteArticle(currentArticle.id); } catch { return; }
                       showToast('Article deleted');
                     }
                   }}
@@ -509,6 +516,12 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
             {/* Rendered Markdown Body with KaTeX & Syntax Highlighting */}
             <div className="pt-2">
               <MarkdownRenderer content={currentArticle.contentMarkdown} />
+              <nav aria-label="Article navigation" className="flex justify-between gap-4 mt-10 pt-6 border-t border-slate-200 dark:border-slate-800">
+                {[-1, 1].map(offset => {
+                  const adjacent = filteredArticles[filteredArticles.findIndex(a => a.id === currentArticle.id) + offset];
+                  return adjacent ? <button key={offset} className="text-left text-sm text-sky-600 dark:text-sky-400" onClick={() => setActiveArticleId(adjacent.id)}>{offset < 0 ? '← Previous' : 'Next →'}<span className="block mt-1 text-xs">{adjacent.title}</span></button> : <span key={offset} />;
+                })}
+              </nav>
             </div>
           </div>
         ) : (
@@ -543,7 +556,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
             {tableOfContents.map((h, idx) => (
               <a
                 key={idx}
-                href={`#${h.id}`}
+                href={`/knowledge/${encodeURIComponent(currentArticle!.id)}#${encodeURIComponent(h.id)}`}
                 className={`block text-slate-600 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 truncate transition-colors ${
                   h.level === 1
                     ? 'font-semibold text-slate-900 dark:text-slate-200'
@@ -571,7 +584,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
 
       {/* EDIT / CREATE ARTICLE MODAL */}
       {isEditing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+        <Dialog onClose={() => setIsEditing(false)} aria-label="Article editor" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
           <div className="w-full max-w-4xl max-h-[90vh] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
             {/* Modal Header */}
             <div className="flex items-center justify-between px-6 py-3.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
@@ -628,12 +641,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                     Preview
                   </button>
                 </div>
-                <button
+                <button aria-label="Close"
                   onClick={() => setIsEditing(false)}
                   className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                >
-                  <X className="w-4 h-4" />
-                </button>
+                ><X className="w-4 h-4" /></button>
               </div>
             </div>
 
@@ -641,10 +652,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label htmlFor="knowledge-field-0" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                     Title
                   </label>
-                  <input
+                  <input id="knowledge-field-0"
                     type="text"
                     value={editFormData.title || ''}
                     onChange={(e) =>
@@ -656,10 +667,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label htmlFor="knowledge-field-1" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                     Category
                   </label>
-                  <select
+                  <select id="knowledge-field-1"
                     value={editFormData.category || '01 Transformer'}
                     onChange={(e) =>
                       setEditFormData({
@@ -680,10 +691,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label htmlFor="knowledge-field-2" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                     Subcategory (Optional)
                   </label>
-                  <input
+                  <input id="knowledge-field-2"
                     type="text"
                     value={editFormData.subcategory || ''}
                     onChange={(e) =>
@@ -695,10 +706,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label htmlFor="knowledge-field-3" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                     Tags (comma separated)
                   </label>
-                  <input
+                  <input id="knowledge-field-3"
                     type="text"
                     value={editFormData.tags?.join(', ') || ''}
                     onChange={(e) =>
@@ -717,10 +728,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label htmlFor="knowledge-field-4" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Summary (elevator pitch)
                 </label>
-                <input
+                <input id="knowledge-field-4"
                   type="text"
                   value={editFormData.summary || ''}
                   onChange={(e) =>
@@ -733,11 +744,12 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
 
               {/* Editor Write vs Preview */}
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label htmlFor="knowledge-content" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Content (Markdown & KaTeX LaTeX)
                 </label>
                 {editorTab === 'write' ? (
                   <textarea
+                    id="knowledge-content"
                     rows={14}
                     value={editFormData.contentMarkdown || ''}
                     onChange={(e) =>
@@ -775,12 +787,12 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
               </button>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
 
       {/* Live Research Modal with Google Search Grounding */}
       {isResearchModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4">
+        <Dialog onClose={() => setIsResearchModalOpen(false)} aria-label="Live research" className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4">
           <div className="w-full max-w-2xl max-h-[85vh] flex flex-col bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             {/* Modal Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
@@ -793,16 +805,14 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                     Live Research Grounding
                   </h3>
                   <p className="text-[11px] text-slate-400">
-                    Powered by Gemini 2.5 Flash + Google Search Grounding • {currentArticle?.title}
+                    Powered by server-configured Gemini + Google Search Grounding • {currentArticle?.title}
                   </p>
                 </div>
               </div>
-              <button
+              <button aria-label="Close"
                 onClick={() => setIsResearchModalOpen(false)}
                 className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              ><X className="w-4 h-4" /></button>
             </div>
 
             {/* Modal Content */}
@@ -878,7 +888,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                     </div>
                   )}
                 </>
-              ) : null}
+              ) : <div role="alert"><p>{researchError}</p><button className="mt-3 text-sky-500 underline" onClick={handleOpenSearchResearch}>Retry research</button></div>}
             </div>
 
             {/* Modal Footer */}
@@ -923,7 +933,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
               </div>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
     </div>
   );

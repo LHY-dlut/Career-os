@@ -1,3 +1,5 @@
+import { Dialog } from '../components/common/Dialog';
+import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useState, useMemo } from 'react';
 import {
   Briefcase,
@@ -18,7 +20,7 @@ import {
 } from 'lucide-react';
 import type { Application, ApplicationStage, Priority } from '../types';
 import { useToast } from '../components/common/Toast';
-import { generateId } from '../services/db';
+import { generateId } from '../utils/id';
 
 interface ApplicationsProps {
   applications: Application[];
@@ -37,6 +39,7 @@ const STAGES: ApplicationStage[] = [
   'Interviewing',
   'Offer',
   'Rejected',
+  'Withdrawn',
 ];
 
 const PRIORITIES: Priority[] = ['High', 'Medium', 'Low'];
@@ -50,6 +53,8 @@ export const Applications: React.FC<ApplicationsProps> = ({
   onQuickLogInterview,
   userId,
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { showToast } = useToast();
   const [viewMode, setViewMode] = useState<'kanban' | 'table'>('kanban');
   const [searchQuery, setSearchQuery] = useState('');
@@ -60,12 +65,8 @@ export const Applications: React.FC<ApplicationsProps> = ({
   const [editFormData, setEditFormData] = useState<Partial<Application>>({});
 
   // Active Detail Modal
-  const [activeApp, setActiveApp] = useState<Application | null>(() => {
-    if (selectedAppId) {
-      return applications.find((a) => a.id === selectedAppId) || null;
-    }
-    return null;
-  });
+  const activeApp = applications.find(a => a.id === selectedAppId) || null;
+  const setActiveApp = (a: Application | null) => navigate(a ? `/applications/${encodeURIComponent(a.id)}` : '/applications');
 
   const filteredApps = useMemo(() => {
     return applications.filter((app) => {
@@ -128,7 +129,7 @@ export const Applications: React.FC<ApplicationsProps> = ({
       updatedAt: new Date().toISOString(),
     };
 
-    await onSaveApplication(toSave);
+    try { await onSaveApplication(toSave); } catch { return; }
     if (activeApp?.id === id) {
       setActiveApp(toSave);
     }
@@ -141,9 +142,16 @@ export const Applications: React.FC<ApplicationsProps> = ({
     newStatus: ApplicationStage
   ) => {
     const updated = { ...app, status: newStatus, updatedAt: new Date().toISOString() };
-    await onSaveApplication(updated);
+    try { await onSaveApplication(updated); } catch { return; }
     showToast(`Moved ${app.company} to ${newStatus}`);
   };
+
+  React.useEffect(() => {
+    if (new URLSearchParams(location.search).get('new') === '1') {
+      handleOpenAdd();
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location.search]);
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8 space-y-6">
@@ -382,7 +390,7 @@ export const Applications: React.FC<ApplicationsProps> = ({
 
       {/* DETAIL MODAL */}
       {activeApp && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+        <Dialog onClose={() => setActiveApp(null)} aria-label="Application details" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <div className="w-full max-w-2xl max-h-[90vh] bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95">
             <div className="flex items-start justify-between p-6 border-b border-zinc-200 dark:border-zinc-800">
               <div className="space-y-1">
@@ -409,8 +417,8 @@ export const Applications: React.FC<ApplicationsProps> = ({
                 </button>
                 <button
                   onClick={async () => {
-                    if (confirm(`Delete application for ${activeApp.company}?`)) {
-                      await onDeleteApplication(activeApp.id);
+                    if (confirm(`Delete application, interview rounds and logged questions for ${activeApp.company}?`)) {
+                      try { await onDeleteApplication(activeApp.id); } catch { return; }
                       setActiveApp(null);
                       showToast('Application deleted');
                     }
@@ -419,12 +427,10 @@ export const Applications: React.FC<ApplicationsProps> = ({
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
-                <button
+                <button aria-label="Close"
                   onClick={() => setActiveApp(null)}
                   className="p-1.5 text-zinc-400 hover:text-zinc-600"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                ><X className="w-5 h-5" /></button>
               </div>
             </div>
 
@@ -438,7 +444,6 @@ export const Applications: React.FC<ApplicationsProps> = ({
                     <button
                       onClick={() => {
                         onNavigateToCopilotJD(activeApp.jobDescription);
-                        setActiveApp(null);
                       }}
                       className="flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:underline font-semibold"
                     >
@@ -473,7 +478,6 @@ export const Applications: React.FC<ApplicationsProps> = ({
               <button
                 onClick={() => {
                   onQuickLogInterview(activeApp);
-                  setActiveApp(null);
                 }}
                 className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs"
               >
@@ -489,32 +493,30 @@ export const Applications: React.FC<ApplicationsProps> = ({
               </button>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
 
       {/* ADD / EDIT MODAL */}
       {isEditing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+        <Dialog onClose={() => setIsEditing(false)} aria-label="Application editor" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <div className="w-full max-w-xl max-h-[90vh] bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl flex flex-col overflow-hidden">
             <div className="flex items-center justify-between px-6 py-3.5 border-b border-zinc-200 dark:border-zinc-800">
               <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                 {editFormData.id ? 'Edit Application' : 'New Job Application'}
               </h3>
-              <button
+              <button aria-label="Close"
                 onClick={() => setIsEditing(false)}
                 className="p-1 text-zinc-400 hover:text-zinc-600"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              ><X className="w-4 h-4" /></button>
             </div>
 
             <div className="flex-1 overflow-y-auto p-6 space-y-3.5 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="applications-field-0" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Company Name
                   </label>
-                  <input
+                  <input id="applications-field-0"
                     type="text"
                     value={editFormData.company || ''}
                     onChange={(e) =>
@@ -525,10 +527,10 @@ export const Applications: React.FC<ApplicationsProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="applications-field-1" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Position Title
                   </label>
-                  <input
+                  <input id="applications-field-1"
                     type="text"
                     value={editFormData.position || ''}
                     onChange={(e) =>
@@ -542,10 +544,10 @@ export const Applications: React.FC<ApplicationsProps> = ({
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="applications-field-2" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Stage
                   </label>
-                  <select
+                  <select id="applications-field-2"
                     value={editFormData.status || 'Applied'}
                     onChange={(e) =>
                       setEditFormData({ ...editFormData, status: e.target.value as any })
@@ -560,10 +562,10 @@ export const Applications: React.FC<ApplicationsProps> = ({
                   </select>
                 </div>
                 <div>
-                  <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="applications-field-3" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Priority
                   </label>
-                  <select
+                  <select id="applications-field-3"
                     value={editFormData.priority || 'Medium'}
                     onChange={(e) =>
                       setEditFormData({ ...editFormData, priority: e.target.value as any })
@@ -578,10 +580,10 @@ export const Applications: React.FC<ApplicationsProps> = ({
                   </select>
                 </div>
                 <div>
-                  <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  <label htmlFor="applications-field-4" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                     Location
                   </label>
-                  <input
+                  <input id="applications-field-4"
                     type="text"
                     value={editFormData.location || ''}
                     onChange={(e) =>
@@ -594,10 +596,10 @@ export const Applications: React.FC<ApplicationsProps> = ({
               </div>
 
               <div>
-                <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="applications-field-5" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Job Description (used by AI Copilot for analysis)
                 </label>
-                <textarea
+                <textarea id="applications-field-5"
                   rows={4}
                   value={editFormData.jobDescription || ''}
                   onChange={(e) =>
@@ -609,10 +611,10 @@ export const Applications: React.FC<ApplicationsProps> = ({
               </div>
 
               <div>
-                <label className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="applications-field-6" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Notes & Status Details
                 </label>
-                <textarea
+                <textarea id="applications-field-6"
                   rows={2}
                   value={editFormData.notes || ''}
                   onChange={(e) =>
@@ -639,7 +641,7 @@ export const Applications: React.FC<ApplicationsProps> = ({
               </button>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
     </div>
   );

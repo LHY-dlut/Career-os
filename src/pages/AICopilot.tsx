@@ -1,3 +1,4 @@
+import { Dialog } from '../components/common/Dialog';
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Sparkles,
@@ -27,6 +28,7 @@ import {
 } from 'lucide-react';
 import { MarkdownRenderer } from '../components/common/MarkdownRenderer';
 import { useToast } from '../components/common/Toast';
+import { useAuth } from '../app/AuthProvider';
 import {
   requestMultiTurnChat,
   polishElevatorPitch,
@@ -109,6 +111,7 @@ interface AICopilotProps {
 
 export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
   const { showToast } = useToast();
+  const { user, signIn } = useAuth();
   const [activeMode, setActiveMode] = useState<'chat' | 'polisher' | 'mock' | 'jd'>('chat');
 
   // Multi-turn Chatbot State
@@ -126,12 +129,11 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
 
 ### 🎯 How I Can Help You Today:
 * **Multi-Turn Role-Based Technical Chat**: Choose between our *AI Career Mentor*, *Deep System Bar Raiser* (Pro reasoning), *Rapid Drill Coach* (fast flashcards), or *Search Grounded Scout*.
-* **Live Google Search Grounding**: Ask about the latest 2024-2025 papers, DeepSeek architectures, SGLang/vLLM updates, or hiring trends.
+* **Live Google Search Grounding**: Ask about the recent papers, DeepSeek architectures, SGLang/vLLM updates, or hiring trends.
 * **30-Second Elevator Pitch Polisher**: Turn unorganized technical thoughts into punchy, structured interview answers.
-* **Mock Interview Drills**: Simulate high-pressure technical interview rounds with expected answers and follow-ups.`,
+* **Mock Interview Drills**: Generate a technical practice question to work through.`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      modelUsed: 'gemini-3.5-flash',
-      roleName: 'AI Career & Tech Mentor',
+      roleName: 'Welcome · App introduction',
     },
   ]);
 
@@ -222,7 +224,8 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
 
       setMessages((prev) => [...prev, botMsg]);
     } catch (err: any) {
-      console.error('Chat error:', err);
+      setInput(query);
+      setMessages(previous => previous.filter(message => message.id !== userMsg.id));
       showToast(err.message || 'Error communicating with AI Copilot', 'error');
     } finally {
       setIsLoading(false);
@@ -274,6 +277,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
   const handleRunPolisher = async () => {
     if (!roughAnswer.trim() || isLoading) return;
     setIsLoading(true);
+    setPolishedOutput('');
     try {
       const polished = await polishElevatorPitch(roughAnswer, polishQuestion);
       setPolishedOutput(polished);
@@ -287,6 +291,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
 
   const handleRunMockQuestion = async () => {
     setIsLoading(true);
+    setMockQuestion(null);
     try {
       const q = await generateMockQuestion(mockTopic, mockDifficulty);
       setMockQuestion(q);
@@ -301,6 +306,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
   const handleRunJDAnalysis = async () => {
     if (!jdText.trim() || isLoading) return;
     setIsLoading(true);
+    setJdAnalysis('');
     try {
       const result = await analyzeJobDescription(jdText);
       setJdAnalysis(result);
@@ -328,7 +334,8 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
   };
 
   return (
-    <div className="flex-1 flex flex-col h-[calc(100vh-3.75rem)] bg-[#fbfbfb] dark:bg-[#0c1017]">
+    <div className="flex-1 flex flex-col h-full min-h-0 bg-[#fbfbfb] dark:bg-[#0c1017]">
+      {!user && <div className="px-6 py-3 text-xs bg-indigo-50 dark:bg-indigo-950/40 text-indigo-800 dark:text-indigo-200">AI requires a signed-in account approved by the workspace owner. <button className="underline font-semibold ml-2" onClick={signIn}>Sign in</button></div>}
       {/* Top Header: Title & Copilot Mode Switcher */}
       <div className="border-b border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-[#10141e]/80 backdrop-blur-md px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3 shrink-0">
         <div className="flex items-center gap-2.5">
@@ -441,7 +448,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
                   setIsSearchEnabled(nextSearch);
                   if (nextSearch) {
                     setSelectedModel('gemini-3.5-flash');
-                    showToast('Search Grounding enabled (using gemini-3.5-flash)');
+                    showToast('Search Grounding enabled with the server’s standard model');
                   } else {
                     showToast('Search Grounding disabled');
                   }
@@ -451,7 +458,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
                     ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800'
                     : 'bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300'
                 }`}
-                title="Search Grounding using Google Search via gemini-3.5-flash for up-to-date papers and info"
+                title="Request Google Search grounding with the server-configured model"
               >
                 <Globe className={`w-3.5 h-3.5 ${isSearchEnabled ? 'text-emerald-500 animate-pulse' : ''}`} />
                 <span className="hidden sm:inline">Google Search</span>
@@ -469,9 +476,9 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
                   }}
                   className="text-xs py-1.5 px-2.5 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 font-mono focus:outline-none focus:ring-1 focus:ring-indigo-500"
                 >
-                  <option value="gemini-3.5-flash">gemini-3.5-flash (General / Search)</option>
-                  <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Complex Reasoning)</option>
-                  <option value="gemini-3.1-flash-lite">gemini-3.1-flash-lite (Fast Tasks)</option>
+                  <option value="gemini-3.5-flash">Standard / Search (server configured)</option>
+                  <option value="gemini-3.1-pro-preview">Deep Reasoning (server configured)</option>
+                  <option value="gemini-3.1-flash-lite">Fast Tasks (server configured)</option>
                 </select>
               </div>
 
@@ -769,10 +776,10 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="aicopilot-field-0" className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
                   Interview Question
                 </label>
-                <input
+                <input id="aicopilot-field-0"
                   type="text"
                   value={polishQuestion}
                   onChange={(e) => setPolishQuestion(e.target.value)}
@@ -781,10 +788,10 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
+                <label htmlFor="aicopilot-field-1" className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
                   Your Rough / Unorganized Thoughts
                 </label>
-                <textarea
+                <textarea id="aicopilot-field-1"
                   rows={8}
                   value={roughAnswer}
                   onChange={(e) => setRoughAnswer(e.target.value)}
@@ -837,8 +844,8 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
 
           <div className="p-4 rounded-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center gap-4 text-xs">
             <div className="flex-1 min-w-[200px]">
-              <label className="block text-zinc-500 mb-1 font-medium">Domain Topic</label>
-              <select
+              <label htmlFor="aicopilot-field-2" className="block text-zinc-500 mb-1 font-medium">Domain Topic</label>
+              <select id="aicopilot-field-2"
                 value={mockTopic}
                 onChange={(e) => setMockTopic(e.target.value)}
                 className="w-full p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100"
@@ -852,8 +859,8 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
             </div>
 
             <div>
-              <label className="block text-zinc-500 mb-1 font-medium">Difficulty Level</label>
-              <select
+              <label htmlFor="aicopilot-field-3" className="block text-zinc-500 mb-1 font-medium">Difficulty Level</label>
+              <select id="aicopilot-field-3"
                 value={mockDifficulty}
                 onChange={(e) => setMockDifficulty(e.target.value)}
                 className="p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100"
@@ -972,7 +979,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
 
       {/* Role & System Instruction Configuration Modal */}
       {showRoleConfigModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4">
+        <Dialog onClose={() => setShowRoleConfigModal(false)} aria-label="Copilot settings" className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4">
           <div className="w-full max-w-lg bg-white dark:bg-[#12161f] rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             <div className="px-5 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -981,12 +988,10 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
                   Configure Persona & System Instruction
                 </h3>
               </div>
-              <button
+              <button aria-label="Close"
                 onClick={() => setShowRoleConfigModal(false)}
                 className="p-1 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              ><X className="w-4 h-4" /></button>
             </div>
 
             <div className="p-5 space-y-4 text-xs">
@@ -1039,7 +1044,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
               </div>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
     </div>
   );

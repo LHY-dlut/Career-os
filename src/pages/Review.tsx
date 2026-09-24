@@ -1,3 +1,4 @@
+import { calculateNextReview } from '../utils/reviewScheduler';
 import React, { useState, useEffect, useMemo } from 'react';
 import {
   RotateCcw,
@@ -53,18 +54,21 @@ export const Review: React.FC<ReviewProps> = ({
     return due.length > 0 ? due : questions;
   }, [questions, initialQuestionId]);
 
+  const [sessionQueue, setSessionQueue] = useState(() => reviewQueue.map(q => q.id));
+  const ratingLock = React.useRef(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnswerRevealed, setIsAnswerRevealed] = useState(false);
   const [showDetailed, setShowDetailed] = useState(false);
   const [sessionCount, setSessionCount] = useState(0);
 
-  const currentQuestion = reviewQueue[currentIndex];
-  const isFinished = currentIndex >= reviewQueue.length || !currentQuestion;
+  const currentQuestion = questions.find(q => q.id === sessionQueue[currentIndex]);
+  const isFinished = currentIndex >= sessionQueue.length || !currentQuestion;
 
   // Keyboard shortcut listener for fast Anki review (Space/Enter to reveal, 1-4 for ratings)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (isFinished) return;
+      if (isFinished || isSaving || (e.target instanceof HTMLElement && (e.target.closest('input, textarea, select, [role=dialog]') || e.target.isContentEditable))) return;
       if (e.key === ' ' || e.key === 'Enter') {
         if (!isAnswerRevealed) {
           e.preventDefault();
@@ -79,11 +83,12 @@ export const Review: React.FC<ReviewProps> = ({
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isAnswerRevealed, isFinished, currentIndex]);
+  }, [isAnswerRevealed, isFinished, currentIndex, isSaving, currentQuestion]);
 
   const handleRate = async (rating: ReviewRating) => {
-    if (!currentQuestion) return;
-    await onRecordReview(currentQuestion, rating);
+    if (!currentQuestion || ratingLock.current) return;
+    ratingLock.current = true; setIsSaving(true);
+    try { await onRecordReview(currentQuestion, rating); } catch { return; } finally { ratingLock.current = false; setIsSaving(false); }
     setSessionCount((prev) => prev + 1);
     setIsAnswerRevealed(false);
     setShowDetailed(false);
@@ -102,13 +107,14 @@ export const Review: React.FC<ReviewProps> = ({
             Review Session Complete!
           </h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            You reviewed <span className="font-semibold text-indigo-600 dark:text-indigo-400">{sessionCount}</span> questions this session. Your memory intervals have been updated in Firestore.
+            You reviewed <span className="font-semibold text-indigo-600 dark:text-indigo-400">{sessionCount}</span> questions this session. Your review and next interval have been saved to this workspace.
           </p>
         </div>
 
         <div className="flex items-center justify-center gap-3 pt-4">
           <button
             onClick={() => {
+              setSessionQueue(reviewQueue.map(q => q.id));
               setCurrentIndex(0);
               setIsAnswerRevealed(false);
               setSessionCount(0);
@@ -142,11 +148,11 @@ export const Review: React.FC<ReviewProps> = ({
         </div>
 
         <div className="flex items-center gap-2 text-xs text-zinc-500">
-          <span>Card {currentIndex + 1} of {reviewQueue.length}</span>
+          <span>Card {currentIndex + 1} of {sessionQueue.length}</span>
           <div className="w-24 h-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
             <div
               className="h-full bg-indigo-600 rounded-full transition-all duration-300"
-              style={{ width: `${((currentIndex + 1) / reviewQueue.length) * 100}%` }}
+              style={{ width: `${((currentIndex + 1) / sessionQueue.length) * 100}%` }}
             />
           </div>
         </div>
@@ -262,6 +268,7 @@ export const Review: React.FC<ReviewProps> = ({
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 <button
+                  disabled={isSaving}
                   onClick={() => handleRate('Again')}
                   className="p-3 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 hover:bg-rose-100 transition-colors text-center"
                 >
@@ -270,32 +277,35 @@ export const Review: React.FC<ReviewProps> = ({
                 </button>
 
                 <button
+                  disabled={isSaving}
                   onClick={() => handleRate('Hard')}
                   className="p-3 rounded-xl border border-amber-200 dark:border-amber-900/60 bg-amber-50/50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 hover:bg-amber-100 transition-colors text-center"
                 >
                   <div className="text-xs font-bold">Hard (2)</div>
                   <div className="text-[10px] text-amber-600 dark:text-amber-400 mt-0.5">
-                    {Math.max(1, Math.round(currentQuestion.intervalDays * 1.2))} days
+                    {calculateNextReview(currentQuestion, 'Hard', new Date(), '').reviewEntry.newInterval} days
                   </div>
                 </button>
 
                 <button
+                  disabled={isSaving}
                   onClick={() => handleRate('Good')}
                   className="p-3 rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50/50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 transition-colors text-center"
                 >
                   <div className="text-xs font-bold">Good (3)</div>
                   <div className="text-[10px] text-blue-600 dark:text-blue-400 mt-0.5">
-                    {Math.round(currentQuestion.intervalDays * 2.5) || 7} days
+                    {calculateNextReview(currentQuestion, 'Good', new Date(), '').reviewEntry.newInterval} days
                   </div>
                 </button>
 
                 <button
+                  disabled={isSaving}
                   onClick={() => handleRate('Easy')}
                   className="p-3 rounded-xl border border-emerald-200 dark:border-emerald-900/60 bg-emerald-50/50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 transition-colors text-center"
                 >
                   <div className="text-xs font-bold">Easy (4)</div>
                   <div className="text-[10px] text-emerald-600 dark:text-emerald-400 mt-0.5">
-                    {Math.round(currentQuestion.intervalDays * 3.5) || 14} days
+                    {calculateNextReview(currentQuestion, 'Easy', new Date(), '').reviewEntry.newInterval} days
                   </div>
                 </button>
               </div>

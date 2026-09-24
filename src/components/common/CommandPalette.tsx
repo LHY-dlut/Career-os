@@ -1,3 +1,4 @@
+import { Dialog } from './Dialog';
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Search,
@@ -51,11 +52,6 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        if (isOpen) onClose();
-        else onClose(); // parent handles toggle
-      }
       if (e.key === 'Escape' && isOpen) {
         onClose();
       }
@@ -102,14 +98,16 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     )
     .slice(0, 3);
 
+  const filteredInterviews = interviews.filter(i => `${i.companyName} ${i.position} ${i.roundName}`.toLowerCase().includes(cleanQuery)).slice(0, 3);
+
   const hasResults =
     filteredArticles.length > 0 ||
     filteredQuestions.length > 0 ||
     filteredCoding.length > 0 ||
-    filteredApps.length > 0;
+    filteredApps.length > 0 || filteredInterviews.length > 0;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/50 backdrop-blur-xs animate-in fade-in">
+    <Dialog onClose={() => onClose()} aria-label="Search workspace" className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/50 backdrop-blur-xs animate-in fade-in">
       <div
         className="w-full max-w-2xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl overflow-hidden text-zinc-900 dark:text-zinc-100 animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
@@ -123,14 +121,19 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search knowledge articles, questions, coding, CRM..."
+            aria-label="Search workspace"
+            onKeyDown={event => {
+              if (event.key === 'Enter') {
+                const result = filteredArticles[0] ? ['knowledge', filteredArticles[0].id] : filteredQuestions[0] ? ['questions', filteredQuestions[0].id] : filteredCoding[0] ? ['coding', filteredCoding[0].id] : filteredApps[0] ? ['applications', filteredApps[0].id] : filteredInterviews[0] ? ['interviews', filteredInterviews[0].id] : null;
+                if (result) { onNavigate(result[0], result[1]); onClose(); }
+              }
+            }}
             className="flex-1 bg-transparent text-sm focus:outline-none placeholder-zinc-400"
           />
-          <button
+          <button aria-label="Close"
             onClick={onClose}
             className="p-1 rounded text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          ><X className="w-4 h-4" /></button>
         </div>
 
         {/* Results Container */}
@@ -300,6 +303,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           )}
         </div>
 
+        {filteredInterviews.length > 0 && <section className="px-5 py-3 text-xs border-t border-zinc-200 dark:border-zinc-800"><h3 className="text-zinc-400 uppercase mb-2">Interviews</h3>{filteredInterviews.map(interview => <button key={interview.id} className="block w-full text-left rounded-lg p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800" onClick={() => { onNavigate('interviews', interview.id); onClose(); }}>{interview.companyName} · {interview.roundName}</button>)}</section>}
         {/* Footer info */}
         <div className="px-4 py-2 bg-zinc-50 dark:bg-zinc-900/60 border-t border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-400 flex items-center justify-between">
           <span>Navigate with mouse or enter</span>
@@ -311,6 +315,6 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </Dialog>
   );
 };
