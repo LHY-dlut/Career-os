@@ -1,3 +1,4 @@
+import { useI18n } from '../i18n/I18nProvider';
 import { Dialog } from '../components/common/Dialog';
 import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useState, useMemo } from 'react';
@@ -58,6 +59,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
   onAddToQuestionBank,
   userId,
 }) => {
+  const { t, locale, label } = useI18n();
   const navigate = useNavigate();
   const location = useLocation();
   const { showToast } = useToast();
@@ -86,7 +88,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
 
   const handleOpenAddInterview = () => {
     const defaultApp = applications.find(a => a.id === new URLSearchParams(location.search).get('application')) || applications[0];
-    if (!defaultApp) { showToast('Create an application before adding an interview.', 'error'); return; }
+    if (!defaultApp) { showToast(t("Create an application before adding an interview.", "请先添加一条投递记录，再记录面试。"), 'error'); return; }
     setInterviewFormData({
       applicationId: defaultApp?.id || 'manual',
       companyName: defaultApp?.company || 'ByteDance',
@@ -104,9 +106,9 @@ export const Interviews: React.FC<InterviewsProps> = ({
   };
 
   const handleSaveInterview = async () => {
-    if (!applications.some(a => a.id === interviewFormData.applicationId)) { showToast('Select an existing application.', 'error'); return; }
+    if (!applications.some(a => a.id === interviewFormData.applicationId)) { showToast(t("Select an existing application.", "请选择已有的投递记录。"), 'error'); return; }
     if (!interviewFormData.companyName?.trim()) {
-      showToast('Company name is required', 'error');
+      showToast(t("Company name is required", "请填写公司名称"), 'error');
       return;
     }
 
@@ -131,13 +133,13 @@ export const Interviews: React.FC<InterviewsProps> = ({
     try { await onSaveInterview(toSave); } catch { return; }
     setActiveInterviewId(id);
     setIsEditingInterview(false);
-    showToast('Interview round saved');
+    showToast(t("Interview round saved", "面试轮次已保存"));
   };
 
   const handleSaveIQ = async () => {
     if (!currentInterview) return;
     if (!iqFormData.customQuestion?.trim()) {
-      showToast('Question content is required', 'error');
+      showToast(t("Question content is required", "请填写问题内容"), 'error');
       return;
     }
 
@@ -156,7 +158,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
     try { await onSaveInterviewQuestion(iq); } catch { return; }
     setIsAddingQuestion(false);
     setIqFormData({});
-    showToast('Interview question logged');
+    showToast(t("Interview question logged", "面试问题已记录"));
   };
 
   // Convert an interview question into a Question Bank card!
@@ -176,7 +178,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }, iq); } catch { return; }
-    showToast(`Added to Question Bank & Spaced Review!`);
+    showToast(t('Added to Question Bank & Spaced Review!', '已加入面试题库与间隔复习！'));
   };
 
   React.useEffect(() => {
@@ -194,7 +196,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
           <div className="flex items-center gap-2">
             <CalendarDays className="w-4 h-4 text-indigo-600" />
             <span className="text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-300">
-              Interview Rounds
+              {t("Interview Rounds", "面试轮次")}
             </span>
           </div>
           <button
@@ -202,14 +204,14 @@ export const Interviews: React.FC<InterviewsProps> = ({
             className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold"
           >
             <Plus className="w-3.5 h-3.5" />
-            <span>New Round</span>
+            <span>{t("New Round", "新增轮次")}</span>
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-3 space-y-2">
           {interviews.length === 0 ? (
             <div className="py-8 text-center text-xs text-zinc-400">
-              No interview rounds logged yet.
+              {t("No interview rounds logged yet.", "尚未记录面试轮次。")}
             </div>
           ) : (
             interviews.map((inv) => {
@@ -239,18 +241,18 @@ export const Interviews: React.FC<InterviewsProps> = ({
                           : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400'
                       }`}
                     >
-                      {inv.result}
+                      {label(inv.result)}
                     </span>
                   </div>
 
                   <p className="text-xs text-zinc-600 dark:text-zinc-400 font-medium truncate">
-                    Round {inv.roundNumber}: {inv.roundName}
+                    {t(`Round ${inv.roundNumber}:`, `第 ${inv.roundNumber} 轮：`)} {inv.roundName}
                   </p>
 
                   <div className="flex items-center justify-between text-[11px] text-zinc-500 pt-1">
                     <div className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />
-                      <span>{new Date(inv.scheduledAt).toLocaleDateString()}</span>
+                      <span>{new Date(inv.scheduledAt).toLocaleDateString(locale)}</span>
                     </div>
                     {inv.overallSelfRating && (
                       <div className="flex items-center gap-1 text-amber-500 font-medium">
@@ -276,7 +278,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">
-                      Round {currentInterview.roundNumber}
+                      {t(`Round ${currentInterview.roundNumber}`, `第 ${currentInterview.roundNumber} 轮`)}
                     </span>
                     <span
                       className={`text-xs px-2.5 py-0.5 rounded-full font-semibold ${
@@ -287,7 +289,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
                           : 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'
                       }`}
                     >
-                      {currentInterview.result}
+                      {label(currentInterview.result)}
                     </span>
                   </div>
 
@@ -295,13 +297,13 @@ export const Interviews: React.FC<InterviewsProps> = ({
                     {currentInterview.companyName} — {currentInterview.roundName}
                   </h2>
                   <p className="text-xs text-zinc-500">
-                    Position: {currentInterview.position} • Duration: {currentInterview.durationMinutes} min • Scheduled: {new Date(currentInterview.scheduledAt).toLocaleString()}
+                    {t('Position:', '职位：')} {currentInterview.position} • {t(`Duration: ${currentInterview.durationMinutes} min`, `时长：${currentInterview.durationMinutes} 分钟`)} • {t('Scheduled:', '面试时间：')} {new Date(currentInterview.scheduledAt).toLocaleString(locale)}
                   </p>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <button
-                    aria-label="Edit interview round"
+                    aria-label={t("Edit interview round", "编辑面试轮次")}
                     onClick={() => {
                       setInterviewFormData(currentInterview);
                       setIsEditingInterview(true);
@@ -311,11 +313,11 @@ export const Interviews: React.FC<InterviewsProps> = ({
                     <Edit3 className="w-4 h-4" />
                   </button>
                   <button
-                    aria-label="Delete interview round"
+                    aria-label={t("Delete interview round", "删除面试轮次")}
                     onClick={async () => {
-                      if (confirm(`Delete interview round and all its logged questions for ${currentInterview.companyName}?`)) {
+                      if (confirm(t(`Delete interview round and all its logged questions for ${currentInterview.companyName}?`, `确定删除 ${currentInterview.companyName} 的本轮面试及其所有已记录的问题吗？`))) {
                         try { await onDeleteInterview(currentInterview.id); } catch { return; }
-                        showToast('Interview round deleted');
+                        showToast(t("Interview round deleted", "面试轮次已删除"));
                       }
                     }}
                     className="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-rose-500 hover:bg-rose-50"
@@ -329,7 +331,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
               {currentInterview.retrospective && (
                 <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-zinc-800 space-y-1.5">
                   <span className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                    Interview Retrospective & Key Takeaways
+                    {t("Interview Retrospective & Key Takeaways", "面试复盘与关键收获")}
                   </span>
                   <p className="text-xs text-zinc-800 dark:text-zinc-200 whitespace-pre-line leading-relaxed">
                     {currentInterview.retrospective}
@@ -343,10 +345,10 @@ export const Interviews: React.FC<InterviewsProps> = ({
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100">
-                    Questions Asked ({currentQuestions.length})
+                    {t(`Questions Asked (${currentQuestions.length})`, `面试问题（${currentQuestions.length} 道）`)}
                   </h3>
                   <p className="text-xs text-zinc-500">
-                    Log questions from this interview and promote them directly into your Question Bank
+                    {t("Log questions from this interview and promote them directly into your Question Bank", "记录本轮面试的问题，随时加入面试题库")}
                   </p>
                 </div>
 
@@ -358,13 +360,13 @@ export const Interviews: React.FC<InterviewsProps> = ({
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  <span>Log Question</span>
+                  <span>{t("Log Question", "记录问题")}</span>
                 </button>
               </div>
 
               {currentQuestions.length === 0 ? (
                 <div className="p-8 text-center text-xs text-zinc-400 bg-white dark:bg-[#12161f] rounded-xl border border-zinc-200 dark:border-zinc-800">
-                  No questions logged for this round yet. Click "Log Question" to capture questions asked by the interviewer.
+                  {t("No questions logged for this round yet. Click \"Log Question\" to capture questions asked by the interviewer.", "本轮还没有记录问题。点击“记录问题”，保存面试官提出的问题。")}
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -376,7 +378,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
                       <div className="flex items-start justify-between gap-3">
                         <div className="space-y-1">
                           <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
-                            Interview Question
+                            {t("Interview Question", "面试问题")}
                           </span>
                           <h4 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
                             {iq.customQuestion}
@@ -388,28 +390,28 @@ export const Interviews: React.FC<InterviewsProps> = ({
                           disabled={Boolean(iq.questionId)}
                           onClick={() => handlePromoteToBank(iq)}
                           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 text-xs font-semibold hover:bg-indigo-100 transition-colors shrink-0"
-                          title="Add to Question Bank & Spaced Review"
+                          title={t("Add to Question Bank & Spaced Review", "加入面试题库与间隔复习")}
                         >
                           <BookOpen className="w-3.5 h-3.5" />
-                          <span>{iq.questionId ? 'Linked to Question Bank' : 'Add to Question Bank'}</span>
+                          <span>{iq.questionId ? t('Linked to Question Bank', '已关联题库') : t('Add to Question Bank', '加入面试题库')}</span>
                         </button>
                       </div>
 
                       {/* Answers comparison */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                         <div className="p-3 rounded-lg bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200/60 dark:border-zinc-800 space-y-1">
-                          <span className="font-semibold text-zinc-500">My Answer:</span>
+                          <span className="font-semibold text-zinc-500">{t("My Answer:", "我的回答：")}</span>
                           <p className="text-zinc-700 dark:text-zinc-300 whitespace-pre-line">
-                            {iq.myAnswer || 'No notes'}
+                            {iq.myAnswer || t('No notes', '暂无记录')}
                           </p>
                         </div>
 
                         <div className="p-3 rounded-lg bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/40 space-y-1">
                           <span className="font-semibold text-emerald-700 dark:text-emerald-400">
-                            Better / Target Answer:
+                            {t("Better / Target Answer:", "改进后的回答 / 目标答案：")}
                           </span>
                           <p className="text-zinc-800 dark:text-zinc-200 whitespace-pre-line">
-                            {iq.betterAnswer || 'No notes'}
+                            {iq.betterAnswer || t('No notes', '暂无记录')}
                           </p>
                         </div>
                       </div>
@@ -421,20 +423,20 @@ export const Interviews: React.FC<InterviewsProps> = ({
           </div>
         ) : (
           <div className="h-full flex items-center justify-center text-zinc-400 text-sm">
-            Select an interview round from the list or log a new round.
+            {t("Select an interview round from the list or log a new round.", "从列表中选择一个面试轮次，或新增轮次。")}
           </div>
         )}
       </div>
 
       {/* LOG QUESTION MODAL */}
       {isAddingQuestion && (
-        <Dialog onClose={() => setIsAddingQuestion(false)} aria-label="Interview question editor" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+        <Dialog onClose={() => setIsAddingQuestion(false)} aria-label={t("Interview question editor", "面试问题编辑")} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <div className="w-full max-w-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                Log Question from {currentInterview?.companyName}
+                {t(`Log Question from ${currentInterview?.companyName}`, `记录 ${currentInterview?.companyName} 的面试问题`)}
               </h3>
-              <button aria-label="Close"
+              <button aria-label={t("Close", "关闭")}
                 onClick={() => setIsAddingQuestion(false)}
                 className="text-zinc-400 hover:text-zinc-600"
               ><X className="w-4 h-4" /></button>
@@ -443,7 +445,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
             <div className="space-y-3 text-xs">
               <div>
                 <label htmlFor="interviews-field-0" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                  Question Asked
+                  {t("Question Asked", "面试问题")}
                 </label>
                 <input id="interviews-field-0"
                   type="text"
@@ -451,14 +453,14 @@ export const Interviews: React.FC<InterviewsProps> = ({
                   onChange={(e) =>
                     setIqFormData({ ...iqFormData, customQuestion: e.target.value })
                   }
-                  placeholder="e.g. How does PagedAttention eliminate memory fragmentation?"
+                  placeholder={t("e.g. How does PagedAttention eliminate memory fragmentation?", "例如：PagedAttention 如何消除显存碎片？")}
                   className="w-full p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900"
                 />
               </div>
 
               <div>
                 <label htmlFor="interviews-field-1" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                  What I Said in the Interview
+                  {t("What I Said in the Interview", "我在面试中的回答")}
                 </label>
                 <textarea id="interviews-field-1"
                   rows={3}
@@ -466,14 +468,14 @@ export const Interviews: React.FC<InterviewsProps> = ({
                   onChange={(e) =>
                     setIqFormData({ ...iqFormData, myAnswer: e.target.value })
                   }
-                  placeholder="My actual verbal response during the round..."
+                  placeholder={t("My actual verbal response during the round...", "记录我在面试中的实际回答…")}
                   className="w-full p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900"
                 />
               </div>
 
               <div>
                 <label htmlFor="interviews-field-2" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                  Better / Ideal Answer after Retrospective
+                  {t("Better / Ideal Answer after Retrospective", "复盘后的改进回答 / 理想答案")}
                 </label>
                 <textarea id="interviews-field-2"
                   rows={4}
@@ -481,7 +483,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
                   onChange={(e) =>
                     setIqFormData({ ...iqFormData, betterAnswer: e.target.value })
                   }
-                  placeholder="The precise, mathematically rigorous response I should have given..."
+                  placeholder={t("The precise, mathematically rigorous response I should have given...", "记录复盘后更准确、推导更严谨的答案…")}
                   className="w-full p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900"
                 />
               </div>
@@ -492,13 +494,13 @@ export const Interviews: React.FC<InterviewsProps> = ({
                 onClick={() => setIsAddingQuestion(false)}
                 className="px-3.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-600"
               >
-                Cancel
+                {t("Cancel", "取消")}
               </button>
               <button
                 onClick={handleSaveIQ}
                 className="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold"
               >
-                Save Question
+                {t("Save Question", "保存问题")}
               </button>
             </div>
           </div>
@@ -507,26 +509,26 @@ export const Interviews: React.FC<InterviewsProps> = ({
 
       {/* ADD / EDIT INTERVIEW MODAL */}
       {isEditingInterview && (
-        <Dialog onClose={() => setIsEditingInterview(false)} aria-label="Interview editor" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+        <Dialog onClose={() => setIsEditingInterview(false)} aria-label={t("Interview editor", "面试轮次编辑")} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <div className="w-full max-w-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                {interviewFormData.id ? 'Edit Interview Round' : 'Log Interview Round'}
+                {interviewFormData.id ? t('Edit Interview Round', '编辑面试轮次') : t('Log Interview Round', '记录面试轮次')}
               </h3>
-              <button aria-label="Close"
+              <button aria-label={t("Close", "关闭")}
                 onClick={() => setIsEditingInterview(false)}
                 className="text-zinc-400 hover:text-zinc-600"
               ><X className="w-4 h-4" /></button>
             </div>
 
             <div className="space-y-3 text-xs">
-              <label className="block">Application
-                <select aria-label="Application" className="block w-full p-2 rounded bg-zinc-50 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700" value={interviewFormData.applicationId || ''} onChange={e => { const application = applications.find(a => a.id === e.target.value); if (application) setInterviewFormData({ ...interviewFormData, applicationId: application.id, companyName: application.company, position: application.position }); }}>{applications.map(a => <option key={a.id} value={a.id}>{a.company} — {a.position}</option>)}</select>
+              <label className="block">{t("Application", "关联投递")}
+                <select aria-label={t("Application", "关联投递")} className="block w-full p-2 rounded bg-zinc-50 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700" value={interviewFormData.applicationId || ''} onChange={e => { const application = applications.find(a => a.id === e.target.value); if (application) setInterviewFormData({ ...interviewFormData, applicationId: application.id, companyName: application.company, position: application.position }); }}>{applications.map(a => <option key={a.id} value={a.id}>{a.company} — {a.position}</option>)}</select>
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label htmlFor="interviews-field-3" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                    Company Name
+                    {t("Company Name", "公司名称")}
                   </label>
                   <input id="interviews-field-3"
                     type="text"
@@ -542,7 +544,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
                 </div>
                 <div>
                   <label htmlFor="interviews-field-4" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                    Position
+                    {t("Position", "职位")}
                   </label>
                   <input id="interviews-field-4"
                     type="text"
@@ -561,7 +563,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
               <div className="grid grid-cols-3 gap-3">
                 <div>
                   <label htmlFor="interviews-field-5" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                    Round Number
+                    {t("Round Number", "轮次序号")}
                   </label>
                   <input id="interviews-field-5"
                     type="number"
@@ -577,7 +579,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
                 </div>
                 <div>
                   <label htmlFor="interviews-field-6" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                    Result Status
+                    {t("Result Status", "结果状态")}
                   </label>
                   <select id="interviews-field-6"
                     value={interviewFormData.result || 'Scheduled'}
@@ -591,14 +593,14 @@ export const Interviews: React.FC<InterviewsProps> = ({
                   >
                     {RESULTS.map((r) => (
                       <option key={r} value={r}>
-                        {r}
+                        {label(r)}
                       </option>
                     ))}
                   </select>
                 </div>
                 <div>
                   <label htmlFor="interviews-field-7" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                    Duration (min)
+                    {t("Duration (min)", "时长（分钟）")}
                   </label>
                   <input id="interviews-field-7"
                     type="number"
@@ -616,7 +618,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
 
               <div>
                 <label htmlFor="interviews-field-8" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                  Round Name / Topic Focus
+                  {t("Round Name / Topic Focus", "轮次名称 / 考察方向")}
                 </label>
                 <input id="interviews-field-8"
                   type="text"
@@ -627,14 +629,14 @@ export const Interviews: React.FC<InterviewsProps> = ({
                       roundName: e.target.value,
                     })
                   }
-                  placeholder="e.g. LLM Architecture & Systems Design"
+                  placeholder={t("e.g. LLM Architecture & Systems Design", "例如：大模型架构与系统设计")}
                   className="w-full p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900"
                 />
               </div>
 
               <div>
                 <label htmlFor="interviews-field-9" className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                  Retrospective / Debrief
+                  {t("Retrospective / Debrief", "面试复盘")}
                 </label>
                 <textarea id="interviews-field-9"
                   rows={4}
@@ -645,7 +647,7 @@ export const Interviews: React.FC<InterviewsProps> = ({
                       retrospective: e.target.value,
                     })
                   }
-                  placeholder="How did it go? What questions were easy? What points were weak?"
+                  placeholder={t("How did it go? What questions were easy? What points were weak?", "面试表现如何？哪些问题回答顺利？哪些知识点需要补强？")}
                   className="w-full p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900"
                 />
               </div>
@@ -656,13 +658,13 @@ export const Interviews: React.FC<InterviewsProps> = ({
                 onClick={() => setIsEditingInterview(false)}
                 className="px-3.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-600"
               >
-                Cancel
+                {t("Cancel", "取消")}
               </button>
               <button
                 onClick={handleSaveInterview}
                 className="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold"
               >
-                Save Round
+                {t("Save Round", "保存轮次")}
               </button>
             </div>
           </div>

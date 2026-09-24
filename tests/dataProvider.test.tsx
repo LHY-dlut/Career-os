@@ -7,13 +7,14 @@ import { ToastProvider } from '../src/components/common/Toast';
 import { emptyDataset, type Repositories } from '../src/repositories/contracts';
 import { createStudyData } from '../src/repositories/local';
 import { getRepositories } from '../src/repositories';
+import { I18nProvider } from '../src/i18n/I18nProvider';
 vi.mock('../src/repositories', () => ({ getRepositories: vi.fn() }));
 afterEach(() => { cleanup(); vi.clearAllMocks(); });
 function Probe() {
   const { data, loading, error } = useData();
   return <div>{loading ? 'loading' : error || data.articles.map(a => a.title).join(',') || 'empty'}</div>;
 }
-const tree = (uid: string) => <ToastProvider><DataProvider key={uid} uid={uid}><Probe /></DataProvider></ToastProvider>;
+const tree = (uid: string) => <I18nProvider><ToastProvider><DataProvider key={uid} uid={uid}><Probe /></DataProvider></ToastProvider></I18nProvider>;
 it('ignores an old account load that finishes after switching identities', async () => {
   let resolveOld!: (data: ReturnType<typeof emptyDataset>) => void;
   const oldLoad = new Promise<ReturnType<typeof emptyDataset>>(resolve => { resolveOld = resolve; });

@@ -1,3 +1,4 @@
+import { useI18n } from '../../i18n/I18nProvider';
 import { Dialog } from '../common/Dialog';
 import React, { useState, useRef } from 'react';
 import {
@@ -60,6 +61,7 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
   onImportArticles,
   userId,
 }) => {
+  const { t, label, translateMessage } = useI18n();
   const { showToast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -92,7 +94,7 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
           !matched &&
           currentArticle &&
           files.length === 1 &&
-          confirm(`Do you want to update the currently open article ("${currentArticle.title}") with this file?`);
+          confirm(t(`Do you want to update the currently open article ("${currentArticle.title}") with this file?`, `是否用此文件更新当前文章“${currentArticle.title}”？`));
 
         const importMode = matched || shouldUpdateCurrent ? 'update' : 'create';
         const targetArticleId = matched?.id || (shouldUpdateCurrent ? currentArticle?.id : undefined);
@@ -111,7 +113,7 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
     }
 
     if (newStaged.length === 0) {
-      showToast('Please select valid Markdown (.md) files', 'error');
+      showToast(t("Please select valid Markdown (.md) files", "请选择有效的 Markdown（.md）文件"), 'error');
       return;
     }
 
@@ -200,18 +202,18 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
 
       await onImportArticles(articlesToSave);
       showToast(
-        `Successfully imported ${articlesToSave.length} article${articlesToSave.length > 1 ? 's' : ''}!`
+        t(`Successfully imported ${articlesToSave.length} article${articlesToSave.length > 1 ? 's' : ''}!`, `成功导入 ${articlesToSave.length} 篇文章！`)
       );
       onClose();
     } catch (err: any) {
-      showToast(err.message || 'Failed to import articles', 'error');
+      showToast(translateMessage(err.message || '') || t("Failed to import articles", "文章导入失败"), 'error');
     } finally {
       setIsProcessing(false);
     }
   };
 
   return (
-    <Dialog onClose={() => onClose()} aria-label="Import Markdown" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+    <Dialog onClose={() => onClose()} aria-label={t("Import Markdown", "导入 Markdown")} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
       <div className="w-full max-w-4xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Modal Header */}
         <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/50">
@@ -221,14 +223,14 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
             </div>
             <div>
               <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                Import Markdown to Knowledge Base
+                {t("Import Markdown to Knowledge Base", "导入 Markdown 到知识库")}
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Upload .md files with YAML frontmatter to create new articles or update existing ones
+                {t("Upload .md files with YAML frontmatter to create new articles or update existing ones", "上传带有 YAML 头部元数据的 .md 文件，以创建新文章或更新已有文章")}
               </p>
             </div>
           </div>
-          <button aria-label="Close"
+          <button aria-label={t("Close", "关闭")}
             onClick={onClose}
             className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           ><X className="w-5 h-5" /></button>
@@ -268,10 +270,10 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                 <FolderOpen className="w-6 h-6 text-sky-500" />
               </div>
               <div className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-                Drag and drop Markdown files here, or <span className="text-sky-500 underline">browse files</span>
+                {t('Drag and drop Markdown files here, or ', '将 Markdown 文件拖到这里，或')}<span className="text-sky-500 underline">{t("browse files", "浏览文件")}</span>
               </div>
               <div className="text-[11px] text-slate-400 dark:text-slate-500">
-                Supports standard .md files with KaTeX math, code blocks, and optional YAML frontmatter
+                {t("Supports standard .md files with KaTeX math, code blocks, and optional YAML frontmatter", "支持标准 .md 文件、KaTeX 数学公式、代码块及可选的 YAML 头部元数据")}
               </div>
             </div>
           </div>
@@ -315,7 +317,7 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200 dark:border-slate-800">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
-                        Import Action:
+                        {t("Import Action:", "导入方式：")}
                       </span>
                       <div className="inline-flex rounded-lg bg-slate-200 dark:bg-slate-800 p-0.5 text-xs">
                         <button
@@ -328,7 +330,7 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                           }`}
                         >
                           <PlusCircle className="w-3.5 h-3.5 text-emerald-500" />
-                          <span>Create as New</span>
+                          <span>{t("Create as New", "创建新文章")}</span>
                         </button>
                         <button
                           type="button"
@@ -340,14 +342,14 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                           }`}
                         >
                           <RefreshCw className="w-3.5 h-3.5 text-sky-500" />
-                          <span>Update Existing</span>
+                          <span>{t("Update Existing", "更新已有文章")}</span>
                         </button>
                       </div>
                     </div>
 
                     {activeStaged.importMode === 'update' && (
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-slate-500">Target Article:</span>
+                        <span className="text-xs text-slate-500">{t("Target Article:", "目标文章：")}</span>
                         <select
                           value={activeStaged.targetArticleId || ''}
                           onChange={(e) => handleSetMode('update', e.target.value)}
@@ -355,7 +357,7 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                         >
                           {articles.map((art) => (
                             <option key={art.id} value={art.id}>
-                              {art.title} ({art.category.split(' ')[1] || art.category})
+                              {art.title} ({label(art.category).replace(/^\d+ /, '')})
                             </option>
                           ))}
                         </select>
@@ -375,7 +377,7 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                         }`}
                       >
                         <Edit2 className="w-3 h-3" />
-                        <span>Metadata</span>
+                        <span>{t("Metadata", "元数据")}</span>
                       </button>
                       <button
                         onClick={() => setPreviewTab('content')}
@@ -386,12 +388,12 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                         }`}
                       >
                         <Eye className="w-3 h-3" />
-                        <span>Markdown Preview</span>
+                        <span>{t("Markdown Preview", "Markdown 预览")}</span>
                       </button>
                     </div>
 
                     <div className="text-[11px] text-slate-400 font-mono">
-                      {activeStaged.parsed.contentMarkdown.split(/\s+/).length} words •{' '}
+                      {activeStaged.parsed.contentMarkdown.split(/\s+/).length} {t('words', '词')} •{' '}
                       {(activeStaged.fileSize / 1024).toFixed(1)} KB
                     </div>
                   </div>
@@ -401,7 +403,7 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                       <div className="sm:col-span-2">
                         <label htmlFor="markdownimportmodal-field-0" className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
-                          Article Title
+                          {t("Article Title", "文章标题")}
                         </label>
                         <input id="markdownimportmodal-field-0"
                           type="text"
@@ -413,7 +415,7 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
 
                       <div>
                         <label htmlFor="markdownimportmodal-field-1" className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
-                          Category
+                          {t("Category", "分类")}
                         </label>
                         <select id="markdownimportmodal-field-1"
                           value={activeStaged.parsed.category}
@@ -424,7 +426,7 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
                         >
                           {CATEGORIES.map((cat) => (
                             <option key={cat} value={cat}>
-                              {cat}
+                              {label(cat)}
                             </option>
                           ))}
                         </select>
@@ -432,20 +434,20 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
 
                       <div>
                         <label htmlFor="markdownimportmodal-field-2" className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
-                          Subcategory (Optional)
+                          {t("Subcategory (Optional)", "子分类（可选）")}
                         </label>
                         <input id="markdownimportmodal-field-2"
                           type="text"
                           value={activeStaged.parsed.subcategory}
                           onChange={(e) => handleUpdateActiveField('subcategory', e.target.value)}
-                          placeholder="e.g. Memory Optimization"
+                          placeholder={t("e.g. Memory Optimization", "例如：内存优化")}
                           className="w-full p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
                         />
                       </div>
 
                       <div className="sm:col-span-2">
                         <label htmlFor="markdownimportmodal-field-3" className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
-                          Tags (comma separated)
+                          {t("Tags (comma separated)", "标签（以英文逗号分隔）")}
                         </label>
                         <input id="markdownimportmodal-field-3"
                           type="text"
@@ -462,7 +464,7 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
 
                       <div className="sm:col-span-2">
                         <label htmlFor="markdownimportmodal-field-4" className="block text-slate-600 dark:text-slate-400 mb-1 font-semibold">
-                          Summary / Pitch
+                          {t("Summary / Pitch", "摘要 / 简要概述")}
                         </label>
                         <textarea id="markdownimportmodal-field-4"
                           rows={2}
@@ -492,7 +494,7 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
             onClick={onClose}
             className="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
-            Cancel
+            {t("Cancel", "取消")}
           </button>
 
           <button
@@ -503,8 +505,8 @@ export const MarkdownImportModal: React.FC<MarkdownImportModalProps> = ({
             <Upload className="w-4 h-4" />
             <span>
               {isProcessing
-                ? 'Importing...'
-                : `Import ${stagedFiles.length} Article${stagedFiles.length > 1 ? 's' : ''}`}
+                ? t("Importing...", "正在导入...")
+                : t(`Import ${stagedFiles.length} Article${stagedFiles.length > 1 ? 's' : ''}`, `导入 ${stagedFiles.length} 篇文章`)}
             </span>
           </button>
         </div>

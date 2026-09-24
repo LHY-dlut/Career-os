@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useI18n } from '../i18n/I18nProvider';
 
 export interface AICapabilities {
   provider: 'deepseek' | 'gemini';
@@ -10,9 +11,10 @@ export interface AICapabilities {
 const baseUrl = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
 
 export function useAICapabilities() {
+  const { t } = useI18n();
   const [capabilities, setCapabilities] = useState<AICapabilities | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -33,7 +35,7 @@ export function useAICapabilities() {
         }
         if (active) setCapabilities(value as AICapabilities);
       } catch {
-        if (active) setError('AI configuration is unavailable. Reload to retry.');
+        if (active) setFailed(true);
       } finally {
         window.clearTimeout(timeout);
         if (active) setLoading(false);
@@ -47,12 +49,13 @@ export function useAICapabilities() {
     };
   }, []);
 
+  const error = failed ? t('AI configuration is unavailable. Reload to retry.', 'AI 配置暂不可用，请刷新后重试。') : '';
   const canSearch = capabilities?.configured === true && capabilities.webSearch;
   const searchUnavailableReason = loading
-    ? 'Checking server search support…'
+    ? t('Checking server search support…', '正在检查服务端搜索能力…')
     : error || (!capabilities?.configured
-      ? 'AI is not configured on the server.'
-      : !capabilities.webSearch ? 'The configured provider does not support live web search.' : '');
+      ? t('AI is not configured on the server.', '服务端尚未配置 AI。')
+      : !capabilities.webSearch ? t('The configured provider does not support live web search.', '当前模型服务不支持实时联网搜索。') : '');
 
   return { capabilities, loading, error, canSearch, searchUnavailableReason };
 }

@@ -15,6 +15,7 @@ Knowledge → Question Bank → Review → Coding → Applications → Interview
 - Coding Lab：题目与多次练习记录分离；不执行用户代码。
 - 投递与面试：看板/表格、阶段持久化、面试属于投递、真题加入题库时同时保存关联。关联已有题目等完整闭环见路线图。
 - URL 路由、前进/后退/刷新、实体直达、Ctrl/Cmd+K 搜索、按身份隔离的主题。
+- 中英文界面：默认简体中文，顶部语言按钮或设置页可随时切换 English；浏览器记住选择。导航、九个页面、表单、提示与日期随语言切换，用户文章和记录保留原文；AI 新请求按所选语言回答。
 - 访客仅保存到当前浏览器。Google 登录打开独立 Firestore 工作区；云端错误不会自动切换为本地成功状态。
 - AI 默认由 Express 调用 DeepSeek-V4.1-Flash；需要 Google 登录、服务端 UID 授权、Admin 凭证及 DeepSeek Key。未配置时显示真实错误，不生成假答案/引用。可显式切换回 Gemini。
 

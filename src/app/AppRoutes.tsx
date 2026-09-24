@@ -1,3 +1,4 @@
+import { useI18n } from '../i18n/I18nProvider';
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate, useParams, Link } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
@@ -17,6 +18,7 @@ const AICopilot = lazy(() => import('../pages/AICopilot').then(m => ({ default: 
 const Settings = lazy(() => import('../pages/Settings').then(m => ({ default: m.Settings })));
 
 function Page({ view }: { view: string }) {
+  const { t, label } = useI18n();
   const { user, signIn, signOut } = useAuth();
   const { data, refresh, exportData, restore, reset } = useData();
   const { save, remove, recordReview, promoteQuestion, loadStarter } = useWorkspaceActions();
@@ -29,22 +31,23 @@ function Page({ view }: { view: string }) {
   const copilot = (prompt: string) => navigate('/copilot', { state: { prompt } });
   const knowledge = (title: string) => go('knowledge', data.articles.find(a => a.id === title || a.title.toLowerCase() === title.toLowerCase())?.id);
   const entityLists = { knowledge: data.articles, questions: data.questions, coding: data.codingProblems, applications: data.applications, interviews: data.interviews };
-  if (id && view in entityLists && !entityLists[view as keyof typeof entityLists].some(e => e.id === id)) return <div className="p-10 space-y-3"><h2>Record not found</h2><p>This record is unavailable in the current workspace.</p><Link className="text-sky-500 underline" to={`/${view}`}>Back to {view}</Link></div>;
+  if (id && view in entityLists && !entityLists[view as keyof typeof entityLists].some(e => e.id === id)) return <div className="p-10 space-y-3"><h2>{t("Record not found", "未找到记录")}</h2><p>{t("This record is unavailable in the current workspace.", "当前工作区中没有这条记录。")}</p><Link className="text-sky-500 underline" to={`/${view}`}>{t(`Back to ${view}`, `返回${label(view)}`)}</Link></div>;
   switch (view) {
     case 'dashboard': return <Dashboard {...data} onNavigate={go} onQuickAdd={type => navigate(`/${{ article: 'knowledge', question: 'questions', application: 'applications', interview: 'interviews' }[type]}?new=1`)} />;
-    case 'knowledge': return <Knowledge articles={data.articles} selectedArticleId={id} onSaveArticle={value => save('articles', value)} onDeleteArticle={value => remove('articles', value)} onNavigateToCopilot={(content, title) => copilot(`Explain this article: ${title}\n\n${content}`)} userId={userId} />;
-    case 'questions': return <Questions questions={data.questions} articles={data.articles} selectedQuestionId={id} onSaveQuestion={value => save('questions', value)} onDeleteQuestion={value => remove('questions', value)} onNavigateToReview={id => go('review', id)} onNavigateToKnowledge={knowledge} onNavigateToCopilot={(q, a) => copilot(`Critique my answer.\nQuestion: ${q}\nAnswer: ${a}`)} userId={userId} />;
+    case 'knowledge': return <Knowledge articles={data.articles} selectedArticleId={id} onSaveArticle={value => save('articles', value)} onDeleteArticle={value => remove('articles', value)} onNavigateToCopilot={(content, title) => copilot(t(`Explain this article: ${title}\n\n${content}`, `请用中文讲解这篇文章：${title}\n\n${content}`))} userId={userId} />;
+    case 'questions': return <Questions questions={data.questions} articles={data.articles} selectedQuestionId={id} onSaveQuestion={value => save('questions', value)} onDeleteQuestion={value => remove('questions', value)} onNavigateToReview={id => go('review', id)} onNavigateToKnowledge={knowledge} onNavigateToCopilot={(q, a) => copilot(t(`Critique my answer.\nQuestion: ${q}\nAnswer: ${a}`, `请用中文点评我的回答。\n问题：${q}\n回答：${a}`))} userId={userId} />;
     case 'review': return <Review key={location.search} questions={data.questions} initialQuestionId={new URLSearchParams(location.search).get('question') || undefined} onRecordReview={recordReview} onNavigateToKnowledge={knowledge} onNavigateToDashboard={() => go('dashboard')} />;
     case 'coding': return <CodingLab key={id} problems={data.codingProblems} attempts={data.codingAttempts} selectedProblemId={id} onSaveAttempt={value => save('codingAttempts', value)} userId={userId} />;
-    case 'applications': return <Applications applications={data.applications} selectedAppId={id} onSaveApplication={value => save('applications', value)} onDeleteApplication={value => remove('applications', value)} onNavigateToCopilotJD={jd => copilot(`Analyze this job description:\n\n${jd}`)} onQuickLogInterview={app => navigate(`/interviews?new=1&application=${encodeURIComponent(app.id)}`)} userId={userId} />;
+    case 'applications': return <Applications applications={data.applications} selectedAppId={id} onSaveApplication={value => save('applications', value)} onDeleteApplication={value => remove('applications', value)} onNavigateToCopilotJD={jd => copilot(t(`Analyze this job description:\n\n${jd}`, `请用中文分析这份岗位描述：\n\n${jd}`))} onQuickLogInterview={app => navigate(`/interviews?new=1&application=${encodeURIComponent(app.id)}`)} userId={userId} />;
     case 'interviews': return <Interviews interviews={data.interviews} interviewQuestions={data.interviewQuestions} applications={data.applications} selectedInterviewId={id} onSaveInterview={value => save('interviews', value)} onDeleteInterview={value => remove('interviews', value)} onSaveInterviewQuestion={value => save('interviewQuestions', value)} onAddToQuestionBank={promoteQuestion} userId={userId} />;
     case 'copilot': return <AICopilot initialPrompt={location.state?.prompt || ''} />;
     case 'settings': return <Settings user={user} onSignIn={signIn} onSignOut={signOut} onRefreshData={refresh} onExport={exportData} onRestore={restore} onReset={reset} onLoadStarter={loadStarter} canLoadStarter={!data.articles.length && !data.questions.length && !data.codingProblems.length} />;
-    default: return <div className="p-10"><h2>Page not found</h2><Link to="/dashboard">Return to dashboard</Link></div>;
+    default: return <div className="p-10"><h2>{t("Page not found", "页面不存在")}</h2><Link to="/dashboard">{t("Return to dashboard", "返回学习总览")}</Link></div>;
   }
 }
 export function AppRoutes() {
-  return <Suspense fallback={<div role="status" className="p-12">Loading page…</div>}><Routes>
+  const { t } = useI18n();
+  return <Suspense fallback={<div role="status" className="p-12">{t("Loading page…", "正在加载页面…")}</div>}><Routes>
     <Route element={<AppLayout />}>
       <Route index element={<Navigate to="/dashboard" replace />} />
       {['dashboard', 'knowledge', 'questions', 'review', 'coding', 'applications', 'interviews', 'copilot', 'settings'].map(view => <Route key={view} path={view} element={<Page view={view} />} />)}

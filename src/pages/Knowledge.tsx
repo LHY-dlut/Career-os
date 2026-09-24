@@ -1,3 +1,4 @@
+import { useI18n } from '../i18n/I18nProvider';
 import { Dialog } from '../components/common/Dialog';
 import { extractHeadings } from '../utils/markdownHeadings';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -68,6 +69,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t, locale, label, translateMessage } = useI18n();
   const { showToast } = useToast();
   const { capabilities, canSearch, searchUnavailableReason } = useAICapabilities();
   const activeArticleId = selectedArticleId || articles[0]?.id || '';
@@ -101,8 +103,8 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
       const data = await requestSearchResearch(currentArticle.title);
       setResearchData(data);
     } catch (err: any) {
-      setResearchError(err.message || 'Research could not be loaded.');
-      showToast(err.message || 'Error fetching live research', 'error');
+      setResearchError(translateMessage(err.message || '') || t("Research could not be loaded.", "无法加载研究内容。"));
+      showToast(translateMessage(err.message || '') || t("Error fetching live research", "获取联网研究失败"), 'error');
     } finally {
       setIsResearchLoading(false);
     }
@@ -156,9 +158,9 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
         title: '',
         category: selectedCategory !== 'all' ? (selectedCategory as KnowledgeCategory) : '01 Transformer',
         subcategory: '',
-        tags: ['Interview', 'Theory'],
+        tags: [t('Interview', '面试'), t('Theory', '理论')],
         summary: '',
-        contentMarkdown: '# New Article\n\n## 1. Overview\nExplain core concept with LaTeX math and code blocks...',
+        contentMarkdown: t('# New Article\n\n## 1. Overview\nExplain core concept with LaTeX math and code blocks...', '# 新文章\n\n## 1. 概述\n使用 LaTeX 公式与代码块讲解核心概念...'),
       });
     }
     setIsEditing(true);
@@ -167,14 +169,14 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
   // Handle save article
   const handleSave = async () => {
     if (!editFormData.title?.trim()) {
-      showToast('Article title is required', 'error');
+      showToast(t("Article title is required", "请输入文章标题"), 'error');
       return;
     }
     const id = editFormData.id || generateId();
     const articleToSave: KnowledgeArticle = {
       id,
       userId,
-      title: editFormData.title || 'Untitled',
+      title: editFormData.title || t('Untitled', '无标题'),
       category: editFormData.category || '01 Transformer',
       subcategory: editFormData.subcategory || '',
       tags: editFormData.tags || [],
@@ -187,7 +189,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
     try { await onSaveArticle(articleToSave); } catch { return; }
     setActiveArticleId(id);
     setIsEditing(false);
-    showToast('Knowledge article saved successfully');
+    showToast(t("Knowledge article saved successfully", "知识文章已保存"));
   };
 
   // Export a specific article as markdown file
@@ -197,7 +199,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
       .replace(/[^\p{L}\p{N}\s-]/gu, '')
       .replace(/\s+/g, '_');
     downloadMarkdownFile(`${safeTitle}.md`, markdownWithFrontmatter);
-    showToast(`Exported "${article.title}" as Markdown`);
+    showToast(t(`Exported "${article.title}" as Markdown`, `已将“${article.title}”导出为 Markdown`));
   };
 
   // Export current active article
@@ -210,12 +212,12 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
   // Export all articles as individual markdown files
   const handleExportAllArticles = async () => {
     if (articles.length === 0) {
-      showToast('No articles to export', 'error');
+      showToast(t("No articles to export", "没有可导出的文章"), 'error');
       return;
     }
 
     setExportMenuOpen(false);
-    showToast(`Exporting ${articles.length} individual Markdown files...`);
+    showToast(t(`Exporting ${articles.length} individual Markdown files...`, `正在导出 ${articles.length} 个 Markdown 文件...`));
 
     for (let i = 0; i < articles.length; i++) {
       const art = articles[i];
@@ -257,21 +259,21 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
               <BookOpen className="w-3.5 h-3.5 text-sky-500" />
-              <span>Knowledge Base</span>
+              <span>{t("Knowledge Base", "知识库")}</span>
             </span>
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setIsImportModalOpen(true)}
                 className="flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                title="Import Markdown (.md) to create or update articles"
+                title={t("Import Markdown (.md) to create or update articles", "导入 Markdown（.md）以创建或更新文章")}
               >
                 <Upload className="w-3.5 h-3.5" />
-                <span>Import</span>
+                <span>{t("Import", "导入")}</span>
               </button>
               <button
                 onClick={() => handleOpenEdit()}
                 className="p-1 rounded-md text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-950/60 transition-colors"
-                title="Create New Article"
+                title={t("Create New Article", "新建文章")}
               >
                 <Plus className="w-4 h-4" />
               </button>
@@ -284,7 +286,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search knowledge..."
+              placeholder={t("Search knowledge...", "搜索知识...")}
               className="w-full pl-8 pr-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/70 text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-sky-500 transition-colors"
             />
           </div>
@@ -299,7 +301,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
               }`}
             >
-              All ({articles.length})
+              {t('All', '全部')} ({articles.length})
             </button>
             {CATEGORIES.map((cat) => {
               const count = articles.filter((a) => a.category === cat).length;
@@ -313,7 +315,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                       : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                   }`}
                 >
-                  {cat.replace(/^\d+ /, '')} ({count})
+                  {label(cat).replace(/^\d+ /, '')} ({count})
                 </button>
               );
             })}
@@ -325,12 +327,12 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
           {filteredArticles.length === 0 ? (
             <div className="py-10 text-center text-xs text-slate-400 dark:text-slate-500 px-4">
               <BookOpen className="w-8 h-8 mx-auto mb-2 opacity-30" />
-              <p>No articles match this filter.</p>
+              <p>{t("No articles match this filter.", "没有符合筛选条件的文章。")}</p>
               <button
                 onClick={() => setIsImportModalOpen(true)}
                 className="mt-3 text-sky-500 hover:underline font-medium inline-block"
               >
-                Import Markdown file
+                {t("Import Markdown file", "导入 Markdown 文件")}
               </button>
             </div>
           ) : (
@@ -363,15 +365,15 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                         handleExportSingleArticle(art);
                       }}
                       className="opacity-0 group-hover:opacity-100 p-1 text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 transition-opacity rounded"
-                      title="Export this article as Markdown (.md)"
+                      title={t("Export this article as Markdown (.md)", "将此文章导出为 Markdown（.md）")}
                     >
                       <Download className="w-3 h-3" />
                     </button>
                   </div>
                   <div className="flex items-center gap-1.5 text-[10px] text-slate-500 dark:text-slate-400">
-                    <span className="truncate">{art.category}</span>
+                    <span className="truncate">{label(art.category)}</span>
                     <span>•</span>
-                    <span className="truncate">{art.subcategory || 'Theory'}</span>
+                    <span className="truncate">{art.subcategory || t("Theory", "理论")}</span>
                   </div>
                 </div>
               );
@@ -381,7 +383,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
       </div>
 
       {/* Mobile document selector */}
-      <select aria-label="Choose article" className="md:hidden absolute mt-2 ml-3 max-w-[65vw] z-10 bg-slate-100 dark:bg-slate-800 rounded p-2 text-xs" value={currentArticle?.id || ''} onChange={e => setActiveArticleId(e.target.value)}><option value="" disabled>Choose article</option>{articles.map(a => <option key={a.id} value={a.id}>{a.title}</option>)}</select>
+      <select aria-label={t("Choose article", "选择文章")} className="md:hidden absolute mt-2 ml-3 max-w-[65vw] z-10 bg-slate-100 dark:bg-slate-800 rounded p-2 text-xs" value={currentArticle?.id || ''} onChange={e => setActiveArticleId(e.target.value)}><option value="" disabled>{t("Choose article", "选择文章")}</option>{articles.map(a => <option key={a.id} value={a.id}>{a.title}</option>)}</select>
       {/* CENTER: Main Article Content */}
       <div className="flex-1 min-w-0 overflow-y-auto bg-slate-50/50 dark:bg-[#090d16] px-4 pt-16 md:p-6 lg:p-10 transition-colors">
         {currentArticle ? (
@@ -390,7 +392,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
             <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-50 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800/80">
-                  {currentArticle.category}
+                  {label(currentArticle.category)}
                 </span>
                 {currentArticle.subcategory && (
                   <span className="text-xs text-slate-500 dark:text-slate-400">
@@ -405,10 +407,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                   onClick={handleOpenSearchResearch}
                   disabled={!canSearch || isResearchLoading}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-emerald-200 dark:border-emerald-800/80 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors shadow-2xs disabled:opacity-40 disabled:cursor-not-allowed"
-                  title={canSearch ? 'Research this topic with live web sources' : searchUnavailableReason}
+                  title={canSearch ? t("Research this topic with live web sources", "通过实时网络来源研究此主题") : searchUnavailableReason}
                 >
                   <Globe className="w-3.5 h-3.5 text-emerald-500" />
-                  <span>Live Research</span>
+                  <span>{t("Live Research", "联网研究")}</span>
                 </button>
 
                 {/* Explain with AI */}
@@ -420,10 +422,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                     )
                   }
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-indigo-200 dark:border-indigo-800/80 bg-indigo-50/70 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 text-xs font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-colors shadow-2xs"
-                  title="Ask AI Copilot to explain or drill you on this article"
+                  title={t("Ask AI Copilot to explain or drill you on this article", "让 AI 助手讲解此文章或进行练习")}
                 >
                   <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-                  <span>Explain with AI</span>
+                  <span>{t("Explain with AI", "AI 讲解")}</span>
                 </button>
 
                 {/* Export Markdown Menu */}
@@ -431,10 +433,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                   <button
                     onClick={() => setExportMenuOpen(!exportMenuOpen)}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 text-xs font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shadow-2xs"
-                    title="Export Markdown file"
+                    title={t("Export Markdown file", "导出 Markdown 文件")}
                   >
                     <Download className="w-3.5 h-3.5 text-sky-500" />
-                    <span className="hidden sm:inline">Export .md</span>
+                    <span className="hidden sm:inline">{t("Export .md", "导出 .md")}</span>
                     <ChevronDown className="w-3 h-3 text-slate-400" />
                   </button>
 
@@ -446,9 +448,9 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                       >
                         <FileDown className="w-4 h-4 text-sky-500" />
                         <div>
-                          <div className="font-semibold">Export Current Article (.md)</div>
+                          <div className="font-semibold">{t("Export Current Article (.md)", "导出当前文章（.md）")}</div>
                           <div className="text-[10px] text-slate-400">
-                            Includes YAML frontmatter metadata
+                            {t("Includes YAML frontmatter metadata", "包含 YAML 头部元数据")}
                           </div>
                         </div>
                       </button>
@@ -459,9 +461,9 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                       >
                         <Layers className="w-4 h-4 text-indigo-500" />
                         <div>
-                          <div className="font-semibold">Export All Articles ({articles.length})</div>
+                          <div className="font-semibold">{t(`Export All Articles (${articles.length})`, `导出全部文章（${articles.length}）`)}</div>
                           <div className="text-[10px] text-slate-400">
-                            Downloads each article as an individual .md file
+                            {t("Downloads each article as an individual .md file", "每篇文章单独下载为 .md 文件")}
                           </div>
                         </div>
                       </button>
@@ -473,7 +475,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                 <button
                   onClick={() => handleOpenEdit(currentArticle)}
                   className="p-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors shadow-2xs"
-                  title="Edit Article"
+                  title={t("Edit Article", "编辑文章")}
                 >
                   <Edit3 className="w-4 h-4" />
                 </button>
@@ -481,13 +483,13 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                 {/* Delete Button */}
                 <button
                   onClick={async () => {
-                    if (confirm(`Delete "${currentArticle.title}"?`)) {
+                    if (confirm(t(`Delete "${currentArticle.title}"?`, `确定删除“${currentArticle.title}”吗？`))) {
                       try { await onDeleteArticle(currentArticle.id); } catch { return; }
-                      showToast('Article deleted');
+                      showToast(t("Article deleted", "文章已删除"));
                     }
                   }}
                   className="p-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors shadow-2xs"
-                  title="Delete Article"
+                  title={t("Delete Article", "删除文章")}
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -499,7 +501,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
               <div className="flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5" />
                 <span>
-                  Updated {new Date(currentArticle.updatedAt).toLocaleDateString()}
+                  {t('Updated', '更新于')} {new Date(currentArticle.updatedAt).toLocaleDateString(locale)}
                 </span>
               </div>
               <span>•</span>
@@ -519,10 +521,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
             {/* Rendered Markdown Body with KaTeX & Syntax Highlighting */}
             <div className="pt-2">
               <MarkdownRenderer content={currentArticle.contentMarkdown} />
-              <nav aria-label="Article navigation" className="flex justify-between gap-4 mt-10 pt-6 border-t border-slate-200 dark:border-slate-800">
+              <nav aria-label={t("Article navigation", "文章导航")} className="flex justify-between gap-4 mt-10 pt-6 border-t border-slate-200 dark:border-slate-800">
                 {[-1, 1].map(offset => {
                   const adjacent = filteredArticles[filteredArticles.findIndex(a => a.id === currentArticle.id) + offset];
-                  return adjacent ? <button key={offset} className="text-left text-sm text-sky-600 dark:text-sky-400" onClick={() => setActiveArticleId(adjacent.id)}>{offset < 0 ? '← Previous' : 'Next →'}<span className="block mt-1 text-xs">{adjacent.title}</span></button> : <span key={offset} />;
+                  return adjacent ? <button key={offset} className="text-left text-sm text-sky-600 dark:text-sky-400" onClick={() => setActiveArticleId(adjacent.id)}>{offset < 0 ? t("← Previous", "← 上一篇") : t("Next →", "下一篇 →")}<span className="block mt-1 text-xs">{adjacent.title}</span></button> : <span key={offset} />;
                 })}
               </nav>
             </div>
@@ -530,19 +532,19 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
         ) : (
           <div className="h-full flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 text-sm gap-3">
             <BookOpen className="w-12 h-12 opacity-40" />
-            <p>Select or create an article to view details.</p>
+            <p>{t("Select or create an article to view details.", "选择或创建一篇文章查看内容。")}</p>
             <div className="flex gap-2">
               <button
                 onClick={() => setIsImportModalOpen(true)}
                 className="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 transition-colors"
               >
-                Import Markdown
+                {t("Import Markdown", "导入 Markdown")}
               </button>
               <button
                 onClick={() => handleOpenEdit()}
                 className="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold transition-colors"
               >
-                Create Article
+                {t("Create Article", "创建文章")}
               </button>
             </div>
           </div>
@@ -553,7 +555,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
       {tableOfContents.length > 0 && (
         <div className="w-60 border-l border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xs hidden xl:block p-4 overflow-y-auto shrink-0">
           <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
-            On this page
+            {t("On this page", "本文目录")}
           </div>
           <div className="space-y-1.5 text-xs">
             {tableOfContents.map((h, idx) => (
@@ -587,12 +589,12 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
 
       {/* EDIT / CREATE ARTICLE MODAL */}
       {isEditing && (
-        <Dialog onClose={() => setIsEditing(false)} aria-label="Article editor" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+        <Dialog onClose={() => setIsEditing(false)} aria-label={t("Article editor", "文章编辑器")} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
           <div className="w-full max-w-4xl max-h-[90vh] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
             {/* Modal Header */}
             <div className="flex items-center justify-between px-6 py-3.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
               <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                {editFormData.id ? 'Edit Knowledge Article' : 'New Knowledge Article'}
+                {editFormData.id ? t("Edit Knowledge Article", "编辑知识文章") : t("New Knowledge Article", "新建知识文章")}
               </h3>
               <div className="flex items-center gap-2">
                 {/* Export current draft */}
@@ -615,10 +617,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                       handleExportSingleArticle(draftArticle);
                     }}
                     className="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-                    title="Export draft as Markdown"
+                    title={t("Export draft as Markdown", "将草稿导出为 Markdown")}
                   >
                     <Download className="w-3.5 h-3.5 text-sky-500" />
-                    <span>Export Draft</span>
+                    <span>{t("Export Draft", "导出草稿")}</span>
                   </button>
                 )}
 
@@ -631,7 +633,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                         : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
                     }`}
                   >
-                    Write
+                    {t("Write", "编辑")}
                   </button>
                   <button
                     onClick={() => setEditorTab('preview')}
@@ -641,10 +643,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                         : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
                     }`}
                   >
-                    Preview
+                    {t("Preview", "预览")}
                   </button>
                 </div>
-                <button aria-label="Close"
+                <button aria-label={t("Close", "关闭")}
                   onClick={() => setIsEditing(false)}
                   className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 ><X className="w-4 h-4" /></button>
@@ -656,7 +658,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="knowledge-field-0" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    Title
+                    {t("Title", "标题")}
                   </label>
                   <input id="knowledge-field-0"
                     type="text"
@@ -664,14 +666,14 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                     onChange={(e) =>
                       setEditFormData({ ...editFormData, title: e.target.value })
                     }
-                    placeholder="e.g. RoPE Positional Embeddings"
+                    placeholder={t("e.g. RoPE Positional Embeddings", "例如：RoPE 旋转位置编码")}
                     className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500"
                   />
                 </div>
 
                 <div>
                   <label htmlFor="knowledge-field-1" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    Category
+                    {t("Category", "分类")}
                   </label>
                   <select id="knowledge-field-1"
                     value={editFormData.category || '01 Transformer'}
@@ -695,7 +697,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="knowledge-field-2" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    Subcategory (Optional)
+                    {t("Subcategory (Optional)", "子分类（可选）")}
                   </label>
                   <input id="knowledge-field-2"
                     type="text"
@@ -703,14 +705,14 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                     onChange={(e) =>
                       setEditFormData({ ...editFormData, subcategory: e.target.value })
                     }
-                    placeholder="e.g. Positional Encodings"
+                    placeholder={t("e.g. Positional Encodings", "例如：位置编码")}
                     className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500"
                   />
                 </div>
 
                 <div>
                   <label htmlFor="knowledge-field-3" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    Tags (comma separated)
+                    {t("Tags (comma separated)", "标签（以英文逗号分隔）")}
                   </label>
                   <input id="knowledge-field-3"
                     type="text"
@@ -724,7 +726,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                           .filter(Boolean),
                       })
                     }
-                    placeholder="RoPE, LLaMA, Math"
+                    placeholder={t("RoPE, LLaMA, Math", "RoPE, LLaMA, 数学")}
                     className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500"
                   />
                 </div>
@@ -732,7 +734,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
 
               <div>
                 <label htmlFor="knowledge-field-4" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Summary (elevator pitch)
+                  {t("Summary (elevator pitch)", "摘要（简要概述）")}
                 </label>
                 <input id="knowledge-field-4"
                   type="text"
@@ -740,7 +742,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                   onChange={(e) =>
                     setEditFormData({ ...editFormData, summary: e.target.value })
                   }
-                  placeholder="Brief overview of the concept..."
+                  placeholder={t("Brief overview of the concept...", "简要介绍这个概念...")}
                   className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500"
                 />
               </div>
@@ -748,7 +750,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
               {/* Editor Write vs Preview */}
               <div>
                 <label htmlFor="knowledge-content" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Content (Markdown & KaTeX LaTeX)
+                  {t("Content (Markdown & KaTeX LaTeX)", "正文（Markdown 与 KaTeX LaTeX）")}
                 </label>
                 {editorTab === 'write' ? (
                   <textarea
@@ -761,7 +763,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                         contentMarkdown: e.target.value,
                       })
                     }
-                    placeholder="# Heading 1\n\nExplain technical concepts with LaTeX math: $$\text{Attention}(Q, K, V)$$"
+                    placeholder={t("# Heading 1\n\nExplain technical concepts with LaTeX math: $\\text{Attention}(Q, K, V)$", "# 一级标题\n\n使用 LaTeX 公式讲解技术概念：$\\text{Attention}(Q, K, V)$")}
                     className="w-full p-3.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 font-mono text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500 leading-relaxed"
                   />
                 ) : (
@@ -780,13 +782,13 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                 onClick={() => setIsEditing(false)}
                 className="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
-                Cancel
+                {t("Cancel", "取消")}
               </button>
               <button
                 onClick={handleSave}
                 className="px-5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold shadow-xs transition-colors"
               >
-                Save Article
+                {t("Save Article", "保存文章")}
               </button>
             </div>
           </div>
@@ -795,7 +797,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
 
       {/* Live Research Modal for providers with web search */}
       {isResearchModalOpen && (
-        <Dialog onClose={() => setIsResearchModalOpen(false)} aria-label="Live research" className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4">
+        <Dialog onClose={() => setIsResearchModalOpen(false)} aria-label={t("Live research", "联网研究")} className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4">
           <div className="w-full max-w-2xl max-h-[85vh] flex flex-col bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             {/* Modal Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
@@ -805,14 +807,14 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                    Live Research Grounding
+                    {t("Live Research Grounding", "联网研究与来源")}
                   </h3>
                   <p className="text-[11px] text-slate-400">
-                    Server-configured web research · {capabilities?.model} • {currentArticle?.title}
+                    {t('Server-configured web research', '服务端配置的联网研究')} · {capabilities?.model} • {currentArticle?.title}
                   </p>
                 </div>
               </div>
-              <button aria-label="Close"
+              <button aria-label={t("Close", "关闭")}
                 onClick={() => setIsResearchModalOpen(false)}
                 className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               ><X className="w-4 h-4" /></button>
@@ -824,10 +826,10 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                 <div className="py-16 flex flex-col items-center justify-center gap-3 text-slate-500 dark:text-slate-400">
                   <Loader2 className="w-6 h-6 animate-spin text-emerald-500" />
                   <p className="text-xs font-medium">
-                    Searching the web for papers, benchmarks, and implementations...
+                    {t("Searching the web for papers, benchmarks, and implementations...", "正在搜索论文、基准测试和实现方案...")}
                   </p>
                   <p className="text-[11px] text-slate-400">
-                    Grounding arXiv releases & tech company engineering insights
+                    {t("Grounding arXiv releases & tech company engineering insights", "查找 arXiv 论文与科技公司的工程资料")}
                   </p>
                 </div>
               ) : researchData ? (
@@ -836,7 +838,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                   {researchData.webSearchQueries && researchData.webSearchQueries.length > 0 && (
                     <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 flex flex-wrap items-center gap-1.5">
                       <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mr-1">
-                        Queries:
+                        {t("Queries:", "检索词：")}
                       </span>
                       {researchData.webSearchQueries.map((q, i) => (
                         <span
@@ -859,7 +861,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                     <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
                       <div className="flex items-center gap-1.5 font-semibold text-emerald-600 dark:text-emerald-400 text-xs">
                         <Globe className="w-3.5 h-3.5" />
-                        <span>Web Search Sources ({researchData.groundingSources.length})</span>
+                        <span>{t(`Web Search Sources (${researchData.groundingSources.length})`, `网络检索来源（${researchData.groundingSources.length}）`)}</span>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {researchData.groundingSources.map((src, i) => {
@@ -891,7 +893,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                     </div>
                   )}
                 </>
-              ) : <div role="alert"><p>{researchError}</p><button disabled={!canSearch} title={!canSearch ? searchUnavailableReason : undefined} className="mt-3 text-sky-500 underline disabled:opacity-40" onClick={handleOpenSearchResearch}>Retry research</button></div>}
+              ) : <div role="alert"><p>{researchError}</p><button disabled={!canSearch} title={!canSearch ? searchUnavailableReason : undefined} className="mt-3 text-sky-500 underline disabled:opacity-40" onClick={handleOpenSearchResearch}>{t("Retry research", "重试研究")}</button></div>}
             </div>
 
             {/* Modal Footer */}
@@ -900,14 +902,14 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                 onClick={() => {
                   if (researchData) {
                     navigator.clipboard.writeText(researchData.content);
-                    showToast('Research content copied to clipboard');
+                    showToast(t("Research content copied to clipboard", "研究内容已复制到剪贴板"));
                   }
                 }}
                 disabled={!researchData}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 transition-colors"
               >
                 <Copy className="w-3.5 h-3.5" />
-                <span>Copy Summary</span>
+                <span>{t("Copy Summary", "复制摘要")}</span>
               </button>
 
               <div className="flex items-center gap-2">
@@ -915,14 +917,14 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                   onClick={() => setIsResearchModalOpen(false)}
                   className="px-4 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
-                  Close
+                  {t("Close", "关闭")}
                 </button>
                 {currentArticle && (
                   <button
                     onClick={() => {
                       setIsResearchModalOpen(false);
                       onNavigateToCopilot(
-                        `Here is the latest live research summary for "${currentArticle.title}":\n\n${researchData?.content || ''}\n\nPlease quiz me on these recent architectural developments.`,
+                        t(`Here is the latest live research summary for "${currentArticle.title}":\n\n${researchData?.content || ''}\n\nPlease quiz me on these recent architectural developments.`, `以下是“${currentArticle.title}”的最新联网研究摘要：\n\n${researchData?.content || ''}\n\n请针对这些最新的架构进展向我提问。`),
                         currentArticle.title
                       );
                     }}
@@ -930,7 +932,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                     className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium disabled:opacity-40 shadow-xs transition-colors"
                   >
                     <Sparkles className="w-3.5 h-3.5" />
-                    <span>Discuss in Copilot</span>
+                    <span>{t("Discuss in Copilot", "在 AI 助手中讨论")}</span>
                   </button>
                 )}
               </div>

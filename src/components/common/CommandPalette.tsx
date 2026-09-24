@@ -1,3 +1,4 @@
+import { useI18n } from '../../i18n/I18nProvider';
 import { Dialog } from './Dialog';
 import React, { useState, useEffect, useRef } from 'react';
 import {
@@ -40,6 +41,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   interviews,
   onNavigate,
 }) => {
+  const { t, label } = useI18n();
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -68,7 +70,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     .filter(
       (a) =>
         a.title.toLowerCase().includes(cleanQuery) ||
-        a.category.toLowerCase().includes(cleanQuery) ||
+        a.category.toLowerCase().includes(cleanQuery) || label(a.category).toLowerCase().includes(cleanQuery) ||
         a.tags.some((t) => t.toLowerCase().includes(cleanQuery))
     )
     .slice(0, 4);
@@ -77,7 +79,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     .filter(
       (q) =>
         q.title.toLowerCase().includes(cleanQuery) ||
-        q.category.toLowerCase().includes(cleanQuery) ||
+        q.category.toLowerCase().includes(cleanQuery) || label(q.category).toLowerCase().includes(cleanQuery) ||
         q.tags.some((t) => t.toLowerCase().includes(cleanQuery))
     )
     .slice(0, 4);
@@ -86,7 +88,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     .filter(
       (p) =>
         p.title.toLowerCase().includes(cleanQuery) ||
-        p.category.toLowerCase().includes(cleanQuery)
+        p.category.toLowerCase().includes(cleanQuery) || label(p.category).toLowerCase().includes(cleanQuery)
     )
     .slice(0, 3);
 
@@ -107,7 +109,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     filteredApps.length > 0 || filteredInterviews.length > 0;
 
   return (
-    <Dialog onClose={() => onClose()} aria-label="Search workspace" className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/50 backdrop-blur-xs animate-in fade-in">
+    <Dialog onClose={() => onClose()} aria-label={t("Search workspace", "搜索工作区")} className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/50 backdrop-blur-xs animate-in fade-in">
       <div
         className="w-full max-w-2xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl overflow-hidden text-zinc-900 dark:text-zinc-100 animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
@@ -120,8 +122,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search knowledge articles, questions, coding, CRM..."
-            aria-label="Search workspace"
+            placeholder={t("Search knowledge articles, questions, coding, CRM...", "搜索知识、题目、编程与投递…")}
+            aria-label={t("Search workspace", "搜索工作区")}
             onKeyDown={event => {
               if (event.key === 'Enter') {
                 const result = filteredArticles[0] ? ['knowledge', filteredArticles[0].id] : filteredQuestions[0] ? ['questions', filteredQuestions[0].id] : filteredCoding[0] ? ['coding', filteredCoding[0].id] : filteredApps[0] ? ['applications', filteredApps[0].id] : filteredInterviews[0] ? ['interviews', filteredInterviews[0].id] : null;
@@ -130,7 +132,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             }}
             className="flex-1 bg-transparent text-sm focus:outline-none placeholder-zinc-400"
           />
-          <button aria-label="Close"
+          <button aria-label={t("Close", "关闭")}
             onClick={onClose}
             className="p-1 rounded text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
           ><X className="w-4 h-4" /></button>
@@ -140,17 +142,15 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         <div className="max-h-[60vh] overflow-y-auto p-3 space-y-4">
           {!cleanQuery && (
             <div className="space-y-2">
-              <div className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider px-2">
-                Quick Navigation
-              </div>
+              <div className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider px-2">{t("Quick Navigation", "快速导航")}</div>
               <div className="grid grid-cols-2 gap-1.5">
                 {[
-                  { label: 'Today Dashboard', icon: Sparkles, view: 'dashboard' },
-                  { label: 'Knowledge Base', icon: BookOpen, view: 'knowledge' },
-                  { label: 'Question Bank', icon: HelpCircle, view: 'questions' },
-                  { label: 'Spaced Review', icon: Sparkles, view: 'review' },
-                  { label: 'Coding Lab', icon: Code2, view: 'coding' },
-                  { label: 'Applications CRM', icon: Briefcase, view: 'applications' },
+                  { label: t("Today Dashboard", "今日总览"), icon: Sparkles, view: 'dashboard' },
+                  { label: t("Knowledge Base", "知识库"), icon: BookOpen, view: 'knowledge' },
+                  { label: t("Question Bank", "面试题库"), icon: HelpCircle, view: 'questions' },
+                  { label: t("Spaced Review", "间隔复习"), icon: Sparkles, view: 'review' },
+                  { label: t("Coding Lab", "编程练习"), icon: Code2, view: 'coding' },
+                  { label: t("Applications CRM", "投递管理"), icon: Briefcase, view: 'applications' },
                 ].map((item) => (
                   <button
                     key={item.view}
@@ -170,7 +170,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
           {cleanQuery && !hasResults && (
             <div className="py-8 text-center text-sm text-zinc-500">
-              No matching records found for "{query}".
+              {t(`No matching records found for "${query}".`, `未找到与“${query}”匹配的记录。`)}
             </div>
           )}
 
@@ -178,7 +178,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           {filteredArticles.length > 0 && (
             <div>
               <div className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider px-2 mb-1">
-                Knowledge Articles ({filteredArticles.length})
+                {t(`Knowledge Articles (${filteredArticles.length})`, `知识文章（${filteredArticles.length}）`)}
               </div>
               <div className="space-y-1">
                 {filteredArticles.map((art) => (
@@ -196,7 +196,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                         {art.title}
                       </span>
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-500 shrink-0">
-                        {art.category}
+                        {label(art.category)}
                       </span>
                     </div>
                     <ArrowRight className="w-3.5 h-3.5 text-zinc-400 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -210,7 +210,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           {filteredQuestions.length > 0 && (
             <div>
               <div className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider px-2 mb-1">
-                Question Bank ({filteredQuestions.length})
+                {t(`Question Bank (${filteredQuestions.length})`, `面试题库（${filteredQuestions.length}）`)}
               </div>
               <div className="space-y-1">
                 {filteredQuestions.map((q) => (
@@ -228,7 +228,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                         {q.title}
                       </span>
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 shrink-0">
-                        {q.difficulty}
+                        {label(q.difficulty)}
                       </span>
                     </div>
                     <ArrowRight className="w-3.5 h-3.5 text-zinc-400 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -242,7 +242,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           {filteredCoding.length > 0 && (
             <div>
               <div className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider px-2 mb-1">
-                Coding Problems ({filteredCoding.length})
+                {t(`Coding Problems (${filteredCoding.length})`, `编程题（${filteredCoding.length}）`)}
               </div>
               <div className="space-y-1">
                 {filteredCoding.map((p) => (
@@ -260,7 +260,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                         {p.title}
                       </span>
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-500 shrink-0">
-                        {p.category}
+                        {label(p.category)}
                       </span>
                     </div>
                     <ArrowRight className="w-3.5 h-3.5 text-zinc-400 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -274,7 +274,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           {filteredApps.length > 0 && (
             <div>
               <div className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider px-2 mb-1">
-                Job Applications ({filteredApps.length})
+                {t(`Job Applications (${filteredApps.length})`, `投递记录（${filteredApps.length}）`)}
               </div>
               <div className="space-y-1">
                 {filteredApps.map((app) => (
@@ -292,7 +292,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                         {app.company} – {app.position}
                       </span>
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 shrink-0">
-                        {app.status}
+                        {label(app.status)}
                       </span>
                     </div>
                     <ArrowRight className="w-3.5 h-3.5 text-zinc-400 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -303,15 +303,15 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           )}
         </div>
 
-        {filteredInterviews.length > 0 && <section className="px-5 py-3 text-xs border-t border-zinc-200 dark:border-zinc-800"><h3 className="text-zinc-400 uppercase mb-2">Interviews</h3>{filteredInterviews.map(interview => <button key={interview.id} className="block w-full text-left rounded-lg p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800" onClick={() => { onNavigate('interviews', interview.id); onClose(); }}>{interview.companyName} · {interview.roundName}</button>)}</section>}
+        {filteredInterviews.length > 0 && <section className="px-5 py-3 text-xs border-t border-zinc-200 dark:border-zinc-800"><h3 className="text-zinc-400 uppercase mb-2">{t("Interviews", "面试记录")}</h3>{filteredInterviews.map(interview => <button key={interview.id} className="block w-full text-left rounded-lg p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800" onClick={() => { onNavigate('interviews', interview.id); onClose(); }}>{interview.companyName} · {interview.roundName}</button>)}</section>}
         {/* Footer info */}
         <div className="px-4 py-2 bg-zinc-50 dark:bg-zinc-900/60 border-t border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-400 flex items-center justify-between">
-          <span>Navigate with mouse or enter</span>
+          <span>{t("Navigate with mouse or enter", "使用鼠标或回车打开")}</span>
           <div className="flex items-center gap-2">
             <kbd className="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 font-mono text-[10px]">
               ESC
             </kbd>
-            <span>to close</span>
+            <span>{t("to close", "关闭")}</span>
           </div>
         </div>
       </div>

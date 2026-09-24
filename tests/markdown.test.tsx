@@ -5,10 +5,11 @@ import { extractHeadings } from '../src/utils/markdownHeadings';
 import { parseMarkdownWithFrontmatter, serializeArticleToMarkdown } from '../src/utils/markdownFrontmatter';
 import { MarkdownRenderer } from '../src/components/common/MarkdownRenderer';
 import { createStudyData } from '../src/repositories/local';
+import { I18nProvider } from '../src/i18n/I18nProvider';
 it('makes TOC and rendered IDs agree for Chinese, inline markup, setext, duplicate and colliding headings', () => {
   const markdown = '# 中文 标题\n## A **bold** `code`\n## A bold code\n## A bold code-2\n## !!!\nAnother heading\n---\n```python\n# not a heading\n```';
   const headings = extractHeadings(markdown);
-  const html = renderToStaticMarkup(<MarkdownRenderer content={markdown} />);
+  const html = renderToStaticMarkup(<I18nProvider><MarkdownRenderer content={markdown} /></I18nProvider>);
   expect(headings).toHaveLength(6); expect(new Set(headings.map(h => h.id)).size).toBe(6);
   headings.forEach(h => expect(html).toContain(`id="${h.id}"`));
   expect(headings[0].id).toBe('heading-中文-标题');

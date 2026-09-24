@@ -1,3 +1,4 @@
+import { useI18n } from '../../i18n/I18nProvider';
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -87,6 +88,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, cla
 };
 
 const CodeBlock: React.FC<{ code: string; language: string }> = ({ code, language }) => {
+  const { t } = useI18n();
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
   const highlighted = language && hljs.getLanguage(language) ? hljs.highlight(code, { language }).value : null;
@@ -110,17 +112,17 @@ const CodeBlock: React.FC<{ code: string; language: string }> = ({ code, languag
         <button
           onClick={handleCopy}
           className="flex items-center gap-1.5 px-2 py-0.5 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-          title="Copy code"
+          title={t("Copy code", "复制代码")}
         >
           {copied ? (
             <>
               <Check className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="text-emerald-400 text-xs">Copied</span>
+              <span className="text-emerald-400 text-xs">{t("Copied", "已复制")}</span>
             </>
           ) : (
             <>
               <Copy className="w-3.5 h-3.5" />
-              <span className="text-xs">{copyError ? 'Copy failed' : 'Copy'}</span>
+              <span className="text-xs">{copyError ? t("Copy failed", "复制失败") : t("Copy", "复制")}</span>
             </>
           )}
         </button>
