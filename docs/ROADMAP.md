@@ -26,4 +26,4 @@
 
 ## 下一轮建议
 
-优先在真实测试云项目完成 Auth/Firestore/Render/Gemini 联通，然后完成 v0.3 的 InterviewQuestion ↔ Question 双向闭环；同时用一个 Knowledge 页面落实三方面参考效果。完整设计改版需要单独验收，不在首轮暗中扩展。
+优先在真实测试云项目完成 Auth/Firestore/Render/DeepSeek 联通，然后完成 v0.3 的 InterviewQuestion ↔ Question 双向闭环；同时用一个 Knowledge 页面落实三方面参考效果。完整设计改版需要单独验收，不在首轮暗中扩展。

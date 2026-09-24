@@ -6,14 +6,15 @@ import type {
   ChatMessage,
   GroundingSource,
   MultiTurnChatResult,
-} from '../server/geminiService';
+} from '../server/aiService';
 
 export type { ChatMessage, GroundingSource, MultiTurnChatResult };
+export type AIModelProfile = 'standard' | 'deep' | 'fast';
 
 export async function requestMultiTurnChat(params: {
   messages: ChatMessage[];
   systemInstruction?: string;
-  model?: 'gemini-3.5-flash' | 'gemini-3.1-pro-preview' | 'gemini-3.1-flash-lite';
+  model?: AIModelProfile;
   enableSearch?: boolean;
 }): Promise<MultiTurnChatResult> {
   const res = await apiFetch('/api/copilot/chat', {

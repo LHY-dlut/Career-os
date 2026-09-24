@@ -1,0 +1,39 @@
+import { z } from 'zod';
+import { generateCompletion, type ChatMessage, type GroundingSource, type ModelProfile } from './aiProvider.ts';
+export { AIUnavailableError, AIUnsupportedFeatureError, getAICapabilities } from './aiProvider.ts';
+export type { ChatMessage, GroundingSource, ModelProfile } from './aiProvider.ts';
+
+export interface MultiTurnChatResult { reply: string; modelUsed: string; groundingSources?: GroundingSource[]; webSearchQueries?: string[] }
+const strings = z.array(z.string());
+const improvementSchema = z.object({ missingPoints: strings, inaccuracies: strings, betterStructure: z.string(), thirtySecondAnswer: z.string(), followUps: strings });
+const jdSchema = z.object({ coreRequirements: strings, importantSkills: strings, likelyInterviewTopics: strings, knowledgeGaps: strings, relevantKnowledgeArticles: strings, relevantQuestionBankEntries: strings, suggestedPreparationChecklist: strings });
+const mockSchema = z.object({ feedback: z.string(), nextQuestion: z.string(), scoreOutOf10: z.number().min(0).max(10).optional(), isComplete: z.boolean().optional() });
+export type AnswerImprovementResult = z.infer<typeof improvementSchema>;
+export type JDAnalysisResult = z.infer<typeof jdSchema>;
+export type MockInterviewTurnResult = z.infer<typeof mockSchema>;
+export async function runMultiTurnChat(params: { messages: ChatMessage[]; systemInstruction?: string; model?: ModelProfile; enableSearch?: boolean }): Promise<MultiTurnChatResult> {
+  const { text, ...metadata } = await generateCompletion({ messages: params.messages, profile: params.model, enableSearch: params.enableSearch, systemInstruction: params.systemInstruction || 'Help the user prepare for AI engineering interviews. Be accurate and state uncertainty. Do not invent sources or claim access to documents you were not given.' });
+  return { reply: text, ...metadata };
+}
+export async function researchTopicWithSearch(topic: string) {
+  const { text, groundingSources, webSearchQueries } = await generateCompletion({ enableSearch: true, systemInstruction: 'Research AI engineering using search. Distinguish established results from recent developments. Include dates, grounded sources and trade-offs. Never invent citations.', messages: [{ role: 'user', content: `Today is ${new Date().toISOString().slice(0, 10)}. Topic: ${topic}` }] });
+  return { content: text, groundingSources, webSearchQueries };
+}
+export async function explainTopic(content: string, contextTitle?: string) {
+  const response = await generateCompletion({ systemInstruction: 'Explain the provided material for an AI engineering interview, including math and trade-offs. Use Markdown. Do not claim other local documents are available.', messages: [{ role: 'user', content: `Title: ${contextTitle || 'Topic'}\n${content}` }] });
+  return response.text;
+}
+async function structured<T extends z.ZodType>(prompt: string, schema: T): Promise<z.infer<T>> {
+  const response = await generateCompletion({ systemInstruction: 'Return the requested structured JSON object. Use only supported facts and the provided context.', messages: [{ role: 'user', content: prompt }], jsonSchema: z.toJSONSchema(schema) });
+  return schema.parse(JSON.parse(response.text));
+}
+export async function improveInterviewAnswer(question: string, myAnswer: string): Promise<AnswerImprovementResult> {
+  return structured(`Evaluate the candidate's answer precisely. Report missing points, technical inaccuracies, a better structure, a 30-second answer and follow-up questions. Do not fabricate claims.\nQuestion: ${question}\nCandidate answer: ${myAnswer}`, improvementSchema);
+}
+export async function analyzeJobDescription(jdText: string, availableKnowledgeTitles: string[], availableQuestionTitles: string[]): Promise<JDAnalysisResult> {
+  const result = await structured(`Analyze this AI engineering job description. Extract core requirements, skills, likely interview topics, general knowledge gaps and a preparation checklist. Relevant local articles/questions MUST be exact titles from the supplied lists. Empty lists mean no local matches.\nJD: ${jdText}\nArticles: ${JSON.stringify(availableKnowledgeTitles)}\nQuestions: ${JSON.stringify(availableQuestionTitles)}`, jdSchema);
+  return { ...result, relevantKnowledgeArticles: result.relevantKnowledgeArticles.filter(t => availableKnowledgeTitles.includes(t)), relevantQuestionBankEntries: result.relevantQuestionBankEntries.filter(t => availableQuestionTitles.includes(t)) };
+}
+export async function runMockInterviewTurn(topic: string, history: Array<{ role: 'interviewer' | 'candidate'; content: string }>, candidateAnswer?: string): Promise<MockInterviewTurnResult> {
+  return structured(`Conduct a technical interview on ${topic}. Ask one question per turn. Give factual constructive feedback only if a candidate answer exists; otherwise feedback must be empty and omit a score. End after enough evidence by setting isComplete.\nHistory: ${JSON.stringify(history)}\nCandidate answer: ${candidateAnswer || '(no answer yet)'}`, mockSchema);
+}

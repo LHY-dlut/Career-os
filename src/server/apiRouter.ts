@@ -1,15 +1,20 @@
 import express, { Router } from 'express';
 import { rateLimit } from 'express-rate-limit';
 import { z } from 'zod';
-import * as ai from './geminiService.ts';
+import * as ai from './aiService.ts';
 import { requireIdentity, type VerifyToken } from './security.ts';
 
 const text = z.string().trim().min(1).max(30000);
-const chatSchema = z.object({ messages: z.array(z.object({ role: z.enum(['user', 'assistant', 'model']), content: text })).min(1).max(40).refine(messages => messages.reduce((n, m) => n + m.content.length, 0) <= 60000, 'Conversation is too long.'), systemInstruction: z.string().max(8000).optional(), model: z.enum(['gemini-3.5-flash', 'gemini-3.1-pro-preview', 'gemini-3.1-flash-lite']).optional(), enableSearch: z.boolean().optional() }).strict();
+const chatSchema = z.object({ messages: z.array(z.object({ role: z.enum(['user', 'assistant', 'model']), content: text })).min(1).max(40).refine(messages => messages.reduce((n, m) => n + m.content.length, 0) <= 60000, 'Conversation is too long.'), systemInstruction: z.string().max(8000).optional(), model: z.enum(['standard', 'deep', 'fast', 'gemini-3.5-flash', 'gemini-3.1-pro-preview', 'gemini-3.1-flash-lite']).optional(), enableSearch: z.boolean().optional() }).strict();
 const titles = z.array(z.string().max(500)).max(200).default([]);
 export function createApiRouter(options: { verifyToken: VerifyToken; allowedUids: string[]; rateLimit?: number }) {
   const router = Router();
   router.get('/health', (_req, res) => { res.json({ status: 'ok' }); });
+  router.get('/capabilities', (_req, res) => {
+    res.setHeader('Cache-Control', 'no-store');
+    try { res.json(ai.getAICapabilities()); }
+    catch { res.status(503).json({ error: 'AI configuration is unavailable.' }); }
+  });
   router.use('/copilot', rateLimit({ windowMs: 60000, limit: 60, standardHeaders: 'draft-8', legacyHeaders: false, message: { error: 'Too many requests. Retry in a minute.' } }));
   router.use('/copilot', requireIdentity(options.verifyToken, options.allowedUids));
   router.use('/copilot', rateLimit({ windowMs: 60000, limit: options.rateLimit ?? 10, keyGenerator: (_req, res) => res.locals.uid, standardHeaders: 'draft-8', legacyHeaders: false, message: { error: 'AI minute limit reached. Retry later.' } }));
@@ -23,6 +28,7 @@ export function createApiRouter(options: { verifyToken: VerifyToken; allowedUids
       try { res.json(await handler(result.data)); }
       catch (error) {
         if (error instanceof ai.AIUnavailableError) { res.status(503).json({ error: error.message }); return; }
+        if (error instanceof ai.AIUnsupportedFeatureError) { res.status(501).json({ error: error.message }); return; }
         // Never send provider exceptions, credentials, request bodies or fabricated output to the client.
         console.error('AI request failed:', error instanceof Error ? error.name : 'UnknownError');
         res.status(502).json({ error: 'The AI provider could not complete this request. Please retry.' });

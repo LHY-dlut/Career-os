@@ -36,6 +36,7 @@ import {
 } from '../utils/markdownFrontmatter';
 import { MarkdownImportModal } from '../components/knowledge/MarkdownImportModal';
 import { requestSearchResearch, GroundingSource } from '../services/aiCopilot';
+import { useAICapabilities } from '../hooks/useAICapabilities';
 
 interface KnowledgeProps {
   articles: KnowledgeArticle[];
@@ -68,6 +69,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
   const navigate = useNavigate();
   const location = useLocation();
   const { showToast } = useToast();
+  const { capabilities, canSearch, searchUnavailableReason } = useAICapabilities();
   const activeArticleId = selectedArticleId || articles[0]?.id || '';
   const setActiveArticleId = (id: string) => navigate(`/knowledge/${encodeURIComponent(id)}`);
   const [searchQuery, setSearchQuery] = useState('');
@@ -90,7 +92,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
   } | null>(null);
 
   const handleOpenSearchResearch = async () => {
-    if (!currentArticle) return;
+    if (!currentArticle || !canSearch || isResearchLoading) return;
     setIsResearchModalOpen(true);
     setIsResearchLoading(true);
     setResearchData(null);
@@ -401,8 +403,9 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                 {/* Live Research with Search Grounding */}
                 <button
                   onClick={handleOpenSearchResearch}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-emerald-200 dark:border-emerald-800/80 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors shadow-2xs"
-                  title="Search live arXiv papers and industry breakthroughs with Google Search Grounding"
+                  disabled={!canSearch || isResearchLoading}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-emerald-200 dark:border-emerald-800/80 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors shadow-2xs disabled:opacity-40 disabled:cursor-not-allowed"
+                  title={canSearch ? 'Research this topic with live web sources' : searchUnavailableReason}
                 >
                   <Globe className="w-3.5 h-3.5 text-emerald-500" />
                   <span>Live Research</span>
@@ -417,7 +420,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                     )
                   }
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-indigo-200 dark:border-indigo-800/80 bg-indigo-50/70 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 text-xs font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-colors shadow-2xs"
-                  title="Ask Gemini Copilot to explain or drill you on this article"
+                  title="Ask AI Copilot to explain or drill you on this article"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
                   <span>Explain with AI</span>
@@ -790,7 +793,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
         </Dialog>
       )}
 
-      {/* Live Research Modal with Google Search Grounding */}
+      {/* Live Research Modal for providers with web search */}
       {isResearchModalOpen && (
         <Dialog onClose={() => setIsResearchModalOpen(false)} aria-label="Live research" className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4">
           <div className="w-full max-w-2xl max-h-[85vh] flex flex-col bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
@@ -805,7 +808,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                     Live Research Grounding
                   </h3>
                   <p className="text-[11px] text-slate-400">
-                    Powered by server-configured Gemini + Google Search Grounding • {currentArticle?.title}
+                    Server-configured web research · {capabilities?.model} • {currentArticle?.title}
                   </p>
                 </div>
               </div>
@@ -821,7 +824,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                 <div className="py-16 flex flex-col items-center justify-center gap-3 text-slate-500 dark:text-slate-400">
                   <Loader2 className="w-6 h-6 animate-spin text-emerald-500" />
                   <p className="text-xs font-medium">
-                    Searching Google for latest papers, benchmarks, and SOTA implementations...
+                    Searching the web for papers, benchmarks, and implementations...
                   </p>
                   <p className="text-[11px] text-slate-400">
                     Grounding arXiv releases & tech company engineering insights
@@ -856,7 +859,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                     <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
                       <div className="flex items-center gap-1.5 font-semibold text-emerald-600 dark:text-emerald-400 text-xs">
                         <Globe className="w-3.5 h-3.5" />
-                        <span>Google Search Grounding Sources ({researchData.groundingSources.length})</span>
+                        <span>Web Search Sources ({researchData.groundingSources.length})</span>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {researchData.groundingSources.map((src, i) => {
@@ -888,7 +891,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                     </div>
                   )}
                 </>
-              ) : <div role="alert"><p>{researchError}</p><button className="mt-3 text-sky-500 underline" onClick={handleOpenSearchResearch}>Retry research</button></div>}
+              ) : <div role="alert"><p>{researchError}</p><button disabled={!canSearch} title={!canSearch ? searchUnavailableReason : undefined} className="mt-3 text-sky-500 underline disabled:opacity-40" onClick={handleOpenSearchResearch}>Retry research</button></div>}
             </div>
 
             {/* Modal Footer */}

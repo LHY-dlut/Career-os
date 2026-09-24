@@ -14,6 +14,7 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { useToast } from '../components/common/Toast';
+import { useAICapabilities } from '../hooks/useAICapabilities';
 
 interface SettingsProps {
   user: any;
@@ -34,6 +35,7 @@ export const Settings: React.FC<SettingsProps> = ({
   onRefreshData, onExport, onRestore, onReset, onLoadStarter, canLoadStarter,
 }) => {
   const { showToast } = useToast();
+  const { capabilities, loading: capabilitiesLoading, error: capabilitiesError } = useAICapabilities();
   const [isExporting, setIsExporting] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
   const [loadingStarter, setLoadingStarter] = useState(false);
@@ -188,8 +190,10 @@ export const Settings: React.FC<SettingsProps> = ({
             <span className="text-[10px] text-zinc-400 uppercase font-bold">AI Engine</span>
             <div className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Server-managed · Sign-in required</span>
+              <span>{capabilities ? `${capabilities.provider === 'deepseek' ? 'DeepSeek' : 'Gemini'} · ${capabilities.model}` : capabilitiesLoading ? 'Checking server configuration…' : 'Configuration unavailable'}</span>
             </div>
+            <p className="text-[11px] text-zinc-500" role="status">{capabilitiesError || (capabilities ? `${capabilities.configured ? 'API key configured' : 'API key not configured'} · ${capabilities.webSearch ? 'Web search supported' : 'No live web search'}` : 'Server-managed AI configuration')}</p>
+            <p className="text-[11px] text-zinc-500">Sign-in and workspace approval required. API keys stay on the server.</p>
           </div>
 
           <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200/60 dark:border-zinc-800 space-y-1">

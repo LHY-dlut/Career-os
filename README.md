@@ -16,7 +16,7 @@ Knowledge → Question Bank → Review → Coding → Applications → Interview
 - 投递与面试：看板/表格、阶段持久化、面试属于投递、真题加入题库时同时保存关联。关联已有题目等完整闭环见路线图。
 - URL 路由、前进/后退/刷新、实体直达、Ctrl/Cmd+K 搜索、按身份隔离的主题。
 - 访客仅保存到当前浏览器。Google 登录打开独立 Firestore 工作区；云端错误不会自动切换为本地成功状态。
-- AI 由 Express 调用 Gemini；需要 Google 登录、服务端 UID 授权、Admin 凭证及 Gemini Key。未配置时显示真实错误，不生成假答案/引用。
+- AI 默认由 Express 调用 DeepSeek-V4.1-Flash；需要 Google 登录、服务端 UID 授权、Admin 凭证及 DeepSeek Key。未配置时显示真实错误，不生成假答案/引用。可显式切换回 Gemini。
 
 ## Screenshots placeholder
 
@@ -24,11 +24,11 @@ TODO：在完整云端验收和下一轮阅读体验设计后补充 Dashboard / 
 
 ## Architecture
 
-React Router → 页面/Providers → Local 或 Firestore Repository；浏览器 ID token → Express → Firebase Admin 验证 → Gemini。部署为 Firebase Hosting 前端 + Render API，详见 [架构](docs/ARCHITECTURE.md)。
+React Router → 页面/Providers → Local 或 Firestore Repository；浏览器 ID token → Express → Firebase Admin 验证 → DeepSeek（或可选 Gemini）。部署为 Firebase Hosting 前端 + Render API，详见 [架构](docs/ARCHITECTURE.md)。
 
 ## Tech Stack
 
-React 19、TypeScript、Vite 8、Tailwind 4、Firebase Auth/Firestore、Express 4、Google GenAI、Zod、Vitest。保留原型技术栈；版本以 lockfile 为准。
+React 19、TypeScript、Vite 8、Tailwind 4、Firebase Auth/Firestore、Express 4、DeepSeek Chat Completions API、Google GenAI（可选）、Zod、Vitest。保留原型技术栈；版本以 lockfile 为准。
 
 ## Local Development
 
@@ -43,7 +43,7 @@ npm run dev
 
 打开 `http://localhost:5173`。**不配置任何云凭证即可使用访客功能**。首次访客工作区含学习资料，投递、面试、练习、复习成绩从零开始。数据属于该浏览器的该 origin；换端口也会打开不同访客工作区。
 
-需要云功能时，将 `.env.example` 复制为 `.env`，按 [部署说明](docs/DEPLOYMENT.md) 填写配置。开发默认同域 `/api`；独立 API 可设置 `VITE_API_BASE_URL=http://localhost:3000`。所有 `VITE_*` 都公开进浏览器，绝不能放 Gemini Key 或 Admin 私钥。
+需要云功能时，将 `.env.example` 复制为 `.env`，按 [部署说明](docs/DEPLOYMENT.md) 填写配置。开发默认同域 `/api`；独立 API 可设置 `VITE_API_BASE_URL=http://localhost:3000`。所有 `VITE_*` 都公开进浏览器，绝不能放模型 API Key 或 Admin 私钥。
 
 新登录账号默认空白，可在 Settings 点击 **Load Starter Study Materials** 初始化学习资料；不会导入访客记录或制造职业活动。
 
@@ -64,15 +64,17 @@ npm start
 
 ## Environment Variables
 
-变量模板在 `.env.example`。`VITE_FIREBASE_*`、`VITE_API_BASE_URL` 是公开构建配置；`GEMINI_API_KEY`、Admin 凭证、UID allowlist、CORS origins 仅在服务端。完整表格和构建/运行差异见 [环境配置](docs/DEPLOYMENT.md)。
+变量模板在 `.env.example`。`VITE_FIREBASE_*`、`VITE_API_BASE_URL` 是公开构建配置；`DEEPSEEK_API_KEY`、可选 `GEMINI_API_KEY`、Admin 凭证、UID allowlist、CORS origins 仅在服务端。完整表格和构建/运行差异见 [环境配置](docs/DEPLOYMENT.md)。
 
 ## Firebase Setup
 
 在自己的项目启用 Google 登录、配置 authorized domains、创建 Firestore、发布本仓库规则，并填写 Web App 的公开变量。新账号与访客独立，不能通过换登录身份共享本地缓存。
 
-## Gemini Setup
+## AI Setup — 默认 DeepSeek
 
-配置服务端 `GEMINI_API_KEY`、`GEMINI_MODEL`、`FIREBASE_PROJECT_ID` 和 Application Default Credentials；将本人 Firebase UID 加入 `AI_ALLOWED_UIDS`。空 allowlist 禁用付费 AI。模型可用性需在自己的账号验证。
+配置服务端 `AI_PROVIDER=deepseek`、`DEEPSEEK_API_KEY`、`DEEPSEEK_MODEL=deepseek-flash`、`FIREBASE_PROJECT_ID` 和 Application Default Credentials；将本人 Firebase UID 加入 `AI_ALLOWED_UIDS`。空 allowlist 禁用付费 AI。`deepseek-flash` 是目前 DeepSeek-V4.1-Flash 的官方 API 模型名。[DeepSeek 官方发布说明](https://api-docs.deepseek.com/news/news260910/)
+
+DeepSeek 的 Standard / Deep / Fast 档位都使用同一个模型并关闭 thinking；每次最多输出 4096 tokens，不自动重试或切换付费供应商。本接入未提供 DeepSeek 联网搜索，界面禁用该选项，服务端也会拒绝搜索请求。需要原有 Google grounding 时，显式设置 `AI_PROVIDER=gemini` 和 `GEMINI_API_KEY`，再配置可选的 `GEMINI_*_MODEL`。真实凭证、模型可用性与账单需要在自己的账号验收。
 
 ## Deployment
 

@@ -38,14 +38,21 @@
 
 | 服务端变量 | 作用 |
 | --- | --- |
-| `GEMINI_API_KEY` | Gemini API 私密 key，只放服务端 |
-| `GEMINI_MODEL` | 默认 `gemini-3.5-flash`；按账号可用模型选择 |
-| `GEMINI_PRO_MODEL` / `GEMINI_LITE_MODEL` | 可选；未填写则都使用主模型 |
+| `AI_PROVIDER` | 默认 `deepseek`；需要 Gemini 时显式设为 `gemini` |
+| `DEEPSEEK_API_KEY` | 默认供应商的私密 key，只放服务端 |
+| `DEEPSEEK_MODEL` | 默认 `deepseek-flash`，当前对应 DeepSeek-V4.1-Flash |
+| `GEMINI_API_KEY` | 仅选择 `gemini` 时需要；不会作为自动 fallback |
+| `GEMINI_MODEL` | Gemini 主模型默认 `gemini-3.5-flash`；按账号可用模型选择 |
+| `GEMINI_PRO_MODEL` / `GEMINI_LITE_MODEL` | 仅 Gemini 可选；未填写则都使用 Gemini 主模型 |
 | `FIREBASE_PROJECT_ID` | 与浏览器登录使用同一个 Firebase 项目 |
 | `GOOGLE_APPLICATION_CREDENTIALS` | `/etc/secrets/firebase-admin.json` |
 | `AI_ALLOWED_UIDS` | 允许使用 AI 的 Firebase UID，逗号分隔；空值禁用 AI |
 | `ALLOWED_ORIGINS` | 完整前端 origin，逗号分隔，无路径/尾斜杠；例如你的 `.web.app`、`.firebaseapp.com` 和自定义域名 |
 | `TRUST_PROXY_HOPS` | Render 为 `1`；直接本地服务为 `0` |
+
+DeepSeek 请求固定发送到官方 `https://api.deepseek.com/chat/completions`，不支持自定义代理地址。Standard / Deep / Fast 档位均使用 `DEEPSEEK_MODEL`，显式关闭 thinking，输出上限 4096 tokens，30 秒超时，无自动重试或跨供应商 fallback。结构化任务使用 JSON 模式、提示词字段约束和服务端 Zod 校验。模型名以 [官方发布说明](https://api-docs.deepseek.com/news/news260910/) 为依据，请求参数见 [Chat Completions 文档](https://api-docs.deepseek.com/api/create-chat-completion/)。
+
+当前 DeepSeek 接入不提供联网搜索；前端禁用搜索，后端拒绝搜索请求。Google grounding 只在显式选择 Gemini 时可用。
 
 Admin 凭证作为 Render **Secret File** `firebase-admin.json` 上传；使用你控制的项目服务账号及支持 Auth 用户查询的权限。不要提交私钥，不要加 `VITE_` 前缀。Render 将 secret file 挂载到 `/etc/secrets/<filename>`。[Render secrets 文档](https://render.com/docs/configure-environment-variables)
 
@@ -70,12 +77,13 @@ npm exec --yes --package=firebase-tools@15.31.0 -- firebase deploy --only hostin
 
 ## 4. 联通验收
 
-- 打开 `/api/health` 应返回 `{"status":"ok"}`。它只说明进程存活，不代表 Firebase/Gemini 凭证有效。
+- 打开 `/api/health` 应返回 `{"status":"ok"}`。它只说明进程存活，不代表 Firebase 或模型凭证有效。
+- 打开公开的 `/api/capabilities`，确认 `provider`、`model`、`webSearch` 和 `configured` 与部署配置一致。`configured` 只表示已填写模型 Key，不代表 Key 有效或 Firebase/UID 授权已完成；该接口不调用付费模型。
 - 直接打开并刷新 `/knowledge/<真实ID>`；前进、后退可恢复页面。
 - 登录 Google，Settings 显示当前 UID；将需要使用 AI 的 UID 加入 Render allowlist 并重启/重新部署。
 - 账号 A 创建记录，刷新确认持久化；切换账号 B 不得看到 A 记录；退出后恢复独立访客数据。
 - 网络中 `/api/copilot/*` 携带 Bearer token；无 token 401、未授权 UID 403、非法 origin 403、超限 429。
-- 发送一次短 AI 请求，检查实际结果和 `modelUsed`；搜索结果仅显示 provider 返回的来源。
+- 发送一次短 AI 请求，检查实际结果和 `modelUsed`。DeepSeek 下确认搜索开关不可用、手动提交搜索请求被拒绝；Gemini 下的搜索来源必须来自 provider metadata。
 - 检查请求失败时页面保留编辑内容、显示错误；不出现伪造的同步/AI 成功提示。
 
 ## 5. 运行边界与排障

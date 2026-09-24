@@ -29,6 +29,7 @@ import {
 import { MarkdownRenderer } from '../components/common/MarkdownRenderer';
 import { useToast } from '../components/common/Toast';
 import { useAuth } from '../app/AuthProvider';
+import { useAICapabilities } from '../hooks/useAICapabilities';
 import {
   requestMultiTurnChat,
   polishElevatorPitch,
@@ -36,16 +37,15 @@ import {
   analyzeJobDescription,
   ChatMessage,
   GroundingSource,
+  AIModelProfile,
 } from '../services/aiCopilot';
-
-export type GeminiModelType = 'gemini-3.5-flash' | 'gemini-3.1-pro-preview' | 'gemini-3.1-flash-lite';
 
 export interface ChatbotRole {
   id: string;
   name: string;
   badge: string;
   description: string;
-  defaultModel: GeminiModelType;
+  defaultModel: AIModelProfile;
   defaultSearch: boolean;
   systemInstruction: string;
   icon: 'mentor' | 'barRaiser' | 'drill' | 'research';
@@ -57,7 +57,7 @@ export const CHATBOT_ROLES: ChatbotRole[] = [
     name: 'AI Career & Tech Mentor',
     badge: 'General Tasks',
     description: 'Comprehensive guidance on LLM architectures, interview mindsets, RAG, and Agent system designs.',
-    defaultModel: 'gemini-3.5-flash',
+    defaultModel: 'standard',
     defaultSearch: false,
     systemInstruction: `You are an expert AI Career Mentor and Senior AI Algorithm Engineer at a top tech company. You guide candidates through LLM, RAG, and Agent fundamentals, coding strategies, interview mindsets, and system design principles. Provide clear, empathetic, and actionable technical explanations with structured Markdown, intuitive analogies, and production-grade best practices.`,
     icon: 'mentor',
@@ -65,9 +65,9 @@ export const CHATBOT_ROLES: ChatbotRole[] = [
   {
     id: 'barRaiser',
     name: 'Deep System & Algorithm Bar Raiser',
-    badge: 'Complex Reasoning (Pro)',
+    badge: 'Technical Depth',
     description: 'Rigorously derives math proofs, GPU memory bottlenecks, KV cache formulas, and distributed scaling.',
-    defaultModel: 'gemini-3.1-pro-preview',
+    defaultModel: 'deep',
     defaultSearch: false,
     systemInstruction: `You are a Principal AI Algorithm Engineer and Interview Bar Raiser at a premier AI research lab. You specialize in deep technical reasoning, rigorous mathematical proofs (attention variance, loss formulations, gradient dynamics), GPU memory bottlenecks (KV cache formulas, memory bandwidth vs compute saturation, FlashAttention tiling), and hardware-aware distributed training (3D parallelism, ZeRO, pipeline schedules). Demand uncompromising engineering depth, point out hidden pitfalls, and verify candidate logic with mathematical precision.`,
     icon: 'barRaiser',
@@ -75,9 +75,9 @@ export const CHATBOT_ROLES: ChatbotRole[] = [
   {
     id: 'drill',
     name: 'Rapid Drill & Flashcard Coach',
-    badge: 'Fast Tasks (Lite)',
+    badge: 'Quick Revision',
     description: 'High-speed technical sparring, snappy 30-second elevator-pitch drills, and quick feedback.',
-    defaultModel: 'gemini-3.1-flash-lite',
+    defaultModel: 'fast',
     defaultSearch: false,
     systemInstruction: `You are a Rapid Technical Drill Coach for AI engineering interviews. Keep explanations ultra-crisp, snappy, and high-impact. Provide 30-second elevator-pitch summaries, quick pros/cons comparisons, and immediate feedback on candidate answers. Ideal for rapid revision before stepping into an interview. Format with concise bullet points and bold takeaways.`,
     icon: 'drill',
@@ -86,10 +86,10 @@ export const CHATBOT_ROLES: ChatbotRole[] = [
     id: 'research',
     name: 'AI Research & Industry Scout',
     badge: 'Search Grounded',
-    description: 'Real-time intelligence using Google Search for latest arXiv papers, model releases, and hiring trends.',
-    defaultModel: 'gemini-3.5-flash',
+    description: 'Research papers, model releases, and hiring trends with sources when the server supports web search.',
+    defaultModel: 'standard',
     defaultSearch: true,
-    systemInstruction: `You are an AI Research & Industry Intelligence Analyst. You utilize Google Search Grounding to track the latest paper releases (arXiv), new foundation model architectures (DeepSeek, LLaMA, Gemini, Claude), framework updates (vLLM, SGLang, TensorRT-LLM, LangGraph), and real-time tech company hiring patterns. Always ground your answers in verified, up-to-date sources and explicitly cite them.`,
+    systemInstruction: `You are an AI Research & Industry Intelligence Analyst. Use available web search to research paper releases (arXiv), foundation model architectures, framework updates, and tech company hiring patterns. Cite sources returned by search. If no search evidence is available, state that limitation and do not claim live verification or invent citations.`,
     icon: 'research',
   },
 ];
@@ -112,11 +112,12 @@ interface AICopilotProps {
 export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
   const { showToast } = useToast();
   const { user, signIn } = useAuth();
+  const { capabilities, loading: capabilitiesLoading, error: capabilitiesError, canSearch, searchUnavailableReason } = useAICapabilities();
   const [activeMode, setActiveMode] = useState<'chat' | 'polisher' | 'mock' | 'jd'>('chat');
 
   // Multi-turn Chatbot State
   const [selectedRole, setSelectedRole] = useState<ChatbotRole>(CHATBOT_ROLES[0]);
-  const [selectedModel, setSelectedModel] = useState<GeminiModelType>(CHATBOT_ROLES[0].defaultModel);
+  const [selectedModel, setSelectedModel] = useState<AIModelProfile>(CHATBOT_ROLES[0].defaultModel);
   const [isSearchEnabled, setIsSearchEnabled] = useState<boolean>(false);
   const [customSystemInstruction, setCustomSystemInstruction] = useState<string>(CHATBOT_ROLES[0].systemInstruction);
   const [showRoleConfigModal, setShowRoleConfigModal] = useState<boolean>(false);
@@ -128,8 +129,8 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
       text: `Hello! I am your **AI Career Copilot**, specialized in LLM, RAG, Agent, and AI Algorithm Engineering interview preparation.
 
 ### 🎯 How I Can Help You Today:
-* **Multi-Turn Role-Based Technical Chat**: Choose between our *AI Career Mentor*, *Deep System Bar Raiser* (Pro reasoning), *Rapid Drill Coach* (fast flashcards), or *Search Grounded Scout*.
-* **Live Google Search Grounding**: Ask about the recent papers, DeepSeek architectures, SGLang/vLLM updates, or hiring trends.
+* **Multi-Turn Role-Based Technical Chat**: Practice with our *AI Career Mentor*, *Deep System Bar Raiser*, or *Rapid Drill Coach*.
+* **Research with Sources**: The research role and live search are available only when supported by the server's AI provider. Ordinary chat does not verify current web information.
 * **30-Second Elevator Pitch Polisher**: Turn unorganized technical thoughts into punchy, structured interview answers.
 * **Mock Interview Drills**: Generate a technical practice question to work through.`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -166,11 +167,22 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
     }
   }, [initialPrompt]);
 
+  useEffect(() => {
+    if (canSearch) return;
+    setIsSearchEnabled(false);
+    if (selectedRole.id === 'research') {
+      setSelectedRole(CHATBOT_ROLES[0]);
+      setSelectedModel(CHATBOT_ROLES[0].defaultModel);
+      setCustomSystemInstruction(CHATBOT_ROLES[0].systemInstruction);
+    }
+  }, [canSearch, selectedRole.id]);
+
   // When role changes, sync defaults
   const handleRoleChange = (role: ChatbotRole) => {
+    if (role.defaultSearch && !canSearch) return;
     setSelectedRole(role);
     setSelectedModel(role.defaultModel);
-    setIsSearchEnabled(role.defaultSearch);
+    setIsSearchEnabled(role.defaultSearch && canSearch);
     setCustomSystemInstruction(role.systemInstruction);
     showToast(`Switched role to "${role.name}"`);
   };
@@ -208,7 +220,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
         messages: chatHistory,
         systemInstruction: customSystemInstruction,
         model: selectedModel,
-        enableSearch: isSearchEnabled,
+        enableSearch: isSearchEnabled && canSearch,
       });
 
       const botMsg: DisplayMessage = {
@@ -239,9 +251,8 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
         {
           id: 'welcome',
           sender: 'assistant',
-          text: `Conversation restarted with role **${selectedRole.name}** (\`${selectedModel}\`). How can I assist with your interview prep?`,
+          text: `Conversation restarted with role **${selectedRole.name}** and the **${selectedModel}** profile. How can I assist with your interview prep?`,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          modelUsed: selectedModel,
           roleName: selectedRole.name,
         },
       ]);
@@ -348,7 +359,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
                 AI Career Copilot
               </h2>
               <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-800/60">
-                Multi-Turn Gemini Engine
+                {capabilities ? `${capabilities.provider === 'deepseek' ? 'DeepSeek' : 'Gemini'} · ${capabilities.model}` : 'Server-managed AI'}
               </span>
             </div>
             <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
@@ -409,6 +420,13 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
         </div>
       </div>
 
+      <div className="px-4 sm:px-6 py-2 text-[11px] text-zinc-500 dark:text-zinc-400 border-b border-zinc-200 dark:border-zinc-800" role="status">
+        {capabilitiesLoading ? 'Checking AI configuration…' : capabilitiesError || (!capabilities?.configured
+          ? 'AI is not configured on the server. The workspace owner must add the provider API key.'
+          : canSearch ? 'Live search is available when enabled. Sign-in and workspace approval are required.'
+            : 'Live web search and research are unavailable with this provider. Chat, pitch polishing, mock drills, and JD analysis remain available.')}
+      </div>
+
       {/* MODE 1: MULTI-TURN CHATBOT */}
       {activeMode === 'chat' && (
         <div className="flex-1 flex flex-col overflow-hidden max-w-5xl w-full mx-auto p-3 sm:p-5">
@@ -425,12 +443,13 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
                   <button
                     key={role.id}
                     onClick={() => handleRoleChange(role)}
-                    className={`px-2.5 py-1.5 rounded-lg font-medium transition-all flex items-center gap-1.5 ${
+                    disabled={role.defaultSearch && !canSearch}
+                    className={`px-2.5 py-1.5 rounded-lg font-medium transition-all flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed ${
                       isActive
                         ? 'bg-indigo-600 text-white shadow-2xs'
                         : 'bg-zinc-100 dark:bg-zinc-800/70 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
                     }`}
-                    title={role.description}
+                    title={role.defaultSearch && !canSearch ? searchUnavailableReason : role.description}
                   >
                     {renderRoleIcon(role.icon, 'w-3.5 h-3.5')}
                     <span>{role.name}</span>
@@ -441,44 +460,49 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
 
             {/* Model & Search Grounding Controls */}
             <div className="flex items-center gap-2 ml-auto">
-              {/* Google Search Grounding Toggle */}
+              {/* Provider-supported Web Search Toggle */}
               <button
+                disabled={!canSearch}
+                aria-label="Web Search"
+                aria-pressed={isSearchEnabled && canSearch}
                 onClick={() => {
+                  if (!canSearch) return;
                   const nextSearch = !isSearchEnabled;
                   setIsSearchEnabled(nextSearch);
                   if (nextSearch) {
-                    setSelectedModel('gemini-3.5-flash');
+                    setSelectedModel('standard');
                     showToast('Search Grounding enabled with the server’s standard model');
                   } else {
                     showToast('Search Grounding disabled');
                   }
                 }}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 border ${
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 border disabled:opacity-40 disabled:cursor-not-allowed ${
                   isSearchEnabled
                     ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800'
                     : 'bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300'
                 }`}
-                title="Request Google Search grounding with the server-configured model"
+                title={canSearch ? 'Request web search with the server-configured model' : searchUnavailableReason}
               >
                 <Globe className={`w-3.5 h-3.5 ${isSearchEnabled ? 'text-emerald-500 animate-pulse' : ''}`} />
-                <span className="hidden sm:inline">Google Search</span>
+                <span className="hidden sm:inline">Web Search</span>
                 <span className={`w-1.5 h-1.5 rounded-full ${isSearchEnabled ? 'bg-emerald-500' : 'bg-zinc-300 dark:bg-zinc-600'}`} />
               </button>
 
               {/* Model Dropdown */}
               <div className="relative">
                 <select
+                  aria-label="AI profile"
                   value={selectedModel}
                   onChange={(e) => {
-                    const newModel = e.target.value as GeminiModelType;
+                    const newModel = e.target.value as AIModelProfile;
                     setSelectedModel(newModel);
-                    showToast(`Model set to ${newModel}`);
+                    showToast(`Profile set to ${newModel}; the server chooses the model`);
                   }}
                   className="text-xs py-1.5 px-2.5 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 font-mono focus:outline-none focus:ring-1 focus:ring-indigo-500"
                 >
-                  <option value="gemini-3.5-flash">Standard / Search (server configured)</option>
-                  <option value="gemini-3.1-pro-preview">Deep Reasoning (server configured)</option>
-                  <option value="gemini-3.1-flash-lite">Fast Tasks (server configured)</option>
+                  <option value="standard">Standard profile</option>
+                  <option value="deep">Deep profile</option>
+                  <option value="fast">Fast profile</option>
                 </select>
               </div>
 
@@ -517,7 +541,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
               <span className="font-semibold text-zinc-700 dark:text-zinc-300">Active Persona:</span>
               <span className="text-indigo-600 dark:text-indigo-400 font-medium">{selectedRole.name}</span>
               <span className="text-zinc-300 dark:text-zinc-700">•</span>
-              <span>Model: <code className="text-zinc-800 dark:text-zinc-200 font-mono text-[10px]">{selectedModel}</code></span>
+              <span>Profile: <code className="text-zinc-800 dark:text-zinc-200 font-mono text-[10px]">{selectedModel}</code></span>
             </div>
             <div className="flex items-center gap-2">
               {isSearchEnabled && (
@@ -586,7 +610,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
                     <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-2">
                       <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
                         <Globe className="w-3.5 h-3.5" />
-                        <span>Google Search Grounding ({msg.groundingSources.length} sources cited)</span>
+                        <span>Web Search Sources ({msg.groundingSources.length} sources cited)</span>
                       </div>
 
                       {/* Queries executed */}
@@ -667,8 +691,8 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
                 <div className="w-2 h-2 rounded-full bg-indigo-600 animate-bounce [animation-delay:0.2s]" />
                 <div className="w-2 h-2 rounded-full bg-indigo-600 animate-bounce [animation-delay:0.4s]" />
                 <span className="text-[11px] text-zinc-500 dark:text-zinc-400 ml-1">
-                  Reasoning with <span className="font-mono font-medium">{selectedModel}</span>
-                  {isSearchEnabled && ' • Searching Google for live grounding sources...'}
+                  Generating with the <span className="font-mono font-medium">{selectedModel}</span> profile
+                  {isSearchEnabled && canSearch && ' • Searching for live web sources...'}
                 </span>
               </div>
             )}
@@ -703,21 +727,25 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
             ].map((chip, idx) => (
               <button
                 key={idx}
+                disabled={chip.search && !canSearch}
+                title={chip.search && !canSearch ? searchUnavailableReason : undefined}
                 onClick={() => {
+                  if (chip.search && !canSearch) return;
                   if (chip.role) {
                     const role = CHATBOT_ROLES.find((r) => r.id === chip.role);
                     if (role) {
                       setSelectedRole(role);
                       setSelectedModel(role.defaultModel);
                       setCustomSystemInstruction(role.systemInstruction);
+                      setIsSearchEnabled(role.defaultSearch && canSearch);
                     }
                   }
                   if (chip.search) {
-                    setIsSearchEnabled(true);
+                    setIsSearchEnabled(canSearch);
                   }
                   setInput(chip.text);
                 }}
-                className="px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800/80 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 whitespace-nowrap transition-colors flex items-center gap-1 border border-zinc-200/50 dark:border-zinc-700/50"
+                className="px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800/80 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 whitespace-nowrap transition-colors flex items-center gap-1 border border-zinc-200/50 dark:border-zinc-700/50 disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {chip.search && <Globe className="w-2.5 h-2.5 text-emerald-500" />}
                 <span>{chip.text}</span>
@@ -738,7 +766,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
                     handleSendMessage();
                   }
                 }}
-                placeholder={`Ask ${selectedRole.name} (e.g. derivations, GPU memory formulas, or recent arXiv papers)...`}
+                placeholder={`Ask ${selectedRole.name} (e.g. derivations, GPU memory formulas, or interview practice)...`}
                 className="flex-1 bg-transparent px-2.5 text-xs sm:text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none placeholder:text-zinc-400"
               />
               <button
@@ -753,8 +781,8 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
             <div className="mt-1.5 flex items-center justify-between text-[10px] text-zinc-400 px-1">
               <span>Enter to send • Multi-turn conversation history is maintained</span>
               <span>
-                Engine: <span className="font-mono text-zinc-500 dark:text-zinc-400">{selectedModel}</span>
-                {isSearchEnabled && ' + Google Search'}
+                Profiles may use the same server-configured model.
+                {isSearchEnabled && canSearch && ' Web search enabled.'}
               </span>
             </div>
           </div>
@@ -806,7 +834,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
                 className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white text-xs font-semibold shadow-xs flex items-center justify-center gap-2 transition-colors"
               >
                 <Sparkles className="w-4 h-4" />
-                <span>{isLoading ? 'Polishing with Gemini...' : 'Polish into 30s Pitch'}</span>
+                <span>{isLoading ? 'Polishing your answer...' : 'Polish into 30s Pitch'}</span>
               </button>
             </div>
 
@@ -1006,7 +1034,7 @@ export const AICopilot: React.FC<AICopilotProps> = ({ initialPrompt }) => {
 
               <div>
                 <label className="block font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
-                  System Instruction (Passed to Gemini)
+                  System Instruction (Passed to the AI Provider)
                 </label>
                 <p className="text-[11px] text-zinc-400 mb-2">
                   Defines the behavior, rigor, tone, and domain focus of the multi-turn chatbot.

@@ -1,6 +1,6 @@
 # Maintenance Handoff
 
-原型基线 `7e7b59b`；工程接管分支 `refactor/codex-foundation`。Audit 先于代码提交。先读 `CODEX_AUDIT.md`、`ARCHITECTURE.md`、`FOUNDATION_REPORT.md`，区分已验证的本地行为与尚未联通的云端环境。
+原型基线 `7e7b59b`；工程接管分支 `refactor/codex-foundation`。Audit 先于代码提交。先读 `CODEX_AUDIT.md`、`ARCHITECTURE.md`、`FOUNDATION_REPORT.md`，区分已验证的本地行为与尚未联通的云端环境。Audit / Foundation Report 保留第一轮历史记录；当前 AI 默认供应商已改为 DeepSeek，现行配置以 `.env.example` 和 DEPLOYMENT 为准。
 
 ## 修改约定
 
@@ -17,6 +17,8 @@
 - 访客单快照保证恢复和关系写入原子性；大体量/多标签页并发是后续工作。
 - 云端九个 userId 查询，无离线 fallback；没有实时多端刷新和冲突检测。
 - 简单间隔调度便于理解和测试；不要把它宣传成 SM-2 / FSRS。
+- AI 默认使用 DeepSeek-V4.1-Flash 的 `deepseek-flash` API 模型名，所有档位关闭 thinking 并使用同一模型；不自动重试或回退到另一付费供应商。Gemini 仅可显式配置启用。
+- DeepSeek 接入没有联网搜索。UI 根据 `/api/capabilities` 禁用搜索，后端也必须拒绝；不能把模型回答中的网址当作已检索的来源。Gemini grounding 保留。
 - 云恢复/重置尚未实现，UI 不展示这些承诺。规则对字段的完整业务 schema 验证仍需后续加强。
 - 临时修正 gaxios 的 uuid 到兼容 v4 API 的 `^11.1.1`，规避间接旧版 advisory。升级 firebase-admin/gaxios 后检查能否移除 overrides。
 - `lint` 目前保留原项目的 TypeScript 检查语义。需要逐步引入 ESLint 时，单独限定受影响文件，避免无关格式大改。
@@ -29,4 +31,4 @@ Node 22.12+；Firestore 模拟器需 Java 21+。本次 Windows 只在被忽略�
 
 ## 下一位维护者先处理
 
-按 DEPLOYMENT 联通测试项目，在真实账号完成登录持久化、双账号隔离、云 CRUD、Admin 撤销验证、真实 Gemini 错误/来源处理。再推进 v0.3，而不是提前搭高级 RAG。参考网站的三方面设计计划已在 ROADMAP 保留。
+按 DEPLOYMENT 联通测试项目，在真实账号完成登录持久化、双账号隔离、云 CRUD、Admin 撤销验证、真实 DeepSeek 调用及错误处理；若启用 Gemini，另验收其 grounding 来源。`configured` 仅反映模型 Key 是否填写，不代表凭证已验证。再推进 v0.3，而不是提前搭高级 RAG。参考网站的三方面设计计划已在 ROADMAP 保留。

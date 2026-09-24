@@ -11,7 +11,9 @@ flowchart LR
   Cloud --> Rules[Owner and relationship rules]
   Browser --> Client[Shared API client + ID token]
   Client --> API[Express: CORS / Auth / limits / validation]
-  API --> Gemini[Gemini API]
+  API --> Provider[Server-selected AI provider]
+  Provider --> DeepSeek[DeepSeek API: default]
+  Provider --> Gemini[Gemini API: optional]
 ```
 
 Firebase Hosting 发布 `dist`，Render 运行编译后的 Express API。开发 Vite 挂载同一个 Express app。生产 Express 也能服务静态 SPA，用于本地验证与可选单服务运行。
@@ -29,7 +31,7 @@ Firebase Hosting 发布 `dist`，Render 运行编译后的 Express API。开发 
 | `src/repositories/` | 类型契约、Zod 实体约束、local/cloud 实现和选择 |
 | `src/services/backup.ts` | 备份格式、关系校验、访客恢复/重置 |
 | `src/services/apiClient.ts` | API base、当前身份 token、超时和错误 |
-| `src/server/` | 授权、配额、输入校验、Gemini 调用与结构化输出校验 |
+| `src/server/` | 授权、配额、输入校验、AI 供应商选择与结构化输出校验 |
 | `src/utils/` | 确定性 heading、frontmatter、纯复习调度函数 |
 
 保留现有 pages，不为目录对称创建大型 framework。业务更复杂后再拆 Knowledge、AICopilot 等大页面。
@@ -63,6 +65,10 @@ Firebase Hosting 发布 `dist`，Render 运行编译后的 Express API。开发 
 
 ## AI 边界
 
-浏览器不导入 Gemini SDK 或 Admin SDK。`apiClient` 校验登录身份并携带 ID token；Admin 验证 token（包括撤销检查）后检查 UID allowlist。模型由服务端环境变量决定，UI 值只作为已知档位选择；结果展示实际 `modelUsed`。
+浏览器不导入模型 SDK 或 Admin SDK。`apiClient` 校验登录身份并携带 ID token；Admin 验证 token（包括撤销检查）后检查 UID allowlist。`AI_PROVIDER` 默认为 `deepseek`，`DEEPSEEK_MODEL` 默认为 `deepseek-flash`（当前为 DeepSeek-V4.1-Flash）；只有显式设置 `AI_PROVIDER=gemini` 才使用原 Gemini 配置。模型由服务端环境变量决定，结果展示实际 `modelUsed`。
+
+DeepSeek 通过服务端原生 fetch 调用固定官方地址。Standard / Deep / Fast 均使用同一个 DeepSeek 模型并关闭 thinking，输出上限 4096 tokens，超时 30 秒；不会自动重试或改用另一付费供应商。结构化结果使用 JSON 模式、提示词中的字段约束和 Zod 验证。Gemini 档位仍可通过 `GEMINI_MODEL` / `GEMINI_PRO_MODEL` / `GEMINI_LITE_MODEL` 分别配置。
+
+公开 `GET /api/capabilities` 只返回 `provider`、`model`、`webSearch`、`configured`，供 UI 展示配置与可用功能；不调用模型、不返回 Key，也不替代认证或实际连通检查。DeepSeek 接入禁用联网搜索，并在服务端拒绝该请求；Google grounding 仅供显式选择的 Gemini 使用。
 
 无 token/无效 token 为 401，未授权 UID 403，未配置服务 503，输入不合法 400，超配额 429，模型失败 502。Provider 错误不把凭证/请求内容发送回浏览器。不伪造联网引用；JD 可关联标题必须属于本次提交的实际标题集合。完整本地知识检索与引用传参仍属下一阶段，不称为 RAG。

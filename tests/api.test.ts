@@ -1,7 +1,8 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import type { Server } from 'node:http';
 import { createApp } from '../src/server/app';
-import * as ai from '../src/server/geminiService';
+import * as ai from '../src/server/aiService';
+import * as provider from '../src/server/aiProvider';
 
 describe('protected Express API', () => {
   let server: Server, base: string;
@@ -36,5 +37,40 @@ describe('protected Express API', () => {
     const failure = await post('/api/copilot/explain', 'owner', { content: 'attention' });
     expect(failure.status).toBe(502); expect(await failure.text()).not.toContain('secret');
     expect((await post('/api/copilot/explain', 'owner', { content: 'again' })).status).toBe(429);
+  });
+});
+
+describe('provider capability boundary', () => {
+  let server: Server, base: string;
+  beforeAll(async () => {
+    vi.restoreAllMocks();
+    vi.stubEnv('AI_PROVIDER', 'deepseek');
+    vi.stubEnv('DEEPSEEK_API_KEY', '');
+    vi.stubEnv('DEEPSEEK_MODEL', 'deepseek-flash');
+    const app = createApp({ verifyToken: async token => ({ uid: token }), allowedUids: ['owner'] });
+    server = await new Promise<Server>(resolve => { const running = app.listen(0, '127.0.0.1', () => resolve(running)); });
+    base = `http://127.0.0.1:${(server.address() as { port: number }).port}`;
+  });
+  afterAll(async () => { await new Promise<void>(resolve => server.close(() => resolve())); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
+  const post = (path: string, body: unknown) => fetch(base + path, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer owner' }, body: JSON.stringify(body) });
+  it('exposes only public capabilities and reports disabled hosted search honestly', async () => {
+    const capabilities = await fetch(base + '/api/capabilities');
+    expect(capabilities.headers.get('cache-control')).toBe('no-store');
+    expect(await capabilities.json()).toEqual({ provider: 'deepseek', model: 'deepseek-flash', webSearch: false, configured: false });
+    for (const route of ['/api/copilot/search-research', '/api/copilot/chat']) {
+      const response = await post(route, route.endsWith('chat') ? { messages: [{ role: 'user', content: 'Latest papers' }], enableSearch: true, model: 'standard' } : { topic: 'Latest papers' });
+      expect(response.status).toBe(501);
+      expect((await response.json()).error).toContain('not available');
+    }
+  });
+  it('accepts neutral profiles and keeps unauthorized model names rejected', async () => {
+    const completion = vi.spyOn(provider, 'generateCompletion').mockResolvedValue({ text: 'Answer', modelUsed: 'deepseek-flash', groundingSources: [], webSearchQueries: [] });
+    for (const profile of ['standard', 'deep', 'fast']) {
+      const response = await post('/api/copilot/chat', { messages: [{ role: 'user', content: 'Attention' }], model: profile });
+      expect(response.status).toBe(200);
+      expect((await response.json()).modelUsed).toBe('deepseek-flash');
+    }
+    const invalid = await post('/api/copilot/chat', { messages: [{ role: 'user', content: 'Attention' }], model: 'unapproved-model' });
+    expect(invalid.status).toBe(400); expect(completion).toHaveBeenCalledTimes(3);
   });
 });
