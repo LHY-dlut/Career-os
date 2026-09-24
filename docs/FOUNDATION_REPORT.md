@@ -43,6 +43,8 @@
 
 浏览器实操（Playwright CLI，生产构建）：全局搜索 RoPE → 文章实体 URL → 刷新/前进/后退；文章 TOC；连续两题评分保存 `seed-q-1`、`seed-q-2`；新建投递并持久化 Withdrawn；新建所属面试；真题升格题库后刷新保持 questionId；导出 JSON → 重置访客 → 恢复备份，投递和关联数据恢复。生产控制台抽查 0 errors / 0 warnings。临时 QA 数据只在独立测试浏览器的 localhost 工作区。
 
+截图检查覆盖 1440×1000 桌面、390×844 手机阅读页；修复手机顶部及文章操作按钮溢出。访客页面 Performance resource 记录中 Firestore 请求为 0，页面无横向溢出；这次运行没有配置 Firebase，已配置 Firebase 时的访客不调用云仓库另由 adapter selection 测试覆盖。主题切换后刷新保持。
+
 ## Build Status
 
 通过。Vite 仍提示主 chunk 约 515 kB（gzip 158 kB）超过默认 500 kB 提示阈值；Markdown 渲染约 482 kB、Firestore 按登录动态加载。此为性能改进项，未通过提高阈值隐藏。安装仍有部分间接包弃用警告；audit 没有报告已知漏洞，不代表不存在未知问题。
@@ -50,6 +52,10 @@
 ## Deployment Status
 
 Firebase Hosting SPA rewrite、Firestore rules、Render build/start/health/env 配置说明均已准备。本地生产运行通过。**未实际部署**：工作区没有用户的真实 Firebase/Auth、Admin、Gemini/Render 凭证，未进行 Google popup、真实双账号云 CRUD、撤销 token、付费 Gemini 调用或跨服务上线验收。健康检查不验证外部凭证。CI 已定义，远程运行结果以 GitHub Actions 为准。
+
+## Git Delivery
+
+已分职责提交并推送 `refactor/codex-foundation`，创建 [Draft PR #1](https://github.com/LHY-dlut/Career-os/pull/1)，没有合并 main。初次推送的 [GitHub Actions](https://github.com/LHY-dlut/Career-os/actions/runs/36014800797) 已通过（提交 `8f16702`）；PR 后续提交以页面当前 checks 为准。连接器创建 PR 返回 403，随后使用本机已有的 GitHub Git 凭据调用官方 API 成功，未输出或写入任何 token。
 
 ## Remaining P1 Issues
 
@@ -79,6 +85,7 @@ Knowledge/AICopilot 仍较大；进一步按职责拆分。主包性能、完整
 - 依赖：`npm install`（新增 router/admin/Zod/限流/Markdown 工具和测试依赖）、`npm install -D esbuild@^0.28.0`、`npm audit`、`npm audit fix`、`npm uninstall -D firebase-tools`、`npm uninstall -D @playwright/test`、`npm ci`。测试工具不作为业务运行依赖；Firebase CLI 最终使用固定版本 npm exec。gaxios.uuid override 解决已知间接依赖问题。
 - 检查：`npm run lint`、`npm run typecheck`、`npm test`、`npm run test:rules`（通过 emulator 调用）、`npm run test:emulator`、`npm run build`（含 build:server）、`npm audit --omit=dev`。
 - 运行：`npm run dev`；`$env:NODE_ENV='production'; $env:PORT='3100'; npm start`；`Invoke-WebRequest` 请求 health、深链接、未登录 POST。
+- 交付：`git push -u origin refactor/codex-foundation`，随后 `git push`；GitHub connector / `Invoke-RestMethod` 创建 draft PR、查询 Actions；本机 `git credential fill` 结果仅在内存用于 GitHub 官方 API 授权，未打印。截图补丁后重跑 typecheck/build。
 - 模拟器前置：通过 Adoptium 官方 API 的 `Invoke-RestMethod` 选择 Windows Java 21 JRE，`Invoke-WebRequest` 下载到 `.tools`，`Expand-Archive` 解压；仅本命令进程设置 `JAVA_HOME`/`Path` 后执行 `npm run test:emulator`。未改变系统 Java。
 - 浏览器：`npx --yes --package @playwright/cli playwright-cli -s=career[-prod]` 下的 `open/goto/snapshot/find/click/fill/select/press/reload/go-back/go-forward/resize/screenshot/eval/run-code/console/dialog-accept`。快照、临时备份、截图存放忽略目录；没有新增低价值端到端测试文件。
 - 工具中间失败均已处理：esbuild peer 版本冲突后统一版本；模拟器 Java 8 不足后使用临时 Java 21；Windows npm ci 文件占用后停 dev 重跑；改动后的旧浏览器 ref 重新 snapshot；CLI `network` 已更名为 `requests`；Vite 修改 provider 的 HMR 错误通过完整重载恢复，生产浏览器独立验证。

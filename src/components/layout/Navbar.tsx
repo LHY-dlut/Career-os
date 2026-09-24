@@ -72,7 +72,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="h-15 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-20 transition-colors">
+    <header className="min-h-15 shrink-0 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-3 sm:px-6 py-2 flex flex-wrap sm:flex-nowrap gap-2 items-center justify-between sticky top-0 z-20 transition-colors">
       {/* Title & Subtitle */}
       <div className="flex flex-col">
         <h1 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 tracking-tight">
@@ -84,15 +84,16 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Right Actions */}
-      <div className="flex items-center gap-2.5">
+      <div className="flex shrink-0 items-center gap-1.5 sm:gap-2.5">
         {/* Cmd + K Global Search Button */}
         <button
+          aria-label="Search workspace"
           onClick={onOpenCommandPalette}
           className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/70 text-slate-500 dark:text-slate-400 text-xs hover:border-slate-300 dark:hover:border-slate-700 transition-colors shadow-2xs"
         >
           <Search className="w-3.5 h-3.5 text-slate-400" />
           <span className="hidden md:inline">Search OS...</span>
-          <kbd className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-[10px] font-mono text-slate-600 dark:text-slate-300 font-semibold border border-slate-300/60 dark:border-slate-700/60">
+          <kbd className="hidden sm:inline px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-[10px] font-mono text-slate-600 dark:text-slate-300 font-semibold border border-slate-300/60 dark:border-slate-700/60">
             ⌘K
           </kbd>
         </button>
@@ -100,6 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Quick Add Menu */}
         <div className="relative" ref={quickAddRef}>
           <button
+            aria-label="Add record"
             onClick={() => setQuickAddOpen(!quickAddOpen)}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold transition-colors shadow-xs"
           >
@@ -183,6 +185,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {currentUser ? (
             <div>
               <button
+                aria-label="Account menu"
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                 className="flex items-center gap-2 p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
@@ -226,11 +229,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           ) : (
             <button
+              aria-label="Sign In"
               onClick={onSignIn}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/40 text-sky-600 dark:text-sky-300 text-xs font-semibold hover:bg-sky-100 dark:hover:bg-sky-900/60 transition-colors"
             >
               <LogIn className="w-3.5 h-3.5" />
-              <span>Sign In</span>
+              <span className="hidden sm:inline">Sign In</span>
             </button>
           )}
         </div>
