@@ -6,3 +6,16 @@ coverage/
 *.log
 .env*
 !.env.example
+
+dist-server/
+output/
+.playwright-cli/
+playwright-report/
+test-results/
+.tools/
+*.tsbuildinfo
+*service-account*.json
+*serviceAccount*.json
+*-firebase-adminsdk-*.json
+credentials/
+.firebase/
