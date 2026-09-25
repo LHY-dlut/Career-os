@@ -8,7 +8,7 @@
 
 - [学习资料库](https://career-os-lhy-dlut.web.app/library)，备用域名为 [firebaseapp.com](https://career-os-lhy-dlut.firebaseapp.com/library)。
 - 使用登录后确认可管理的现有 Firebase 项目；Google 项目创建配额已满，因此在该项目内新建单独站点。发布前通过官方 Billing API 确认 `billingEnabled: false`，没有启用付费计费。
-- 公网首页、`/dashboard`、`/library`、文章深链及主 JS/CSS 均返回 HTTP 200，内容 SHA256 与本地构建一致；本机不经过代理访问两个域名也返回 HTTP 200。手机浏览器的实际网络验收仍由使用者确认。
+- 公网首页、`/dashboard`、`/library`、文章深链及主 JS/CSS 均返回 HTTP 200，内容 SHA256 与本地构建一致；本机不经过代理访问两个域名也返回 HTTP 200。用户已确认手机可正常查看目录并阅读文章。
 - 151 篇线上正文及 4 个许可/provenance 文件全部返回 HTTP 200，SHA256 与 `dist` 一致。阅读器、Markdown 样式和公式字体文件也已核验。
 - 仅发布 Hosting 静态内容；网站内 Google 登录、Firestore 个人记录同步、Render API 和 DeepSeek 调用尚未启用。Firebase CLI 的部署账号登录不等于网站内登录已经配置。
 
