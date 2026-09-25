@@ -69,7 +69,7 @@ node scripts/import-learning-library.mjs
 
 - 原创目录与来源分别保存于 `supplemental-catalog.json`、`supplemental-sources.json`；正文为 `public/library/career-*.md`，授权说明为 `public/library/career-LICENSE.md`。作者为 Career OS 项目贡献者。
 - 六篇单元按 Tensor 形状 → 缩放点积注意力 → MHA 与 mask → RoPE → Decoder Block → GQA/KV Cache 排列；每篇正文中的训练链接和页尾关联使用 `/coding/<taskId>?track=pytorch` 稳定地址。
-- 本轮没有部署生产。151 份既有线上 Markdown 已逐篇只读核对为 HTTP 200 且 SHA-256 与本地相同；新增六篇仅在本地和构建预览验证，不能据此声称线上已更新。
+- 初次交付核验了 151 份既有线上 Markdown；用户随后明确要求上线，现已发布应用提交 `f062d13`，包括新增六篇。部署后全部 157 篇正文均 HTTP 200、SHA-256 与构建一致；详见交付报告的追加发布记录。
 - `/library` 默认八条人工学习路线，`?view=source` 切换来源课程，`course` 指定课程；source/category/tag/q/lang/page 筛选保留在 URL。继续阅读仅保存按账号隔离的本机位置指针，不把公共文章复制进个人工作区。
 
 ### 可追溯的课程顺序

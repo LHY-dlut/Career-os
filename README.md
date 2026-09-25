@@ -6,7 +6,7 @@ Knowledge → Question Bank → Review → Coding → Applications → Interview
 
 在线阅读：[Career OS 学习资料库](https://career-os-lhy-dlut.web.app/library)。2026-09-25 已发布中文默认界面及内置教程，手机浏览器可直接访问；当前线上版的个人记录保存在当前浏览器，账号同步和 DeepSeek 服务尚未启用。部署状态见 [DEPLOYMENT](docs/DEPLOYMENT.md)。
 
-当前分支另含待审查的课程资料库与双轨训练增量，**尚未发布到上述线上站点**：8 条学习路线、6 篇本站教学单元、Hot100 的 100 个可编辑骨架/10 个完整训练包、14 个 PyTorch 完整训练包，首页和 Coding Lab 共用草稿与历史。诊断、实测结果和本地预览入口见 [本轮交付报告](docs/LIBRARY_TRAINING_REPORT.md)。
+2026-09-25 经用户明确要求，课程资料库与双轨训练已发布到同一站点：8 条学习路线、6 篇本站教学单元、Hot100 的 100 个可编辑骨架/10 个完整训练包、14 个 PyTorch 完整训练包，首页和 Coding Lab 共用草稿与历史。[打开首页训练](https://career-os-lhy-dlut.web.app/dashboard)。诊断、实测结果与发布记录见 [本轮交付报告](docs/LIBRARY_TRAINING_REPORT.md)。代码仍通过草稿 PR 审查，没有合并 main。
 
 ## Why
 
@@ -89,7 +89,7 @@ DeepSeek 的 Standard / Deep / Fast 档位都使用同一个模型并关闭 thin
 
 ## Deployment
 
-前端 `npm run build` 后发布 Firebase Hosting；Render 构建 `npm ci --include=dev && npm run build`，启动 `npm start`，健康检查 `/api/health`。详细步骤、secret file、CORS 和上线验收见 [DEPLOYMENT](docs/DEPLOYMENT.md)。已有静态资料站保持在线；本轮课程和训练增量只在本地预览，尚未发布，Render API 仍未启用。
+前端 `npm run build` 后发布 Firebase Hosting；Render 构建 `npm ci --include=dev && npm run build`，启动 `npm start`，健康检查 `/api/health`。详细步骤、secret file、CORS 和上线验收见 [DEPLOYMENT](docs/DEPLOYMENT.md)。当前静态站已包含课程和训练增量，Render API 仍未启用。
 
 ## 数据备份
 

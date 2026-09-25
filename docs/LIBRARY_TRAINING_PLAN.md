@@ -25,4 +25,4 @@
 
 ## 实施结果
 
-已在 `feat/library-curriculum-training` 完成增量；实现、实际统计、139 项应用测试、6 项规则测试、Python/PyTorch 实测、浏览器截图和未核验项见 [LIBRARY_TRAINING_REPORT](LIBRARY_TRAINING_REPORT.md)。当前正式站点保持上一轮版本，本轮不发布。
+已在 `feat/library-curriculum-training` 完成增量；实现、实际统计、139 项应用测试、6 项规则测试、Python/PyTorch 实测、浏览器截图和未核验项见 [LIBRARY_TRAINING_REPORT](LIBRARY_TRAINING_REPORT.md)。初次按计划交付预览，随后用户明确要求上线，应用提交 `f062d13` 已于 2026-09-25 发布到原 Hosting 站点。未合并分支或更改云端私人数据。

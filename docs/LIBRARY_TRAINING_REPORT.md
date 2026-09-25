@@ -1,6 +1,6 @@
 # 课程资料库与首页双轨训练交付报告
 
-日期：2026-09-25。交付范围：可审查代码与本地预览；本轮没有发布 Firebase Hosting、修改生产数据、合并分支或改建认证/AI 服务。
+日期：2026-09-25。首次交付范围为可审查代码与本地预览。用户随后明确要求“部署到我之前那个网站里面”，已将应用提交 `f062d13` 发布到原 Firebase Hosting 站点。没有合并分支、修改云端私人数据或改建认证/AI 服务。下文“本轮未部署”描述首次交付时的历史状态，以本文末尾的追加发布记录为当前状态。
 
 ## 基线与线上核查
 
@@ -117,3 +117,15 @@ CI 保留安装、类型、应用测试、规则、构建、生产服务 smoke�
 正式发布需要用户另行明确要求。届时确认审查提交及现有公开构建配置、备份自己的访客数据，重跑检查并 `npm run build`；沿用 [DEPLOYMENT](DEPLOYMENT.md) 的现有 Hosting target，仅发布该站点。若要公开预览也先确认，再用独立预览 channel，不能把本地截图当成已发布预览 URL。本轮无需数据库迁移或更新规则，不要借发布训练内容覆盖云数据。
 
 回滚使用 Firebase 上一个 Hosting release 或基线 `110fe39` 的相同配置重建；保留新私人草稿/attempt 字段与数据备份，不删除记录、不回退安全规则。旧 UI 不支持新草稿编辑，旧版本导出器可能不保留新增字段；回滚前应先由新版本导出完整备份。回滚只改变静态界面，不应清空浏览器、Firestore 或原文快照。
+
+## 追加发布记录：2026-09-25
+
+初次预览交付后，用户明确要求发布到此前的网站。已重新构建同一应用提交 `f062d13f15e8c4d0366025c818441388aada41f4`，沿用项目 `gen-lang-client-0943515197`、Hosting target `career-os`、站点 `career-os-lhy-dlut`，仅部署 Hosting。CLI 返回 `Deploy complete`，发布 319 个静态文件，其中 85 个文件需要上传。未更改 Firestore 规则、云端私人数据、Auth、模型服务或计费设置，没有合并 PR。
+
+当前入口：[首页代码训练](https://career-os-lhy-dlut.web.app/dashboard)、[课程资料库](https://career-os-lhy-dlut.web.app/library)、[新增 MHA 教程](https://career-os-lhy-dlut.web.app/library/career-mha-masks)。初次交付时关于“六篇教程未上线”的描述现已由本次发布更新。
+
+只读线上校验于 `2026-09-25T07:03:14.152Z` 至 `07:03:38.204Z` 执行：**352/352 项** HTTP 200，响应 SHA-256 全部匹配当前 `dist`，无静态文件被返回 HTML。覆盖全部 319 个文件（103 个构建资源、157 篇正文、5 个许可/来源文件、52 个训练文件、index/favicon）与 33 个 SPA 路由；JS/CSS MIME 和 nosniff 也通过。入口 HTML SHA-256：`b0a474b60bd2dfa5c0efa12146d0805000299f3cdcf8750b432ea537b2b91917`。
+
+线上独立 Chromium 访客会话验证了 100/14 题目录、首页到完整训练的同一草稿、刷新恢复、参考答案不覆盖、PyTorch 测试下载（SHA 与源码一致）、新教程直达及刷新、390px 无整体横向溢出，控制台 0 错误/0 警告。验收草稿只写入该隔离浏览器；未写云端练习记录。真实账号多设备同步仍未启用或验收。
+
+发布证据保存在 `output/hosting-training-release-verification.json`，只读复核脚本为 `output/verify-training-release.cjs`，线上截图为 `output/playwright/release-training-1440.png` 与 `release-library-390.png`。原部署前核查记录保持不变；后续文档提交不改变本次已发布应用构建。

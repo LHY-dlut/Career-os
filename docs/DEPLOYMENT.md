@@ -4,7 +4,7 @@
 
 ## 当前线上状态
 
-2026-09-25 已将前端构建发布到独立 Hosting 站点 `career-os-lhy-dlut`，并发布中文阅读修复：
+2026-09-25 已将前端构建发布到独立 Hosting 站点 `career-os-lhy-dlut`，先发布中文阅读修复，随后经用户明确要求发布课程资料库与双轨训练（应用提交 `f062d13`）：
 
 - [学习资料库](https://career-os-lhy-dlut.web.app/library)，备用域名为 [firebaseapp.com](https://career-os-lhy-dlut.firebaseapp.com/library)。
 - 使用登录后确认可管理的现有 Firebase 项目；Google 项目创建配额已满，因此在该项目内新建单独站点。发布前通过官方 Billing API 确认 `billingEnabled: false`，没有启用付费计费。
@@ -12,6 +12,7 @@
 - 151 篇线上正文及 4 个许可/provenance 文件全部返回 HTTP 200，SHA256 与 `dist` 一致。阅读器、Markdown 样式和公式字体文件也已核验。
 - 中文阅读修复包含 6 篇未编辑入门文章的中文展示副本、35 组 ARIS 中英文资料的默认语言选择和逐篇切换，以及中文标题/目录。151 篇收录正文和出处文件保持原样，个人文章不自动改写。修复通过 TypeScript 检查、105 项单元/集成测试及生产构建；390px 手机宽度下实测中文正文、公式、中英文切换和无页面横向溢出。重新发布后，公网页面与入口 JS/CSS 的 SHA256 均匹配当前构建。
 - 仅发布 Hosting 静态内容；网站内 Google 登录、Firestore 个人记录同步、Render API 和 DeepSeek 调用尚未启用。Firebase CLI 的部署账号登录不等于网站内登录已经配置。
+- 课程与训练版本包含 8 条学习路线、6 篇独立教学单元、100 个 Hot100 骨架/10 个完整包、14 个 PyTorch 完整包和共享草稿。使用原 target `career-os` → `career-os-lhy-dlut` 发布 319 个静态文件；没有更改 Firestore、账号配置或云端私人数据。线上已验证目录 100/14、首页与完整页草稿及刷新、题解不覆盖、测试下载和 390px 新教材阅读。
 
 ## 只发布学习资料的最短路径
 
@@ -146,8 +147,8 @@ npm exec --yes --package=firebase-tools@15.31.0 -- firebase deploy --only hostin
 
 回滚用上一版 Git commit 重新构建并发布；无自动数据迁移。规则回滚可能重新打开已修复的权限漏洞，应优先修复兼容数据，不能无审查退回原型规则。
 
-## 6. 课程与双轨训练的待发布增量
+## 6. 课程与双轨训练的发布
 
-`feat/library-curriculum-training` 基于 `110fe39` 提供课程目录、独立教材和共享训练草稿。本轮只交付代码与本地 `http://localhost:3100` 预览，正式站点保持原有版本。详细实测、截图、边界和回滚说明见 [LIBRARY_TRAINING_REPORT](LIBRARY_TRAINING_REPORT.md)。
+`feat/library-curriculum-training` 基于 `110fe39` 提供课程目录、独立教材和共享训练草稿。初次交付为本地预览；用户随后明确要求部署到之前的网站，已发布应用提交 `f062d13`。详细实测、截图、边界和回滚说明见 [LIBRARY_TRAINING_REPORT](LIBRARY_TRAINING_REPORT.md)。
 
-以后明确发布该增量时，沿用当前 Firebase Hosting target 与公开构建配置；它只新增静态文件和兼容的私人记录字段，不需要迁移/清空数据库或重新发布安全规则。回滚前用新版本导出备份，避免旧版导出器忽略新增草稿字段；保留已有私人快照和 attempt，不用数据删除来回滚界面。
+此次沿用当前 Firebase Hosting target 与公开构建配置，仅执行 `firebase deploy --only hosting:career-os --project gen-lang-client-0943515197`。它只新增静态文件和兼容的私人记录字段，不需要迁移/清空数据库或重新发布安全规则。回滚前用新版本导出备份，避免旧版导出器忽略新增草稿字段；保留已有私人快照和 attempt，不用数据删除来回滚界面。
