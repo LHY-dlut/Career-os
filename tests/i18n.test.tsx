@@ -4,6 +4,7 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { I18nProvider, LANGUAGE_STORAGE_KEY, useI18n } from '../src/i18n/I18nProvider';
 import { Navbar } from '../src/components/layout/Navbar';
+import { MemoryRouter } from 'react-router-dom';
 
 beforeEach(() => localStorage.clear());
 afterEach(() => { cleanup(); vi.restoreAllMocks(); });
@@ -18,16 +19,16 @@ function Page() {
     <span>{translateMessage('AI request timed out. Please retry.')}</span>
   </>;
 }
-const tree = () => <I18nProvider><Page /></I18nProvider>;
+const tree = () => <I18nProvider><MemoryRouter initialEntries={['/dashboard']}><Page /></MemoryRouter></I18nProvider>;
 
 it('switches the real navbar immediately and preserves drafts, enum values, records and the choice after remount', () => {
   localStorage.setItem('ai_career_os:guest:workspace', '{"title":"Original record"}');
   const app = render(tree());
-  expect(screen.getByRole('heading', { name: '学习总览' })).toBeTruthy();
+  expect(screen.getByRole('link', { name: '学习总览' })).toBeTruthy();
   expect(document.documentElement.lang).toBe('zh-CN');
   fireEvent.change(screen.getByLabelText('user draft'), { target: { value: '未保存的自写内容' } });
   fireEvent.click(screen.getByRole('button', { name: '切换为英文' }));
-  expect(screen.getByRole('heading', { name: 'Dashboard' })).toBeTruthy();
+  expect(screen.getByRole('link', { name: 'Dashboard' })).toBeTruthy();
   expect((screen.getByLabelText('user draft') as HTMLInputElement).value).toBe('未保存的自写内容');
   expect((screen.getByLabelText('status') as HTMLSelectElement).value).toBe('Applied');
   expect(screen.getByRole('option', { name: 'Applied' })).toBeTruthy();
@@ -36,7 +37,7 @@ it('switches the real navbar immediately and preserves drafts, enum values, reco
   expect(screen.getByTestId('locale').textContent).toBe('en-US');
   app.unmount();
   render(tree());
-  expect(screen.getByRole('heading', { name: 'Dashboard' })).toBeTruthy();
+  expect(screen.getByRole('link', { name: 'Dashboard' })).toBeTruthy();
   fireEvent.click(screen.getByRole('button', { name: 'Switch to Chinese' }));
   expect(screen.getByRole('option', { name: '已投递' })).toBeTruthy();
   expect(screen.getByText('AI 请求超时，请重试。')).toBeTruthy();
@@ -45,9 +46,9 @@ it('switches the real navbar immediately and preserves drafts, enum values, reco
 it('falls back from invalid preferences and follows changes made in another browser tab', () => {
   localStorage.setItem(LANGUAGE_STORAGE_KEY, 'unknown');
   render(tree());
-  expect(screen.getByRole('heading', { name: '学习总览' })).toBeTruthy();
+  expect(screen.getByRole('link', { name: '学习总览' })).toBeTruthy();
   act(() => window.dispatchEvent(new StorageEvent('storage', { key: LANGUAGE_STORAGE_KEY, newValue: 'en' })));
-  expect(screen.getByRole('heading', { name: 'Dashboard' })).toBeTruthy();
+  expect(screen.getByRole('link', { name: 'Dashboard' })).toBeTruthy();
   expect(document.documentElement.lang).toBe('en');
   act(() => window.dispatchEvent(new StorageEvent('storage', { key: LANGUAGE_STORAGE_KEY, newValue: null })));
   expect(document.documentElement.lang).toBe('zh-CN');
@@ -58,5 +59,5 @@ it('still switches during a session when browser storage is unavailable', () => 
   vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => { throw new Error('Storage blocked'); });
   render(tree());
   fireEvent.click(screen.getByRole('button', { name: '切换为英文' }));
-  expect(screen.getByRole('heading', { name: 'Dashboard' })).toBeTruthy();
+  expect(screen.getByRole('link', { name: 'Dashboard' })).toBeTruthy();
 });

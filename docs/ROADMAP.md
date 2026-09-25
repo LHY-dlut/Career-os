@@ -1,6 +1,6 @@
 # Roadmap
 
-每个版本以真实数据和可验证闭环为验收条件；当前第一轮止于 v0.2 工程基础。
+每个版本以真实数据和可验证闭环为验收条件。第一轮完成 v0.2 工程基础；随后按用户偏好实现中英切换和 AIInfraGuide 风格的学习门户布局，业务闭环和检索工作继续按下列顺序推进。
 
 | 版本 | 范围 | 验收 |
 | --- | --- | --- |
@@ -18,12 +18,12 @@
 | 参考 | 计划借鉴 | 首轮与后续 |
 | --- | --- | --- |
 | [卡码 LLM 面试](https://notes.kamacoder.com/interview/llm/) | 专题/章节、面试问题入口、短答案到深入解释 | 首轮稳定文章/题目链接；后续 Domain→Topic→Question 内容树 |
-| [AIInfraGuide](https://caomaolufei.github.io/AIInfraGuide/) | 学习路线、前置知识、内容分区与数量 | 后续学习总览、路径和真实进度 |
+| [AIInfraGuide](https://caomaolufei.github.io/AIInfraGuide/) | 顶部导航、居中首屏、内容分区、分类卡片与阅读目录 | 已落地学习门户、真实文章数量、最近更新、分类 URL 与阅读布局；个性化学习路径后续实现 |
 | [labuladong](https://labuladong.online/zh/algo/essential-technique/algorithm-summary/) | 章节导航、正文目录、代码框架、关联阅读 | 首轮共享 heading ID、公式/代码、前后篇；后续阅读列宽/目录定位与章节树完善 |
 | [ARIS in AI Offer](https://wanshuiyin.github.io/ARIS-in-AI-Offer/) | 主题卡片、难度筛选、搜索、阅读标记、明暗主题 | 首轮修复搜索与主题；后续速查卡、真实阅读历史、统一信息层级 |
 
-视觉方向保留 slate / sky / indigo，增强阅读区留白、正文层级和移动端导航。内容来自用户积累或明确许可来源；不批量复制第三方文章。先为 Knowledge 一页制作可运行设计稿并验证交互，再推广到题库与学习总览。
+视觉方向保留 slate / sky / indigo，采用用户偏好的 AIInfraGuide 门户布局，增强留白、正文层级和移动端导航。内容来自用户积累或明确许可来源；不批量复制第三方文章。当前已覆盖学习首页与知识阅读，后续按实际使用反馈统一题库和求职页面的视觉细节。
 
 ## 下一轮建议
 
-优先在真实测试云项目完成 Auth/Firestore/Render/DeepSeek 联通，然后完成 v0.3 的 InterviewQuestion ↔ Question 双向闭环；同时用一个 Knowledge 页面落实三方面参考效果。完整设计改版需要单独验收，不在首轮暗中扩展。
+优先在真实测试云项目完成 Auth/Firestore/Render/DeepSeek 联通，然后完成 v0.3 的 InterviewQuestion ↔ Question 双向闭环。学习门户布局已可本地验收；课程内容扩充与个性化路线独立推进。

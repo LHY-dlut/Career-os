@@ -1,28 +1,13 @@
-import { useI18n } from '../i18n/I18nProvider';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
-  Sparkles,
-  Calendar,
-  RotateCcw,
-  CheckCircle2,
-  Clock,
-  Briefcase,
-  Code2,
-  BookOpen,
-  ArrowRight,
-  TrendingUp,
-  AlertTriangle,
-  Layers,
+  Sparkles, Calendar, RotateCcw, CheckCircle2, Briefcase, Code2,
+  BookOpen, ArrowRight, Layers, Network, BrainCircuit, Search, Bot, Database,
+  Cpu, Languages, type LucideIcon,
 } from 'lucide-react';
-import type {
-  KnowledgeArticle,
-  Question,
-  Application,
-  Interview,
-  ReviewHistory,
-  CodingProblem,
-  CodingAttempt,
-} from '../types';
+import { useI18n } from '../i18n/I18nProvider';
+import { getKnowledgeCategories, knowledgeCategoryPath, getCategoryDescription } from '../utils/knowledgeCatalog';
+import type { KnowledgeArticle, Question, Application, Interview, ReviewHistory, CodingProblem, CodingAttempt } from '../types';
 
 interface DashboardProps {
   questions: Question[];
@@ -36,471 +21,184 @@ interface DashboardProps {
   onQuickAdd: (type: 'article' | 'question' | 'application' | 'interview') => void;
 }
 
+const categoryStyles: Record<string, { icon: LucideIcon; color: string }> = {
+  '01 Transformer': { icon: Network, color: 'bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-300' },
+  '02 LLM': { icon: BrainCircuit, color: 'bg-violet-50 text-violet-600 dark:bg-violet-950/60 dark:text-violet-300' },
+  '03 RAG': { icon: Search, color: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-300' },
+  '04 Agent': { icon: Bot, color: 'bg-amber-50 text-amber-600 dark:bg-amber-950/60 dark:text-amber-300' },
+  '05 Text-to-SQL': { icon: Database, color: 'bg-cyan-50 text-cyan-600 dark:bg-cyan-950/60 dark:text-cyan-300' },
+  '06 Machine Learning': { icon: Layers, color: 'bg-rose-50 text-rose-600 dark:bg-rose-950/60 dark:text-rose-300' },
+  '07 Deep Learning': { icon: Cpu, color: 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/60 dark:text-indigo-300' },
+  '08 NLP': { icon: Languages, color: 'bg-orange-50 text-orange-600 dark:bg-orange-950/60 dark:text-orange-300' },
+};
+const panelClass = 'min-w-0 rounded-2xl border border-zinc-200/80 bg-white p-5 sm:p-6 dark:border-zinc-800 dark:bg-[#12161f]';
+const textLinkClass = 'inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300';
+
 export const Dashboard: React.FC<DashboardProps> = ({
-  questions,
-  articles,
-  applications,
-  interviews,
-  reviewHistory,
-  codingProblems,
-  codingAttempts,
-  onNavigate,
-  onQuickAdd,
+  questions, articles, applications, interviews, reviewHistory, codingProblems, codingAttempts, onQuickAdd,
 }) => {
-  const { t, locale, label } = useI18n();
+  const { t, language, locale, label } = useI18n();
   const now = new Date();
-
-  // Questions due for review today
-  const dueQuestions = questions.filter((q) => {
-    if (!q.nextReviewAt) return true; // Unseen or unreviewed
-    return new Date(q.nextReviewAt) <= now;
-  });
-
-  const masteredQuestions = questions.filter((q) => q.masteryLevel === 'Mastered');
-  const learningQuestions = questions.filter(
-    (q) => q.masteryLevel === 'Learning' || q.masteryLevel === 'Reviewing'
-  );
-
-  // Upcoming interviews
+  const dueQuestions = questions.filter(q => !q.nextReviewAt || new Date(q.nextReviewAt) <= now);
+  const masteredQuestions = questions.filter(q => q.masteryLevel === 'Mastered');
   const upcomingInterviews = interviews
-    .filter((inv) => inv.result === 'Scheduled' && new Date(inv.scheduledAt) >= now)
+    .filter(inv => inv.result === 'Scheduled' && new Date(inv.scheduledAt) >= now)
     .sort((a, b) => new Date(a.scheduledAt).getTime() - new Date(b.scheduledAt).getTime());
-
-  // Applications pipeline breakdown
+  const todayReviewCount = reviewHistory.filter(review => new Date(review.reviewedAt).toDateString() === now.toDateString()).length;
+  const knowledgeCategories = getKnowledgeCategories(articles);
+  const updatedTimestamp = (article: KnowledgeArticle) => {
+    const value = new Date(article.updatedAt).getTime();
+    return Number.isFinite(value) ? value : 0;
+  };
+  const recentArticles = [...articles].sort((a, b) => updatedTimestamp(b) - updatedTimestamp(a)).slice(0, 3);
+  const formatDate = (value: string) => {
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? t('Date unavailable', '日期未记录') : date.toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' });
+  };
   const stages = [
-    { label: 'Wishlist', count: applications.filter((a) => a.status === 'Wishlist').length, color: 'text-zinc-500' },
-    { label: 'Applied', count: applications.filter((a) => a.status === 'Applied').length, color: 'text-blue-500' },
-    { label: 'Assessment', count: applications.filter((a) => a.status === 'Assessment').length, color: 'text-amber-500' },
-    { label: 'Interviewing', count: applications.filter((a) => a.status === 'Interviewing').length, color: 'text-indigo-500' },
-    { label: 'Offer', count: applications.filter((a) => a.status === 'Offer').length, color: 'text-emerald-500' },
-    { label: 'Rejected', count: applications.filter((a) => a.status === 'Rejected').length, color: 'text-rose-500' },
+    { name: 'Wishlist', color: 'text-zinc-500' }, { name: 'Applied', color: 'text-blue-500' },
+    { name: 'Assessment', color: 'text-amber-500' }, { name: 'Interviewing', color: 'text-indigo-500' },
+    { name: 'Offer', color: 'text-emerald-500' }, { name: 'Rejected', color: 'text-rose-500' },
+  ];
+  const categoryStats = ['Transformer', 'LLM', 'RAG', 'Agent', 'Inference', 'Machine Learning'].map(category => {
+    const items = questions.filter(q => q.category.toLowerCase().includes(category.toLowerCase()));
+    const mastered = items.filter(q => q.masteryLevel === 'Mastered').length;
+    return { category, mastered, total: items.length, percentage: items.length ? Math.round(mastered / items.length * 100) : 0 };
+  });
+  const metrics = [
+    { href: '/questions', icon: CheckCircle2, name: t('Question Bank', '面试题库'), count: questions.length, detail: t(`${masteredQuestions.length} mastered · ${questions.length ? Math.round(masteredQuestions.length / questions.length * 100) : 0}% mastery`, `已掌握 ${masteredQuestions.length} 道 · 掌握率 ${questions.length ? Math.round(masteredQuestions.length / questions.length * 100) : 0}%`), color: 'text-emerald-600 dark:text-emerald-400' },
+    { href: '/review', icon: RotateCcw, name: t('Due for Review', '待复习题目'), count: dueQuestions.length, detail: t(`${todayReviewCount} reviews completed today`, `今天已完成 ${todayReviewCount} 次复习`), color: 'text-amber-600 dark:text-amber-400' },
+    { href: '/applications', icon: Briefcase, name: t('Applications', '求职投递'), count: applications.length, detail: t(`${applications.filter(a => a.status === 'Interviewing').length} interviewing · ${applications.filter(a => a.status === 'Offer').length} offers`, `${applications.filter(a => a.status === 'Interviewing').length} 个面试中 · ${applications.filter(a => a.status === 'Offer').length} 份录用`), color: 'text-blue-600 dark:text-blue-400' },
+    { href: '/interviews', icon: Calendar, name: t('Upcoming Interviews', '即将到来的面试'), count: upcomingInterviews.length, detail: upcomingInterviews[0] ? t(`Next: ${upcomingInterviews[0].companyName}`, `下一场：${upcomingInterviews[0].companyName}`) : t('No upcoming rounds', '暂无待面试轮次'), color: 'text-violet-600 dark:text-violet-400' },
   ];
 
-  // Category mastery calculation
-  const categories = ['Transformer', 'LLM', 'RAG', 'Agent', 'Inference', 'Machine Learning'];
-  const categoryStats = categories.map((cat) => {
-    const catQuestions = questions.filter((q) =>
-      q.category.toLowerCase().includes(cat.toLowerCase())
-    );
-    const catMastered = catQuestions.filter((q) => q.masteryLevel === 'Mastered').length;
-    const catTotal = catQuestions.length || 1;
-    const percentage = Math.round((catMastered / catTotal) * 100);
-    return {
-      category: cat,
-      mastered: catMastered,
-      total: catQuestions.length,
-      percentage: catQuestions.length === 0 ? 0 : percentage,
-    };
-  });
-
   return (
-    <div className="max-w-7xl mx-auto px-6 py-8 space-y-8 animate-in fade-in duration-200">
-      {/* Welcome Banner / Overview */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 rounded-2xl bg-gradient-to-br from-indigo-50 via-white to-blue-50/50 dark:from-[#131926] dark:via-[#10141e] dark:to-[#0f1422] border border-indigo-100/80 dark:border-indigo-950/60 shadow-xs">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
-              {t("Personal Interview Prep OS", "个人面试准备工作台")}
-            </span>
-            <span className="text-xs text-zinc-400">
-              {now.toLocaleDateString(locale, { weekday: 'long', month: 'short', day: 'numeric' })}
-            </span>
+    <div className="min-w-0 bg-white text-zinc-900 dark:bg-[#0c1017] dark:text-zinc-100">
+      <section className="guide-hero relative flex min-h-[480px] items-center justify-center overflow-hidden border-b border-zinc-100 px-5 py-20 text-center dark:border-zinc-800/70 sm:min-h-[510px] sm:px-8" aria-labelledby="guide-title">
+        <div className="relative z-10 mx-auto w-full max-w-3xl">
+          <div className="mb-7 inline-flex max-w-full items-center gap-2 rounded-full border border-indigo-200/70 bg-white/80 px-4 py-1.5 text-xs font-medium text-indigo-700 dark:border-indigo-800/60 dark:bg-indigo-950/40 dark:text-indigo-300 sm:text-sm">
+            <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+            {t('Your guide to AI learning & careers', '个人 AI 学习与求职指南')}
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-            {t("LLM & Algorithm Engineering Readiness", "大模型与算法工程师求职准备")}
-          </h2>
-          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-2xl">
-            {t("Knowledge Learning → Question Bank → Coding Practice → Applications → Retrospective → Spaced Review", "知识学习 → 面试题库 → 编程练习 → 求职投递 → 面试复盘 → 间隔复习")}
+          <h1 id="guide-title" className="text-[42px] font-bold leading-tight tracking-[-0.045em] text-zinc-900 dark:text-white sm:text-[64px]">
+            AI Career <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-500 bg-clip-text text-transparent dark:from-blue-400 dark:via-indigo-400 dark:to-violet-400">OS</span>
+          </h1>
+          <p className="mt-5 text-xl font-medium leading-relaxed tracking-tight text-zinc-700 dark:text-zinc-200 sm:text-2xl">
+            {t('Build your AI knowledge. Step into interviews with confidence.', '把 AI 知识，变成面试中的底气。')}
           </p>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-          <button
-            onClick={() => onNavigate('review')}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold whitespace-nowrap shadow-xs transition-colors"
-          >
-            <RotateCcw className="w-4 h-4" />
-            <span>{t(`Review ${dueQuestions.length} Questions`, `复习 ${dueQuestions.length} 道题`)}</span>
-          </button>
-          <button
-            onClick={() => onNavigate('copilot')}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-xs font-medium whitespace-nowrap transition-colors"
-          >
-            <Sparkles className="w-4 h-4 text-indigo-500" />
-            <span>{t("AI Copilot", "AI 助手")}</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Top Metrics Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div
-          onClick={() => onNavigate('questions')}
-          className="p-4 rounded-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 cursor-pointer hover:border-indigo-300 dark:hover:border-indigo-800 transition-all shadow-xs"
-        >
-          <div className="flex items-center justify-between text-zinc-500 text-xs mb-2">
-            <span>{t("Question Bank", "面试题库")}</span>
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-          </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-              {questions.length}
-            </span>
-            <span className="text-xs text-zinc-500">
-              {t(`(${masteredQuestions.length} Mastered)`, `（已掌握 ${masteredQuestions.length} 道）`)}
-            </span>
-          </div>
-          <div className="mt-2 text-[11px] text-zinc-500 flex items-center justify-between">
-            <span>{t("Mastery rate", "掌握率")}</span>
-            <span className="font-semibold text-emerald-600 dark:text-emerald-400">
-              {questions.length > 0 ? Math.round((masteredQuestions.length / questions.length) * 100) : 0}%
-            </span>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-zinc-500 dark:text-zinc-400 sm:text-base">
+            {t('Explore core AI concepts, practice what you learn, and keep your interview preparation and career progress connected.', '从核心原理到动手实践，系统积累 AI 知识，让学习、面试准备与求职进展彼此连接。')}
+          </p>
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <Link to="/knowledge" className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm shadow-indigo-200/50 transition-colors hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-500 dark:shadow-none">
+              {t('Start learning', '开始学习')} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+            <Link to="/review" className="inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-white/90 px-6 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:border-indigo-300 hover:bg-indigo-50/50 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-200 dark:hover:bg-zinc-800">
+              <RotateCcw className="h-4 w-4" aria-hidden="true" /> {t('Review today', '今日复习')}
+            </Link>
           </div>
         </div>
+      </section>
 
-        <div
-          onClick={() => onNavigate('review')}
-          className="p-4 rounded-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 cursor-pointer hover:border-amber-300 dark:hover:border-amber-800 transition-all shadow-xs"
-        >
-          <div className="flex items-center justify-between text-zinc-500 text-xs mb-2">
-            <span>{t("Due for Review", "待复习题目")}</span>
-            <Clock className="w-4 h-4 text-amber-500" />
-          </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-amber-600 dark:text-amber-400">
-              {dueQuestions.length}
-            </span>
-            <span className="text-xs text-zinc-500">{t("questions", "道题")}</span>
-          </div>
-          <div className="mt-2 text-[11px] text-amber-600 dark:text-amber-400 flex items-center gap-1 font-medium">
-            <span>{t("Ready for spaced recall", "开始间隔复习，巩固记忆")}</span>
-            <ArrowRight className="w-3 h-3" />
-          </div>
-        </div>
-
-        <div
-          onClick={() => onNavigate('applications')}
-          className="p-4 rounded-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 cursor-pointer hover:border-blue-300 dark:hover:border-blue-800 transition-all shadow-xs"
-        >
-          <div className="flex items-center justify-between text-zinc-500 text-xs mb-2">
-            <span>{t("Applications CRM", "求职管理")}</span>
-            <Briefcase className="w-4 h-4 text-blue-500" />
-          </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-              {applications.length}
-            </span>
-            <span className="text-xs text-zinc-500">
-              {t(`(${applications.filter((a) => a.status === 'Interviewing').length} active)`, `（面试中 ${applications.filter((a) => a.status === 'Interviewing').length} 个）`)}
-            </span>
-          </div>
-          <div className="mt-2 text-[11px] text-zinc-500 flex items-center justify-between">
-            <span>{t("Offers secured", "已获录用")}</span>
-            <span className="font-semibold text-emerald-600 dark:text-emerald-400">
-              {applications.filter((a) => a.status === 'Offer').length}
-            </span>
-          </div>
-        </div>
-
-        <div
-          onClick={() => onNavigate('interviews')}
-          className="p-4 rounded-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 cursor-pointer hover:border-purple-300 dark:hover:border-purple-800 transition-all shadow-xs"
-        >
-          <div className="flex items-center justify-between text-zinc-500 text-xs mb-2">
-            <span>{t("Upcoming Rounds", "即将到来的面试")}</span>
-            <Calendar className="w-4 h-4 text-purple-500" />
-          </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-              {upcomingInterviews.length}
-            </span>
-            <span className="text-xs text-zinc-500">{t("scheduled", "场已安排")}</span>
-          </div>
-          <div className="mt-2 text-[11px] text-zinc-500 truncate">
-            {upcomingInterviews[0] ? (
-              <span>{t('Next:', '下一场：')} {upcomingInterviews[0].companyName}</span>
-            ) : (
-              <span>{t("No upcoming rounds", "暂无待面试轮次")}</span>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Main Grid: Today Priorities & Knowledge Mastery */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left 2 Columns: Today Action Items & Up Next */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Upcoming Interviews Card */}
-          <div className="p-5 rounded-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 shadow-xs">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-indigo-600" />
-                <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                  {t("Upcoming Interviews & Scheduled Rounds", "待面试与已安排轮次")}
-                </h3>
-              </div>
-              <button
-                onClick={() => onNavigate('interviews')}
-                className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 font-medium"
-              >
-                <span>{t("View All", "查看全部")}</span>
-                <ArrowRight className="w-3 h-3" />
-              </button>
+      <div className="mx-auto max-w-6xl space-y-16 px-5 py-14 sm:space-y-20 sm:px-8 sm:py-16">
+        <section aria-labelledby="knowledge-catalog-title">
+          <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-400">{t('Explore & learn', '知识地图')}</p>
+              <h2 id="knowledge-catalog-title" className="text-2xl font-bold tracking-tight sm:text-3xl">{t('Knowledge Library', '知识库')}</h2>
+              <p className="mt-3 text-sm leading-6 text-zinc-500 dark:text-zinc-400">{t('Find a direction, connect the concepts, and build your own understanding.', '选一个方向，从理解概念开始，逐步建立自己的知识体系。')}</p>
             </div>
-
-            {upcomingInterviews.length === 0 ? (
-              <div className="py-6 text-center text-xs text-zinc-500 bg-zinc-50 dark:bg-zinc-900/40 rounded-lg">
-                {t("No interviews scheduled for this week. Log a new round when recruiters reach out!", "暂无待面试安排。收到招聘方通知后，可以添加新的面试轮次。")}
-              </div>
-            ) : (
-              <div className="space-y-2.5">
-                {upcomingInterviews.map((inv) => (
-                  <div
-                    key={inv.id}
-                    onClick={() => onNavigate('interviews', inv.id)}
-                    className="p-3 rounded-lg border border-zinc-200/80 dark:border-zinc-800/80 hover:border-indigo-300 dark:hover:border-indigo-800 bg-zinc-50/50 dark:bg-zinc-900/30 flex items-center justify-between cursor-pointer transition-colors"
-                  >
-                    <div className="space-y-0.5">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
-                          {inv.companyName}
-                        </span>
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-medium">
-                          {t(`Round ${inv.roundNumber}`, `第 ${inv.roundNumber} 轮`)}
-                        </span>
-                      </div>
-                      <p className="text-xs text-zinc-600 dark:text-zinc-400">
-                        {inv.roundName} {t(`(${inv.durationMinutes} min)`, `（${inv.durationMinutes} 分钟）`)}
-                      </p>
-                    </div>
-
-                    <div className="text-right text-xs">
-                      <div className="font-medium text-zinc-900 dark:text-zinc-200">
-                        {new Date(inv.scheduledAt).toLocaleDateString(locale, {
-                          month: 'short',
-                          day: 'numeric',
-                        })}
-                      </div>
-                      <div className="text-[11px] text-zinc-500">
-                        {new Date(inv.scheduledAt).toLocaleTimeString(locale, {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}
-                      </div>
-                    </div>
+            <Link to="/knowledge" className={textLinkClass}>{t('Browse all articles', '浏览全部文章')} <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+          </div>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {knowledgeCategories.map(category => {
+              const style = categoryStyles[category] || { icon: BookOpen, color: 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/60 dark:text-indigo-300' };
+              const Icon = style.icon;
+              const count = articles.filter(article => article.category === category).length;
+              return (
+                <Link key={category} to={knowledgeCategoryPath(category)} className="group flex min-w-0 flex-col rounded-2xl border border-zinc-200/80 bg-white p-6 transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-md hover:shadow-indigo-100/40 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-500 dark:border-zinc-800 dark:bg-[#12161f] dark:hover:border-indigo-700 dark:hover:shadow-none">
+                  <span className={`mb-5 flex h-11 w-11 items-center justify-center rounded-xl ${style.color}`}><Icon className="h-5 w-5" aria-hidden="true" /></span>
+                  <h3 className="break-words text-lg font-semibold tracking-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-300">{label(category).replace(/^\d+\s+/, '')}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-7 text-zinc-500 dark:text-zinc-400">{getCategoryDescription(category, language)}</p>
+                  <div className="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-zinc-100 pt-4 text-sm dark:border-zinc-800">
+                    <span className="text-zinc-400 dark:text-zinc-500">{t(`${count} ${count === 1 ? 'article' : 'articles'}`, `${count} 篇文章`)}</span>
+                    <span className="inline-flex items-center gap-1.5 font-medium text-indigo-600 dark:text-indigo-400">{t('Explore', '开始探索')} <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" /></span>
                   </div>
-                ))}
-              </div>
-            )}
+                </Link>
+              );
+            })}
           </div>
+        </section>
 
-          {/* Today Spaced Repetition Queue */}
-          <div className="p-5 rounded-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 shadow-xs">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <RotateCcw className="w-4 h-4 text-amber-500" />
-                <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                  {t(`Questions to Review Today (${dueQuestions.length})`, `今日待复习（${dueQuestions.length} 道）`)}
-                </h3>
-              </div>
-              <button
-                onClick={() => onNavigate('review')}
-                className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 font-medium"
-              >
-                <span>{t("Start Review", "开始复习")}</span>
-                <ArrowRight className="w-3 h-3" />
-              </button>
+        <section aria-labelledby="recent-articles-title">
+          <div className="mb-7 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 id="recent-articles-title" className="text-2xl font-bold tracking-tight">{t('Recently updated', '最近更新')}</h2>
+              <p className="mt-2 text-sm leading-6 text-zinc-500 dark:text-zinc-400">{t('Pick up the latest notes in your workspace.', '从最近整理的笔记，继续你的学习。')}</p>
             </div>
-
-            {dueQuestions.length === 0 ? (
-              <div className="py-6 text-center text-xs text-zinc-500 bg-zinc-50 dark:bg-zinc-900/40 rounded-lg">
-                {t("Great job! All spaced review questions are up to date.", "已完成所有到期复习，继续保持！")}
-              </div>
-            ) : (
-              <div className="space-y-2">
-                {dueQuestions.slice(0, 4).map((q) => (
-                  <div
-                    key={q.id}
-                    onClick={() => onNavigate('questions', q.id)}
-                    className="p-3 rounded-lg border border-zinc-200/60 dark:border-zinc-800/60 hover:border-indigo-300 dark:hover:border-indigo-800 flex items-center justify-between cursor-pointer transition-colors"
-                  >
-                    <div className="space-y-0.5 overflow-hidden">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium text-zinc-900 dark:text-zinc-100 truncate">
-                          {q.title}
-                        </span>
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-500 shrink-0">
-                          {label(q.category)}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-zinc-500 line-clamp-1">
-                        {q.conciseAnswer}
-                      </p>
-                    </div>
-
-                    <span
-                      className={`text-[10px] px-2 py-0.5 rounded-full shrink-0 font-medium ${
-                        q.difficulty === 'Easy'
-                          ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400'
-                          : q.difficulty === 'Medium'
-                          ? 'bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-400'
-                          : 'bg-rose-50 text-rose-600 dark:bg-rose-950/50 dark:text-rose-400'
-                      }`}
-                    >
-                      {label(q.difficulty)}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
+            <Link to="/knowledge" className={textLinkClass}>{t('View all', '查看全部')} <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
           </div>
-
-          {/* Job Pipeline Funnel Cards */}
-          <div className="p-5 rounded-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 shadow-xs">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Briefcase className="w-4 h-4 text-indigo-600" />
-                <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                  {t("Application Pipeline Funnel", "求职进度概览")}
-                </h3>
-              </div>
-              <button
-                onClick={() => onNavigate('applications')}
-                className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 font-medium"
-              >
-                <span>{t("Manage CRM", "管理投递")}</span>
-                <ArrowRight className="w-3 h-3" />
-              </button>
-            </div>
-
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-              {stages.map((st) => (
-                <div
-                  key={st.label}
-                  onClick={() => onNavigate('applications')}
-                  className="p-3 rounded-lg bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200/60 dark:border-zinc-800/60 text-center cursor-pointer hover:border-indigo-300 dark:hover:border-indigo-800 transition-colors"
-                >
-                  <div className="text-[11px] text-zinc-500 mb-1">{label(st.label)}</div>
-                  <div className={`text-xl font-bold ${st.color}`}>{st.count}</div>
-                </div>
+          {recentArticles.length ? (
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+              {recentArticles.map(article => (
+                <Link key={article.id} to={`/knowledge/${encodeURIComponent(article.id)}`} className="group flex min-w-0 flex-col rounded-2xl border border-zinc-200/80 bg-zinc-50/50 p-6 transition-colors hover:border-indigo-300 dark:border-zinc-800 dark:bg-[#12161f] dark:hover:border-indigo-700">
+                  <span className="mb-3 text-xs font-medium text-indigo-600 dark:text-indigo-400">{label(article.category).replace(/^\d+\s+/, '')}</span>
+                  <h3 className="break-words text-base font-semibold leading-7 group-hover:text-indigo-600 dark:group-hover:text-indigo-300">{article.title}</h3>
+                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-zinc-500 dark:text-zinc-400">{article.summary || t('Open this note to keep learning.', '打开笔记，继续学习。')}</p>
+                  <div className="mt-auto flex items-center justify-between gap-2 pt-6 text-xs text-zinc-400 dark:text-zinc-500"><span>{formatDate(article.updatedAt)}</span><ArrowRight className="h-4 w-4" aria-hidden="true" /></div>
+                </Link>
               ))}
             </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-zinc-200 px-6 py-10 text-center dark:border-zinc-800">
+              <BookOpen className="mx-auto mb-3 h-7 w-7 text-zinc-300 dark:text-zinc-600" aria-hidden="true" />
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">{t('Your first learning note starts here. Add an article to begin.', '这里将展示最近更新的笔记。添加第一篇文章，开启学习积累。')}</p>
+              <button onClick={() => onQuickAdd('article')} className={`${textLinkClass} mt-4`}>{t('Add an article', '添加文章')} <ArrowRight className="h-4 w-4" aria-hidden="true" /></button>
+            </div>
+          )}
+        </section>
+
+        <section aria-labelledby="today-workspace-title" className="space-y-6 border-t border-zinc-100 pt-14 dark:border-zinc-800">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h2 id="today-workspace-title" className="text-2xl font-bold tracking-tight">{t('Your workspace today', '今日工作台')}</h2>
+              <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">{now.toLocaleDateString(locale, { weekday: 'long', month: 'long', day: 'numeric' })} <span className="mx-1" aria-hidden="true">·</span> {t('Keep learning and moving forward.', '让每一步准备都有迹可循。')}</p>
+            </div>
+            <Link to="/copilot" className="inline-flex items-center gap-2 rounded-xl border border-indigo-200 bg-indigo-50/60 px-4 py-2.5 text-sm font-medium text-indigo-700 transition-colors hover:bg-indigo-100 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-300 dark:hover:bg-indigo-950"><Sparkles className="h-4 w-4" aria-hidden="true" />{t('AI Copilot', 'AI 助手')}</Link>
           </div>
-        </div>
-
-        {/* Right Column: Mastery by Category & Coding Spotlight */}
-        <div className="space-y-6">
-          {/* Category Mastery Progress */}
-          <div className="p-5 rounded-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 shadow-xs">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Layers className="w-4 h-4 text-indigo-600" />
-                <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                  {t("Mastery by Category", "各分类掌握情况")}
-                </h3>
-              </div>
-              <span className="text-[11px] text-zinc-500">
-                {t(`${masteredQuestions.length}/${questions.length} Mastered`, `已掌握 ${masteredQuestions.length}/${questions.length}`)}
-              </span>
-            </div>
-
-            <div className="space-y-3.5">
-              {categoryStats.map((item) => (
-                <div key={item.category} className="space-y-1">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-medium text-zinc-700 dark:text-zinc-300">
-                      {label(item.category)}
-                    </span>
-                    <span className="text-zinc-500 text-[11px]">
-                      {item.mastered}/{item.total} ({item.percentage}%)
-                    </span>
-                  </div>
-                  <div className="w-full h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-indigo-600 dark:bg-indigo-500 rounded-full transition-all duration-300"
-                      style={{ width: `${item.percentage}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {metrics.map(metric => {
+              const Icon = metric.icon;
+              return <Link key={metric.href} to={metric.href} className={`${panelClass} transition-colors hover:border-indigo-300 dark:hover:border-indigo-700`}><div className="flex items-center justify-between gap-3 text-sm text-zinc-500 dark:text-zinc-400"><span>{metric.name}</span><Icon className={`h-4 w-4 shrink-0 ${metric.color}`} aria-hidden="true" /></div><div className="mt-3 text-3xl font-bold tracking-tight">{metric.count}</div><p className="mt-2 break-words text-xs leading-5 text-zinc-500 dark:text-zinc-400">{metric.detail}</p></Link>;
+            })}
           </div>
-
-          {/* Coding Practice Quick Start */}
-          <div className="p-5 rounded-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 shadow-xs">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <Code2 className="w-4 h-4 text-emerald-500" />
-                <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                  {t("Coding Lab Focus", "编程练习推荐")}
-                </h3>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <div className="min-w-0 space-y-6 lg:col-span-2">
+              <div className={panelClass}>
+                <div className="mb-5 flex flex-wrap items-center justify-between gap-3"><h3 className="inline-flex items-center gap-2 text-base font-semibold"><Calendar className="h-4 w-4 text-indigo-500" aria-hidden="true" />{t('Upcoming interviews', '待面试安排')}</h3><Link to="/interviews" className={textLinkClass}>{t('View all', '查看全部')}<ArrowRight className="h-3.5 w-3.5" aria-hidden="true" /></Link></div>
+                {upcomingInterviews.length ? <div className="space-y-3">{upcomingInterviews.map(inv => <Link key={inv.id} to={`/interviews/${encodeURIComponent(inv.id)}`} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-zinc-100 bg-zinc-50/50 p-4 transition-colors hover:border-indigo-200 dark:border-zinc-800 dark:bg-zinc-900/30 dark:hover:border-indigo-800"><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><span className="break-words text-sm font-semibold">{inv.companyName}</span><span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-600 dark:bg-indigo-950 dark:text-indigo-300">{t(`Round ${inv.roundNumber}`, `第 ${inv.roundNumber} 轮`)}</span></div><p className="mt-1 break-words text-sm text-zinc-500 dark:text-zinc-400">{inv.roundName} · {t(`${inv.durationMinutes} min`, `${inv.durationMinutes} 分钟`)}</p></div><div className="shrink-0 text-right text-xs leading-6 text-zinc-500 dark:text-zinc-400"><div>{new Date(inv.scheduledAt).toLocaleDateString(locale, { month: 'short', day: 'numeric' })}</div><div>{new Date(inv.scheduledAt).toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })}</div></div></Link>)}</div> : <p className="rounded-xl bg-zinc-50 px-4 py-6 text-sm leading-7 text-zinc-500 dark:bg-zinc-900/40 dark:text-zinc-400">{t('No upcoming interviews. Add a round when you hear from a recruiter.', '暂无待面试安排。收到招聘方通知后，可以添加新的面试轮次。')}</p>}
               </div>
-              <span className="text-[11px] text-zinc-500">
-                {t(`${codingAttempts.length} attempts`, `${codingAttempts.length} 次练习`)}
-              </span>
+              <div className={panelClass}>
+                <div className="mb-5 flex flex-wrap items-center justify-between gap-3"><h3 className="inline-flex items-center gap-2 text-base font-semibold"><RotateCcw className="h-4 w-4 text-amber-500" aria-hidden="true" />{t(`Review queue (${dueQuestions.length})`, `今日待复习（${dueQuestions.length} 道）`)}</h3><Link to="/review" className={textLinkClass}>{t('Start review', '开始复习')}<ArrowRight className="h-3.5 w-3.5" aria-hidden="true" /></Link></div>
+                {dueQuestions.length ? <div className="space-y-3">{dueQuestions.slice(0, 4).map(question => <Link key={question.id} to={`/questions/${encodeURIComponent(question.id)}`} className="flex min-w-0 items-start justify-between gap-3 rounded-xl border border-zinc-100 p-4 transition-colors hover:border-indigo-200 dark:border-zinc-800 dark:hover:border-indigo-800"><div className="min-w-0"><p className="break-words text-sm font-medium">{question.title}</p><p className="mt-1 text-xs text-indigo-500 dark:text-indigo-400">{label(question.category)}</p><p className="mt-2 line-clamp-1 text-sm text-zinc-500 dark:text-zinc-400">{question.conciseAnswer}</p></div><span className={`shrink-0 rounded-md px-2 py-0.5 text-xs ${question.difficulty === 'Easy' ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400' : question.difficulty === 'Medium' ? 'bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-400' : 'bg-rose-50 text-rose-600 dark:bg-rose-950/50 dark:text-rose-400'}`}>{label(question.difficulty)}</span></Link>)}</div> : <p className="rounded-xl bg-zinc-50 px-4 py-6 text-sm leading-7 text-zinc-500 dark:bg-zinc-900/40 dark:text-zinc-400">{t('All caught up. Your next review will appear here.', '已完成所有到期复习，下次待复习的题目会显示在这里。')}</p>}
+              </div>
+              <div className={panelClass}>
+                <div className="mb-5 flex flex-wrap items-center justify-between gap-3"><h3 className="inline-flex items-center gap-2 text-base font-semibold"><Briefcase className="h-4 w-4 text-indigo-500" aria-hidden="true" />{t('Application pipeline', '求职进度概览')}</h3><Link to="/applications" className={textLinkClass}>{t('Manage', '管理投递')}<ArrowRight className="h-3.5 w-3.5" aria-hidden="true" /></Link></div>
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">{stages.map(stage => <Link key={stage.name} to="/applications" className="rounded-xl bg-zinc-50 p-3 text-center transition-colors hover:bg-indigo-50 dark:bg-zinc-900/50 dark:hover:bg-indigo-950/40"><p className="text-xs text-zinc-500 dark:text-zinc-400">{label(stage.name)}</p><p className={`mt-2 text-2xl font-semibold ${stage.color}`}>{applications.filter(application => application.status === stage.name).length}</p></Link>)}</div>
+              </div>
             </div>
-
-            {codingProblems[0] && (
-              <div className="p-3.5 rounded-lg border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50 dark:bg-zinc-900/40 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
-                    {codingProblems[0].title}
-                  </span>
-                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 font-medium">
-                    {label(codingProblems[0].difficulty)}
-                  </span>
-                </div>
-                <p className="text-[11px] text-zinc-500 line-clamp-2">
-                  {codingProblems[0].problemDescription}
-                </p>
-                <button
-                  onClick={() => onNavigate('coding', codingProblems[0].id)}
-                  className="w-full py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium transition-colors"
-                >
-                  {t("Open in Coding Lab", "打开编程练习")}
-                </button>
+            <div className="min-w-0 space-y-6">
+              <div className={panelClass}>
+                <h3 className="inline-flex items-center gap-2 text-base font-semibold"><Layers className="h-4 w-4 text-indigo-500" aria-hidden="true" />{t('Mastery by category', '各分类掌握情况')}</h3><p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">{t(`${masteredQuestions.length} of ${questions.length} questions mastered`, `已掌握 ${masteredQuestions.length} / ${questions.length} 道题`)}</p>
+                <div className="mt-6 space-y-5">{categoryStats.map(item => <div key={item.category}><div className="mb-2 flex items-center justify-between gap-2 text-sm"><span>{label(item.category)}</span><span className="shrink-0 text-xs text-zinc-500 dark:text-zinc-400">{item.mastered}/{item.total} ({item.percentage}%)</span></div><div role="progressbar" aria-label={label(item.category)} aria-valuenow={item.percentage} aria-valuemin={0} aria-valuemax={100} className="h-1.5 overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800"><div className="h-full rounded-full bg-indigo-500" style={{ width: `${item.percentage}%` }} /></div></div>)}</div>
               </div>
-            )}
-          </div>
-
-          {/* Quick Knowledge Articles reference */}
-          <div className="p-5 rounded-xl bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 shadow-xs">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-indigo-500" />
-                <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                  {t("Knowledge Hub", "知识库")}
-                </h3>
+              <div className={panelClass}>
+                <h3 className="inline-flex items-center gap-2 text-base font-semibold"><Code2 className="h-4 w-4 text-emerald-500" aria-hidden="true" />{t('Coding practice', '编程练习推荐')}</h3><p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">{t(`${codingAttempts.length} attempts recorded`, `已记录 ${codingAttempts.length} 次练习`)}</p>
+                {codingProblems[0] ? <div className="mt-5"><div className="flex items-start justify-between gap-2"><h4 className="min-w-0 break-words text-sm font-semibold leading-6">{codingProblems[0].title}</h4><span className="shrink-0 rounded-md bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">{label(codingProblems[0].difficulty)}</span></div><p className="mt-3 line-clamp-3 text-sm leading-6 text-zinc-500 dark:text-zinc-400">{codingProblems[0].problemDescription}</p><Link to={`/coding/${encodeURIComponent(codingProblems[0].id)}`} className={`${textLinkClass} mt-5`}>{t('Open in Coding Lab', '打开编程练习')}<ArrowRight className="h-3.5 w-3.5" aria-hidden="true" /></Link></div> : <div className="mt-5"><p className="text-sm leading-6 text-zinc-500 dark:text-zinc-400">{t('Add a problem and put your knowledge into practice.', '添加一道题目，把学到的知识变成代码。')}</p><Link to="/coding" className={`${textLinkClass} mt-4`}>{t('Open Coding Lab', '进入编程练习')}<ArrowRight className="h-3.5 w-3.5" aria-hidden="true" /></Link></div>}
               </div>
-              <button
-                onClick={() => onNavigate('knowledge')}
-                className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
-              >
-                {t(`Browse All (${articles.length})`, `查看全部（${articles.length} 篇）`)}
-              </button>
-            </div>
-
-            <div className="space-y-1.5">
-              {articles.slice(0, 3).map((art) => (
-                <button
-                  key={art.id}
-                  onClick={() => onNavigate('knowledge', art.id)}
-                  className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors flex items-center justify-between group"
-                >
-                  <div className="overflow-hidden">
-                    <div className="text-xs font-medium text-zinc-800 dark:text-zinc-200 truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
-                      {art.title}
-                    </div>
-                    <div className="text-[10px] text-zinc-500 truncate">
-                      {label(art.category)}
-                    </div>
-                  </div>
-                  <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-indigo-600 opacity-0 group-hover:opacity-100 transition-all shrink-0" />
-                </button>
-              ))}
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );

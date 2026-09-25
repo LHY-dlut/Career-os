@@ -10,6 +10,7 @@ Knowledge → Question Bank → Review → Coding → Applications → Interview
 
 ## Features — 当前能力与边界
 
+- 学习门户：首页参考 [AIInfraGuide](https://caomaolufei.github.io/AIInfraGuide/) 的顶部导航、居中首屏与主题卡片组织；卡片数量、最近更新和下方工作台均来自当前工作区。知识库提供分类总览、章节树与三栏阅读，手机可展开导航与目录。保留 Career OS 自有内容，不导入参考站文章。
 - 知识文章：Markdown、GFM、KaTeX、代码高亮/复制、目录锚点、前后篇、编辑、导入/导出。
 - 题库与复习：搜索/筛选、CRUD、四档评分、原子保存复习历史。当前为简单间隔算法，不是完整 SM-2 / FSRS。
 - Coding Lab：题目与多次练习记录分离；不执行用户代码。

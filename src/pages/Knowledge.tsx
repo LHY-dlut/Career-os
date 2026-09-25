@@ -1,23 +1,16 @@
 import { useI18n } from '../i18n/I18nProvider';
 import { Dialog } from '../components/common/Dialog';
 import { extractHeadings } from '../utils/markdownHeadings';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import React, { useState, useMemo, useRef } from 'react';
 import {
-  BookOpen,
-  Search,
-  Plus,
   Edit3,
   Trash2,
   Download,
-  Upload,
   Sparkles,
   ChevronRight,
   Tag,
   Clock,
-  Share2,
-  Check,
-  FileText,
   X,
   FileDown,
   Layers,
@@ -27,7 +20,7 @@ import {
   Loader2,
   Copy,
 } from 'lucide-react';
-import type { KnowledgeArticle, KnowledgeCategory } from '../types';
+import type { KnowledgeArticle } from '../types';
 import { MarkdownRenderer } from '../components/common/MarkdownRenderer';
 import { useToast } from '../components/common/Toast';
 import { generateId } from '../utils/id';
@@ -38,6 +31,10 @@ import {
 import { MarkdownImportModal } from '../components/knowledge/MarkdownImportModal';
 import { requestSearchResearch, GroundingSource } from '../services/aiCopilot';
 import { useAICapabilities } from '../hooks/useAICapabilities';
+import { getKnowledgeCategories, knowledgeCategoryPath } from '../utils/knowledgeCatalog';
+import { KnowledgeOverview } from '../components/knowledge/KnowledgeOverview';
+import { KnowledgeTree } from '../components/knowledge/KnowledgeTree';
+import { KnowledgeContents } from '../components/knowledge/KnowledgeContents';
 
 interface KnowledgeProps {
   articles: KnowledgeArticle[];
@@ -47,17 +44,6 @@ interface KnowledgeProps {
   onNavigateToCopilot: (content: string, title: string) => void;
   userId: string;
 }
-
-const CATEGORIES: KnowledgeCategory[] = [
-  '01 Transformer',
-  '02 LLM',
-  '03 RAG',
-  '04 Agent',
-  '05 Text-to-SQL',
-  '06 Machine Learning',
-  '07 Deep Learning',
-  '08 NLP',
-];
 
 export const Knowledge: React.FC<KnowledgeProps> = ({
   articles,
@@ -72,16 +58,28 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
   const { t, locale, label, translateMessage } = useI18n();
   const { showToast } = useToast();
   const { capabilities, canSearch, searchUnavailableReason } = useAICapabilities();
-  const activeArticleId = selectedArticleId || articles[0]?.id || '';
+  const activeArticleId = selectedArticleId;
   const setActiveArticleId = (id: string) => navigate(`/knowledge/${encodeURIComponent(id)}`);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const searchParams = new URLSearchParams(location.search);
+  const selectedCategory = searchParams.get('category');
+  const searchQuery = searchParams.get('q') || '';
+  const setSearchQuery = (query: string) => {
+    const next = new URLSearchParams(location.search);
+    if (query) next.set('q', query); else next.delete('q');
+    navigate({ pathname: '/knowledge', search: next.toString() ? `?${next}` : '' }, { replace: true });
+  };
+  const categories = useMemo(() => getKnowledgeCategories(articles), [articles]);
   const [isEditing, setIsEditing] = useState(false);
   const [editFormData, setEditFormData] = useState<Partial<KnowledgeArticle>>({});
   const [editorTab, setEditorTab] = useState<'write' | 'preview'>('write');
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [exportMenuOpen, setExportMenuOpen] = useState(false);
   const exportMenuRef = useRef<HTMLDivElement>(null);
+  const readingRef = useRef<HTMLDivElement>(null);
+  const overviewRef = useRef<HTMLDivElement>(null);
+  const articleBodyRef = useRef<HTMLDivElement>(null);
+  const mobileNavigationRef = useRef<HTMLDetailsElement>(null);
+  const [activeHeading, setActiveHeading] = useState('');
 
   // Search Grounding Live Research State
   const [isResearchModalOpen, setIsResearchModalOpen] = useState(false);
@@ -123,30 +121,48 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
 
   // Filter articles based on search query and category
   const filteredArticles = useMemo(() => {
+    const query = searchQuery.trim().toLocaleLowerCase();
     return articles.filter((art) => {
       const matchesSearch =
-        art.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        art.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        art.summary.toLowerCase().includes(searchQuery.toLowerCase());
+        art.title.toLocaleLowerCase().includes(query) ||
+        art.tags.some((tag) => tag.toLocaleLowerCase().includes(query)) ||
+        art.summary.toLocaleLowerCase().includes(query);
       const matchesCategory =
-        selectedCategory === 'all' || art.category === selectedCategory;
+        !selectedCategory || art.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
   }, [articles, searchQuery, selectedCategory]);
 
-  const currentArticle = useMemo(() => {
-    return (
-      articles.find((a) => a.id === activeArticleId) ||
-      filteredArticles[0] ||
-      articles[0]
-    );
-  }, [articles, activeArticleId, filteredArticles]);
+  const currentArticle = useMemo(() => articles.find(article => article.id === activeArticleId), [articles, activeArticleId]);
+  const categoryArticles = useMemo(() => articles.filter(article => article.category === currentArticle?.category), [articles, currentArticle?.category]);
+  React.useEffect(() => { overviewRef.current?.scrollTo?.({ top: 0 }); }, [selectedCategory, selectedArticleId]);
 
   const tableOfContents = useMemo(() => extractHeadings(currentArticle?.contentMarkdown || ''), [currentArticle?.contentMarkdown]);
-  React.useEffect(() => {
-    if (location.hash) {
-      try { document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView(); } catch { /* malformed fragment */ }
+  const scrollToHeading = (id: string) => {
+    const heading = Array.from(articleBodyRef.current?.querySelectorAll<HTMLElement>('[id]') || []).find(element => element.id === id);
+    const container = readingRef.current;
+    if (heading && container) {
+      container.scrollTo?.({ top: heading.getBoundingClientRect().top - container.getBoundingClientRect().top + container.scrollTop - 28 });
+      setActiveHeading(id);
     }
+  };
+  const updateActiveHeading = () => {
+    if (!readingRef.current || !articleBodyRef.current) return;
+    const top = readingRef.current.getBoundingClientRect().top + 64;
+    const headings = Array.from(articleBodyRef.current.querySelectorAll<HTMLElement>('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]'));
+    const current = headings.filter(heading => heading.getBoundingClientRect().top <= top).at(-1) || headings[0];
+    setActiveHeading(current?.id || '');
+  };
+  React.useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      if (location.hash) {
+        try { scrollToHeading(decodeURIComponent(location.hash.slice(1))); } catch { /* malformed fragment */ }
+      } else {
+        readingRef.current?.scrollTo?.({ top: 0 });
+        setActiveHeading(tableOfContents[0]?.id || '');
+      }
+    });
+    return () => cancelAnimationFrame(frame);
   }, [location.hash, currentArticle?.id]);
 
   // Handle open editor
@@ -156,7 +172,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
     } else {
       setEditFormData({
         title: '',
-        category: selectedCategory !== 'all' ? (selectedCategory as KnowledgeCategory) : '01 Transformer',
+        category: selectedCategory || currentArticle?.category || '01 Transformer',
         subcategory: '',
         tags: [t('Interview', '面试'), t('Theory', '理论')],
         summary: '',
@@ -244,150 +260,43 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
   };
 
   React.useEffect(() => {
-    if (new URLSearchParams(location.search).get('new') === '1') {
+    const params = new URLSearchParams(location.search);
+    if (params.get('new') === '1') {
       handleOpenEdit();
-      navigate(location.pathname, { replace: true });
+      params.delete('new');
+      navigate({ pathname: location.pathname, search: params.toString() ? `?${params}` : '', hash: location.hash }, { replace: true });
     }
   }, [location.search]);
 
   return (
-    <div className="flex-1 flex overflow-hidden h-full min-h-0">
-      {/* LEFT COLUMN: Category Tree & Article List (280px) */}
-      <div className="hidden md:flex w-64 border-r border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xs flex flex-col shrink-0">
-        {/* Search & Add / Import Bar */}
-        <div className="p-3 border-b border-slate-200 dark:border-slate-800 space-y-2.5">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-              <BookOpen className="w-3.5 h-3.5 text-sky-500" />
-              <span>{t("Knowledge Base", "知识库")}</span>
-            </span>
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => setIsImportModalOpen(true)}
-                className="flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                title={t("Import Markdown (.md) to create or update articles", "导入 Markdown（.md）以创建或更新文章")}
-              >
-                <Upload className="w-3.5 h-3.5" />
-                <span>{t("Import", "导入")}</span>
-              </button>
-              <button
-                onClick={() => handleOpenEdit()}
-                className="p-1 rounded-md text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-950/60 transition-colors"
-                title={t("Create New Article", "新建文章")}
-              >
-                <Plus className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-
-          <div className="relative">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={t("Search knowledge...", "搜索知识...")}
-              className="w-full pl-8 pr-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/70 text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-sky-500 transition-colors"
-            />
-          </div>
-
-          {/* Category Filter Pills */}
-          <div className="flex gap-1 overflow-x-auto pb-1 scrollbar-none text-[11px]">
-            <button
-              onClick={() => setSelectedCategory('all')}
-              className={`px-2 py-0.5 rounded-md whitespace-nowrap transition-colors ${
-                selectedCategory === 'all'
-                  ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 font-semibold'
-                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
-              }`}
-            >
-              {t('All', '全部')} ({articles.length})
-            </button>
-            {CATEGORIES.map((cat) => {
-              const count = articles.filter((a) => a.category === cat).length;
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-2 py-0.5 rounded-md whitespace-nowrap transition-colors ${
-                    selectedCategory === cat
-                      ? 'bg-sky-600 text-white font-semibold'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
-                  }`}
-                >
-                  {label(cat).replace(/^\d+ /, '')} ({count})
-                </button>
-              );
-            })}
-          </div>
+    <div className="flex h-full min-h-0 w-full flex-col bg-white dark:bg-[#0c111b]">
+      {!selectedArticleId ? (
+        <div ref={overviewRef} className="min-h-0 flex-1 overflow-y-auto">
+          <KnowledgeOverview articles={articles} filteredArticles={filteredArticles} selectedCategory={selectedCategory} searchQuery={searchQuery} onSearch={setSearchQuery} onImport={() => setIsImportModalOpen(true)} onCreate={() => handleOpenEdit()} onExport={handleExportSingleArticle} onExportAll={handleExportAllArticles} />
         </div>
-
-        {/* Article Item List */}
-        <div className="flex-1 overflow-y-auto p-2 space-y-1">
-          {filteredArticles.length === 0 ? (
-            <div className="py-10 text-center text-xs text-slate-400 dark:text-slate-500 px-4">
-              <BookOpen className="w-8 h-8 mx-auto mb-2 opacity-30" />
-              <p>{t("No articles match this filter.", "没有符合筛选条件的文章。")}</p>
-              <button
-                onClick={() => setIsImportModalOpen(true)}
-                className="mt-3 text-sky-500 hover:underline font-medium inline-block"
-              >
-                {t("Import Markdown file", "导入 Markdown 文件")}
-              </button>
+      ) : currentArticle ? (
+        <div className="mx-auto flex h-full min-h-0 w-full max-w-[1500px] overflow-hidden">
+          <aside className="hidden h-full w-[260px] shrink-0 border-r border-slate-200 bg-slate-50/40 lg:block dark:border-slate-800 dark:bg-slate-950/20">
+            <KnowledgeTree articles={articles} currentArticle={currentArticle} onCreate={() => handleOpenEdit()} onImport={() => setIsImportModalOpen(true)} />
+          </aside>
+          <div ref={readingRef} onScroll={updateActiveHeading} className="min-w-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-16 pt-5 sm:px-8 lg:px-10 lg:pt-8">
+            <div className="mx-auto mb-6 max-w-[48rem] space-y-3 xl:hidden">
+              <details ref={mobileNavigationRef} className="rounded-lg border border-slate-200 lg:hidden dark:border-slate-800">
+                <summary className="cursor-pointer px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-300">{t('Browse documents', '浏览文档目录')}</summary>
+                <div className="max-h-[50vh] overflow-y-auto border-t border-slate-200 dark:border-slate-800"><KnowledgeTree articles={articles} currentArticle={currentArticle} onNavigate={() => { if (mobileNavigationRef.current) mobileNavigationRef.current.open = false; }} onCreate={() => handleOpenEdit()} onImport={() => setIsImportModalOpen(true)} /></div>
+              </details>
+              <details className="rounded-lg border border-slate-200 xl:hidden dark:border-slate-800">
+                <summary className="cursor-pointer px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-300">{t('On this page', '本文目录')}</summary>
+                <div className="px-4 pb-4"><KnowledgeContents articleId={currentArticle.id} headings={tableOfContents} activeHeading={activeHeading} onSelect={scrollToHeading} /></div>
+              </details>
             </div>
-          ) : (
-            filteredArticles.map((art) => {
-              const isSelected = art.id === currentArticle?.id;
-              return (
-                <div
-                  key={art.id}
-                  onClick={() => setActiveArticleId(art.id)}
-                  className={`w-full text-left p-2.5 rounded-xl transition-all cursor-pointer flex flex-col gap-1 group border ${
-                    isSelected
-                      ? 'bg-sky-50 dark:bg-sky-950/40 border-sky-200 dark:border-sky-800/80 shadow-2xs'
-                      : 'hover:bg-slate-100 dark:hover:bg-slate-800/60 border-transparent'
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-1">
-                    <span
-                      className={`text-xs font-semibold truncate ${
-                        isSelected
-                          ? 'text-sky-700 dark:text-sky-300'
-                          : 'text-slate-800 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white'
-                      }`}
-                    >
-                      {art.title}
-                    </span>
-                    {/* Quick export icon on row */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleExportSingleArticle(art);
-                      }}
-                      className="opacity-0 group-hover:opacity-100 p-1 text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 transition-opacity rounded"
-                      title={t("Export this article as Markdown (.md)", "将此文章导出为 Markdown（.md）")}
-                    >
-                      <Download className="w-3 h-3" />
-                    </button>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-[10px] text-slate-500 dark:text-slate-400">
-                    <span className="truncate">{label(art.category)}</span>
-                    <span>•</span>
-                    <span className="truncate">{art.subcategory || t("Theory", "理论")}</span>
-                  </div>
-                </div>
-              );
-            })
-          )}
-        </div>
-      </div>
-
-      {/* Mobile document selector */}
-      <select aria-label={t("Choose article", "选择文章")} className="md:hidden absolute mt-2 ml-3 max-w-[65vw] z-10 bg-slate-100 dark:bg-slate-800 rounded p-2 text-xs" value={currentArticle?.id || ''} onChange={e => setActiveArticleId(e.target.value)}><option value="" disabled>{t("Choose article", "选择文章")}</option>{articles.map(a => <option key={a.id} value={a.id}>{a.title}</option>)}</select>
-      {/* CENTER: Main Article Content */}
-      <div className="flex-1 min-w-0 overflow-y-auto bg-slate-50/50 dark:bg-[#090d16] px-4 pt-16 md:p-6 lg:p-10 transition-colors">
-        {currentArticle ? (
-          <div className="max-w-3xl mx-auto space-y-6">
+          <div className="mx-auto max-w-[48rem] space-y-6">
+            <nav aria-label={t('Article breadcrumb', '文章路径')} className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
+              <Link to="/knowledge" className="hover:text-sky-600">{t('Knowledge library', '知识文库')}</Link>
+              <ChevronRight className="h-3 w-3" />
+              <Link to={knowledgeCategoryPath(currentArticle.category)} className="hover:text-sky-600">{label(currentArticle.category)}</Link>
+            </nav>
+            {!(tableOfContents[0]?.level === 1 && tableOfContents[0]?.text.trim() === currentArticle.title.trim()) && <h1 className="break-words text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl dark:text-slate-100">{currentArticle.title}</h1>}
             {/* Article Top Actions & Badges */}
             <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
               <div className="flex items-center gap-2">
@@ -485,6 +394,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                   onClick={async () => {
                     if (confirm(t(`Delete "${currentArticle.title}"?`, `确定删除“${currentArticle.title}”吗？`))) {
                       try { await onDeleteArticle(currentArticle.id); } catch { return; }
+                      navigate(knowledgeCategoryPath(currentArticle.category));
                       showToast(t("Article deleted", "文章已删除"));
                     }
                   }}
@@ -519,63 +429,22 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
             </div>
 
             {/* Rendered Markdown Body with KaTeX & Syntax Highlighting */}
-            <div className="pt-2">
-              <MarkdownRenderer content={currentArticle.contentMarkdown} />
+            <div ref={articleBodyRef} className="pt-2 text-[15px] leading-8">
+              <MarkdownRenderer content={currentArticle.contentMarkdown} className="[&_h1]:break-words [&_h1]:text-3xl [&_p]:break-words [&_p]:leading-8 [&_li]:leading-7 [&_h2]:mt-10 [&_h3]:mt-8" />
               <nav aria-label={t("Article navigation", "文章导航")} className="flex justify-between gap-4 mt-10 pt-6 border-t border-slate-200 dark:border-slate-800">
                 {[-1, 1].map(offset => {
-                  const adjacent = filteredArticles[filteredArticles.findIndex(a => a.id === currentArticle.id) + offset];
+                  const adjacent = categoryArticles[categoryArticles.findIndex(a => a.id === currentArticle.id) + offset];
                   return adjacent ? <button key={offset} className="text-left text-sm text-sky-600 dark:text-sky-400" onClick={() => setActiveArticleId(adjacent.id)}>{offset < 0 ? t("← Previous", "← 上一篇") : t("Next →", "下一篇 →")}<span className="block mt-1 text-xs">{adjacent.title}</span></button> : <span key={offset} />;
                 })}
               </nav>
             </div>
           </div>
-        ) : (
-          <div className="h-full flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 text-sm gap-3">
-            <BookOpen className="w-12 h-12 opacity-40" />
-            <p>{t("Select or create an article to view details.", "选择或创建一篇文章查看内容。")}</p>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setIsImportModalOpen(true)}
-                className="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 transition-colors"
-              >
-                {t("Import Markdown", "导入 Markdown")}
-              </button>
-              <button
-                onClick={() => handleOpenEdit()}
-                className="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold transition-colors"
-              >
-                {t("Create Article", "创建文章")}
-              </button>
-            </div>
           </div>
-        )}
-      </div>
-
-      {/* RIGHT: Table of Contents (220px) */}
-      {tableOfContents.length > 0 && (
-        <div className="w-60 border-l border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xs hidden xl:block p-4 overflow-y-auto shrink-0">
-          <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
-            {t("On this page", "本文目录")}
-          </div>
-          <div className="space-y-1.5 text-xs">
-            {tableOfContents.map((h, idx) => (
-              <a
-                key={idx}
-                href={`/knowledge/${encodeURIComponent(currentArticle!.id)}#${encodeURIComponent(h.id)}`}
-                className={`block text-slate-600 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 truncate transition-colors ${
-                  h.level === 1
-                    ? 'font-semibold text-slate-900 dark:text-slate-200'
-                    : h.level === 2
-                    ? 'pl-2.5'
-                    : 'pl-5 text-[11px]'
-                }`}
-              >
-                {h.text}
-              </a>
-            ))}
-          </div>
+          <aside className="hidden w-[220px] shrink-0 overflow-y-auto px-5 py-9 xl:block">
+            <KnowledgeContents articleId={currentArticle.id} headings={tableOfContents} activeHeading={activeHeading} onSelect={scrollToHeading} />
+          </aside>
         </div>
-      )}
+      ) : <div className="p-10 text-sm text-slate-500"><p>{t('Article not found.', '未找到这篇文章。')}</p><Link to="/knowledge" className="mt-3 inline-block text-sky-600">{t('Return to knowledge library', '返回知识文库')}</Link></div>}
 
       {/* MARKDOWN IMPORT MODAL */}
       <MarkdownImportModal
@@ -675,22 +544,14 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
                   <label htmlFor="knowledge-field-1" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                     {t("Category", "分类")}
                   </label>
-                  <select id="knowledge-field-1"
-                    value={editFormData.category || '01 Transformer'}
-                    onChange={(e) =>
-                      setEditFormData({
-                        ...editFormData,
-                        category: e.target.value as KnowledgeCategory,
-                      })
-                    }
+                  <input id="knowledge-field-1" list="knowledge-category-options"
+                    value={editFormData.category || ''}
+                    onChange={event => setEditFormData({ ...editFormData, category: event.target.value })}
+                    placeholder={t('Choose or create a category', '选择现有分类或输入新分类')}
                     className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500"
-                  >
-                    {CATEGORIES.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                  </select>
+                  />
+                  <datalist id="knowledge-category-options">{categories.map(category => <option key={category} value={category}>{label(category)}</option>)}</datalist>
+                  <p className="mt-1.5 text-[10px] text-slate-400">{t('Choose an existing topic or enter a custom category.', '可选择已有主题，也可输入自定义分类。')}</p>
                 </div>
               </div>
 
