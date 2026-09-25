@@ -249,7 +249,7 @@ it('loads the explicit English edition and switches back to Chinese while preser
   expect(url.pathname).toBe(libraryPath(englishPair.id));
   expect(url.searchParams.get('lang')).toBe('en');
   expect(url.hash).toBe('');
-  fireEvent.click(within(screen.getByRole('group', { name: '正文语言版本' })).getByRole('button', { name: '中文', exact: true }));
+  fireEvent.click(within(screen.getByRole('group', { name: '正文语言版本' })).getByRole('button', { name: '中文' }));
 
   expect(await screen.findByText('正在阅读中文教程。')).toBeTruthy();
   expect(fetchMock.mock.calls.at(-1)?.[0]).toContain(chinesePair.contentPath);
