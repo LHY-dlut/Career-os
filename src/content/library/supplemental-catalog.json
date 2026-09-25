@@ -1,0 +1,147 @@
+[
+  {
+    "id": "career-tensor-shapes",
+    "sourceId": "career-os-original",
+    "title": "Tensor 形状：从词向量走到多头注意力",
+    "category": "Python 与 PyTorch",
+    "tags": [
+      "PyTorch",
+      "Tensor",
+      "shape",
+      "Embedding"
+    ],
+    "summary": "按元素索引推导查表、分头、合头、批量矩阵乘法与广播；含 CPU 示例和梯度自检。",
+    "kind": "article",
+    "sourceUrl": "/library/career-tensor-shapes.md",
+    "contentPath": "/library/career-tensor-shapes.md",
+    "language": "zh",
+    "contentStatus": "original-complete",
+    "contentEvidence": "本站原创完整教学单元；含目标、先修、公式与 shape、独立 CPU 示例、边界条件、面试自检、训练与一手参考链接。",
+    "sourcePath": "public/library/career-tensor-shapes.md",
+    "relatedTrainingIds": [
+      "torch-tensor-shapes",
+      "torch-embedding"
+    ]
+  },
+  {
+    "id": "career-scaled-attention",
+    "sourceId": "career-os-original",
+    "title": "Scaled Dot-Product Attention：数值、mask 与可检验实现",
+    "category": "Transformer 与注意力",
+    "tags": [
+      "Attention",
+      "Softmax",
+      "mask",
+      "PyTorch"
+    ],
+    "summary": "从缩放动机到稳定 softmax，明确全遮蔽零输出，并用 SDPA 与未来扰动验证手写注意力。",
+    "kind": "article",
+    "sourceUrl": "/library/career-scaled-attention.md",
+    "contentPath": "/library/career-scaled-attention.md",
+    "language": "zh",
+    "contentStatus": "original-complete",
+    "contentEvidence": "本站原创完整教学单元；含目标、先修、公式与 shape、独立 CPU 示例、边界条件、面试自检、训练与一手参考链接。",
+    "sourcePath": "public/library/career-scaled-attention.md",
+    "relatedTrainingIds": [
+      "torch-softmax",
+      "torch-attention"
+    ]
+  },
+  {
+    "id": "career-mha-masks",
+    "sourceId": "career-os-original",
+    "title": "多头注意力：投影、分头与 causal/padding mask",
+    "category": "Transformer 与注意力",
+    "tags": [
+      "MHA",
+      "causal mask",
+      "padding",
+      "PyTorch"
+    ],
+    "summary": "完整 bias-free MHA 数据流，区分 key/query padding，推导增量 causal offset，并与同权重模块对照。",
+    "kind": "article",
+    "sourceUrl": "/library/career-mha-masks.md",
+    "contentPath": "/library/career-mha-masks.md",
+    "language": "zh",
+    "contentStatus": "original-complete",
+    "contentEvidence": "本站原创完整教学单元；含目标、先修、公式与 shape、独立 CPU 示例、边界条件、面试自检、训练与一手参考链接。",
+    "sourcePath": "public/library/career-mha-masks.md",
+    "relatedTrainingIds": [
+      "torch-masks",
+      "torch-mha"
+    ]
+  },
+  {
+    "id": "career-rope",
+    "sourceId": "career-os-original",
+    "title": "RoPE：旋转、相对位置与缓存偏移",
+    "category": "Transformer 与注意力",
+    "tags": [
+      "RoPE",
+      "位置编码",
+      "position offset"
+    ],
+    "summary": "推导相邻成对旋转和相对位置恒等式，对照正弦编码，验证范数、共同平移与分块 offset。",
+    "kind": "article",
+    "sourceUrl": "/library/career-rope.md",
+    "contentPath": "/library/career-rope.md",
+    "language": "zh",
+    "contentStatus": "original-complete",
+    "contentEvidence": "本站原创完整教学单元；含目标、先修、公式与 shape、独立 CPU 示例、边界条件、面试自检、训练与一手参考链接。",
+    "sourcePath": "public/library/career-rope.md",
+    "relatedTrainingIds": [
+      "torch-sinusoidal",
+      "torch-rope"
+    ]
+  },
+  {
+    "id": "career-decoder-block",
+    "sourceId": "career-os-original",
+    "title": "Decoder Block：归一化、FFN 与残差的完整组合",
+    "category": "Transformer 与注意力",
+    "tags": [
+      "LayerNorm",
+      "RMSNorm",
+      "FFN",
+      "Decoder"
+    ],
+    "summary": "从归一化统计、精确 GELU 到 Pre-Norm 残差，手写完整最小 Decoder 并用独立原语对照。",
+    "kind": "article",
+    "sourceUrl": "/library/career-decoder-block.md",
+    "contentPath": "/library/career-decoder-block.md",
+    "language": "zh",
+    "contentStatus": "original-complete",
+    "contentEvidence": "本站原创完整教学单元；含目标、先修、公式与 shape、独立 CPU 示例、边界条件、面试自检、训练与一手参考链接。",
+    "sourcePath": "public/library/career-decoder-block.md",
+    "relatedTrainingIds": [
+      "torch-norm",
+      "torch-ffn",
+      "torch-residual",
+      "torch-decoder"
+    ]
+  },
+  {
+    "id": "career-gqa-kv-cache",
+    "sourceId": "career-os-original",
+    "title": "GQA 与 KV Cache：头共享、容量与增量一致性",
+    "category": "推理优化",
+    "tags": [
+      "GQA",
+      "MQA",
+      "KV Cache",
+      "推理"
+    ],
+    "summary": "统一 query/KV 头映射、缓存 shape 和字节公式，验证多 token 分块、padding 与全量输出一致。",
+    "kind": "article",
+    "sourceUrl": "/library/career-gqa-kv-cache.md",
+    "contentPath": "/library/career-gqa-kv-cache.md",
+    "language": "zh",
+    "contentStatus": "original-complete",
+    "contentEvidence": "本站原创完整教学单元；含目标、先修、公式与 shape、独立 CPU 示例、边界条件、面试自检、训练与一手参考链接。",
+    "sourcePath": "public/library/career-gqa-kv-cache.md",
+    "relatedTrainingIds": [
+      "torch-kv-cache",
+      "torch-gqa"
+    ]
+  }
+]

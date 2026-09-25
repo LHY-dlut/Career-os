@@ -145,3 +145,9 @@ npm exec --yes --package=firebase-tools@15.31.0 -- firebase deploy --only hostin
 `.env` 由 dotenv 供服务端读取；Vite 可以读取 `.env.local`，但独立生产服务不会自动读取 `.env.local`。服务端统一使用 `.env` 或平台环境变量。改变 `VITE_*` 必须重建前端，改变服务端变量必须重启服务。
 
 回滚用上一版 Git commit 重新构建并发布；无自动数据迁移。规则回滚可能重新打开已修复的权限漏洞，应优先修复兼容数据，不能无审查退回原型规则。
+
+## 6. 课程与双轨训练的待发布增量
+
+`feat/library-curriculum-training` 基于 `110fe39` 提供课程目录、独立教材和共享训练草稿。本轮只交付代码与本地 `http://localhost:3100` 预览，正式站点保持原有版本。详细实测、截图、边界和回滚说明见 [LIBRARY_TRAINING_REPORT](LIBRARY_TRAINING_REPORT.md)。
+
+以后明确发布该增量时，沿用当前 Firebase Hosting target 与公开构建配置；它只新增静态文件和兼容的私人记录字段，不需要迁移/清空数据库或重新发布安全规则。回滚前用新版本导出备份，避免旧版导出器忽略新增草稿字段；保留已有私人快照和 attempt，不用数据删除来回滚界面。

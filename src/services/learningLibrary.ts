@@ -2,12 +2,15 @@ import importedResources from '../content/library/imported-catalog.json';
 import importedSources from '../content/library/imported-sources.json';
 import linkedResources from '../content/library/linked-catalog.json';
 import linkedSources from '../content/library/linked-sources.json';
+import contentHealth from '../content/library/content-health.json';
+import supplementalResources from '../content/library/supplemental-catalog.json';
+import supplementalSources from '../content/library/supplemental-sources.json';
 import type { LibraryResource, LibrarySource } from '../content/library/types';
 import type { KnowledgeArticle } from '../types';
 import { getLibraryResourceTitle, preferLibraryLanguage } from './libraryLanguage';
 
-export const libraryResources = [...importedResources, ...linkedResources] as LibraryResource[];
-export const librarySources = [...importedSources, ...linkedSources] as LibrarySource[];
+export const libraryResources: LibraryResource[] = [...importedResources, ...linkedResources, ...supplementalResources].map(resource => ({ ...resource, ...contentHealth.find(item => item.id === resource.id) })) as LibraryResource[];
+export const librarySources = [...importedSources, ...linkedSources, ...supplementalSources] as LibrarySource[];
 
 export const libraryPath = (id?: string) => id ? `/library/${encodeURIComponent(id)}` : '/library';
 

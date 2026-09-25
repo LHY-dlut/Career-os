@@ -1,0 +1,1227 @@
+[
+  {
+    "id": "source-aiinfra-guide",
+    "title": "AIInfraGuide",
+    "description": "按原作者分类、章号、chapter 与 order 字段编排；章节提纲与详细子文章分别保留。",
+    "mode": "source",
+    "sourceId": "aiinfra-guide",
+    "order": 0,
+    "evidence": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/src/utils/chapterGrouping.ts",
+    "children": [
+      {
+        "id": "aiinfra-learning-path",
+        "title": "AI Infra 学习路线",
+        "order": 0,
+        "children": [
+          {
+            "id": "source-node-aiinfra-guide-9cd4fb51a163122a",
+            "title": "AI Infra学习路线",
+            "resourceId": "aiinfra-guide-9cd4fb51a163122a",
+            "order": 1,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "aiinfra-prerequisites",
+        "title": "AI Infra 前置基础",
+        "order": 1,
+        "children": [
+          {
+            "id": "source-node-aiinfra-guide-bf08fe797a94bda6",
+            "title": "第1章：编程语言基础",
+            "resourceId": "aiinfra-guide-bf08fe797a94bda6",
+            "order": 1000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-a2f11c9bbc82d504",
+            "title": "第2章：数学基础",
+            "resourceId": "aiinfra-guide-a2f11c9bbc82d504",
+            "order": 2000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-cc408d5cb153a180",
+            "title": "第3章：AI Infra工程师学Transformer",
+            "resourceId": "aiinfra-guide-cc408d5cb153a180",
+            "order": 3000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-cf55775eeac383aa",
+                "title": "🔥 Transformer架构：快速入门篇",
+                "resourceId": "aiinfra-guide-cf55775eeac383aa",
+                "order": 302,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-57a12359e18c0eed",
+                "title": "3.1 AI Infra工程师为什么必须懂Transformer",
+                "resourceId": "aiinfra-guide-57a12359e18c0eed",
+                "order": 303,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-d949c63815a3183d",
+                "title": "3.2 Transformer全貌及代码实现",
+                "resourceId": "aiinfra-guide-d949c63815a3183d",
+                "order": 304,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-5328322073d0c2f3",
+                "title": "3.3 Self-Attention机制深入理解",
+                "resourceId": "aiinfra-guide-5328322073d0c2f3",
+                "order": 305,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-8922413ce246bd71",
+                "title": "3.4 Transformer前馈网络FFN深入理解",
+                "resourceId": "aiinfra-guide-8922413ce246bd71",
+                "order": 306,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-c732a9479b9933b6",
+                "title": "3.5 Transformer位置编码深入理解",
+                "resourceId": "aiinfra-guide-c732a9479b9933b6",
+                "order": 307,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-09d48d37033129c9",
+                "title": "3.6 LayerNorm与残差连接深入理解",
+                "resourceId": "aiinfra-guide-09d48d37033129c9",
+                "order": 308,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-a5865c19672660ac",
+                "title": "3.7 Transformer Decoder Block完整解析",
+                "resourceId": "aiinfra-guide-a5865c19672660ac",
+                "order": 309,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-6a491f1a225ce1da",
+                "title": "3.8 从Transformer到LLM自回归生成深入理解",
+                "resourceId": "aiinfra-guide-6a491f1a225ce1da",
+                "order": 310,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-bc9237c2c72b1d2b",
+                "title": "3.9 Tokenization与词嵌入",
+                "resourceId": "aiinfra-guide-bc9237c2c72b1d2b",
+                "order": 311,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-1ceb81b628a5c29d",
+            "title": "第4章：PyTorch 框架",
+            "resourceId": "aiinfra-guide-1ceb81b628a5c29d",
+            "order": 4000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-6b76589b9952fa4f",
+                "title": "🔥 PyTorch框架快速入门篇",
+                "resourceId": "aiinfra-guide-6b76589b9952fa4f",
+                "order": 400,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-79a6f14b1e1f3916",
+            "title": "第5章：GPU 硬件概论",
+            "resourceId": "aiinfra-guide-79a6f14b1e1f3916",
+            "order": 5000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-3d7fd2516bf71971",
+                "title": "🔥 GPU基础知识：从硬件架构到AI计算",
+                "resourceId": "aiinfra-guide-3d7fd2516bf71971",
+                "order": 500,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-76eb7c6696b0c573",
+                "title": "5.1 NVIDIA GPU架构演进：从Volta到Blackwell",
+                "resourceId": "aiinfra-guide-76eb7c6696b0c573",
+                "order": 501,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-3e92cabaaa4ab6c9",
+            "title": "第6章：集合通信基础",
+            "resourceId": "aiinfra-guide-3e92cabaaa4ab6c9",
+            "order": 6000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-f3b62304efd09fbb",
+                "title": "🔥 集群通信网络与NCCL：分布式训练的通信骨架",
+                "resourceId": "aiinfra-guide-f3b62304efd09fbb",
+                "order": 600,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "aiinfra-cuda-optimization",
+        "title": "CUDA 编程与算子优化",
+        "order": 2,
+        "children": [
+          {
+            "id": "source-node-aiinfra-guide-5a4442ccbbb8ee66",
+            "title": "✅ CUDA编程快速入门指南 🔥",
+            "resourceId": "aiinfra-guide-5a4442ccbbb8ee66",
+            "order": 0,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-4d2bc34f575f803c",
+            "title": "第1章：CUDA 编程入门",
+            "resourceId": "aiinfra-guide-4d2bc34f575f803c",
+            "order": 1000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-ffa4ba1ba3a30f90",
+                "title": "1.1 CUDA 开发环境搭建",
+                "resourceId": "aiinfra-guide-ffa4ba1ba3a30f90",
+                "order": 101,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-b63c2855eb476f26",
+                "title": "1.2 CUDA 编程模型",
+                "resourceId": "aiinfra-guide-b63c2855eb476f26",
+                "order": 102,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-2384f3d79864e234",
+                "title": "1.3 CUDA 内存模型",
+                "resourceId": "aiinfra-guide-2384f3d79864e234",
+                "order": 103,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-38a3659b2c74399f",
+                "title": "1.4 第一个实用 Kernel：向量加法",
+                "resourceId": "aiinfra-guide-38a3659b2c74399f",
+                "order": 104,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-6c777c53f467c01a",
+            "title": "第2章：CUDA 性能优化基础",
+            "resourceId": "aiinfra-guide-6c777c53f467c01a",
+            "order": 2000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-53190fc47b5acfc1",
+                "title": "2.1 Warp 与执行模型",
+                "resourceId": "aiinfra-guide-53190fc47b5acfc1",
+                "order": 201,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-8713bd12e9b3f1f0",
+                "title": "2.2 内存访问优化",
+                "resourceId": "aiinfra-guide-8713bd12e9b3f1f0",
+                "order": 202,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-070ffcd06377bde4",
+                "title": "2.3 Occupancy 与资源分配",
+                "resourceId": "aiinfra-guide-070ffcd06377bde4",
+                "order": 203,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-36ab5ec72a001b7c",
+                "title": "2.4 同步与原子操作",
+                "resourceId": "aiinfra-guide-36ab5ec72a001b7c",
+                "order": 204,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-13e4d6e802bd89bb",
+            "title": "第3章：经典算子实现—Reduce",
+            "resourceId": "aiinfra-guide-13e4d6e802bd89bb",
+            "order": 3000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-8a0a068ef51c6e70",
+                "title": "3.1 CUDA Reduce算子优化",
+                "resourceId": "aiinfra-guide-8a0a068ef51c6e70",
+                "order": 301,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-d410b3983ec48653",
+            "title": "第4章：经典算子实现—GEMM",
+            "resourceId": "aiinfra-guide-d410b3983ec48653",
+            "order": 4000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-d38c5461511d45a9",
+                "title": "4.1 CUDA GEMM算子性能优化",
+                "resourceId": "aiinfra-guide-d38c5461511d45a9",
+                "order": 401,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-95295bdb7484b12a",
+            "title": "第5章：经典算子实现—Softmax 与算子融合",
+            "resourceId": "aiinfra-guide-95295bdb7484b12a",
+            "order": 5000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-f50052476560609c",
+                "title": "5.1 CUDA Softmax 朴素实现优化",
+                "resourceId": "aiinfra-guide-f50052476560609c",
+                "order": 501,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-c212d16cb8f6b4bf",
+                "title": "5.2 CUDA Online Softmax 实现优化",
+                "resourceId": "aiinfra-guide-c212d16cb8f6b4bf",
+                "order": 502,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-1c62418efb0e0b12",
+            "title": "第6章：Attention 算子",
+            "resourceId": "aiinfra-guide-1c62418efb0e0b12",
+            "order": 6000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-b897c843c1fd7319",
+                "title": "6.1 FlashAttention V1详解",
+                "resourceId": "aiinfra-guide-b897c843c1fd7319",
+                "order": 601,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-ef4b7c44988c470d",
+                "title": "6.2 FlashAttention V2详解",
+                "resourceId": "aiinfra-guide-ef4b7c44988c470d",
+                "order": 602,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-0ebbf8fd466b028f",
+            "title": "第7章：AI 编译器",
+            "resourceId": "aiinfra-guide-0ebbf8fd466b028f",
+            "order": 7000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-064ea7e3a78ce2be",
+            "title": "第8章：性能分析工具链",
+            "resourceId": "aiinfra-guide-064ea7e3a78ce2be",
+            "order": 8000,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "aiinfra-distributed-training",
+        "title": "分布式训练",
+        "order": 3,
+        "children": [
+          {
+            "id": "source-node-aiinfra-guide-dbc5a207de4235ec",
+            "title": "第1章：分布式训练总论",
+            "resourceId": "aiinfra-guide-dbc5a207de4235ec",
+            "order": 1000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-3b104677ecc6b9f9",
+                "title": "1.1 分布式训练总论：显存账本与五大并行策略全景",
+                "resourceId": "aiinfra-guide-3b104677ecc6b9f9",
+                "order": 101,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-02aa2f02b41f11c4",
+                "title": "1.2 环境搭建与分布式启动",
+                "resourceId": "aiinfra-guide-02aa2f02b41f11c4",
+                "order": 102,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-9ca0abf1167948aa",
+            "title": "第2章：集合通信原语",
+            "resourceId": "aiinfra-guide-9ca0abf1167948aa",
+            "order": 2000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-dbf7cc7e83039495",
+                "title": "2.1 集合通信原语详解",
+                "resourceId": "aiinfra-guide-dbf7cc7e83039495",
+                "order": 201,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-916f84b7799c00ce",
+            "title": "第3章：优化器",
+            "resourceId": "aiinfra-guide-916f84b7799c00ce",
+            "order": 3000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-75295f91b48c5077",
+                "title": "3.1 优化器：从 SGD 到 AdamW 与显存开销分析",
+                "resourceId": "aiinfra-guide-75295f91b48c5077",
+                "order": 301,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-cdc72e9b5b44ea12",
+            "title": "第4章：数据并行(DP、DDP、FSDP)",
+            "resourceId": "aiinfra-guide-cdc72e9b5b44ea12",
+            "order": 4000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-86a8cd5f81e25e85",
+                "title": "4.1 数据并行详解",
+                "resourceId": "aiinfra-guide-86a8cd5f81e25e85",
+                "order": 401,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-309996474ee3146a",
+                "title": "4.2 PyTorch 数据并行从原理到实战",
+                "resourceId": "aiinfra-guide-309996474ee3146a",
+                "order": 402,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-f5937186e5c670a4",
+            "title": "第5章：ZeRO显存优化系列",
+            "resourceId": "aiinfra-guide-f5937186e5c670a4",
+            "order": 5000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-83b4d1e12cd78b0f",
+            "title": "第6章：张量并行TP与序列并行SP",
+            "resourceId": "aiinfra-guide-83b4d1e12cd78b0f",
+            "order": 6000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-69893ec55dd32d6c",
+            "title": "第7章：流水线并行PP",
+            "resourceId": "aiinfra-guide-69893ec55dd32d6c",
+            "order": 7000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-e6638035b049d6d0",
+            "title": "第8章：混合精度与显存优化",
+            "resourceId": "aiinfra-guide-e6638035b049d6d0",
+            "order": 8000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-9bf99975fb280a9a",
+            "title": "第9章：长序列训练与上下文并行",
+            "resourceId": "aiinfra-guide-9bf99975fb280a9a",
+            "order": 9000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-c1be018fba7dae8d",
+            "title": "第10章：MoE 并行",
+            "resourceId": "aiinfra-guide-c1be018fba7dae8d",
+            "order": 10000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-3109a2178cd6c105",
+            "title": "第11章：3D 并行与混合并行策略",
+            "resourceId": "aiinfra-guide-3109a2178cd6c105",
+            "order": 11000,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "aiinfra-inference-optimization",
+        "title": "推理优化",
+        "order": 4,
+        "children": [
+          {
+            "id": "source-node-aiinfra-guide-4394577e5c02ac38",
+            "title": "第1章：LLM 推理基础",
+            "resourceId": "aiinfra-guide-4394577e5c02ac38",
+            "order": 1000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-f0eface59cad74d2",
+                "title": "1.1 LLM 推理基础",
+                "resourceId": "aiinfra-guide-f0eface59cad74d2",
+                "order": 101,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-dc2d1eeaa91368de",
+            "title": "第2章：推理引擎核心技术",
+            "resourceId": "aiinfra-guide-dc2d1eeaa91368de",
+            "order": 2000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-a11e8dcbd510f4ee",
+                "title": "2.1 PagedAttention：像操作系统管理内存一样管理 KV Cache",
+                "resourceId": "aiinfra-guide-a11e8dcbd510f4ee",
+                "order": 201,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-90898ad09563dd17",
+                "title": "2.2 Continuous Batching：让 GPU 不再空等的动态批处理",
+                "resourceId": "aiinfra-guide-90898ad09563dd17",
+                "order": 202,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-9e640615563bd93f",
+                "title": "2.3 Prefix Cache 与 RadixAttention：复用共享前缀的 KV",
+                "resourceId": "aiinfra-guide-9e640615563bd93f",
+                "order": 203,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-09912231fb0cca75",
+                "title": "2.4 Chunked Prefill 与统一 Token Budget 调度",
+                "resourceId": "aiinfra-guide-09912231fb0cca75",
+                "order": 204,
+                "children": []
+              },
+              {
+                "id": "source-node-aiinfra-guide-05fe47c72d61feb8",
+                "title": "2.5 Attention 后端与图优化：把 Decode 的 CPU 开销榨干",
+                "resourceId": "aiinfra-guide-05fe47c72d61feb8",
+                "order": 205,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-712f07a1d1f50185",
+            "title": "第3章：深入 vLLM 架构与源码",
+            "resourceId": "aiinfra-guide-712f07a1d1f50185",
+            "order": 3000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-9136f9066c80dd2b",
+                "title": "vLLM 快速入门：从安装到部署你的第一个 LLM 推理服务",
+                "resourceId": "aiinfra-guide-9136f9066c80dd2b",
+                "order": 1,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "source-node-aiinfra-guide-22b1f1e392b2da83",
+            "title": "第4章：量化",
+            "resourceId": "aiinfra-guide-22b1f1e392b2da83",
+            "order": 4000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-e9f43f168b250a35",
+            "title": "第5章：Speculative Decoding",
+            "resourceId": "aiinfra-guide-e9f43f168b250a35",
+            "order": 5000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-d3794c6a90b371a8",
+            "title": "第6章：分布式推理与大模型部署",
+            "resourceId": "aiinfra-guide-d3794c6a90b371a8",
+            "order": 6000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-cca3ca4a454b0dd0",
+            "title": "第7章：Prefill/Decode 解耦架构",
+            "resourceId": "aiinfra-guide-cca3ca4a454b0dd0",
+            "order": 7000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-6d2dca9f35f04ed2",
+            "title": "第8章：生产级服务特性",
+            "resourceId": "aiinfra-guide-6d2dca9f35f04ed2",
+            "order": 8000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-b188bdba46c4669f",
+            "title": "第9章：性能分析与 Benchmark",
+            "resourceId": "aiinfra-guide-b188bdba46c4669f",
+            "order": 9000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-cd16f93f214d33dd",
+            "title": "第10章：生产部署与运维",
+            "resourceId": "aiinfra-guide-cd16f93f214d33dd",
+            "order": 10000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-a90a2ea9cffebb9a",
+            "title": "第11章：推理优化选型与端到端实战",
+            "resourceId": "aiinfra-guide-a90a2ea9cffebb9a",
+            "order": 11000,
+            "children": []
+          },
+          {
+            "id": "source-node-aiinfra-guide-4d726573bc20f994",
+            "title": "第12章：端侧推理",
+            "resourceId": "aiinfra-guide-4d726573bc20f994",
+            "order": 12000,
+            "children": [
+              {
+                "id": "source-node-aiinfra-guide-171c911cb240dd4a",
+                "title": "12.1 端侧推理基础：从模型导出到异构硬件执行",
+                "resourceId": "aiinfra-guide-171c911cb240dd4a",
+                "order": 1201,
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "source-aris-ai-offer",
+    "title": "ARIS-in-AI-Offer",
+    "description": "按固定版本主页的真实分组和卡片顺序阅读，每个主题保留中英文版本。",
+    "mode": "source",
+    "sourceId": "aris-ai-offer",
+    "order": 1,
+    "evidence": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/index.html",
+    "children": [
+      {
+        "id": "aris-found",
+        "title": "基础",
+        "titleEn": "Foundations",
+        "order": 0,
+        "children": [
+          {
+            "id": "source-node-aris-ai-offer-attention-tutorial",
+            "title": "Attention 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-attention-tutorial",
+            "order": 0,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-transformer-block-tutorial",
+            "title": "Transformer Block 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-transformer-block-tutorial",
+            "order": 1,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-llm-evaluation-benchmarking-tutorial",
+            "title": "LLM Evaluation & Benchmarking 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-llm-evaluation-benchmarking-tutorial",
+            "order": 2,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-normalization-init-tutorial",
+            "title": "归一化 / 残差 / 初始化 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-normalization-init-tutorial",
+            "order": 3,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-optimizer-lr-schedule-tutorial",
+            "title": "优化器 / LR Schedule 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-optimizer-lr-schedule-tutorial",
+            "order": 4,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-tokenization-tutorial",
+            "title": "Tokenization / 分词器 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-tokenization-tutorial",
+            "order": 5,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-kl-divergence-rlhf-tutorial",
+            "title": "KL Divergence in RLHF 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-kl-divergence-rlhf-tutorial",
+            "order": 6,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "aris-post",
+        "title": "后训练与推理",
+        "titleEn": "Post-Training & Reasoning",
+        "order": 1,
+        "children": [
+          {
+            "id": "source-node-aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial",
+            "title": "RLHF / DPO / GRPO / PPO 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial",
+            "order": 0,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-reasoning-models-tutorial",
+            "title": "Reasoning Models 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-reasoning-models-tutorial",
+            "order": 1,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-llm-opd-tutorial",
+            "title": "LLM On-Policy Distillation (OPD) 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-llm-opd-tutorial",
+            "order": 2,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-lora-peft-tutorial",
+            "title": "LoRA / PEFT 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-lora-peft-tutorial",
+            "order": 3,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "aris-arch",
+        "title": "架构与系统",
+        "titleEn": "Architecture & Systems",
+        "order": 2,
+        "children": [
+          {
+            "id": "source-node-aris-ai-offer-moe-tutorial",
+            "title": "MoE (Mixture-of-Experts) 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-moe-tutorial",
+            "order": 0,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-long-context-rope-yarn-mla-tutorial",
+            "title": "Long Context: RoPE / YaRN / NTK / MLA / Sliding Window 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-long-context-rope-yarn-mla-tutorial",
+            "order": 1,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-linear-sparse-attention-tutorial",
+            "title": "线性 / 稀疏注意力 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-linear-sparse-attention-tutorial",
+            "order": 2,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-kv-cache-speculative-decoding-tutorial",
+            "title": "KV Cache + Speculative Decoding 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-kv-cache-speculative-decoding-tutorial",
+            "order": 3,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-quantization-tutorial",
+            "title": "Quantization 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-quantization-tutorial",
+            "order": 4,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-distributed-training-tutorial",
+            "title": "Distributed Training 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-distributed-training-tutorial",
+            "order": 5,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-llm-pretraining-pipeline-tutorial",
+            "title": "LLM Pretraining Pipeline 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-llm-pretraining-pipeline-tutorial",
+            "order": 6,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-llm-inference-serving-tutorial",
+            "title": "LLM Inference & Serving Stack 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-llm-inference-serving-tutorial",
+            "order": 7,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "aris-gentheory",
+        "title": "生成模型理论",
+        "titleEn": "Generative Theory",
+        "order": 3,
+        "children": [
+          {
+            "id": "source-node-aris-ai-offer-flow-matching-tutorial",
+            "title": "Flow Matching Quick Reference",
+            "resourceId": "aris-ai-offer-flow-matching-tutorial",
+            "order": 0,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-diffusion-foundations-tutorial",
+            "title": "Diffusion Foundations 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-diffusion-foundations-tutorial",
+            "order": 1,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-vae-vqvae-vqgan-tutorial",
+            "title": "VAE / VQ-VAE / VQ-GAN / FSQ 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-vae-vqvae-vqgan-tutorial",
+            "order": 2,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "aris-gensys",
+        "title": "生成系统",
+        "titleEn": "Generation Systems",
+        "order": 4,
+        "children": [
+          {
+            "id": "source-node-aris-ai-offer-image-generation-systems-tutorial",
+            "title": "Image Generation Systems 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-image-generation-systems-tutorial",
+            "order": 0,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-video-generation-tutorial",
+            "title": "Video Generation 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-video-generation-tutorial",
+            "order": 1,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-3d-generation-tutorial",
+            "title": "3D Generation 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-3d-generation-tutorial",
+            "order": 2,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-diffusion-post-training-tutorial",
+            "title": "Diffusion Post-Training 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-diffusion-post-training-tutorial",
+            "order": 3,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-modern-diffusion-post-training-tutorial",
+            "title": "现代 Diffusion 后训练 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-modern-diffusion-post-training-tutorial",
+            "order": 4,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-diffusion-distillation-tutorial",
+            "title": "Diffusion Distillation 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-diffusion-distillation-tutorial",
+            "order": 5,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "aris-mm",
+        "title": "多模态",
+        "titleEn": "Multimodal",
+        "order": 5,
+        "children": [
+          {
+            "id": "source-node-aris-ai-offer-vlm-multimodal-tutorial",
+            "title": "VLM / Multimodal 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-vlm-multimodal-tutorial",
+            "order": 0,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "aris-agent",
+        "title": "Agent",
+        "titleEn": "Agents",
+        "order": 6,
+        "children": [
+          {
+            "id": "source-node-aris-ai-offer-agent-foundations-tutorial",
+            "title": "Agent Foundations 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-agent-foundations-tutorial",
+            "order": 0,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-agentic-rl-tutorial",
+            "title": "Agentic RL 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-agentic-rl-tutorial",
+            "order": 1,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-multi-agent-long-horizon-tutorial",
+            "title": "Multi-Agent & Long-Horizon 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-multi-agent-long-horizon-tutorial",
+            "order": 2,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-self-evolving-agents-tutorial",
+            "title": "Self-Evolving Agents 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-self-evolving-agents-tutorial",
+            "order": 3,
+            "children": []
+          },
+          {
+            "id": "source-node-aris-ai-offer-rag-embedding-retrieval-tutorial",
+            "title": "RAG + 文本嵌入 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-rag-embedding-retrieval-tutorial",
+            "order": 4,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "aris-embodied",
+        "title": "具身与世界模型",
+        "titleEn": "Embodied & World Models",
+        "order": 7,
+        "children": [
+          {
+            "id": "source-node-aris-ai-offer-world-models-tutorial",
+            "title": "World Models 面试 Cheat Sheet",
+            "resourceId": "aris-ai-offer-world-models-tutorial",
+            "order": 0,
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "source-kamacoder",
+    "title": "卡码笔记 · 大模型面试",
+    "mode": "source",
+    "sourceId": "kamacoder",
+    "order": 2,
+    "description": "按原站大模型面经汇总的专题组织，仅保留原站阅读入口。",
+    "evidence": "https://notes.kamacoder.com/interview/llm/",
+    "children": [
+      {
+        "id": "kama-section-0",
+        "title": "学习路线",
+        "order": 0,
+        "children": [
+          {
+            "id": "source-node-kamacoder-overview",
+            "title": "大模型面试学习入口",
+            "resourceId": "kamacoder-overview",
+            "order": 0,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "kama-section-1",
+        "title": "AI 编程",
+        "order": 1,
+        "children": [
+          {
+            "id": "source-node-kamacoder-ai-coding",
+            "title": "AI 编程能力自测",
+            "resourceId": "kamacoder-ai-coding",
+            "order": 0,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-ai-coding-quality",
+            "title": "AI 编程与交付质量",
+            "resourceId": "kamacoder-ai-coding-quality",
+            "order": 1,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-claude-code",
+            "title": "Claude Code 工作方式",
+            "resourceId": "kamacoder-claude-code",
+            "order": 2,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-ai-dev-tools",
+            "title": "AI 开发工具协作",
+            "resourceId": "kamacoder-ai-dev-tools",
+            "order": 3,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-spec-driven",
+            "title": "基于规格的开发",
+            "resourceId": "kamacoder-spec-driven",
+            "order": 4,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-code-search",
+            "title": "代码搜索与上下文",
+            "resourceId": "kamacoder-code-search",
+            "order": 5,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-context-window",
+            "title": "上下文窗口管理",
+            "resourceId": "kamacoder-context-window",
+            "order": 6,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "kama-section-2",
+        "title": "RAG",
+        "order": 2,
+        "children": [
+          {
+            "id": "source-node-kamacoder-rag-basics",
+            "title": "RAG 面试准备",
+            "resourceId": "kamacoder-rag-basics",
+            "order": 0,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-rag-quality",
+            "title": "RAG 工程质量",
+            "resourceId": "kamacoder-rag-quality",
+            "order": 1,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-graph-rag",
+            "title": "知识图谱检索",
+            "resourceId": "kamacoder-graph-rag",
+            "order": 2,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "kama-section-3",
+        "title": "模型训练",
+        "order": 3,
+        "children": [
+          {
+            "id": "source-node-kamacoder-model-tuning",
+            "title": "模型微调与偏好对齐",
+            "resourceId": "kamacoder-model-tuning",
+            "order": 0,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "kama-section-4",
+        "title": "Agent 工程",
+        "order": 4,
+        "children": [
+          {
+            "id": "source-node-kamacoder-agent-basics",
+            "title": "Agent 基础与工具调用",
+            "resourceId": "kamacoder-agent-basics",
+            "order": 0,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-agent-loop",
+            "title": "ReAct 与循环控制",
+            "resourceId": "kamacoder-agent-loop",
+            "order": 1,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-agent-graph",
+            "title": "智能体图编排",
+            "resourceId": "kamacoder-agent-graph",
+            "order": 2,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-agent-harness",
+            "title": "Agent 运行环境与治理",
+            "resourceId": "kamacoder-agent-harness",
+            "order": 3,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-agent-production",
+            "title": "生产级 Agent 架构",
+            "resourceId": "kamacoder-agent-production",
+            "order": 4,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-agent-communication",
+            "title": "多智能体通信",
+            "resourceId": "kamacoder-agent-communication",
+            "order": 5,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-agent-orchestration",
+            "title": "多智能体调度与状态",
+            "resourceId": "kamacoder-agent-orchestration",
+            "order": 6,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-agent-observability",
+            "title": "智能体可观测性",
+            "resourceId": "kamacoder-agent-observability",
+            "order": 7,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-agent-skills",
+            "title": "Agent 技能复用",
+            "resourceId": "kamacoder-agent-skills",
+            "order": 8,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-agent-frameworks",
+            "title": "智能体框架比较",
+            "resourceId": "kamacoder-agent-frameworks",
+            "order": 9,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-agent-routing",
+            "title": "智能体请求路由",
+            "resourceId": "kamacoder-agent-routing",
+            "order": 10,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-agent-drift",
+            "title": "任务漂移与幻觉",
+            "resourceId": "kamacoder-agent-drift",
+            "order": 11,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-agent-evidence",
+            "title": "智能体输出约束",
+            "resourceId": "kamacoder-agent-evidence",
+            "order": 12,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "kama-section-5",
+        "title": "Transformer",
+        "order": 5,
+        "children": [
+          {
+            "id": "source-node-kamacoder-transformer",
+            "title": "Transformer 面试准备",
+            "resourceId": "kamacoder-transformer",
+            "order": 0,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "kama-section-6",
+        "title": "真实面试",
+        "order": 6,
+        "children": [
+          {
+            "id": "source-node-kamacoder-interview-agent",
+            "title": "Agent 岗位面试复盘",
+            "resourceId": "kamacoder-interview-agent",
+            "order": 0,
+            "children": []
+          },
+          {
+            "id": "source-node-kamacoder-interview-intern",
+            "title": "Agent 实习面试复盘",
+            "resourceId": "kamacoder-interview-intern",
+            "order": 1,
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "source-labuladong",
+    "title": "labuladong · 算法笔记",
+    "mode": "source",
+    "sourceId": "labuladong",
+    "order": 3,
+    "evidence": "https://labuladong.online/zh/algo/essential-technique/algorithm-summary/",
+    "description": "仅收录经核查的原站入口。",
+    "children": [
+      {
+        "id": "source-node-labuladong-algorithm-summary",
+        "title": "算法学习：框架与方法",
+        "resourceId": "labuladong-algorithm-summary",
+        "order": 0,
+        "children": []
+      }
+    ]
+  }
+]

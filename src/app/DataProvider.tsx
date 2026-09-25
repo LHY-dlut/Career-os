@@ -4,16 +4,22 @@ import { applyMutations, emptyDataset, type Dataset, type Mutation, type Reposit
 import { exportBackup, resetGuestData, restoreGuestBackup } from '../services/backup';
 import { useToast } from '../components/common/Toast';
 
-interface DataState { data: Dataset; loading: boolean; error: string; refresh: () => Promise<void>; commit: (changes: Mutation[]) => Promise<void>; exportData: () => Promise<string>; restore: (json: string) => Promise<void>; reset: () => Promise<void> }
+interface DataState { data: Dataset; revision: number; generation: number; loading: boolean; error: string; refresh: () => Promise<void>; commit: (changes: Mutation[], expectedGeneration?: number) => Promise<void>; beforeExport: (handler: () => Promise<void>) => () => void; exportData: () => Promise<string>; restore: (json: string) => Promise<void>; reset: () => Promise<void> }
 const DataContext = createContext<DataState | null>(null);
 export function DataProvider({ uid, children }: { uid: string | null; children: ReactNode }) {
   const [data, setData] = useState(emptyDataset);
+  const [revision, setRevision] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const repo = useRef<Repositories | null>(null);
   const active = useRef(true);
   const generation = useRef(0);
   const pending = useRef(0);
+  const exportPreparation = useRef<(() => Promise<void>) | null>(null);
+  const beforeExport = useCallback((handler: () => Promise<void>) => {
+    exportPreparation.current = handler;
+    return () => { if (exportPreparation.current === handler) exportPreparation.current = null; };
+  }, []);
   const { showToast } = useToast();
   const refresh = useCallback(async () => {
     const ticket = ++generation.current;
@@ -21,7 +27,7 @@ export function DataProvider({ uid, children }: { uid: string | null; children: 
     try {
       const repository = await getRepositories(uid);
       const next = await repository.load();
-      if (active.current && generation.current === ticket) { repo.current = repository; setData(next); }
+      if (active.current && generation.current === ticket) { repo.current = repository; setData(next); setRevision(value => value + 1); }
     } catch (cause) {
       if (active.current && generation.current === ticket) setError(cause instanceof Error ? cause.message : 'Workspace could not be loaded.');
     } finally {
@@ -33,7 +39,8 @@ export function DataProvider({ uid, children }: { uid: string | null; children: 
     void refresh();
     return () => { active.current = false; generation.current++; repo.current = null; };
   }, [refresh]);
-  const commit = async (changes: Mutation[]) => {
+  const commit = async (changes: Mutation[], expectedGeneration?: number) => {
+    if (expectedGeneration !== undefined && expectedGeneration !== generation.current) throw new Error('Workspace was replaced before saving. The old edit was not written.');
     if (pending.current) { showToast('A save is already in progress.', 'info'); throw new Error('Save in progress.'); }
     pending.current++;
     try {
@@ -47,6 +54,7 @@ export function DataProvider({ uid, children }: { uid: string | null; children: 
     } finally { pending.current--; }
   };
   const exportData = async () => {
+    await exportPreparation.current?.();
     if (!repo.current || pending.current) throw new Error('Please wait for saving to finish.');
     return exportBackup(await repo.current.load());
   };
@@ -60,7 +68,7 @@ export function DataProvider({ uid, children }: { uid: string | null; children: 
     resetGuestData(localStorage);
     await refresh();
   };
-  return <DataContext.Provider value={{ data, loading, error, refresh, commit, exportData, restore, reset }}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={{ data, revision, generation: generation.current, loading, error, refresh, commit, beforeExport, exportData, restore, reset }}>{children}</DataContext.Provider>;
 }
 export function useData() {
   const context = useContext(DataContext);

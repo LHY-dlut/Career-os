@@ -1,0 +1,516 @@
+[
+  {
+    "id": "torch-tensor-shapes",
+    "track": "pytorch",
+    "order": 1,
+    "title": "Tensor 形状与分头变换",
+    "titleEn": "Tensor shapes and head transforms",
+    "category": "Tensor 基础",
+    "difficulty": "Easy",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "实现分头、合头和批量 QKᵀ 三个基础运算，禁止用固定形状或全零结果代替。重点是保持元素含义与 batch/head 维度对应，而非仅得到正确的 shape。split_heads 需要支持非连续输入；merge_heads 必须恢复原 token 顺序；batched_scores 不做缩放。",
+    "inputOutput": "split_heads(x:[B,T,D], num_heads:H) → [B,H,T,D/H]。H 为正整数，D>0 且 D%H=0，否则 ValueError。merge_heads(x:[B,H,T,d]) → [B,T,H*d]，非四维输入报 ValueError。batched_scores(q:[B,H,Q,d], k:[B,H,K,d]) → [B,H,Q,K]；batch、head、d 必须相同，非法形状报 ValueError。",
+    "examples": "x=torch.arange(8.).reshape(1,2,4)，H=2：分头结果为 [[[[0,1],[4,5]],[[2,3],[6,7]]]]，合头后与 x 逐元素相同。q=[[[[1,2]]]]、k=[[[[3,4],[0,1]]]] 时 scores=[[[[11,2]]]]。",
+    "hints": [
+      "先将最后一维 D 拆成 H 和 d，再交换 T 与 H。",
+      "transpose 通常改变 stride；reshape 可在需要时复制，不能盲用 view。",
+      "只转置 K 的最后两个维度，避免反转 batch 维。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef split_heads(x, num_heads):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\ndef merge_heads(x):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\ndef batched_scores(q, k):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-tensor-shapes/reference.py",
+    "testPath": "/training/pytorch/torch-tensor-shapes/test_solution.py",
+    "complexityAnalysis": "分头/合头视图变换本身 O(1)，需要复制时为 O(BTD) 时间与空间；QKᵀ 时间 O(BHQKd)，分数矩阵占 O(BHQK)。",
+    "keyPitfalls": [
+      "reshape(B,H,T,d) 不等于正确分头：会混淆 token 与 head。",
+      "禁止依靠 matmul 自动广播掩盖不同 batch/head 的输入错误。"
+    ],
+    "interviewQuestions": [
+      "为什么 transpose 后的 view 可能失败？",
+      "能用具体元素索引证明合头恢复原顺序吗？"
+    ],
+    "relatedResourceIds": [
+      "career-tensor-shapes"
+    ],
+    "sourceUrl": "https://docs.pytorch.org/docs/2.14/notes/broadcasting.html",
+    "verifiedAt": "2026-09-25"
+  },
+  {
+    "id": "torch-softmax",
+    "track": "pytorch",
+    "order": 2,
+    "title": "数值稳定 Softmax",
+    "titleEn": "Numerically stable softmax",
+    "category": "Tensor 基础",
+    "difficulty": "Easy",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "沿指定轴手写稳定 softmax。输入支持有限值和 -inf；-inf 代表被屏蔽项。为注意力定义扩展行为：某行全部为 -inf 时输出全零，且反向传播保持有限。不能调用 torch.softmax/F.softmax；半精度输入需以 float32 累加后还原 dtype。",
+    "inputOutput": "stable_softmax(x, dim=-1) → 与 x 同 shape/dtype。x 必须是非标量浮点 Tensor，dim 为合法轴，归一化轴非空。NaN、+inf、整数 Tensor 或非法轴抛 ValueError。普通行和为 1；全 -inf 行和为 0。",
+    "examples": "x=[[1000,1001],[-inf,-inf]] → 约 [[0.268941,0.731059],[0,0]]。对正常行整体加 10000，结果应在数值容差内保持不变。",
+    "hints": [
+      "逐行减去最大值；keepdim=True 保留广播轴。",
+      "全 -inf 行的最大值必须先替换为有限值，避免 -inf-(-inf)。",
+      "将分母限制到 dtype 最小正规数，再做除法；零分子仍为零。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef stable_softmax(x, dim=-1):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-softmax/reference.py",
+    "testPath": "/training/pytorch/torch-softmax/test_solution.py",
+    "complexityAnalysis": "对 N 个元素，时间 O(N)，中间张量空间 O(N)。",
+    "keyPitfalls": [
+      "直接 exp(1000) 会溢出。",
+      "torch.where 选择分支并不能自动消除已产生的 NaN 梯度。",
+      "全遮蔽零输出是本训练契约，数学上的普通 softmax 未定义这种输入。"
+    ],
+    "interviewQuestions": [
+      "减去同一个常数为什么不改变 softmax？",
+      "如何验证 mask 行前向与梯度都不含 NaN？"
+    ],
+    "relatedResourceIds": [
+      "career-scaled-attention"
+    ],
+    "sourceUrl": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.scaled_dot_product_attention.html",
+    "verifiedAt": "2026-09-25"
+  },
+  {
+    "id": "torch-embedding",
+    "track": "pytorch",
+    "order": 3,
+    "title": "Embedding 查表与 padding 梯度",
+    "titleEn": "Embedding lookup and padding gradients",
+    "category": "Tensor 基础",
+    "difficulty": "Easy",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "用 Tensor 索引实现 embedding 查表，不能调用 nn.Embedding 或 F.embedding。额外定义 padding_idx：该位置输出零，同时不向对应权重行累积梯度。该显式零输出策略不同于直接对任意非零 padding 权重调用 F.embedding；请按本题约定实现。",
+    "inputOutput": "embedding_lookup(token_ids:[B,T], weight:[V,D], padding_idx=None) → [B,T,D]。ID 仅接受 int32/int64，范围 [0,V)，weight 为浮点并与 ID 同设备。padding_idx 若给定必须是 [0,V) 的整数。非法 rank/类型/索引抛 ValueError；允许 T=0。",
+    "examples": "weight=[[1,2],[3,4],[5,6]]，ids=[[0,2,2]]，padding_idx=0 → [[[0,0],[5,6],[5,6]]]；输出求和后 weight.grad[0]=[0,0]、weight.grad[2]=[2,2]。",
+    "hints": [
+      "weight[token_ids.long()] 一次完成查表，输出新增 D 轴。",
+      "padding mask 需要扩展最后一维，且用可微的置零操作。",
+      "重复 token 的梯度会累积，不是被最后一次覆盖。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef embedding_lookup(token_ids, weight, padding_idx=None):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-embedding/reference.py",
+    "testPath": "/training/pytorch/torch-embedding/test_solution.py",
+    "complexityAnalysis": "时间与输出空间 O(BTD)；权重本身 O(VD)，不应构造 [B,T,V] one-hot。",
+    "keyPitfalls": [
+      "负索引在普通 Python 查表中合法，但本题必须拒绝。",
+      "只在初始化将 padding 行置零，无法保证后续梯度语义。"
+    ],
+    "interviewQuestions": [
+      "重复 token 的梯度如何合并？",
+      "查表与 one-hot 矩阵乘法在内存上有何差别？"
+    ],
+    "relatedResourceIds": [
+      "career-tensor-shapes"
+    ],
+    "sourceUrl": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.embedding.html",
+    "verifiedAt": "2026-09-25"
+  },
+  {
+    "id": "torch-attention",
+    "track": "pytorch",
+    "order": 4,
+    "title": "Scaled Dot-Product Attention",
+    "titleEn": "Scaled dot-product attention",
+    "category": "Attention 核心",
+    "difficulty": "Medium",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "手写 scores=QKᵀ/√d、布尔 mask、稳定 softmax、加权求和四步，不允许转调 SDPA 或 MultiheadAttention。allowed=True 表示该 key 可见；全遮蔽 query 行输出全零。测试使用相同输入、相同 mask、dropout_p=0 的 PyTorch SDPA 作为数值基准。可自行增加稳定 softmax helper。",
+    "inputOutput": "scaled_attention(q:[B,H,Q,d], k:[B,H,K,d], v:[B,H,K,dv], allowed=None) → [B,H,Q,dv]。Q/K/V 必须同浮点 dtype/device、有限、序列与特征轴非空；batch/head 相同。allowed 为同设备 bool，能够广播到 [B,H,Q,K]。非法形状/类型/不可广播 mask 抛 ValueError。",
+    "examples": "q、k 全零，v=[[[[2.],[8.]]]]：无遮蔽输出为 5；allowed=[[[[True,False]]]] 时输出为 2；全部 False 时输出为 0。",
+    "hints": [
+      "缩放因子使用 key/query 的 d，不是序列长度或 dv。",
+      "masked_fill(~allowed, -inf) 后使用支持全遮蔽行的稳定 softmax。",
+      "V 的最后一维允许不同于 Q/K。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef scaled_attention(q, k, v, allowed=None):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-attention/reference.py",
+    "testPath": "/training/pytorch/torch-attention/test_solution.py",
+    "complexityAnalysis": "时间 O(BHQK(d+dv))，显式分数/概率占 O(BHQK)，输出占 O(BHQdv)。",
+    "keyPitfalls": [
+      "把 mask 放在 softmax 后置零，会让未遮蔽概率和不再为 1。",
+      "普通 softmax 的全 -inf 行会产生 NaN。",
+      "比较时必须关闭 dropout，且统一 mask 的 True 含义。"
+    ],
+    "interviewQuestions": [
+      "为什么除以 √d 而不是 d？",
+      "如何构造测试证明未来 token 没有泄漏？"
+    ],
+    "relatedResourceIds": [
+      "career-scaled-attention"
+    ],
+    "sourceUrl": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.scaled_dot_product_attention.html",
+    "verifiedAt": "2026-09-25"
+  },
+  {
+    "id": "torch-masks",
+    "track": "pytorch",
+    "order": 5,
+    "title": "Causal 与 padding mask 合并",
+    "titleEn": "Causal and padding masks",
+    "category": "Attention 核心",
+    "difficulty": "Medium",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "构造支持增量解码偏移的统一可见性 mask。本题 key_valid=True 表示真实 key，False 表示 padding；因果规则是 key 的绝对位置不大于 query 的绝对位置。两者用逻辑与合并。只屏蔽 key，不自动将 padding query 的最终残差输出置零。",
+    "inputOutput": "make_allowed_mask(query_length:Q, key_length:K, key_valid:[B,K], query_offset=0) → bool [B,1,Q,K]。Q/K 为正整数，offset 为非负整数且 offset+Q<=K；key_valid 必须二维 bool 且 K 匹配，否则 ValueError。设备继承 key_valid。",
+    "examples": "Q=2,K=4,offset=2,key_valid=[[True,False,True,True]] → [[[[True,False,True,False],[True,False,True,True]]]]。Q=K=3、全部有效时得到标准含对角线下三角矩阵。",
+    "hints": [
+      "query 绝对坐标是 arange(offset,offset+Q)，key 坐标是 arange(K)。",
+      "构造 [Q,K] causal 后与 key_valid[:,None,None,:] 合并。",
+      "分块解码里不能直接使用 Q×K 的左上角 tril。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef make_allowed_mask(query_length, key_length, key_valid, query_offset=0):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-masks/reference.py",
+    "testPath": "/training/pytorch/torch-masks/test_solution.py",
+    "complexityAnalysis": "构造输出时间/空间 O(BQK)，头维为 1，可广播到多个 head。",
+    "keyPitfalls": [
+      "nn.MultiheadAttention 的 key_padding_mask=True 是屏蔽，与本题 key_valid 相反。",
+      "offset 遗漏可能令新 token 只能看序列开头。"
+    ],
+    "interviewQuestions": [
+      "有 cache 时 causal mask 为什么不是普通方阵下三角？",
+      "key padding 与 query padding 是否同一件事？"
+    ],
+    "relatedResourceIds": [
+      "career-mha-masks",
+      "career-gqa-kv-cache"
+    ],
+    "sourceUrl": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.scaled_dot_product_attention.html",
+    "verifiedAt": "2026-09-25"
+  },
+  {
+    "id": "torch-mha",
+    "track": "pytorch",
+    "order": 6,
+    "title": "手写 Multi-Head Attention",
+    "titleEn": "Manual multi-head attention",
+    "category": "Attention 核心",
+    "difficulty": "Medium",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "将 Q/K/V 线性投影、分头、缩放点积注意力、合头、输出投影组成完整 bias-free self-attention。允许自行编写 helper，但不能调用 nn.MultiheadAttention 或 SDPA。无 dropout；所有权重均使用 PyTorch Linear 的 [out,in] 约定。",
+    "inputOutput": "multi_head_attention(x:[B,T,D], wq,wk,wv,wo:[D,D], num_heads:H, allowed=None) → [B,T,D]。D%H=0 且 H>0，mask 为可广播到 [B,H,T,T] 的 bool，True 可见。非法头数/权重形状报 ValueError；全遮蔽行在无 bias 投影后仍为零。",
+    "examples": "令 D=4,H=2，四个权重为单位阵。只有第 0 个 key 可见时，每个 query 的输出都等于 x 的第 0 个 token；全部不可见时输出为零。",
+    "hints": [
+      "先计算 x @ w.T，再 reshape(B,T,H,d).transpose(1,2)。",
+      "合头执行相反的 transpose/reshape，最后应用 wo。",
+      "测试会将同一组参数装入 nn.MultiheadAttention 作对照。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef multi_head_attention(x, wq, wk, wv, wo, num_heads, allowed=None):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-mha/reference.py",
+    "testPath": "/training/pytorch/torch-mha/test_solution.py",
+    "complexityAnalysis": "投影 O(BTD²)，注意力 O(BT²D)；显式注意力分数空间 O(BHT²)。",
+    "keyPitfalls": [
+      "忘记转置权重会在方阵形状下悄悄得到错误数值。",
+      "把 head 直接并入 token 轴会让不同 head 互相注意。"
+    ],
+    "interviewQuestions": [
+      "MHA 增加头数是否必然增加参数量？",
+      "为什么 concat 后还需要输出投影？"
+    ],
+    "relatedResourceIds": [
+      "career-mha-masks"
+    ],
+    "sourceUrl": "https://arxiv.org/abs/1706.03762",
+    "verifiedAt": "2026-09-25"
+  },
+  {
+    "id": "torch-norm",
+    "track": "pytorch",
+    "order": 7,
+    "title": "LayerNorm 与 RMSNorm",
+    "titleEn": "LayerNorm and RMSNorm",
+    "category": "Decoder 组件",
+    "difficulty": "Medium",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "沿最后一维手写 LayerNorm 和 RMSNorm，不能调用归一化高层函数。LayerNorm 使用总体方差 mean((x-mean)²)，RMSNorm 不做均值中心化。半精度统计以 float32 累加并还原输入 dtype；显式给定相同 eps 后与 PyTorch 对照。",
+    "inputOutput": "layer_norm(x:[...,D], weight:[D], bias:[D], eps=1e-5) → 同 shape/dtype；rms_norm(x,weight,eps=1e-5) 无 bias。要求浮点 x、D>0、对应 affine 形状正确、eps>0，否则 ValueError。权重与输入使用相同 dtype/device。",
+    "examples": "x=[[1.,3.]]，weight=ones(2)，bias=zeros(2)：LayerNorm 约为 [-0.999995,0.999995]；RMSNorm 约为 [0.447213,1.341639]，均值不必为零。",
+    "hints": [
+      "mean(...,dim=-1,keepdim=True) 保留广播轴。",
+      "LayerNorm 的 variance 不是默认无偏样本方差。",
+      "RMSNorm 的分母为 sqrt(mean(x²)+eps)。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef layer_norm(x, weight, bias, eps=1e-5):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\ndef rms_norm(x, weight, eps=1e-5):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-norm/reference.py",
+    "testPath": "/training/pytorch/torch-norm/test_solution.py",
+    "complexityAnalysis": "N 个元素的时间与中间空间 O(N)；可融合实现减少中间存储，但本题不要求 kernel 优化。",
+    "keyPitfalls": [
+      "torch.var 的 correction 默认值可能不符合 LayerNorm。",
+      "不能把 RMSNorm 当成没有 bias 的 LayerNorm。"
+    ],
+    "interviewQuestions": [
+      "为什么对单个 token 的特征轴做归一化？",
+      "平移输入后，两种归一化是否都不变？"
+    ],
+    "relatedResourceIds": [
+      "career-decoder-block"
+    ],
+    "sourceUrl": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.RMSNorm.html",
+    "verifiedAt": "2026-09-25"
+  },
+  {
+    "id": "torch-ffn",
+    "track": "pytorch",
+    "order": 8,
+    "title": "两层 FFN 与精确 GELU",
+    "titleEn": "Two-layer FFN with exact GELU",
+    "category": "Decoder 组件",
+    "difficulty": "Medium",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "手写逐 token 的两层前馈网络：Linear(D→F)、精确 GELU、Linear(F→D)。GELU 使用 erf 公式，不允许用 nn.Sequential/nn.Linear/F.gelu 将核心全部转交高层模块。测试包含位置独立性与梯度检查。",
+    "inputOutput": "ffn(x:[...,D],w1:[F,D],b1:[F],w2:[D,F],b2:[D]) → [...,D]。x 至少二维；权重使用 [out,in]；非法维度报 ValueError。所有参数应与 x 同 dtype/device。",
+    "examples": "一维特征且 w1=w2=[[1.]], b1=b2=[0.]，x=[[0.],[1.]] → 约 [[0.],[0.841344746]]。",
+    "hints": [
+      "z=x@w1.T+b1。",
+      "精确 GELU(z)=0.5*z*(1+erf(z/√2))。",
+      "最后一维参与投影，前面的 batch/token 维保持不变。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef ffn(x, w1, b1, w2, b2):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-ffn/reference.py",
+    "testPath": "/training/pytorch/torch-ffn/test_solution.py",
+    "complexityAnalysis": "N 个 token，时间 O(NDF)，隐藏激活空间 O(NF)，参数 O(DF)。",
+    "keyPitfalls": [
+      "精确 GELU 与 tanh 近似不能以过严容差混合比较。",
+      "FFN 不混合 token；跨 token 的信息交换来自 attention。"
+    ],
+    "interviewQuestions": [
+      "为什么隐藏维 F 通常大于 D？",
+      "FFN 与 self-attention 在 token 交互上有什么区别？"
+    ],
+    "relatedResourceIds": [
+      "career-decoder-block"
+    ],
+    "sourceUrl": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.gelu.html",
+    "verifiedAt": "2026-09-25"
+  },
+  {
+    "id": "torch-residual",
+    "track": "pytorch",
+    "order": 9,
+    "title": "Pre-Norm 残差连接",
+    "titleEn": "Pre-norm residual connection",
+    "category": "Decoder 组件",
+    "difficulty": "Easy",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "实现 y=x+transform(LayerNorm(x))。transform 为调用方传入的可微函数；必须拒绝分支输出与 x shape 不一致的情况，避免广播使错误实现表面可运行。可增加自己的 LayerNorm helper。",
+    "inputOutput": "pre_norm_residual(x:[...,D],weight:[D],bias:[D],transform,eps=1e-5) → 与 x 同 shape。归一化使用总体方差；transform 输出必须严格同 shape，否则 ValueError。",
+    "examples": "若 transform(z)=zeros_like(z)，输出严格为 x；输出求和的 x 梯度应全为 1。若 transform(z)=2*z，则输出为 x+2*LayerNorm(x)。",
+    "hints": [
+      "保留原始 x 作为跳跃路径，不要原地覆盖它。",
+      "规范化在分支内部进行；Post-Norm 的运算顺序不同。",
+      "显式比较 branch.shape==x.shape，再相加。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef pre_norm_residual(x, weight, bias, transform, eps=1e-5):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-residual/reference.py",
+    "testPath": "/training/pytorch/torch-residual/test_solution.py",
+    "complexityAnalysis": "除 transform 外时间/空间 O(N)，N 为 x 元素数；总成本加上分支自身成本。",
+    "keyPitfalls": [
+      "错误写成 LayerNorm(x+transform(x)) 会改变网络。",
+      "branch=[D] 可能可以广播，却违反逐 token 分支约定。"
+    ],
+    "interviewQuestions": [
+      "零分支时的梯度说明了什么？",
+      "Pre-Norm 与 Post-Norm 的残差路径有何不同？"
+    ],
+    "relatedResourceIds": [
+      "career-decoder-block"
+    ],
+    "sourceUrl": "https://arxiv.org/abs/1706.03762",
+    "verifiedAt": "2026-09-25"
+  },
+  {
+    "id": "torch-sinusoidal",
+    "track": "pytorch",
+    "order": 10,
+    "title": "正弦位置编码",
+    "titleEn": "Sinusoidal positional encoding",
+    "category": "位置编码",
+    "difficulty": "Easy",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "实现 Transformer 正弦位置编码，支持非零绝对位置 offset。该练习限定 D 为正偶数，返回 CPU Tensor，不依赖模型或 GPU。代码需显式构造频率与 sin/cos 交错布局。",
+    "inputOutput": "sinusoidal_encoding(length:T,dim:D,offset=0,base=10000.0,dtype=torch.float32) → [T,D] CPU Tensor。PE[p,2i]=sin(p/base^(2i/D))；PE[p,2i+1]=cos(p/base^(2i/D))。T>=0，offset>=0，D 正偶数，base>0，dtype 为浮点；非法值报 ValueError。",
+    "examples": "T=1,D=4,offset=0 → [[0,1,0,1]]；offset=1 → [[sin(1),cos(1),sin(0.01),cos(0.01)]]。",
+    "hints": [
+      "频率向量长度 D/2，指数是 -arange(0,D,2)/D。",
+      "positions[:,None] 与 frequencies[None,:] 广播成 [T,D/2]。",
+      "stack(...,dim=-1).flatten(-2) 实现 sin/cos 交错。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef sinusoidal_encoding(length, dim, offset=0, base=10000.0, dtype=torch.float32):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-sinusoidal/reference.py",
+    "testPath": "/training/pytorch/torch-sinusoidal/test_solution.py",
+    "complexityAnalysis": "时间与输出空间 O(TD)。",
+    "keyPitfalls": [
+      "不能把 sin 全部放前半、cos 全部放后半而仍声称是交错布局。",
+      "offset 遗漏会让不同解码分块重复使用位置 0。"
+    ],
+    "interviewQuestions": [
+      "正弦编码是否需要训练参数？",
+      "它与 RoPE 是相加编码还是旋转编码？"
+    ],
+    "relatedResourceIds": [
+      "career-rope"
+    ],
+    "sourceUrl": "https://arxiv.org/abs/1706.03762",
+    "verifiedAt": "2026-09-25"
+  },
+  {
+    "id": "torch-rope",
+    "track": "pytorch",
+    "order": 11,
+    "title": "RoPE 旋转与 position offset",
+    "titleEn": "RoPE rotation and position offsets",
+    "category": "位置编码",
+    "difficulty": "Medium",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "对 [B,H,T,d] 实现相邻偶数/奇数维成对旋转的 RoPE，保留输入 dtype/device。绝对位置由 offset 指定。不可调用现成 RoPE 模块；参考测试用独立复数乘法作为数值基准，并验证范数保持、共同平移与分块 offset。",
+    "inputOutput": "apply_rope(x:[B,H,T,d],offset=0,base=10000.0) → 同 shape/dtype/device。第 i 对的频率 θ_i=base^(-2i/d)，第 t 个位置角度=(offset+t)θ_i。d 必须正偶数，offset 非负整数，base>0，x 浮点；非法 shape/offset 抛 ValueError。",
+    "examples": "d=2,offset=1，输入 [1,0] 旋转为 [cos(1),sin(1)]。对整个序列旋转后取第 3:5 个 token，应等于对原始该切片以 offset=3 旋转。",
+    "hints": [
+      "取 even=x[...,0::2]，odd=x[...,1::2]。",
+      "旋转后为 even*cos-odd*sin 与 even*sin+odd*cos。",
+      "角度使用 float32 或 float64，避免半精度位置运算过早失真。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef apply_rope(x, offset=0, base=10000.0):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-rope/reference.py",
+    "testPath": "/training/pytorch/torch-rope/test_solution.py",
+    "complexityAnalysis": "时间/输出空间 O(BHTd)，共享 sin/cos 表占 O(Td)。",
+    "keyPitfalls": [
+      "本题采用相邻成对布局，不可直接混用某些模型的前后半维配对权重。",
+      "cache 中已旋转的旧 K 不能每一步重新施加旋转。",
+      "相对位置结构不意味着每一对向量的点积随距离单调下降。"
+    ],
+    "interviewQuestions": [
+      "为什么对 Q/K 应用旋转而通常不旋转 V？",
+      "如何用 R(m)ᵀR(n)=R(n-m) 解释相对位置？"
+    ],
+    "relatedResourceIds": [
+      "career-rope"
+    ],
+    "sourceUrl": "https://arxiv.org/abs/2104.09864",
+    "verifiedAt": "2026-09-25"
+  },
+  {
+    "id": "torch-decoder",
+    "track": "pytorch",
+    "order": 12,
+    "title": "最小 Pre-Norm Decoder Block",
+    "titleEn": "Minimal pre-norm decoder block",
+    "category": "Decoder 组件",
+    "difficulty": "Hard",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "组合手写的 LayerNorm、因果自注意力、残差与 FFN，实现最小 pre-norm decoder block。需要自己实现或复制已完成的 helper。为隔离组件，本题不含位置编码、dropout、交叉注意力或输出词表头；它不是完整语言模型。所有 padding 均为 key padding。",
+    "inputOutput": "decoder_block(x:[B,T,D],params:dict,num_heads:H,key_valid=None) → [B,T,D]。params 含 wq/wk/wv/wo:[D,D]；n1w/n1b/n2w/n2b:[D]；w1:[F,D],b1:[F],w2:[D,F],b2:[D]。key_valid 为 bool [B,T]，默认全 True。y=x+MHA(LN1(x))；out=y+FFN(LN2(y))。非法形状/头数报 ValueError。",
+    "examples": "令 wo 全零、w2 与 b2 全零，其余参数合法，则 decoder_block(x,params,H) 应等于 x。若所有 key 均为 padding，attention 分支为零，但 FFN 和残差仍保留。",
+    "hints": [
+      "先构造 [B,1,T,T] causal & key_valid mask。",
+      "两个残差分别接在 attention 与 FFN 后；第二次 LN 接收第一次残差结果。",
+      "测试用独立的 F.layer_norm、F.linear、F.gelu 和 SDPA 组合验证。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef decoder_block(x, params, num_heads, key_valid=None):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-decoder/reference.py",
+    "testPath": "/training/pytorch/torch-decoder/test_solution.py",
+    "complexityAnalysis": "时间 O(BTD²+BT²D+BTDF)，显式分数空间 O(BHT²)，FFN 激活 O(BTF)。",
+    "keyPitfalls": [
+      "Padding key mask 不自动抹去 padding query 的残差。",
+      "全遮蔽行的 attention 必须为零，否则 NaN 会污染整个 block。",
+      "Pre-Norm 是本练习明确选择；原始 Transformer 论文示意主要使用 Post-Norm。"
+    ],
+    "interviewQuestions": [
+      "因果性如何通过扰动未来 token 来验证？",
+      "为什么这段模块还不能单独生成下一个 token？"
+    ],
+    "relatedResourceIds": [
+      "career-decoder-block",
+      "career-mha-masks"
+    ],
+    "sourceUrl": "https://arxiv.org/abs/1706.03762",
+    "verifiedAt": "2026-09-25"
+  },
+  {
+    "id": "torch-kv-cache",
+    "track": "pytorch",
+    "order": 13,
+    "title": "KV Cache：全量与增量一致",
+    "titleEn": "KV cache: full and incremental equivalence",
+    "category": "推理优化",
+    "difficulty": "Hard",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "实现带 RoPE 的单层自注意力缓存。每一步只投影新 token，把新 K/V 接在历史缓存后，Q 只来自新片段；使用 past 长度作为 RoPE 与 causal mask 的绝对偏移。返回新缓存，不原地修改调用方旧缓存。不能转调现成缓存模块或 SDPA。",
+    "inputOutput": "cached_attention(x:[B,Tnew,D],wq,wk,wv,wo:[D,D],num_heads:H,cache=None,key_valid=None) → (output:[B,Tnew,D],(K,V))。cache 中 K 已应用 RoPE，K/V 同为 [B,H,Tpast,D/H]；D/H 为正偶数。key_valid 为 [B,Tpast+Tnew]，包含历史与新 token。检查 cache 的 shape/dtype/device、权重、mask 长度；错误抛 ValueError。",
+    "examples": "同一 x:[1,5,8]、H=2 与参数，先处理前 2 token，再携带 cache 处理后 3 token；拼接两次 output，应与一次处理全部 5 token 的 output 在 float64 rtol=1e-9、atol=1e-10 下相同。第二步缓存长度为 5。",
+    "hints": [
+      "past=cache[0].shape[-2]，仅新 Q/K 用 offset=past 旋转。",
+      "torch.cat((old_k,new_k),dim=-2)，V 同理。",
+      "新块内仍需要 causal 约束，不能因为已有 cache 就允许看到块内未来。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef cached_attention(x, wq, wk, wv, wo, num_heads, cache=None, key_valid=None):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-kv-cache/reference.py",
+    "testPath": "/training/pytorch/torch-kv-cache/test_solution.py",
+    "complexityAnalysis": "单步 n 个新 token、历史 L：投影 O(BnD²)，注意力 O(BHn(L+n)d)；缓存 O(2BH(L+n)d) 个元素。教学实现 cat 会复制历史缓存，未做预分配优化。",
+    "keyPitfalls": [
+      "把 cache 看成 [B,T,H,d] 会使拼接轴错误。",
+      "只验证输出形状发现不了重复旋转旧 K 或 offset=0。",
+      "缓存不是自动无限压缩：随上下文长度线性增长。"
+    ],
+    "interviewQuestions": [
+      "为什么缓存 K/V 而通常不缓存旧 Q？",
+      "单 token 与多 token chunk 的 mask 有何不同？",
+      "每层缓存字节数如何计算？"
+    ],
+    "relatedResourceIds": [
+      "career-gqa-kv-cache",
+      "career-rope"
+    ],
+    "sourceUrl": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.scaled_dot_product_attention.html",
+    "verifiedAt": "2026-09-25"
+  },
+  {
+    "id": "torch-gqa",
+    "track": "pytorch",
+    "order": 14,
+    "title": "Grouped Query Attention",
+    "titleEn": "Grouped query attention",
+    "category": "推理优化",
+    "difficulty": "Hard",
+    "language": "Python",
+    "contentStatus": "complete",
+    "description": "实现 Hq 个查询头共享 Hkv 组 K/V 的 GQA。先明确 query 头到 KV 组的连续映射，再手写 attention。可用 repeat_interleave 演示分组，但不能直接调用 SDPA(enable_gqa=True)；此题关注数值正确性，显式复制并不代表部署时的内存优化。",
+    "inputOutput": "grouped_query_attention(q:[B,Hq,Q,d],k:[B,Hkv,K,d],v:[B,Hkv,K,dv],allowed=None) → [B,Hq,Q,dv]。要求 Hq>0、Hkv>0、Hq%Hkv=0 且 Hk=Hv；其余浮点/设备/形状/布尔 mask 与 attention 题一致。头 h 使用 KV 组 floor(h/(Hq/Hkv))。非法分组报 ValueError。",
+    "examples": "Hq=4,Hkv=2，Q/K 全零，V 两组恒为 2 和 20，则四个 query head 输出依次为 [2,2,20,20]。Hkv=1 是 MQA，Hkv=Hq 退化为 MHA。",
+    "hints": [
+      "repeat_interleave(Hq//Hkv,dim=1) 形成连续组，而 repeat 的顺序不同。",
+      "V 的 dv 可以不同于 K 的 d。",
+      "测试用显式扩展 KV 的普通 SDPA 作为 CPU 基准，不依赖特定 GQA kernel 支持。"
+    ],
+    "codeTemplate": "# 保存为 solution.py，与 test_solution.py 放在同一目录。\n# 约定：allowed=True 表示可见；请先实现，再运行 python -m unittest -v。\nimport math\nimport torch\n\ndef grouped_query_attention(q, k, v, allowed=None):\n    # TODO：依据题目实现形状检查与数值运算。\n    raise NotImplementedError(\"请完成此函数\")\n\n",
+    "referencePath": "/training/pytorch/torch-gqa/reference.py",
+    "testPath": "/training/pytorch/torch-gqa/test_solution.py",
+    "complexityAnalysis": "注意力时间 O(BHqQK(d+dv))；原始 KV 存储 O(BHkvK(d+dv))。本教学 repeat_interleave 额外占 O(BHqK(d+dv))，优化 kernel 可避免该显式扩展。",
+    "keyPitfalls": [
+      "Hq/Hkv 必须整除，不能用截断除法掩盖非法输入。",
+      "GQA 缓存容量按 KV 头数计算，不是 query 头数。",
+      "共享 KV 不保证与任意原始 MHA 权重输出完全相同。"
+    ],
+    "interviewQuestions": [
+      "GQA 为什么能减小 KV cache？",
+      "MQA、GQA、MHA 的头数关系如何统一表示？"
+    ],
+    "relatedResourceIds": [
+      "career-gqa-kv-cache"
+    ],
+    "sourceUrl": "https://arxiv.org/abs/2305.13245",
+    "verifiedAt": "2026-09-25"
+  }
+]

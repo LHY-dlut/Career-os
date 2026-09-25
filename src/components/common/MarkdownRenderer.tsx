@@ -34,6 +34,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, cla
         remarkPlugins={[remarkGfm, remarkMath, remarkHeadingIds]}
         rehypePlugins={[rehypeKatex]}
         components={{
+          img: ({ src, alt, title }) => <ReadingImage key={typeof src === 'string' ? src : alt} src={typeof src === 'string' ? src : undefined} alt={alt || ''} title={title} />,
           pre({ children }) {
             const child = React.Children.toArray(children)[0] as React.ReactElement<{ className?: string; children?: React.ReactNode }>;
             return <CodeBlock code={String(child?.props?.children || '').replace(/\n$/, '')} language={/language-(\S+)/.exec(child?.props?.className || '')?.[1] || ''} />;
@@ -89,6 +90,13 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, cla
     </div>
   );
 };
+
+function ReadingImage({ src, alt, title }: { src?: string; alt: string; title?: string }) {
+  const { t } = useI18n();
+  const [failed, setFailed] = useState(false);
+  if (failed || !src) return <span role="img" aria-label={alt || t('Image unavailable', '图片暂不可用')} className="my-4 block rounded-lg border border-slate-200 p-4 text-sm text-slate-500 dark:border-slate-700">{t('Image unavailable', '图片暂不可用')}{alt ? `：${alt}` : ''}{src && <a href={src} target="_blank" rel="noopener noreferrer" className="ml-3 underline">{t('Open original image', '打开原图')}</a>}</span>;
+  return <img src={src} alt={alt} title={title} loading="lazy" onError={() => setFailed(true)} className="max-w-full h-auto" />;
+}
 
 const CodeBlock: React.FC<{ code: string; language: string }> = ({ code, language }) => {
   const { t } = useI18n();

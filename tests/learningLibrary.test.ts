@@ -22,8 +22,8 @@ const source: LibrarySource = {
 afterEach(() => { vi.restoreAllMocks(); vi.unstubAllGlobals(); vi.useRealTimers(); });
 
 describe('published learning library integrity', () => {
-  it('gives every resource a unique route and a traceable HTTPS source without embedded credentials', () => {
-    expect(libraryResources.length).toBeGreaterThan(0);
+  it('gives every resource a unique route and a traceable source without embedded credentials', () => {
+    expect(libraryResources).toHaveLength(186);
     expect(new Set(libraryResources.map(resource => resource.id)).size).toBe(libraryResources.length);
     expect(new Set(librarySources.map(item => item.id)).size).toBe(librarySources.length);
     const sourceById = new Map(librarySources.map(item => [item.id, item]));
@@ -41,10 +41,15 @@ describe('published learning library integrity', () => {
       if (resource.kind === 'link') expect(resource.contentPath, resource.id).toBeUndefined();
     }
     const urls = [
-      ...libraryResources.map(resource => resource.sourceUrl),
-      ...librarySources.flatMap(item => [item.url, item.licenseUrl]),
+      ...libraryResources.map(resource => ({ value: resource.sourceUrl, original: sourceById.get(resource.sourceId)?.origin === 'original' })),
+      ...librarySources.flatMap(item => [item.url, item.licenseUrl].map(value => ({ value, original: item.origin === 'original' }))),
     ];
-    for (const value of urls) {
+    for (const { value, original } of urls) {
+      if (original && value.startsWith('/')) {
+        expect(value).toMatch(/^\/library\/career-[a-zA-Z0-9-]+\.md$/);
+        expect(readFileSync(resolve('public', value.slice(1)), 'utf8').trim()).not.toBe('');
+        continue;
+      }
       const url = new URL(value);
       expect(url.protocol, value).toBe('https:');
       expect(url.username + url.password, value).toBe('');
@@ -53,23 +58,35 @@ describe('published learning library integrity', () => {
 
   it('ships each local article and resolves its rendered Markdown links independently of the source site path', () => {
     const articles = libraryResources.filter(resource => resource.kind === 'article');
-    expect(articles.length).toBeGreaterThan(0);
+    expect(articles.filter(resource => librarySources.find(source => source.id === resource.sourceId)?.origin !== 'original')).toHaveLength(151);
+    expect(articles.filter(resource => librarySources.find(source => source.id === resource.sourceId)?.origin === 'original')).toHaveLength(6);
     const articleIds = new Set(articles.map(resource => resource.id));
     const articleHeadings = new Map(articles.map(resource => [resource.id, new Set(extractHeadings(readFileSync(resolve('public', resource.contentPath!.slice(1)), 'utf8')).map(heading => heading.id))]));
     const paths = new Set<string>();
     const provenance = JSON.parse(readFileSync('public/library/licenses/provenance.json', 'utf8')).resources;
+    expect(provenance).toHaveLength(151);
+    const trainingIds = new Set((JSON.parse(readFileSync('src/content/training/pytorch.json', 'utf8')) as { id: string }[]).map(task => task.id));
     const parser = unified().use(remarkParse);
     for (const resource of articles) {
       const origin = librarySources.find(item => item.id === resource.sourceId)!;
-      expect(origin.license, resource.id).toMatch(/MIT|CC BY|Apache|BSD/i);
-      expect(origin.revision, resource.id).toMatch(/^[a-f0-9]{40}$/);
+      if (origin.origin !== 'original') {
+        expect(origin.license, resource.id).toMatch(/MIT|CC BY|Apache|BSD/i);
+        expect(origin.revision, resource.id).toMatch(/^[a-f0-9]{40}$/);
+      } else expect(origin.license.trim(), resource.id).not.toBe('');
       expect(resource.contentPath, resource.id).toMatch(/^\/library\/[a-z0-9-]+\.md$/);
       expect(paths.has(resource.contentPath!), resource.id).toBe(false);
       paths.add(resource.contentPath!);
       const markdown = readFileSync(resolve('public', resource.contentPath!.slice(1)), 'utf8');
       const recorded = provenance.find((entry: { id: string }) => entry.id === resource.id);
-      expect(recorded, resource.id).toBeDefined();
-      expect(createHash('sha256').update(markdown).digest('hex'), resource.id).toBe(recorded.storedSha256);
+      if (origin.origin === 'original') {
+        expect(recorded, resource.id).toBeUndefined();
+        expect(resource.contentStatus, resource.id).toBe('original-complete');
+        expect(markdown, resource.id).toContain('Career OS');
+        expect(markdown, resource.id).toContain(origin.author);
+      } else {
+        expect(recorded, resource.id).toBeDefined();
+        expect(createHash('sha256').update(markdown).digest('hex'), resource.id).toBe(recorded.storedSha256);
+      }
       expect(markdown.trim(), resource.id).not.toBe('');
       expect(markdown, resource.id).not.toMatch(/^\s*(?:<!doctype\s+html|<html[\s>])/i);
 
@@ -83,6 +100,16 @@ describe('published learning library integrity', () => {
         }
         if (url === `/library/licenses/${resource.sourceId}-MIT.txt`) {
           expect(readFileSync(resolve('public', url.slice(1)), 'utf8'), location).toMatch(/Permission is hereby granted/);
+          return;
+        }
+        if (origin.origin === 'original' && url === '/library/career-LICENSE.md') {
+          expect(readFileSync(resolve('public', url.slice(1)), 'utf8'), location).toContain(origin.license);
+          return;
+        }
+        if (origin.origin === 'original' && url.startsWith('/coding/')) {
+          const target = new URL(url, 'https://career.test');
+          expect(trainingIds.has(target.pathname.slice('/coding/'.length)), location).toBe(true);
+          expect(target.searchParams.get('track'), location).toBe('pytorch');
           return;
         }
         if (/^\/library\/[a-z0-9-]+(?:#.*)?$/.test(url)) {

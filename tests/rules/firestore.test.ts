@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs';
 import { beforeAll, afterAll, expect, it } from 'vitest';
 import { initializeTestEnvironment, assertFails, assertSucceeds, type RulesTestEnvironment } from '@firebase/rules-unit-testing';
 import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where, writeBatch } from 'firebase/firestore';
+import { trainingMutations, trainingProblemId } from '../../src/services/trainingWorkspace';
+import type { WorkspaceTask } from '../../src/services/trainingWorkspace';
 let environment: RulesTestEnvironment;
 const names = ['knowledgeArticles', 'questions', 'reviewHistory', 'codingProblems', 'codingAttempts', 'applications', 'interviews', 'interviewQuestions', 'mockInterviewSessions'];
 beforeAll(async () => {
@@ -48,4 +50,19 @@ it('permits atomic creation and linking while denying an invalid entire batch', 
   badBatch.set(doc(db, 'reviewHistory', 'bad-review'), { id: 'bad-review', userId: 'alice', questionId: 'missing' });
   await assertFails(badBatch.commit());
   await environment.withSecurityRulesDisabled(async context => { expect((await getDoc(doc(context.firestore(), 'questions', 'must-not-exist'))).exists()).toBe(false); });
+});
+
+it('allows a private training snapshot and attempt together, without sharing a public task record between accounts', async () => {
+  const task: WorkspaceTask = { id: 'lc-1', track: 'hot100', order: 1, title: '两数之和', category: '哈希', difficulty: 'Easy', language: 'Python', contentStatus: 'index', description: '', inputOutput: '', examples: '', hints: [], codeTemplate: '', complexityAnalysis: '', keyPitfalls: [], interviewQuestions: [], relatedResourceIds: [] };
+  const draft = { code: '# private', elapsedSeconds: 60, updatedAt: '2026-09-25T10:00:00Z' };
+  const db = environment.authenticatedContext('alice').firestore();
+  const changes = await trainingMutations('alice', task, [], draft, { id: 'training-attempt', attemptedAt: draft.updatedAt, userCode: draft.code, durationMinutes: 1, status: 'Partial', selfRating: 2, notes: '', verification: 'not-run' });
+  const batch = writeBatch(db);
+  for (const change of changes) if ('value' in change) batch.set(doc(db, change.collection, change.value.id), change.value);
+  await assertSucceeds(batch.commit());
+  const id = await trainingProblemId('alice', task.id, task.language);
+  await assertSucceeds(getDoc(doc(db, 'codingProblems', id)));
+  await assertFails(getDoc(doc(environment.authenticatedContext('bob').firestore(), 'codingProblems', id)));
+  await assertFails(setDoc(doc(environment.authenticatedContext('bob').firestore(), 'codingAttempts', 'foreign-training-attempt'), { id: 'foreign-training-attempt', userId: 'bob', problemId: id }));
+  await assertFails(setDoc(doc(db, 'codingAttempts', 'dangling-training-attempt'), { id: 'dangling-training-attempt', userId: 'alice', problemId: 'lc-1' }));
 });
