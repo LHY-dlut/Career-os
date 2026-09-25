@@ -7,6 +7,7 @@ import { visit } from 'unist-util-visit';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { libraryNote, libraryResources, librarySources, loadLibraryContent } from '../src/services/learningLibrary';
 import type { LibraryResource, LibrarySource } from '../src/content/library/types';
+import { extractHeadings } from '../src/utils/markdownHeadings';
 
 const article: LibraryResource = {
   id: 'example-attention', sourceId: 'example', title: 'Attention practice', category: 'Transformer',
@@ -54,6 +55,7 @@ describe('published learning library integrity', () => {
     const articles = libraryResources.filter(resource => resource.kind === 'article');
     expect(articles.length).toBeGreaterThan(0);
     const articleIds = new Set(articles.map(resource => resource.id));
+    const articleHeadings = new Map(articles.map(resource => [resource.id, new Set(extractHeadings(readFileSync(resolve('public', resource.contentPath!.slice(1)), 'utf8')).map(heading => heading.id))]));
     const paths = new Set<string>();
     const provenance = JSON.parse(readFileSync('public/library/licenses/provenance.json', 'utf8')).resources;
     const parser = unified().use(remarkParse);
@@ -75,13 +77,18 @@ describe('published learning library integrity', () => {
         if (!('url' in node) || typeof node.url !== 'string') return;
         const url = node.url;
         const location = `${resource.id}: ${url}`;
-        if (url.startsWith('#')) return;
+        if (url.startsWith('#')) {
+          expect(articleHeadings.get(resource.id)?.has(decodeURIComponent(url.slice(1))), location).toBe(true);
+          return;
+        }
         if (url === `/library/licenses/${resource.sourceId}-MIT.txt`) {
           expect(readFileSync(resolve('public', url.slice(1)), 'utf8'), location).toMatch(/Permission is hereby granted/);
           return;
         }
         if (/^\/library\/[a-z0-9-]+(?:#.*)?$/.test(url)) {
-          expect(articleIds.has(url.slice('/library/'.length).split('#')[0]), location).toBe(true);
+          const [target, fragment] = url.slice('/library/'.length).split('#');
+          expect(articleIds.has(target), location).toBe(true);
+          if (fragment) expect(articleHeadings.get(target)?.has(decodeURIComponent(fragment)), location).toBe(true);
           return;
         }
         // Relative images and source-relative links would silently resolve against Career OS.
@@ -90,7 +97,7 @@ describe('published learning library integrity', () => {
         expect(parsed.username + parsed.password, location).toBe('');
       });
     }
-  }, 30_000);
+  }, 60_000);
 });
 
 describe('local article loading', () => {

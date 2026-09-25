@@ -10,7 +10,7 @@
 - [第一部分：进程组与核心概念](#heading-第一部分进程组与核心概念)
   - [1. 从单卡到多机：三种规模与硬件拓扑](#heading-1-从单卡到多机三种规模与硬件拓扑)
   - [2. 进程模型：为什么是"一卡一进程"](#heading-2-进程模型为什么是一卡一进程)
-  - [3. 核心概念：rank / local_rank / world_size](#3-核心概念rank--local_rank--world_size)
+  - [3. 核心概念：rank / local_rank / world_size](#heading-3-核心概念rank-local-rank-world-size)
   - [4. 进程组 Process Group](#heading-4-进程组-process-group)
   - [5. 子通信组：为 3D 并行铺路](#heading-5-子通信组为-3d-并行铺路)
 - [第二部分：torchrun 启动机制](#heading-第二部分torchrun-启动机制)

@@ -17,7 +17,7 @@ Reduce（规约）是 GPU 编程中最基础、也最能体现并行思维的算
 - [6. 版本 V4：展开最后一个 Warp](#heading-6-版本-v4展开最后一个-warp)
 - [7. 版本 V5：完全循环展开](#heading-7-版本-v5完全循环展开)
 - [8. 版本 V6：Warp Shuffle 替代 Shared Memory](#heading-8-版本-v6warp-shuffle-替代-shared-memory)
-- [9. 版本 V7：向量化加载 + Grid Stride Loop](#9-版本-v7向量化加载--grid-stride-loop)
+- [9. 版本 V7：向量化加载 + Grid Stride Loop](#heading-9-版本-v7向量化加载-grid-stride-loop)
 - [10. 性能对比与选择建议](#heading-10-性能对比与选择建议)
 - [总结](#heading-总结)
 - [自我检验清单](#heading-自我检验清单)

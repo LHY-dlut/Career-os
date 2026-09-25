@@ -15,7 +15,7 @@ Transformer 是大模型时代的"通用底座"——CUDA 层优化它的算子�
 - [4. 前馈网络（FFN）](#heading-4-前馈网络ffn)
 - [5. 位置编码](#heading-5-位置编码)
 - [6. LayerNorm 与残差连接](#heading-6-layernorm-与残差连接)
-- [7. 完整的 Transformer Decoder Block](#7-完整的-transformer-decoder-block)
+- [7. 完整的 Transformer Decoder Block](#heading-7-详解-transformer-decoder-block)
 - [8. 从 Transformer 到 LLM：自回归生成](#heading-8-从-transformer-到-llm自回归生成)
 - [总结](#heading-总结)
 - [自我检验清单](#heading-自我检验清单)

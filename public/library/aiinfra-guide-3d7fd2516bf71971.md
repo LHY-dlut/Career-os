@@ -12,7 +12,7 @@ GPU 是大模型时代的"发动机"——训练一个千亿参数的 LLM 可能
 - [1. CPU vs GPU：为什么深度学习选择了 GPU](#heading-1-cpu-vs-gpu为什么深度学习选择了-gpu)
 - [2. GPU 硬件架构剖析](#heading-2-gpu-硬件架构剖析)
 - [3. 显存层次与带宽](#heading-3-显存层次与带宽)
-- [4. Tensor Core：AI 加速的核心引擎](#4-tensor-core-ai-加速的核心引擎)
+- [4. Tensor Core：AI 加速的核心引擎](#heading-4-tensor-coreai-加速的核心引擎)
 - [5. CUDA 编程模型](#heading-5-cuda-编程模型)
 - [6. GPU 关键性能指标](#heading-6-gpu-关键性能指标)
 - [7. 主流 AI GPU 横向对比](#heading-7-主流-ai-gpu-横向对比)

@@ -147,9 +147,32 @@ function headingAliases(markdown) {
 function hasTitle(markdown) {
   return unified().use(remarkParse).parse(markdown).children.some((node) => node.type === 'heading' && node.depth === 1);
 }
+// These four handwritten upstream TOC destinations no longer match the
+// headings in the pinned revision. Match the verified chapter, preserving
+// the original link label and all teaching text.
+const correctedUpstreamAnchors = {
+  'docs/guides/模块二-CUDA编程与算子优化/4.1-CUDA GEMM算子性能优化.md': {
+    '#4-Thread-Block-tiling': 'heading-4-thread-block-级-tiling-优化',
+    '#5-线程分块寄存器级数据复用': 'heading-5-thread-级-tiling-优化寄存器级数据复用',
+  },
+  'docs/guides/模块一-前置知识/gpu/gpu-basics.md': {
+    '#4-tensor-core-ai-加速的核心引擎': 'heading-4-tensor-coreai-加速的核心引擎',
+  },
+  'docs/guides/模块一-前置知识/transformer/Transformer架构快速入门.md': {
+    '#7-完整的-transformer-decoder-block': 'heading-7-详解-transformer-decoder-block',
+  },
+};
 function rewriteHash(hash, record) {
   if (!hash) return '';
-  const heading = record?.headings?.get(headingKey(hash));
+  const corrected = record?.source.id === 'aiinfra-guide' ? correctedUpstreamAnchors[record.file]?.[hash] : undefined;
+  if (corrected) {
+    if (![...record.headings.values()].includes(corrected)) throw new Error(`Corrected upstream heading is missing: ${record.file} ${hash}`);
+    return `#${corrected}`;
+  }
+  const key = headingKey(hash);
+  // GitHub-style fragments preserve double hyphens left by punctuation;
+  // Career OS collapses the corresponding whitespace before adding its prefix.
+  const heading = record?.headings?.get(key) || record?.headings?.get(key.replace(/-+/g, '-'));
   return heading ? `#${heading}` : hash;
 }
 function resolveReference(url, record, aliases, image = false) {
