@@ -1,6 +1,8 @@
 import { useI18n } from '../../i18n/I18nProvider';
 import { Dialog } from './Dialog';
 import { filterLibrary } from '../../services/learningLibrary';
+import { getLibraryResourceTitle } from '../../services/libraryLanguage';
+import { localizeStarterArticle } from '../../services/starterArticleLocalization';
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Search,
@@ -42,7 +44,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   interviews,
   onNavigate,
 }) => {
-  const { t, label } = useI18n();
+  const { t, label, language } = useI18n();
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -66,9 +68,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   if (!isOpen) return null;
 
   const cleanQuery = query.trim().toLowerCase();
-  const filteredLibrary = cleanQuery ? filterLibrary(query).slice(0, 4) : [];
+  const filteredLibrary = cleanQuery ? filterLibrary(query, '', '', language).slice(0, 4).map(resource => ({ ...resource, title: getLibraryResourceTitle(resource, language) })) : [];
 
   const filteredArticles = articles
+    .map(article => localizeStarterArticle(article, language))
     .filter(
       (a) =>
         a.title.toLowerCase().includes(cleanQuery) ||

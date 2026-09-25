@@ -22,9 +22,12 @@ import { Copy, Check } from 'lucide-react';
 interface MarkdownRendererProps {
   content: string;
   className?: string;
+  headingLabels?: Readonly<Record<string, string>>;
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className = '' }) => {
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className = '', headingLabels }) => {
+  // Labels may be translated, while IDs remain derived from the original Markdown.
+  const headingContent = (id: string | undefined, children: React.ReactNode) => id ? headingLabels?.[id] ?? children : children;
   return (
     <div className={`markdown-body prose dark:prose-invert max-w-none text-slate-800 dark:text-slate-200 ${className}`}>
       <ReactMarkdown
@@ -38,22 +41,22 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, cla
           code: ({ children }) => <code className="px-1 rounded bg-slate-100 dark:bg-slate-800 font-mono">{children}</code>,
           h1: ({ children, id }) => (
             <h1 id={id} className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100 mt-6 mb-4 pb-2 border-b border-slate-200 dark:border-slate-800">
-              {children}
+              {headingContent(id, children)}
             </h1>
           ),
           h2: ({ children, id }) => (
             <h2 id={id} className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 mt-6 mb-3">
-              {children}
+              {headingContent(id, children)}
             </h2>
           ),
           h3: ({ children, id }) => (
             <h3 id={id} className="text-lg font-semibold text-slate-800 dark:text-slate-200 mt-5 mb-2">
-              {children}
+              {headingContent(id, children)}
             </h3>
           ),
-          h4: ({ children, id }) => <h4 id={id} className="mt-5 mb-2 font-semibold">{children}</h4>,
-          h5: ({ children, id }) => <h5 id={id} className="mt-4 mb-2 font-semibold">{children}</h5>,
-          h6: ({ children, id }) => <h6 id={id} className="mt-4 mb-2 font-semibold">{children}</h6>,
+          h4: ({ children, id }) => <h4 id={id} className="mt-5 mb-2 font-semibold">{headingContent(id, children)}</h4>,
+          h5: ({ children, id }) => <h5 id={id} className="mt-4 mb-2 font-semibold">{headingContent(id, children)}</h5>,
+          h6: ({ children, id }) => <h6 id={id} className="mt-4 mb-2 font-semibold">{headingContent(id, children)}</h6>,
           p: ({ children }) => <p className="leading-relaxed mb-4 text-slate-700 dark:text-slate-300">{children}</p>,
           ul: ({ children }) => <ul className="list-disc pl-6 mb-4 space-y-1 text-slate-700 dark:text-slate-300">{children}</ul>,
           ol: ({ children }) => <ol className="list-decimal pl-6 mb-4 space-y-1 text-slate-700 dark:text-slate-300">{children}</ol>,

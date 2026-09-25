@@ -4,12 +4,13 @@
 
 ## 当前线上状态
 
-2026-09-25 已将前端构建（代码版本 `24dc827`）发布到独立 Hosting 站点 `career-os-lhy-dlut`：
+2026-09-25 已将前端构建发布到独立 Hosting 站点 `career-os-lhy-dlut`，并发布中文阅读修复：
 
 - [学习资料库](https://career-os-lhy-dlut.web.app/library)，备用域名为 [firebaseapp.com](https://career-os-lhy-dlut.firebaseapp.com/library)。
 - 使用登录后确认可管理的现有 Firebase 项目；Google 项目创建配额已满，因此在该项目内新建单独站点。发布前通过官方 Billing API 确认 `billingEnabled: false`，没有启用付费计费。
 - 公网首页、`/dashboard`、`/library`、文章深链及主 JS/CSS 均返回 HTTP 200，内容 SHA256 与本地构建一致；本机不经过代理访问两个域名也返回 HTTP 200。用户已确认手机可正常查看目录并阅读文章。
 - 151 篇线上正文及 4 个许可/provenance 文件全部返回 HTTP 200，SHA256 与 `dist` 一致。阅读器、Markdown 样式和公式字体文件也已核验。
+- 中文阅读修复包含 6 篇未编辑入门文章的中文展示副本、35 组 ARIS 中英文资料的默认语言选择和逐篇切换，以及中文标题/目录。151 篇收录正文和出处文件保持原样，个人文章不自动改写。修复通过 TypeScript 检查、105 项单元/集成测试及生产构建；390px 手机宽度下实测中文正文、公式、中英文切换和无页面横向溢出。重新发布后，公网页面与入口 JS/CSS 的 SHA256 均匹配当前构建。
 - 仅发布 Hosting 静态内容；网站内 Google 登录、Firestore 个人记录同步、Render API 和 DeepSeek 调用尚未启用。Firebase CLI 的部署账号登录不等于网站内登录已经配置。
 
 ## 只发布学习资料的最短路径

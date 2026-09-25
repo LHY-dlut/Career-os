@@ -35,6 +35,7 @@ import { getKnowledgeCategories, knowledgeCategoryPath } from '../utils/knowledg
 import { KnowledgeOverview } from '../components/knowledge/KnowledgeOverview';
 import { KnowledgeTree } from '../components/knowledge/KnowledgeTree';
 import { KnowledgeContents } from '../components/knowledge/KnowledgeContents';
+import { localizeStarterArticle } from '../services/starterArticleLocalization';
 
 interface KnowledgeProps {
   articles: KnowledgeArticle[];
@@ -46,7 +47,7 @@ interface KnowledgeProps {
 }
 
 export const Knowledge: React.FC<KnowledgeProps> = ({
-  articles,
+  articles: storedArticles,
   selectedArticleId,
   onSaveArticle,
   onDeleteArticle,
@@ -55,7 +56,8 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { t, locale, label, translateMessage } = useI18n();
+  const { t, language, locale, label, translateMessage } = useI18n();
+  const articles = useMemo(() => storedArticles.map(article => localizeStarterArticle(article, language)), [storedArticles, language]);
   const { showToast } = useToast();
   const { capabilities, canSearch, searchUnavailableReason } = useAICapabilities();
   const activeArticleId = selectedArticleId;
@@ -163,7 +165,7 @@ export const Knowledge: React.FC<KnowledgeProps> = ({
       }
     });
     return () => cancelAnimationFrame(frame);
-  }, [location.hash, currentArticle?.id]);
+  }, [location.hash, currentArticle?.id, currentArticle?.contentMarkdown]);
 
   // Handle open editor
   const handleOpenEdit = (article?: KnowledgeArticle) => {

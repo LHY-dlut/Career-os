@@ -14,7 +14,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/1.1-CUDA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.md",
-    "contentPath": "/library/aiinfra-guide-ffa4ba1ba3a30f90.md"
+    "contentPath": "/library/aiinfra-guide-ffa4ba1ba3a30f90.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-b63c2855eb476f26",
@@ -32,7 +33,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/1.2-CUDA%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B.md",
-    "contentPath": "/library/aiinfra-guide-b63c2855eb476f26.md"
+    "contentPath": "/library/aiinfra-guide-b63c2855eb476f26.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-2384f3d79864e234",
@@ -49,7 +51,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/1.3-CUDA%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.md",
-    "contentPath": "/library/aiinfra-guide-2384f3d79864e234.md"
+    "contentPath": "/library/aiinfra-guide-2384f3d79864e234.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-38a3659b2c74399f",
@@ -66,7 +69,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/1.4-%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%9E%E7%94%A8Kernel.md",
-    "contentPath": "/library/aiinfra-guide-38a3659b2c74399f.md"
+    "contentPath": "/library/aiinfra-guide-38a3659b2c74399f.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-53190fc47b5acfc1",
@@ -83,7 +87,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/2.1-Warp%E4%B8%8E%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B.md",
-    "contentPath": "/library/aiinfra-guide-53190fc47b5acfc1.md"
+    "contentPath": "/library/aiinfra-guide-53190fc47b5acfc1.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-8713bd12e9b3f1f0",
@@ -100,7 +105,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/2.2-%E5%86%85%E5%AD%98%E8%AE%BF%E9%97%AE%E4%BC%98%E5%8C%96.md",
-    "contentPath": "/library/aiinfra-guide-8713bd12e9b3f1f0.md"
+    "contentPath": "/library/aiinfra-guide-8713bd12e9b3f1f0.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-070ffcd06377bde4",
@@ -117,7 +123,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/2.3-Occupancy%E4%B8%8E%E8%B5%84%E6%BA%90%E5%88%86%E9%85%8D.md",
-    "contentPath": "/library/aiinfra-guide-070ffcd06377bde4.md"
+    "contentPath": "/library/aiinfra-guide-070ffcd06377bde4.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-36ab5ec72a001b7c",
@@ -134,7 +141,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/2.4-%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C.md",
-    "contentPath": "/library/aiinfra-guide-36ab5ec72a001b7c.md"
+    "contentPath": "/library/aiinfra-guide-36ab5ec72a001b7c.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-8a0a068ef51c6e70",
@@ -150,7 +158,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/3.1-CUDA%20Reduce%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96.md",
-    "contentPath": "/library/aiinfra-guide-8a0a068ef51c6e70.md"
+    "contentPath": "/library/aiinfra-guide-8a0a068ef51c6e70.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-d38c5461511d45a9",
@@ -166,7 +175,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/4.1-CUDA%20GEMM%E7%AE%97%E5%AD%90%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.md",
-    "contentPath": "/library/aiinfra-guide-d38c5461511d45a9.md"
+    "contentPath": "/library/aiinfra-guide-d38c5461511d45a9.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-f50052476560609c",
@@ -183,7 +193,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/5.1-CUDA%20Softmax%E6%9C%B4%E7%B4%A0%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%8C%96.md",
-    "contentPath": "/library/aiinfra-guide-f50052476560609c.md"
+    "contentPath": "/library/aiinfra-guide-f50052476560609c.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-c212d16cb8f6b4bf",
@@ -201,7 +212,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/5.2-CUDA%20Online%20Softmax%E5%AE%9E%E7%8E%B0.md",
-    "contentPath": "/library/aiinfra-guide-c212d16cb8f6b4bf.md"
+    "contentPath": "/library/aiinfra-guide-c212d16cb8f6b4bf.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-b897c843c1fd7319",
@@ -219,7 +231,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/6.1-FlashAttention%20V1%E8%AF%A6%E8%A7%A3.md",
-    "contentPath": "/library/aiinfra-guide-b897c843c1fd7319.md"
+    "contentPath": "/library/aiinfra-guide-b897c843c1fd7319.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-ef4b7c44988c470d",
@@ -237,7 +250,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/6.2-FlashAttention%20V2%E8%AF%A6%E8%A7%A3.md",
-    "contentPath": "/library/aiinfra-guide-ef4b7c44988c470d.md"
+    "contentPath": "/library/aiinfra-guide-ef4b7c44988c470d.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-4d2bc34f575f803c",
@@ -253,7 +267,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/%E7%AC%AC1%E7%AB%A0-CUDA%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8.md",
-    "contentPath": "/library/aiinfra-guide-4d2bc34f575f803c.md"
+    "contentPath": "/library/aiinfra-guide-4d2bc34f575f803c.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-6c777c53f467c01a",
@@ -270,7 +285,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/%E7%AC%AC2%E7%AB%A0-CUDA%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80.md",
-    "contentPath": "/library/aiinfra-guide-6c777c53f467c01a.md"
+    "contentPath": "/library/aiinfra-guide-6c777c53f467c01a.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-13e4d6e802bd89bb",
@@ -287,7 +303,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/%E7%AC%AC3%E7%AB%A0-%E7%BB%8F%E5%85%B8%E7%AE%97%E5%AD%90%E5%AE%9E%E7%8E%B0-Reduce.md",
-    "contentPath": "/library/aiinfra-guide-13e4d6e802bd89bb.md"
+    "contentPath": "/library/aiinfra-guide-13e4d6e802bd89bb.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-d410b3983ec48653",
@@ -305,7 +322,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/%E7%AC%AC4%E7%AB%A0-%E7%BB%8F%E5%85%B8%E7%AE%97%E5%AD%90%E5%AE%9E%E7%8E%B0-GEMM.md",
-    "contentPath": "/library/aiinfra-guide-d410b3983ec48653.md"
+    "contentPath": "/library/aiinfra-guide-d410b3983ec48653.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-95295bdb7484b12a",
@@ -322,7 +340,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/%E7%AC%AC5%E7%AB%A0-%E7%BB%8F%E5%85%B8%E7%AE%97%E5%AD%90%E5%AE%9E%E7%8E%B0-Softmax%E4%B8%8E%E7%AE%97%E5%AD%90%E8%9E%8D%E5%90%88.md",
-    "contentPath": "/library/aiinfra-guide-95295bdb7484b12a.md"
+    "contentPath": "/library/aiinfra-guide-95295bdb7484b12a.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-1c62418efb0e0b12",
@@ -339,7 +358,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/%E7%AC%AC6%E7%AB%A0-Attention%E7%AE%97%E5%AD%90.md",
-    "contentPath": "/library/aiinfra-guide-1c62418efb0e0b12.md"
+    "contentPath": "/library/aiinfra-guide-1c62418efb0e0b12.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-0ebbf8fd466b028f",
@@ -356,7 +376,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/%E7%AC%AC7%E7%AB%A0-AI%E7%BC%96%E8%AF%91%E5%99%A8.md",
-    "contentPath": "/library/aiinfra-guide-0ebbf8fd466b028f.md"
+    "contentPath": "/library/aiinfra-guide-0ebbf8fd466b028f.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-064ea7e3a78ce2be",
@@ -372,7 +393,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/%E7%AC%AC8%E7%AB%A0-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E9%93%BE.md",
-    "contentPath": "/library/aiinfra-guide-064ea7e3a78ce2be.md"
+    "contentPath": "/library/aiinfra-guide-064ea7e3a78ce2be.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-5a4442ccbbb8ee66",
@@ -389,7 +411,8 @@
     "summary": "CUDA 与算子优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%BA%8C-CUDA%E7%BC%96%E7%A8%8B%E4%B8%8E%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96/CUDA%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97.md",
-    "contentPath": "/library/aiinfra-guide-5a4442ccbbb8ee66.md"
+    "contentPath": "/library/aiinfra-guide-5a4442ccbbb8ee66.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-3b104677ecc6b9f9",
@@ -406,7 +429,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/1.1%20%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83%E6%80%BB%E8%AE%BA.md",
-    "contentPath": "/library/aiinfra-guide-3b104677ecc6b9f9.md"
+    "contentPath": "/library/aiinfra-guide-3b104677ecc6b9f9.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-02aa2f02b41f11c4",
@@ -425,7 +449,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/1.2%20%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8F%E5%90%AF%E5%8A%A8.md",
-    "contentPath": "/library/aiinfra-guide-02aa2f02b41f11c4.md"
+    "contentPath": "/library/aiinfra-guide-02aa2f02b41f11c4.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-dbf7cc7e83039495",
@@ -442,7 +467,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/2.1%20%E9%9B%86%E5%90%88%E9%80%9A%E4%BF%A1%E5%8E%9F%E8%AF%AD%E8%AF%A6%E8%A7%A3.md",
-    "contentPath": "/library/aiinfra-guide-dbf7cc7e83039495.md"
+    "contentPath": "/library/aiinfra-guide-dbf7cc7e83039495.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-75295f91b48c5077",
@@ -460,7 +486,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/3.1%20%E4%BC%98%E5%8C%96%E5%99%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E6%98%BE%E5%AD%98%E5%BC%80%E9%94%80%E5%88%86%E6%9E%90.md",
-    "contentPath": "/library/aiinfra-guide-75295f91b48c5077.md"
+    "contentPath": "/library/aiinfra-guide-75295f91b48c5077.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-86a8cd5f81e25e85",
@@ -477,7 +504,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/4.1%20%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C%E8%AF%A6%E8%A7%A3.md",
-    "contentPath": "/library/aiinfra-guide-86a8cd5f81e25e85.md"
+    "contentPath": "/library/aiinfra-guide-86a8cd5f81e25e85.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-309996474ee3146a",
@@ -494,7 +522,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/4.2%20PyTorch%20%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E6%88%98.md",
-    "contentPath": "/library/aiinfra-guide-309996474ee3146a.md"
+    "contentPath": "/library/aiinfra-guide-309996474ee3146a.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-c1be018fba7dae8d",
@@ -511,7 +540,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/%E7%AC%AC10%E7%AB%A0-MoE%E5%B9%B6%E8%A1%8C.md",
-    "contentPath": "/library/aiinfra-guide-c1be018fba7dae8d.md"
+    "contentPath": "/library/aiinfra-guide-c1be018fba7dae8d.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-3109a2178cd6c105",
@@ -528,7 +558,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/%E7%AC%AC11%E7%AB%A0-3D%E5%B9%B6%E8%A1%8C%E4%B8%8E%E6%B7%B7%E5%90%88%E5%B9%B6%E8%A1%8C%E7%AD%96%E7%95%A5.md",
-    "contentPath": "/library/aiinfra-guide-3109a2178cd6c105.md"
+    "contentPath": "/library/aiinfra-guide-3109a2178cd6c105.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-dbc5a207de4235ec",
@@ -548,7 +579,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/%E7%AC%AC1%E7%AB%A0-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83%E6%80%BB%E8%AE%BA.md",
-    "contentPath": "/library/aiinfra-guide-dbc5a207de4235ec.md"
+    "contentPath": "/library/aiinfra-guide-dbc5a207de4235ec.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-9ca0abf1167948aa",
@@ -565,7 +597,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/%E7%AC%AC2%E7%AB%A0-%E9%9B%86%E5%90%88%E9%80%9A%E4%BF%A1%E5%8E%9F%E8%AF%AD.md",
-    "contentPath": "/library/aiinfra-guide-9ca0abf1167948aa.md"
+    "contentPath": "/library/aiinfra-guide-9ca0abf1167948aa.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-916f84b7799c00ce",
@@ -583,7 +616,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/%E7%AC%AC3%E7%AB%A0-%E4%BC%98%E5%8C%96%E5%99%A8.md",
-    "contentPath": "/library/aiinfra-guide-916f84b7799c00ce.md"
+    "contentPath": "/library/aiinfra-guide-916f84b7799c00ce.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-cdc72e9b5b44ea12",
@@ -600,7 +634,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/%E7%AC%AC4%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C.md",
-    "contentPath": "/library/aiinfra-guide-cdc72e9b5b44ea12.md"
+    "contentPath": "/library/aiinfra-guide-cdc72e9b5b44ea12.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-f5937186e5c670a4",
@@ -617,7 +652,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/%E7%AC%AC5%E7%AB%A0-ZeRO%E7%B3%BB%E5%88%97.md",
-    "contentPath": "/library/aiinfra-guide-f5937186e5c670a4.md"
+    "contentPath": "/library/aiinfra-guide-f5937186e5c670a4.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-83b4d1e12cd78b0f",
@@ -635,7 +671,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/%E7%AC%AC6%E7%AB%A0-%E5%BC%A0%E9%87%8F%E5%B9%B6%E8%A1%8C%E4%B8%8E%E5%BA%8F%E5%88%97%E5%B9%B6%E8%A1%8C.md",
-    "contentPath": "/library/aiinfra-guide-83b4d1e12cd78b0f.md"
+    "contentPath": "/library/aiinfra-guide-83b4d1e12cd78b0f.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-69893ec55dd32d6c",
@@ -653,7 +690,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/%E7%AC%AC7%E7%AB%A0-%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%B9%B6%E8%A1%8C.md",
-    "contentPath": "/library/aiinfra-guide-69893ec55dd32d6c.md"
+    "contentPath": "/library/aiinfra-guide-69893ec55dd32d6c.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-e6638035b049d6d0",
@@ -671,7 +709,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/%E7%AC%AC8%E7%AB%A0-%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6%E4%B8%8E%E6%98%BE%E5%AD%98%E4%BC%98%E5%8C%96.md",
-    "contentPath": "/library/aiinfra-guide-e6638035b049d6d0.md"
+    "contentPath": "/library/aiinfra-guide-e6638035b049d6d0.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-9bf99975fb280a9a",
@@ -688,7 +727,8 @@
     "summary": "分布式训练 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/%E7%AC%AC9%E7%AB%A0-%E9%95%BF%E5%BA%8F%E5%88%97%E8%AE%AD%E7%BB%83%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B9%B6%E8%A1%8C.md",
-    "contentPath": "/library/aiinfra-guide-9bf99975fb280a9a.md"
+    "contentPath": "/library/aiinfra-guide-9bf99975fb280a9a.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-cd16f93f214d33dd",
@@ -705,7 +745,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC10%E7%AB%A0-%E7%94%9F%E4%BA%A7%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%BF%90%E7%BB%B4.md",
-    "contentPath": "/library/aiinfra-guide-cd16f93f214d33dd.md"
+    "contentPath": "/library/aiinfra-guide-cd16f93f214d33dd.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-a90a2ea9cffebb9a",
@@ -722,7 +763,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC11%E7%AB%A0-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96%E9%80%89%E5%9E%8B%E4%B8%8E%E7%AB%AF%E5%88%B0%E7%AB%AF%E5%AE%9E%E6%88%98.md",
-    "contentPath": "/library/aiinfra-guide-a90a2ea9cffebb9a.md"
+    "contentPath": "/library/aiinfra-guide-a90a2ea9cffebb9a.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-4d726573bc20f994",
@@ -739,7 +781,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC12%E7%AB%A0-%E7%AB%AF%E4%BE%A7%E6%8E%A8%E7%90%86.md",
-    "contentPath": "/library/aiinfra-guide-4d726573bc20f994.md"
+    "contentPath": "/library/aiinfra-guide-4d726573bc20f994.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-171c911cb240dd4a",
@@ -759,7 +802,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC12%E7%AB%A0-%E7%AB%AF%E4%BE%A7%E6%8E%A8%E7%90%86/12.1-%E7%AB%AF%E4%BE%A7%E6%8E%A8%E7%90%86%E5%9F%BA%E7%A1%80.md",
-    "contentPath": "/library/aiinfra-guide-171c911cb240dd4a.md"
+    "contentPath": "/library/aiinfra-guide-171c911cb240dd4a.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-f0eface59cad74d2",
@@ -778,7 +822,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC1%E7%AB%A0-LLM%E6%8E%A8%E7%90%86%E5%9F%BA%E7%A1%80/1.1-LLM%E6%8E%A8%E7%90%86%E5%9F%BA%E7%A1%80.md",
-    "contentPath": "/library/aiinfra-guide-f0eface59cad74d2.md"
+    "contentPath": "/library/aiinfra-guide-f0eface59cad74d2.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-4394577e5c02ac38",
@@ -797,7 +842,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC1%E7%AB%A0-LLM%E6%8E%A8%E7%90%86%E5%9F%BA%E7%A1%80/%E7%AC%AC1%E7%AB%A0-LLM%E6%8E%A8%E7%90%86%E5%9F%BA%E7%A1%80.md",
-    "contentPath": "/library/aiinfra-guide-4394577e5c02ac38.md"
+    "contentPath": "/library/aiinfra-guide-4394577e5c02ac38.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-a11e8dcbd510f4ee",
@@ -814,7 +860,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC2%E7%AB%A0-%E6%8E%A8%E7%90%86%E5%BC%95%E6%93%8E%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/2.1-PagedAttention.md",
-    "contentPath": "/library/aiinfra-guide-a11e8dcbd510f4ee.md"
+    "contentPath": "/library/aiinfra-guide-a11e8dcbd510f4ee.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-90898ad09563dd17",
@@ -831,7 +878,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC2%E7%AB%A0-%E6%8E%A8%E7%90%86%E5%BC%95%E6%93%8E%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/2.2-Continuous%20Batching.md",
-    "contentPath": "/library/aiinfra-guide-90898ad09563dd17.md"
+    "contentPath": "/library/aiinfra-guide-90898ad09563dd17.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-9e640615563bd93f",
@@ -848,7 +896,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC2%E7%AB%A0-%E6%8E%A8%E7%90%86%E5%BC%95%E6%93%8E%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/2.3-Prefix%20Cache%20%E4%B8%8E%20RadixAttention.md",
-    "contentPath": "/library/aiinfra-guide-9e640615563bd93f.md"
+    "contentPath": "/library/aiinfra-guide-9e640615563bd93f.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-09912231fb0cca75",
@@ -865,7 +914,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC2%E7%AB%A0-%E6%8E%A8%E7%90%86%E5%BC%95%E6%93%8E%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/2.4-Chunked%20Prefill%20%E4%B8%8E%E7%BB%9F%E4%B8%80%E8%B0%83%E5%BA%A6.md",
-    "contentPath": "/library/aiinfra-guide-09912231fb0cca75.md"
+    "contentPath": "/library/aiinfra-guide-09912231fb0cca75.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-05fe47c72d61feb8",
@@ -882,7 +932,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC2%E7%AB%A0-%E6%8E%A8%E7%90%86%E5%BC%95%E6%93%8E%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/2.5-Attention%20%E5%90%8E%E7%AB%AF%E4%B8%8E%E5%9B%BE%E4%BC%98%E5%8C%96.md",
-    "contentPath": "/library/aiinfra-guide-05fe47c72d61feb8.md"
+    "contentPath": "/library/aiinfra-guide-05fe47c72d61feb8.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-dc2d1eeaa91368de",
@@ -900,7 +951,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC2%E7%AB%A0-%E6%8E%A8%E7%90%86%E5%BC%95%E6%93%8E%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/%E7%AC%AC2%E7%AB%A0-%E6%8E%A8%E7%90%86%E5%BC%95%E6%93%8E%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.md",
-    "contentPath": "/library/aiinfra-guide-dc2d1eeaa91368de.md"
+    "contentPath": "/library/aiinfra-guide-dc2d1eeaa91368de.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-712f07a1d1f50185",
@@ -918,7 +970,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC3%E7%AB%A0-%E6%B7%B1%E5%85%A5vLLM/%E7%AC%AC3%E7%AB%A0-%E6%B7%B1%E5%85%A5vLLM.md",
-    "contentPath": "/library/aiinfra-guide-712f07a1d1f50185.md"
+    "contentPath": "/library/aiinfra-guide-712f07a1d1f50185.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-9136f9066c80dd2b",
@@ -935,7 +988,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC3%E7%AB%A0-%E6%B7%B1%E5%85%A5vLLM/vllm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md",
-    "contentPath": "/library/aiinfra-guide-9136f9066c80dd2b.md"
+    "contentPath": "/library/aiinfra-guide-9136f9066c80dd2b.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-22b1f1e392b2da83",
@@ -954,7 +1008,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC4%E7%AB%A0-%E9%87%8F%E5%8C%96.md",
-    "contentPath": "/library/aiinfra-guide-22b1f1e392b2da83.md"
+    "contentPath": "/library/aiinfra-guide-22b1f1e392b2da83.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-e9f43f168b250a35",
@@ -972,7 +1027,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC5%E7%AB%A0-Speculative-Decoding.md",
-    "contentPath": "/library/aiinfra-guide-e9f43f168b250a35.md"
+    "contentPath": "/library/aiinfra-guide-e9f43f168b250a35.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-d3794c6a90b371a8",
@@ -990,7 +1046,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC6%E7%AB%A0-%E5%88%86%E5%B8%83%E5%BC%8F%E6%8E%A8%E7%90%86.md",
-    "contentPath": "/library/aiinfra-guide-d3794c6a90b371a8.md"
+    "contentPath": "/library/aiinfra-guide-d3794c6a90b371a8.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-cca3ca4a454b0dd0",
@@ -1008,7 +1065,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC7%E7%AB%A0-PD%E8%A7%A3%E8%80%A6%E6%9E%B6%E6%9E%84.md",
-    "contentPath": "/library/aiinfra-guide-cca3ca4a454b0dd0.md"
+    "contentPath": "/library/aiinfra-guide-cca3ca4a454b0dd0.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-6d2dca9f35f04ed2",
@@ -1025,7 +1083,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC8%E7%AB%A0-%E7%94%9F%E4%BA%A7%E7%BA%A7%E6%9C%8D%E5%8A%A1%E7%89%B9%E6%80%A7.md",
-    "contentPath": "/library/aiinfra-guide-6d2dca9f35f04ed2.md"
+    "contentPath": "/library/aiinfra-guide-6d2dca9f35f04ed2.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-b188bdba46c4669f",
@@ -1042,7 +1101,8 @@
     "summary": "推理优化 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC9%E7%AB%A0-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E4%B8%8EBenchmark.md",
-    "contentPath": "/library/aiinfra-guide-b188bdba46c4669f.md"
+    "contentPath": "/library/aiinfra-guide-b188bdba46c4669f.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-bf08fe797a94bda6",
@@ -1059,7 +1119,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/%E7%AC%AC1%E7%AB%A0-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80.md",
-    "contentPath": "/library/aiinfra-guide-bf08fe797a94bda6.md"
+    "contentPath": "/library/aiinfra-guide-bf08fe797a94bda6.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-a2f11c9bbc82d504",
@@ -1075,7 +1136,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/%E7%AC%AC2%E7%AB%A0-%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80.md",
-    "contentPath": "/library/aiinfra-guide-a2f11c9bbc82d504.md"
+    "contentPath": "/library/aiinfra-guide-a2f11c9bbc82d504.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-cc408d5cb153a180",
@@ -1092,7 +1154,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/%E7%AC%AC3%E7%AB%A0-Transformer%E6%9E%B6%E6%9E%84%E8%AF%A6%E8%A7%A3.md",
-    "contentPath": "/library/aiinfra-guide-cc408d5cb153a180.md"
+    "contentPath": "/library/aiinfra-guide-cc408d5cb153a180.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-1ceb81b628a5c29d",
@@ -1108,7 +1171,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/%E7%AC%AC4%E7%AB%A0-PyTorch%E6%A1%86%E6%9E%B6.md",
-    "contentPath": "/library/aiinfra-guide-1ceb81b628a5c29d.md"
+    "contentPath": "/library/aiinfra-guide-1ceb81b628a5c29d.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-79a6f14b1e1f3916",
@@ -1125,7 +1189,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/%E7%AC%AC5%E7%AB%A0-GPU%E7%A1%AC%E4%BB%B6%E6%A6%82%E8%AE%BA.md",
-    "contentPath": "/library/aiinfra-guide-79a6f14b1e1f3916.md"
+    "contentPath": "/library/aiinfra-guide-79a6f14b1e1f3916.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-3e92cabaaa4ab6c9",
@@ -1141,7 +1206,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/%E7%AC%AC6%E7%AB%A0-%E9%9B%86%E5%90%88%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80.md",
-    "contentPath": "/library/aiinfra-guide-3e92cabaaa4ab6c9.md"
+    "contentPath": "/library/aiinfra-guide-3e92cabaaa4ab6c9.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-f3b62304efd09fbb",
@@ -1158,7 +1224,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/communication/collective-communication-primer.md",
-    "contentPath": "/library/aiinfra-guide-f3b62304efd09fbb.md"
+    "contentPath": "/library/aiinfra-guide-f3b62304efd09fbb.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-3d7fd2516bf71971",
@@ -1175,7 +1242,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/gpu/gpu-basics.md",
-    "contentPath": "/library/aiinfra-guide-3d7fd2516bf71971.md"
+    "contentPath": "/library/aiinfra-guide-3d7fd2516bf71971.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-76eb7c6696b0c573",
@@ -1192,7 +1260,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/gpu/nvidia-gpu-evolution.md",
-    "contentPath": "/library/aiinfra-guide-76eb7c6696b0c573.md"
+    "contentPath": "/library/aiinfra-guide-76eb7c6696b0c573.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-6b76589b9952fa4f",
@@ -1209,7 +1278,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/pyroch/PyTorch%E6%A1%86%E6%9E%B6%E5%85%A5%E9%97%A8.md",
-    "contentPath": "/library/aiinfra-guide-6b76589b9952fa4f.md"
+    "contentPath": "/library/aiinfra-guide-6b76589b9952fa4f.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-57a12359e18c0eed",
@@ -1226,7 +1296,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/transformer/3.1%20AI%20Infra%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E6%87%82Transformer.md",
-    "contentPath": "/library/aiinfra-guide-57a12359e18c0eed.md"
+    "contentPath": "/library/aiinfra-guide-57a12359e18c0eed.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-d949c63815a3183d",
@@ -1243,7 +1314,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/transformer/3.2%20Transformer%E5%85%A8%E8%B2%8C%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0.md",
-    "contentPath": "/library/aiinfra-guide-d949c63815a3183d.md"
+    "contentPath": "/library/aiinfra-guide-d949c63815a3183d.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-5328322073d0c2f3",
@@ -1260,7 +1332,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/transformer/3.3%20Self-Attention%E6%9C%BA%E5%88%B6%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3.md",
-    "contentPath": "/library/aiinfra-guide-5328322073d0c2f3.md"
+    "contentPath": "/library/aiinfra-guide-5328322073d0c2f3.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-8922413ce246bd71",
@@ -1277,7 +1350,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/transformer/3.4%20Transformer%E5%89%8D%E9%A6%88%E7%BD%91%E7%BB%9CFFN%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3.md",
-    "contentPath": "/library/aiinfra-guide-8922413ce246bd71.md"
+    "contentPath": "/library/aiinfra-guide-8922413ce246bd71.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-c732a9479b9933b6",
@@ -1294,7 +1368,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/transformer/3.5%20Transformer%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3.md",
-    "contentPath": "/library/aiinfra-guide-c732a9479b9933b6.md"
+    "contentPath": "/library/aiinfra-guide-c732a9479b9933b6.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-09d48d37033129c9",
@@ -1311,7 +1386,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/transformer/3.6%20LayerNorm%E4%B8%8E%E6%AE%8B%E5%B7%AE%E8%BF%9E%E6%8E%A5%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3.md",
-    "contentPath": "/library/aiinfra-guide-09d48d37033129c9.md"
+    "contentPath": "/library/aiinfra-guide-09d48d37033129c9.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-a5865c19672660ac",
@@ -1327,7 +1403,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/transformer/3.7%20Transformer%20Decoder%20Block%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90.md",
-    "contentPath": "/library/aiinfra-guide-a5865c19672660ac.md"
+    "contentPath": "/library/aiinfra-guide-a5865c19672660ac.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-6a491f1a225ce1da",
@@ -1343,7 +1420,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/transformer/3.8%20%E4%BB%8ETransformer%E5%88%B0LLM%E8%87%AA%E5%9B%9E%E5%BD%92%E7%94%9F%E6%88%90%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3.md",
-    "contentPath": "/library/aiinfra-guide-6a491f1a225ce1da.md"
+    "contentPath": "/library/aiinfra-guide-6a491f1a225ce1da.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-bc9237c2c72b1d2b",
@@ -1359,7 +1437,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/transformer/3.9%20Tokenization%E4%B8%8E%E8%AF%8D%E5%B5%8C%E5%85%A5.md",
-    "contentPath": "/library/aiinfra-guide-bc9237c2c72b1d2b.md"
+    "contentPath": "/library/aiinfra-guide-bc9237c2c72b1d2b.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-cf55775eeac383aa",
@@ -1375,7 +1454,8 @@
     "summary": "前置知识 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%80-%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/transformer/Transformer%E6%9E%B6%E6%9E%84%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md",
-    "contentPath": "/library/aiinfra-guide-cf55775eeac383aa.md"
+    "contentPath": "/library/aiinfra-guide-cf55775eeac383aa.md",
+    "language": "zh"
   },
   {
     "id": "aiinfra-guide-9cd4fb51a163122a",
@@ -1392,7 +1472,8 @@
     "summary": "学习路线 · 中文 · AIInfraGuide",
     "kind": "article",
     "sourceUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/AI%20Infra%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.md",
-    "contentPath": "/library/aiinfra-guide-9cd4fb51a163122a.md"
+    "contentPath": "/library/aiinfra-guide-9cd4fb51a163122a.md",
+    "language": "zh"
   },
   {
     "id": "aris-ai-offer-3d-generation-tutorial",
@@ -1406,7 +1487,11 @@
     "summary": "生成模型 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/3d_generation_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-3d-generation-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-3d-generation-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-3d-generation-tutorial",
+    "alternateId": "aris-ai-offer-3d-generation-tutorial-en",
+    "titleZh": "三维生成：NeRF 与高斯泼溅面试速查"
   },
   {
     "id": "aris-ai-offer-3d-generation-tutorial-en",
@@ -1420,7 +1505,11 @@
     "summary": "生成模型 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/3d_generation_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-3d-generation-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-3d-generation-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-3d-generation-tutorial",
+    "alternateId": "aris-ai-offer-3d-generation-tutorial",
+    "titleZh": "三维生成：NeRF 与高斯泼溅面试速查"
   },
   {
     "id": "aris-ai-offer-agent-foundations-tutorial",
@@ -1434,7 +1523,11 @@
     "summary": "Agent 智能体 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/agent_foundations_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-agent-foundations-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-agent-foundations-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-agent-foundations-tutorial",
+    "alternateId": "aris-ai-offer-agent-foundations-tutorial-en",
+    "titleZh": "智能体基础面试速查"
   },
   {
     "id": "aris-ai-offer-agent-foundations-tutorial-en",
@@ -1448,7 +1541,11 @@
     "summary": "Agent 智能体 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/agent_foundations_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-agent-foundations-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-agent-foundations-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-agent-foundations-tutorial",
+    "alternateId": "aris-ai-offer-agent-foundations-tutorial",
+    "titleZh": "智能体基础面试速查"
   },
   {
     "id": "aris-ai-offer-agentic-rl-tutorial",
@@ -1462,7 +1559,11 @@
     "summary": "Agent 智能体 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/agentic_rl_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-agentic-rl-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-agentic-rl-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-agentic-rl-tutorial",
+    "alternateId": "aris-ai-offer-agentic-rl-tutorial-en",
+    "titleZh": "智能体强化学习面试速查"
   },
   {
     "id": "aris-ai-offer-agentic-rl-tutorial-en",
@@ -1476,7 +1577,11 @@
     "summary": "Agent 智能体 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/agentic_rl_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-agentic-rl-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-agentic-rl-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-agentic-rl-tutorial",
+    "alternateId": "aris-ai-offer-agentic-rl-tutorial",
+    "titleZh": "智能体强化学习面试速查"
   },
   {
     "id": "aris-ai-offer-attention-tutorial",
@@ -1490,7 +1595,11 @@
     "summary": "LLM 架构与系统 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/attention_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-attention-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-attention-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-attention-tutorial",
+    "alternateId": "aris-ai-offer-attention-tutorial-en",
+    "titleZh": "注意力机制面试速查"
   },
   {
     "id": "aris-ai-offer-attention-tutorial-en",
@@ -1504,7 +1613,11 @@
     "summary": "LLM 架构与系统 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/attention_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-attention-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-attention-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-attention-tutorial",
+    "alternateId": "aris-ai-offer-attention-tutorial",
+    "titleZh": "注意力机制面试速查"
   },
   {
     "id": "aris-ai-offer-diffusion-distillation-tutorial",
@@ -1518,7 +1631,11 @@
     "summary": "生成模型 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/diffusion_distillation_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-diffusion-distillation-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-diffusion-distillation-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-diffusion-distillation-tutorial",
+    "alternateId": "aris-ai-offer-diffusion-distillation-tutorial-en",
+    "titleZh": "扩散模型蒸馏面试速查"
   },
   {
     "id": "aris-ai-offer-diffusion-distillation-tutorial-en",
@@ -1532,7 +1649,11 @@
     "summary": "生成模型 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/diffusion_distillation_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-diffusion-distillation-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-diffusion-distillation-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-diffusion-distillation-tutorial",
+    "alternateId": "aris-ai-offer-diffusion-distillation-tutorial",
+    "titleZh": "扩散模型蒸馏面试速查"
   },
   {
     "id": "aris-ai-offer-diffusion-foundations-tutorial",
@@ -1546,7 +1667,11 @@
     "summary": "生成模型 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/diffusion_foundations_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-diffusion-foundations-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-diffusion-foundations-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-diffusion-foundations-tutorial",
+    "alternateId": "aris-ai-offer-diffusion-foundations-tutorial-en",
+    "titleZh": "扩散模型基础面试速查"
   },
   {
     "id": "aris-ai-offer-diffusion-foundations-tutorial-en",
@@ -1560,7 +1685,11 @@
     "summary": "生成模型 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/diffusion_foundations_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-diffusion-foundations-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-diffusion-foundations-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-diffusion-foundations-tutorial",
+    "alternateId": "aris-ai-offer-diffusion-foundations-tutorial",
+    "titleZh": "扩散模型基础面试速查"
   },
   {
     "id": "aris-ai-offer-diffusion-post-training-tutorial",
@@ -1574,7 +1703,11 @@
     "summary": "生成模型 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/diffusion_post_training_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-diffusion-post-training-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-diffusion-post-training-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-diffusion-post-training-tutorial",
+    "alternateId": "aris-ai-offer-diffusion-post-training-tutorial-en",
+    "titleZh": "扩散模型后训练面试速查"
   },
   {
     "id": "aris-ai-offer-diffusion-post-training-tutorial-en",
@@ -1588,7 +1721,11 @@
     "summary": "生成模型 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/diffusion_post_training_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-diffusion-post-training-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-diffusion-post-training-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-diffusion-post-training-tutorial",
+    "alternateId": "aris-ai-offer-diffusion-post-training-tutorial",
+    "titleZh": "扩散模型后训练面试速查"
   },
   {
     "id": "aris-ai-offer-distributed-training-tutorial",
@@ -1602,7 +1739,11 @@
     "summary": "LLM 架构与系统 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/distributed_training_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-distributed-training-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-distributed-training-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-distributed-training-tutorial",
+    "alternateId": "aris-ai-offer-distributed-training-tutorial-en",
+    "titleZh": "分布式训练面试速查"
   },
   {
     "id": "aris-ai-offer-distributed-training-tutorial-en",
@@ -1616,7 +1757,11 @@
     "summary": "LLM 架构与系统 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/distributed_training_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-distributed-training-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-distributed-training-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-distributed-training-tutorial",
+    "alternateId": "aris-ai-offer-distributed-training-tutorial",
+    "titleZh": "分布式训练面试速查"
   },
   {
     "id": "aris-ai-offer-flow-matching-tutorial",
@@ -1630,7 +1775,11 @@
     "summary": "生成模型 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/flow_matching_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-flow-matching-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-flow-matching-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-flow-matching-tutorial",
+    "alternateId": "aris-ai-offer-flow-matching-tutorial-en",
+    "titleZh": "流匹配快速参考"
   },
   {
     "id": "aris-ai-offer-flow-matching-tutorial-en",
@@ -1644,7 +1793,11 @@
     "summary": "生成模型 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/flow_matching_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-flow-matching-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-flow-matching-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-flow-matching-tutorial",
+    "alternateId": "aris-ai-offer-flow-matching-tutorial",
+    "titleZh": "流匹配快速参考"
   },
   {
     "id": "aris-ai-offer-image-generation-systems-tutorial",
@@ -1658,7 +1811,11 @@
     "summary": "生成模型 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/image_generation_systems_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-image-generation-systems-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-image-generation-systems-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-image-generation-systems-tutorial",
+    "alternateId": "aris-ai-offer-image-generation-systems-tutorial-en",
+    "titleZh": "图像生成系统面试速查"
   },
   {
     "id": "aris-ai-offer-image-generation-systems-tutorial-en",
@@ -1672,7 +1829,11 @@
     "summary": "生成模型 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/image_generation_systems_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-image-generation-systems-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-image-generation-systems-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-image-generation-systems-tutorial",
+    "alternateId": "aris-ai-offer-image-generation-systems-tutorial",
+    "titleZh": "图像生成系统面试速查"
   },
   {
     "id": "aris-ai-offer-kl-divergence-rlhf-tutorial",
@@ -1686,7 +1847,11 @@
     "summary": "后训练与推理 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/kl_divergence_rlhf_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-kl-divergence-rlhf-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-kl-divergence-rlhf-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-kl-divergence-rlhf-tutorial",
+    "alternateId": "aris-ai-offer-kl-divergence-rlhf-tutorial-en",
+    "titleZh": "RLHF 中的 KL 散度面试速查"
   },
   {
     "id": "aris-ai-offer-kl-divergence-rlhf-tutorial-en",
@@ -1700,7 +1865,11 @@
     "summary": "后训练与推理 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/kl_divergence_rlhf_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-kl-divergence-rlhf-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-kl-divergence-rlhf-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-kl-divergence-rlhf-tutorial",
+    "alternateId": "aris-ai-offer-kl-divergence-rlhf-tutorial",
+    "titleZh": "RLHF 中的 KL 散度面试速查"
   },
   {
     "id": "aris-ai-offer-kv-cache-speculative-decoding-tutorial",
@@ -1714,7 +1883,11 @@
     "summary": "LLM 架构与系统 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/kv_cache_speculative_decoding_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-kv-cache-speculative-decoding-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-kv-cache-speculative-decoding-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-kv-cache-speculative-decoding-tutorial",
+    "alternateId": "aris-ai-offer-kv-cache-speculative-decoding-tutorial-en",
+    "titleZh": "KV 缓存与推测解码面试速查"
   },
   {
     "id": "aris-ai-offer-kv-cache-speculative-decoding-tutorial-en",
@@ -1728,7 +1901,11 @@
     "summary": "LLM 架构与系统 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/kv_cache_speculative_decoding_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-kv-cache-speculative-decoding-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-kv-cache-speculative-decoding-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-kv-cache-speculative-decoding-tutorial",
+    "alternateId": "aris-ai-offer-kv-cache-speculative-decoding-tutorial",
+    "titleZh": "KV 缓存与推测解码面试速查"
   },
   {
     "id": "aris-ai-offer-linear-sparse-attention-tutorial",
@@ -1742,7 +1919,11 @@
     "summary": "LLM 架构与系统 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/linear_sparse_attention_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-linear-sparse-attention-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-linear-sparse-attention-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-linear-sparse-attention-tutorial",
+    "alternateId": "aris-ai-offer-linear-sparse-attention-tutorial-en",
+    "titleZh": "线性与稀疏注意力面试速查"
   },
   {
     "id": "aris-ai-offer-linear-sparse-attention-tutorial-en",
@@ -1756,7 +1937,11 @@
     "summary": "LLM 架构与系统 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/linear_sparse_attention_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-linear-sparse-attention-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-linear-sparse-attention-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-linear-sparse-attention-tutorial",
+    "alternateId": "aris-ai-offer-linear-sparse-attention-tutorial",
+    "titleZh": "线性与稀疏注意力面试速查"
   },
   {
     "id": "aris-ai-offer-llm-evaluation-benchmarking-tutorial",
@@ -1770,7 +1955,11 @@
     "summary": "机器学习基础 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/llm_evaluation_benchmarking_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-llm-evaluation-benchmarking-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-llm-evaluation-benchmarking-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-llm-evaluation-benchmarking-tutorial",
+    "alternateId": "aris-ai-offer-llm-evaluation-benchmarking-tutorial-en",
+    "titleZh": "大模型评估与基准测试面试速查"
   },
   {
     "id": "aris-ai-offer-llm-evaluation-benchmarking-tutorial-en",
@@ -1784,7 +1973,11 @@
     "summary": "机器学习基础 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/llm_evaluation_benchmarking_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-llm-evaluation-benchmarking-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-llm-evaluation-benchmarking-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-llm-evaluation-benchmarking-tutorial",
+    "alternateId": "aris-ai-offer-llm-evaluation-benchmarking-tutorial",
+    "titleZh": "大模型评估与基准测试面试速查"
   },
   {
     "id": "aris-ai-offer-llm-inference-serving-tutorial",
@@ -1798,7 +1991,11 @@
     "summary": "LLM 架构与系统 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/llm_inference_serving_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-llm-inference-serving-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-llm-inference-serving-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-llm-inference-serving-tutorial",
+    "alternateId": "aris-ai-offer-llm-inference-serving-tutorial-en",
+    "titleZh": "大模型推理与服务架构面试速查"
   },
   {
     "id": "aris-ai-offer-llm-inference-serving-tutorial-en",
@@ -1812,7 +2009,11 @@
     "summary": "LLM 架构与系统 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/llm_inference_serving_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-llm-inference-serving-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-llm-inference-serving-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-llm-inference-serving-tutorial",
+    "alternateId": "aris-ai-offer-llm-inference-serving-tutorial",
+    "titleZh": "大模型推理与服务架构面试速查"
   },
   {
     "id": "aris-ai-offer-llm-opd-tutorial",
@@ -1826,7 +2027,11 @@
     "summary": "后训练与推理 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/llm_opd_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-llm-opd-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-llm-opd-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-llm-opd-tutorial",
+    "alternateId": "aris-ai-offer-llm-opd-tutorial-en",
+    "titleZh": "大模型同策略蒸馏（OPD）面试速查"
   },
   {
     "id": "aris-ai-offer-llm-opd-tutorial-en",
@@ -1840,7 +2045,11 @@
     "summary": "后训练与推理 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/llm_opd_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-llm-opd-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-llm-opd-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-llm-opd-tutorial",
+    "alternateId": "aris-ai-offer-llm-opd-tutorial",
+    "titleZh": "大模型同策略蒸馏（OPD）面试速查"
   },
   {
     "id": "aris-ai-offer-llm-pretraining-pipeline-tutorial",
@@ -1854,7 +2063,11 @@
     "summary": "LLM 架构与系统 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/llm_pretraining_pipeline_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-llm-pretraining-pipeline-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-llm-pretraining-pipeline-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-llm-pretraining-pipeline-tutorial",
+    "alternateId": "aris-ai-offer-llm-pretraining-pipeline-tutorial-en",
+    "titleZh": "大模型预训练流程面试速查"
   },
   {
     "id": "aris-ai-offer-llm-pretraining-pipeline-tutorial-en",
@@ -1868,7 +2081,11 @@
     "summary": "LLM 架构与系统 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/llm_pretraining_pipeline_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-llm-pretraining-pipeline-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-llm-pretraining-pipeline-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-llm-pretraining-pipeline-tutorial",
+    "alternateId": "aris-ai-offer-llm-pretraining-pipeline-tutorial",
+    "titleZh": "大模型预训练流程面试速查"
   },
   {
     "id": "aris-ai-offer-long-context-rope-yarn-mla-tutorial",
@@ -1882,7 +2099,11 @@
     "summary": "LLM 架构与系统 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/long_context_rope_yarn_mla_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-long-context-rope-yarn-mla-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-long-context-rope-yarn-mla-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-long-context-rope-yarn-mla-tutorial",
+    "alternateId": "aris-ai-offer-long-context-rope-yarn-mla-tutorial-en",
+    "titleZh": "长上下文：RoPE / YaRN / NTK / MLA / 滑动窗口面试速查"
   },
   {
     "id": "aris-ai-offer-long-context-rope-yarn-mla-tutorial-en",
@@ -1896,7 +2117,11 @@
     "summary": "LLM 架构与系统 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/long_context_rope_yarn_mla_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-long-context-rope-yarn-mla-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-long-context-rope-yarn-mla-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-long-context-rope-yarn-mla-tutorial",
+    "alternateId": "aris-ai-offer-long-context-rope-yarn-mla-tutorial",
+    "titleZh": "长上下文：RoPE / YaRN / NTK / MLA / 滑动窗口面试速查"
   },
   {
     "id": "aris-ai-offer-lora-peft-tutorial",
@@ -1910,7 +2135,11 @@
     "summary": "后训练与推理 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/lora_peft_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-lora-peft-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-lora-peft-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-lora-peft-tutorial",
+    "alternateId": "aris-ai-offer-lora-peft-tutorial-en",
+    "titleZh": "LoRA 与参数高效微调（PEFT）面试速查"
   },
   {
     "id": "aris-ai-offer-lora-peft-tutorial-en",
@@ -1924,7 +2153,11 @@
     "summary": "后训练与推理 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/lora_peft_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-lora-peft-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-lora-peft-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-lora-peft-tutorial",
+    "alternateId": "aris-ai-offer-lora-peft-tutorial",
+    "titleZh": "LoRA 与参数高效微调（PEFT）面试速查"
   },
   {
     "id": "aris-ai-offer-modern-diffusion-post-training-tutorial",
@@ -1938,7 +2171,11 @@
     "summary": "生成模型 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/modern_diffusion_post_training_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-modern-diffusion-post-training-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-modern-diffusion-post-training-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-modern-diffusion-post-training-tutorial",
+    "alternateId": "aris-ai-offer-modern-diffusion-post-training-tutorial-en",
+    "titleZh": "现代扩散模型后训练面试速查"
   },
   {
     "id": "aris-ai-offer-modern-diffusion-post-training-tutorial-en",
@@ -1952,7 +2189,11 @@
     "summary": "生成模型 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/modern_diffusion_post_training_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-modern-diffusion-post-training-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-modern-diffusion-post-training-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-modern-diffusion-post-training-tutorial",
+    "alternateId": "aris-ai-offer-modern-diffusion-post-training-tutorial",
+    "titleZh": "现代扩散模型后训练面试速查"
   },
   {
     "id": "aris-ai-offer-moe-tutorial",
@@ -1966,7 +2207,11 @@
     "summary": "LLM 架构与系统 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/moe_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-moe-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-moe-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-moe-tutorial",
+    "alternateId": "aris-ai-offer-moe-tutorial-en",
+    "titleZh": "混合专家模型（MoE）面试速查"
   },
   {
     "id": "aris-ai-offer-moe-tutorial-en",
@@ -1980,7 +2225,11 @@
     "summary": "LLM 架构与系统 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/moe_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-moe-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-moe-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-moe-tutorial",
+    "alternateId": "aris-ai-offer-moe-tutorial",
+    "titleZh": "混合专家模型（MoE）面试速查"
   },
   {
     "id": "aris-ai-offer-multi-agent-long-horizon-tutorial",
@@ -1994,7 +2243,11 @@
     "summary": "Agent 智能体 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/multi_agent_long_horizon_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-multi-agent-long-horizon-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-multi-agent-long-horizon-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-multi-agent-long-horizon-tutorial",
+    "alternateId": "aris-ai-offer-multi-agent-long-horizon-tutorial-en",
+    "titleZh": "多智能体与长程任务面试速查"
   },
   {
     "id": "aris-ai-offer-multi-agent-long-horizon-tutorial-en",
@@ -2008,7 +2261,11 @@
     "summary": "Agent 智能体 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/multi_agent_long_horizon_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-multi-agent-long-horizon-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-multi-agent-long-horizon-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-multi-agent-long-horizon-tutorial",
+    "alternateId": "aris-ai-offer-multi-agent-long-horizon-tutorial",
+    "titleZh": "多智能体与长程任务面试速查"
   },
   {
     "id": "aris-ai-offer-normalization-init-tutorial",
@@ -2022,7 +2279,11 @@
     "summary": "机器学习基础 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/normalization_init_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-normalization-init-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-normalization-init-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-normalization-init-tutorial",
+    "alternateId": "aris-ai-offer-normalization-init-tutorial-en",
+    "titleZh": "归一化、残差与初始化面试速查"
   },
   {
     "id": "aris-ai-offer-normalization-init-tutorial-en",
@@ -2036,7 +2297,11 @@
     "summary": "机器学习基础 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/normalization_init_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-normalization-init-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-normalization-init-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-normalization-init-tutorial",
+    "alternateId": "aris-ai-offer-normalization-init-tutorial",
+    "titleZh": "归一化、残差与初始化面试速查"
   },
   {
     "id": "aris-ai-offer-optimizer-lr-schedule-tutorial",
@@ -2050,7 +2315,11 @@
     "summary": "机器学习基础 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/optimizer_lr_schedule_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-optimizer-lr-schedule-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-optimizer-lr-schedule-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-optimizer-lr-schedule-tutorial",
+    "alternateId": "aris-ai-offer-optimizer-lr-schedule-tutorial-en",
+    "titleZh": "优化器与学习率调度面试速查"
   },
   {
     "id": "aris-ai-offer-optimizer-lr-schedule-tutorial-en",
@@ -2064,7 +2333,11 @@
     "summary": "机器学习基础 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/optimizer_lr_schedule_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-optimizer-lr-schedule-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-optimizer-lr-schedule-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-optimizer-lr-schedule-tutorial",
+    "alternateId": "aris-ai-offer-optimizer-lr-schedule-tutorial",
+    "titleZh": "优化器与学习率调度面试速查"
   },
   {
     "id": "aris-ai-offer-quantization-tutorial",
@@ -2078,7 +2351,11 @@
     "summary": "LLM 架构与系统 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/quantization_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-quantization-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-quantization-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-quantization-tutorial",
+    "alternateId": "aris-ai-offer-quantization-tutorial-en",
+    "titleZh": "量化面试速查"
   },
   {
     "id": "aris-ai-offer-quantization-tutorial-en",
@@ -2092,7 +2369,11 @@
     "summary": "LLM 架构与系统 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/quantization_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-quantization-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-quantization-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-quantization-tutorial",
+    "alternateId": "aris-ai-offer-quantization-tutorial",
+    "titleZh": "量化面试速查"
   },
   {
     "id": "aris-ai-offer-rag-embedding-retrieval-tutorial",
@@ -2106,7 +2387,11 @@
     "summary": "机器学习基础 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/rag_embedding_retrieval_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-rag-embedding-retrieval-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-rag-embedding-retrieval-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-rag-embedding-retrieval-tutorial",
+    "alternateId": "aris-ai-offer-rag-embedding-retrieval-tutorial-en",
+    "titleZh": "RAG、文本嵌入与检索面试速查"
   },
   {
     "id": "aris-ai-offer-rag-embedding-retrieval-tutorial-en",
@@ -2120,7 +2405,11 @@
     "summary": "机器学习基础 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/rag_embedding_retrieval_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-rag-embedding-retrieval-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-rag-embedding-retrieval-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-rag-embedding-retrieval-tutorial",
+    "alternateId": "aris-ai-offer-rag-embedding-retrieval-tutorial",
+    "titleZh": "RAG、文本嵌入与检索面试速查"
   },
   {
     "id": "aris-ai-offer-reasoning-models-tutorial",
@@ -2134,7 +2423,11 @@
     "summary": "后训练与推理 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/reasoning_models_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-reasoning-models-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-reasoning-models-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-reasoning-models-tutorial",
+    "alternateId": "aris-ai-offer-reasoning-models-tutorial-en",
+    "titleZh": "推理模型面试速查"
   },
   {
     "id": "aris-ai-offer-reasoning-models-tutorial-en",
@@ -2148,7 +2441,11 @@
     "summary": "后训练与推理 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/reasoning_models_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-reasoning-models-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-reasoning-models-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-reasoning-models-tutorial",
+    "alternateId": "aris-ai-offer-reasoning-models-tutorial",
+    "titleZh": "推理模型面试速查"
   },
   {
     "id": "aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial",
@@ -2162,7 +2459,11 @@
     "summary": "后训练与推理 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/rlhf_dpo_grpo_ppo_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial",
+    "alternateId": "aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial-en",
+    "titleZh": "RLHF 与偏好优化：DPO / GRPO / PPO 面试速查"
   },
   {
     "id": "aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial-en",
@@ -2176,7 +2477,11 @@
     "summary": "后训练与推理 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/rlhf_dpo_grpo_ppo_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial",
+    "alternateId": "aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial",
+    "titleZh": "RLHF 与偏好优化：DPO / GRPO / PPO 面试速查"
   },
   {
     "id": "aris-ai-offer-self-evolving-agents-tutorial",
@@ -2190,7 +2495,11 @@
     "summary": "Agent 智能体 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/self_evolving_agents_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-self-evolving-agents-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-self-evolving-agents-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-self-evolving-agents-tutorial",
+    "alternateId": "aris-ai-offer-self-evolving-agents-tutorial-en",
+    "titleZh": "自进化智能体面试速查"
   },
   {
     "id": "aris-ai-offer-self-evolving-agents-tutorial-en",
@@ -2204,7 +2513,11 @@
     "summary": "Agent 智能体 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/self_evolving_agents_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-self-evolving-agents-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-self-evolving-agents-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-self-evolving-agents-tutorial",
+    "alternateId": "aris-ai-offer-self-evolving-agents-tutorial",
+    "titleZh": "自进化智能体面试速查"
   },
   {
     "id": "aris-ai-offer-tokenization-tutorial",
@@ -2218,7 +2531,11 @@
     "summary": "机器学习基础 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/tokenization_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-tokenization-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-tokenization-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-tokenization-tutorial",
+    "alternateId": "aris-ai-offer-tokenization-tutorial-en",
+    "titleZh": "分词与分词器面试速查"
   },
   {
     "id": "aris-ai-offer-tokenization-tutorial-en",
@@ -2232,7 +2549,11 @@
     "summary": "机器学习基础 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/tokenization_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-tokenization-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-tokenization-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-tokenization-tutorial",
+    "alternateId": "aris-ai-offer-tokenization-tutorial",
+    "titleZh": "分词与分词器面试速查"
   },
   {
     "id": "aris-ai-offer-transformer-block-tutorial",
@@ -2246,7 +2567,11 @@
     "summary": "LLM 架构与系统 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/transformer_block_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-transformer-block-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-transformer-block-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-transformer-block-tutorial",
+    "alternateId": "aris-ai-offer-transformer-block-tutorial-en",
+    "titleZh": "Transformer 模块面试速查"
   },
   {
     "id": "aris-ai-offer-transformer-block-tutorial-en",
@@ -2260,7 +2585,11 @@
     "summary": "LLM 架构与系统 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/transformer_block_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-transformer-block-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-transformer-block-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-transformer-block-tutorial",
+    "alternateId": "aris-ai-offer-transformer-block-tutorial",
+    "titleZh": "Transformer 模块面试速查"
   },
   {
     "id": "aris-ai-offer-vae-vqvae-vqgan-tutorial",
@@ -2274,7 +2603,11 @@
     "summary": "生成模型 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/vae_vqvae_vqgan_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-vae-vqvae-vqgan-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-vae-vqvae-vqgan-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-vae-vqvae-vqgan-tutorial",
+    "alternateId": "aris-ai-offer-vae-vqvae-vqgan-tutorial-en",
+    "titleZh": "VAE / VQ-VAE / VQ-GAN / FSQ 面试速查"
   },
   {
     "id": "aris-ai-offer-vae-vqvae-vqgan-tutorial-en",
@@ -2288,7 +2621,11 @@
     "summary": "生成模型 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/vae_vqvae_vqgan_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-vae-vqvae-vqgan-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-vae-vqvae-vqgan-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-vae-vqvae-vqgan-tutorial",
+    "alternateId": "aris-ai-offer-vae-vqvae-vqgan-tutorial",
+    "titleZh": "VAE / VQ-VAE / VQ-GAN / FSQ 面试速查"
   },
   {
     "id": "aris-ai-offer-video-generation-tutorial",
@@ -2302,7 +2639,11 @@
     "summary": "生成模型 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/video_generation_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-video-generation-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-video-generation-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-video-generation-tutorial",
+    "alternateId": "aris-ai-offer-video-generation-tutorial-en",
+    "titleZh": "视频生成面试速查"
   },
   {
     "id": "aris-ai-offer-video-generation-tutorial-en",
@@ -2316,7 +2657,11 @@
     "summary": "生成模型 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/video_generation_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-video-generation-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-video-generation-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-video-generation-tutorial",
+    "alternateId": "aris-ai-offer-video-generation-tutorial",
+    "titleZh": "视频生成面试速查"
   },
   {
     "id": "aris-ai-offer-vlm-multimodal-tutorial",
@@ -2330,7 +2675,11 @@
     "summary": "多模态 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/vlm_multimodal_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-vlm-multimodal-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-vlm-multimodal-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-vlm-multimodal-tutorial",
+    "alternateId": "aris-ai-offer-vlm-multimodal-tutorial-en",
+    "titleZh": "视觉语言模型与多模态面试速查"
   },
   {
     "id": "aris-ai-offer-vlm-multimodal-tutorial-en",
@@ -2344,7 +2693,11 @@
     "summary": "多模态 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/vlm_multimodal_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-vlm-multimodal-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-vlm-multimodal-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-vlm-multimodal-tutorial",
+    "alternateId": "aris-ai-offer-vlm-multimodal-tutorial",
+    "titleZh": "视觉语言模型与多模态面试速查"
   },
   {
     "id": "aris-ai-offer-world-models-tutorial",
@@ -2358,7 +2711,11 @@
     "summary": "具身智能与世界模型 · 中文 · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/world_models_tutorial.md",
-    "contentPath": "/library/aris-ai-offer-world-models-tutorial.md"
+    "contentPath": "/library/aris-ai-offer-world-models-tutorial.md",
+    "language": "zh",
+    "translationGroupId": "aris-ai-offer-world-models-tutorial",
+    "alternateId": "aris-ai-offer-world-models-tutorial-en",
+    "titleZh": "世界模型面试速查"
   },
   {
     "id": "aris-ai-offer-world-models-tutorial-en",
@@ -2372,6 +2729,10 @@
     "summary": "具身智能与世界模型 · English · ARIS-in-AI-Offer",
     "kind": "article",
     "sourceUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/tutorials/world_models_tutorial_en.md",
-    "contentPath": "/library/aris-ai-offer-world-models-tutorial-en.md"
+    "contentPath": "/library/aris-ai-offer-world-models-tutorial-en.md",
+    "language": "en",
+    "translationGroupId": "aris-ai-offer-world-models-tutorial",
+    "alternateId": "aris-ai-offer-world-models-tutorial",
+    "titleZh": "世界模型面试速查"
   }
 ]

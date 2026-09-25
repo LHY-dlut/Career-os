@@ -13,6 +13,8 @@
 
 合计 151 篇站内全文、29 个原文入口。全文 Markdown 约 6.8 MB，单篇读取，不打进应用 JavaScript。这里的“全文”指所列固定版本 Markdown 文件的正文，不表示上游已经完成所有规划章节。
 
+目录默认跟随界面语言，为 ARIS 的每个主题选择一个对应版本；中文模式显示 116 篇站内文章及 29 个原文入口。可在“资料语言”选择中文、英文或全部版本，阅读页也可切换同篇的中英文。没有对应译文的来源继续保留原稿。选择只影响目录和阅读，不删减已保存的 151 个文件。
+
 ## AIInfraGuide
 
 - 仓库：[caomaolufei/AIInfraGuide](https://github.com/caomaolufei/AIInfraGuide)。
@@ -30,7 +32,7 @@
 - 原版权行：`Copyright (c) 2026 Ruofeng Yang (杨若峰)`。
 - 许可原文：[固定版本 LICENSE](https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/LICENSE)，逐字保存于 `public/library/licenses/aris-ai-offer-MIT.txt`。
 - [README](https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/README.md) 的 Community Showcase 明确欢迎保留署名的教程复用。
-- 收录 `docs/tutorials/*_tutorial.md` 及 `*_tutorial_en.md`，35 主题、70 文件。标题取自上游 `tools/tutorials_render_manifest.json`，正文公式、代码块、问答和引用保留。
+- 收录 `docs/tutorials/*_tutorial.md` 及 `*_tutorial_en.md`，35 主题、70 文件。原始标题取自上游 `tools/tutorials_render_manifest.json`，中文显示标题另存 `aris-titles-zh.json`；正文公式、代码块、问答和引用保留。中英文通过明确的语言、主题组与对应版本 ID 关联。
 - 不复制社区外链题库、个人主页、博客、HTML 脚本、技能指令或可执行 Python 工具。教程正文中的代码只作文字展示，不执行。
 
 ## 图片、链接与正文转换
@@ -38,6 +40,7 @@
 - 每篇都有作者、固定版本的原文件链接、MIT 许可链接。
 - 只将 YAML frontmatter 转为目录元数据、补充文档标题和来源说明、改写站内文章/章节链接，将 HTML `img` 改成 Markdown 图片；不改写、删减或生成替代教学正文。
 - 已收录教程之间的链接转为 `/library/<id>`，目录锚点适配本站 `heading-` 规则。未收录的相对代码/参考链接转为固定版本 GitHub 原文件链接。
+- 中文阅读时可显示中文主标题及通用目录标签，渲染器仍使用原正文生成的锚点 ID，因此原有章节链接继续有效。技术缩写、公式和代码保持原样。
 - 40 处插图引用仍由原站或原文列出的第三方站点提供。本站没有下载任何图片，因此离线或原图站不可用时，插图可能不显示；正文、公式与代码仍在本站。
 - 外部参考链接保持来源关系；收录教程不代表本项目验证了其中每个技术事实或取得引用作品的再发布权。
 
@@ -48,6 +51,8 @@
 ```sh
 node scripts/import-learning-library.mjs
 ```
+
+仅调整语言配对或中文显示标题时，可运行 `node scripts/import-learning-library.mjs --metadata-only`，离线重建目录元数据，不下载或改写正文及 provenance。
 
 脚本只处理上述两个白名单仓库的固定 commit，下载允许的 Markdown、标题元数据和授权文件，不执行上游代码。每个文件有 2 MB 上限；读取 GitHub tree 后核对 Git blob SHA-1，只有完整性验证通过才转换写入。
 

@@ -9,6 +9,7 @@ import { useI18n } from '../i18n/I18nProvider';
 import { getKnowledgeCategories, knowledgeCategoryPath, getCategoryDescription } from '../utils/knowledgeCatalog';
 import type { KnowledgeArticle, Question, Application, Interview, ReviewHistory, CodingProblem, CodingAttempt } from '../types';
 import { libraryResources, librarySources } from '../services/learningLibrary';
+import { localizeStarterArticle } from '../services/starterArticleLocalization';
 
 interface DashboardProps {
   questions: Question[];
@@ -36,9 +37,10 @@ const panelClass = 'min-w-0 rounded-2xl border border-zinc-200/80 bg-white p-5 s
 const textLinkClass = 'inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300';
 
 export const Dashboard: React.FC<DashboardProps> = ({
-  questions, articles, applications, interviews, reviewHistory, codingProblems, codingAttempts, onQuickAdd,
+  questions, articles: storedArticles, applications, interviews, reviewHistory, codingProblems, codingAttempts, onQuickAdd,
 }) => {
   const { t, language, locale, label } = useI18n();
+  const articles = React.useMemo(() => storedArticles.map(article => localizeStarterArticle(article, language)), [storedArticles, language]);
   const now = new Date();
   const dueQuestions = questions.filter(q => !q.nextReviewAt || new Date(q.nextReviewAt) <= now);
   const masteredQuestions = questions.filter(q => q.masteryLevel === 'Mastered');

@@ -3,6 +3,7 @@
  * No upstream code is imported/executed. Only allowlisted UTF-8 Markdown, JSON
  * metadata, README licensing evidence and the ARIS MIT license are fetched.
  * Usage: node scripts/import-learning-library.mjs
+ * Metadata only (no downloads/content writes): node scripts/import-learning-library.mjs --metadata-only
  */
 import { createHash } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -21,6 +22,7 @@ const OUTPUT = path.join(ROOT, 'public/library');
 const CACHE = path.join(ROOT, 'output/library-upstream');
 const CHECKED_AT = '2026-09-25';
 const MAX_BYTES = 2 * 1024 * 1024;
+const arisTitlesZh = JSON.parse(await readFile(path.join(ROOT, 'src/content/library/aris-titles-zh.json'), 'utf8'));
 const SOURCES = [
   {
     id: 'aiinfra-guide', repo: 'caomaolufei/AIInfraGuide',
@@ -70,6 +72,22 @@ function blobHash(buffer) { return createHash('sha1').update(`blob ${buffer.leng
 function idFor(source, file) {
   const slug = source.id === 'aris-ai-offer' ? path.posix.basename(file, '.md').replaceAll('_', '-') : createHash('sha256').update(file).digest('hex').slice(0, 16);
   return `${source.id}-${slug}`;
+}
+function withLanguageMetadata(catalog) {
+  const ids = new Set(catalog.map((resource) => resource.id));
+  return catalog.map((resource) => {
+    if (!['aiinfra-guide', 'aris-ai-offer'].includes(resource.sourceId)) throw new Error(`Unexpected imported source: ${resource.sourceId}`);
+    // Regenerate optional fields too, so removing a translation cannot leave a stale alternate.
+    const { language: _language, translationGroupId: _group, alternateId: _alternate, titleZh: _titleZh, ...original } = resource;
+    if (resource.sourceId === 'aiinfra-guide') return { ...original, language: 'zh' };
+    const language = resource.id.endsWith('-en') ? 'en' : 'zh';
+    const translationGroupId = resource.id.replace(/-en$/, '');
+    const topic = translationGroupId.replace(/^aris-ai-offer-/, '').replace(/-tutorial$/, '');
+    const titleZh = arisTitlesZh[topic];
+    if (typeof titleZh !== 'string' || !titleZh.trim()) throw new Error(`Missing reviewed Chinese display title for ARIS topic: ${topic}`);
+    const alternateId = language === 'en' ? translationGroupId : `${translationGroupId}-en`;
+    return { ...original, language, translationGroupId, ...(ids.has(alternateId) ? { alternateId } : {}), titleZh };
+  });
 }
 async function download(url, maxBytes = MAX_BYTES) {
   const parsed = new URL(url);
@@ -224,6 +242,14 @@ function transformReferences(body, record, aliases) {
   return body;
 }
 
+if (process.argv.includes('--metadata-only')) {
+  const catalogPath = path.join(ROOT, 'src/content/library/imported-catalog.json');
+  const catalog = JSON.parse(await readFile(catalogPath, 'utf8'));
+  await writeFile(catalogPath, `${JSON.stringify(withLanguageMetadata(catalog), null, 2)}\n`);
+  console.log(`Updated language metadata for ${catalog.length} articles; original titles, IDs, Markdown and provenance unchanged.`);
+  process.exit(0);
+}
+
 await mkdir(path.join(OUTPUT, 'licenses'), { recursive: true });
 const records = [];
 const importedSources = [];
@@ -298,7 +324,7 @@ for (const record of records) {
   catalog.push({ id, sourceId: source.id, title, category, tags, summary: `${category} · ${languageTag} · ${source.name}`, kind: 'article', sourceUrl, contentPath: `/library/${id}.md` });
   provenance.push({ id, sourceId: source.id, path: file, upstreamGitBlob: record.sha, storedSha256: createHash('sha256').update(content).digest('hex'), bytes: Buffer.byteLength(content) });
 }
-await writeFile(path.join(ROOT, 'src/content/library/imported-catalog.json'), `${JSON.stringify(catalog, null, 2)}\n`);
+await writeFile(path.join(ROOT, 'src/content/library/imported-catalog.json'), `${JSON.stringify(withLanguageMetadata(catalog), null, 2)}\n`);
 await writeFile(path.join(ROOT, 'src/content/library/imported-sources.json'), `${JSON.stringify(importedSources, null, 2)}\n`);
 await writeFile(path.join(OUTPUT, 'licenses/provenance.json'), `${JSON.stringify({ checkedAt: CHECKED_AT, transformation: 'frontmatter-to-catalog; attribution; local article links and matching heading anchors; absolute image/reference links; HTML img to Markdown; no code execution', resources: provenance }, null, 2)}\n`);
 console.log(`Imported ${catalog.length} documents, ${totalBytes} UTF-8 bytes; ${imageCount} image references remain external. No upstream executable or third-party image is copied.`);

@@ -20,4 +20,8 @@ export interface LibraryResource {
   kind: 'article' | 'link';
   sourceUrl: string;
   contentPath?: string;
+  language?: 'zh' | 'en';
+  translationGroupId?: string;
+  alternateId?: string;
+  titleZh?: string;
 }
