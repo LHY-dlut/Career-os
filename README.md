@@ -4,6 +4,8 @@
 
 Knowledge → Question Bank → Review → Coding → Applications → Interviews → Question Bank。
 
+在线阅读：[Career OS 学习资料库](https://career-os-lhy-dlut.web.app/library)。2026-09-25 已发布中文默认界面及内置教程，手机浏览器可直接访问；当前线上版的个人记录保存在当前浏览器，账号同步和 DeepSeek 服务尚未启用。部署状态见 [DEPLOYMENT](docs/DEPLOYMENT.md)。
+
 ## Why
 
 把分散的学习资料、复习记录与真实面试反馈连接起来，形成每天能使用的个人系统。优先保证数据正确、可维护和失败可恢复，再逐步增加 AI 能力。

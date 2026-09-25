@@ -1,12 +1,22 @@
 # Deployment — Firebase Hosting + Render
 
-本轮提供部署配置与本地验证，未向真实 Firebase / Render 项目部署。先在测试项目联通登录、规则、跨域和 AI，再发布个人生产环境。
+本文说明 Firebase Hosting 静态资料站的发布方式，以及按需启用账号同步和 Render AI 服务的配置。登录、规则、跨域和 AI 应分别完成联通验收。
+
+## 当前线上状态
+
+2026-09-25 已将前端构建（代码版本 `24dc827`）发布到独立 Hosting 站点 `career-os-lhy-dlut`：
+
+- [学习资料库](https://career-os-lhy-dlut.web.app/library)，备用域名为 [firebaseapp.com](https://career-os-lhy-dlut.firebaseapp.com/library)。
+- 使用登录后确认可管理的现有 Firebase 项目；Google 项目创建配额已满，因此在该项目内新建单独站点。发布前通过官方 Billing API 确认 `billingEnabled: false`，没有启用付费计费。
+- 公网首页、`/dashboard`、`/library`、文章深链及主 JS/CSS 均返回 HTTP 200，内容 SHA256 与本地构建一致；本机不经过代理访问两个域名也返回 HTTP 200。手机浏览器的实际网络验收仍由使用者确认。
+- 151 篇线上正文及 4 个许可/provenance 文件全部返回 HTTP 200，SHA256 与 `dist` 一致。阅读器、Markdown 样式和公式字体文件也已核验。
+- 仅发布 Hosting 静态内容；网站内 Google 登录、Firestore 个人记录同步、Render API 和 DeepSeek 调用尚未启用。Firebase CLI 的部署账号登录不等于网站内登录已经配置。
 
 ## 只发布学习资料的最短路径
 
 内置 `/library` 的目录和获准收录的正文随 `dist` 一起发布，不需要 AI 密钥、Render 或登录即可阅读。读者只在打开一篇资料时请求该篇 Markdown；站外图片和原文链接仍依赖其原站网络。它是在线阅读站点，当前没有离线缓存功能。
 
-环境尚未配置真实 Firebase 项目或已授权 CLI 账号，不能把 `localhost:3100` 当作公网地址。用你控制的 Firebase 项目完成以下步骤：
+`localhost:3100` 仅供本机预览。部署时使用你控制的 Firebase 项目，并将目标站点绑定到仓库配置的 `career-os` Hosting target：
 
 ```sh
 npm run lint
@@ -14,12 +24,31 @@ npm test
 npm run build
 npm exec --yes --package=firebase-tools@15.31.0 -- firebase login
 npm exec --yes --package=firebase-tools@15.31.0 -- firebase projects:list
-npm exec --yes --package=firebase-tools@15.31.0 -- firebase deploy --only hosting --project YOUR_PROJECT_ID
+# 仅创建新站点时执行；部署已有站点跳过这一行。
+npm exec --yes --package=firebase-tools@15.31.0 -- firebase hosting:sites:create SITE_ID --project YOUR_PROJECT_ID
+npm exec --yes --package=firebase-tools@15.31.0 -- firebase target:apply hosting career-os SITE_ID --project YOUR_PROJECT_ID
+npm exec --yes --package=firebase-tools@15.31.0 -- firebase deploy --only hosting:career-os --project YOUR_PROJECT_ID
 ```
 
-最后一个命令会实际发布公开内容，必须将 `YOUR_PROJECT_ID` 换成明确属于自己的项目。发布后使用命令返回的 HTTPS 地址，在手机蜂窝网络打开 `/library`、直接打开某篇并刷新，核对正文/公式/目录/来源链接；可使用浏览器的“添加到主屏幕”。以上命令仅为部署步骤，未在本轮执行发布。
+将 `YOUR_PROJECT_ID` 和 `SITE_ID` 换成明确属于自己的项目与站点。`target:apply` 会在本地 `.firebaserc` 保存项目和站点映射；该文件已被 Git 忽略，每台部署机都需自行运行此命令生成映射。部署已有站点时跳过 `hosting:sites:create`，并确认 `career-os` 指向需要更新的站点。
+
+最后一个命令会实际发布公开内容。发布后使用命令返回的 HTTPS 地址，在手机蜂窝网络打开 `/library`、直接打开某篇并刷新，核对正文/公式/目录/来源链接；可使用浏览器的“添加到主屏幕”。
 
 仅 Hosting 不会让访客笔记自动跨设备同步。需要自己的笔记和复习记录在手机、电脑间共享时，再按下节配置 Firebase Google Auth、Firestore 和安全规则，重建发布前端并在两台设备登录同一账号。不要在聊天、仓库或前端配置中放服务账号私钥或 DeepSeek Key。
+
+### Firebase CLI 登录排错
+
+浏览器完成 Google 授权后，CLI 仍提示 `Your credentials are no longer valid`，也可能是 CLI 连接 Google OAuth 服务超时。Firebase CLI 15.31.0 会将 token 交换的网络异常转换成这个提示；不能仅凭提示认定账号有误。远程授权码流程也需要访问 token 服务，切换登录方式不能解决网络不通。
+
+如果你已配置可信的本地 HTTP 代理，先确认它能连接 Google，再仅为当前 PowerShell 终端及其子进程设置代理。把下面的端口占位符换成自己的代理端口；在 AI 代理终端中显式传入 `--interactive`，启用 localhost 回调和交互登录：
+
+```powershell
+$env:HTTPS_PROXY = 'http://127.0.0.1:YOUR_PROXY_PORT'
+$env:HTTP_PROXY = $env:HTTPS_PROXY
+npm exec --yes --package=firebase-tools@15.31.0 -- firebase login --reauth --interactive
+```
+
+CLI 从上述环境变量读取代理，不会自动沿用浏览器代理。关闭该终端即可结束这次进程级设置；不要使用 `setx` 或修改系统代理，也不要禁用 TLS 证书校验。连通后重新授权，再用 `firebase login:list` 确认 CLI 已保存登录账号。
 
 ## 1. Firebase
 
@@ -79,7 +108,7 @@ Admin 凭证作为 Render **Secret File** `firebase-admin.json` 上传；使用�
 
 ## 3. 发布前端和规则
 
-先把实际 Render URL 写入前端 `.env` 的 `VITE_API_BASE_URL`，重新构建。Firebase 项目始终在命令参数指定，不提交固定项目 ID。
+需要 AI 服务时，先把实际 Render URL 写入前端 `.env` 的 `VITE_API_BASE_URL`，重新构建。Firebase 项目始终在命令参数指定，本地 `.firebaserc` 映射不提交。首次使用新站点时，先执行上方的 `hosting:sites:create`；以下命令发布已存在的站点并更新规则：
 
 ```sh
 npm ci
@@ -88,11 +117,12 @@ npm test
 npm run test:emulator
 npm run build
 npm exec --yes --package=firebase-tools@15.31.0 -- firebase login
+npm exec --yes --package=firebase-tools@15.31.0 -- firebase target:apply hosting career-os SITE_ID --project YOUR_PROJECT_ID
 npm exec --yes --package=firebase-tools@15.31.0 -- firebase deploy --only firestore:rules --project YOUR_PROJECT_ID
-npm exec --yes --package=firebase-tools@15.31.0 -- firebase deploy --only hosting --project YOUR_PROJECT_ID
+npm exec --yes --package=firebase-tools@15.31.0 -- firebase deploy --only hosting:career-os --project YOUR_PROJECT_ID
 ```
 
-这些部署命令是操作者后续执行步骤，本轮没有运行。`firebase.json` 将 `dist` 作为静态目录，所有 SPA 路径 rewrite 到 `index.html`。[Firebase Hosting 官方步骤](https://firebase.google.com/docs/hosting/quickstart)
+`firebase.json` 将 `dist` 作为静态目录，所有 SPA 路径 rewrite 到 `index.html`，`--only hosting:career-os` 仅发布指定 target 对应的站点。[Firebase Hosting 官方步骤](https://firebase.google.com/docs/hosting/quickstart)
 
 ## 4. 联通验收
 
