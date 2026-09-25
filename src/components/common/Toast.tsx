@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import { CheckCircle2, AlertCircle, Info, X } from 'lucide-react';
+import { useI18n } from '../../i18n/I18nProvider';
 
 export type ToastType = 'success' | 'error' | 'info';
 
@@ -20,6 +21,7 @@ const ToastContext = createContext<ToastContextValue>({
 export const useToast = () => useContext(ToastContext);
 
 export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { t, translateMessage } = useI18n();
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
   const showToast = useCallback((message: string, type: ToastType = 'success') => {
@@ -58,13 +60,11 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             {toast.type === 'info' && (
               <Info className="w-5 h-5 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
             )}
-            <p className="flex-1 text-xs sm:text-sm font-medium leading-tight">{toast.message}</p>
-            <button
+            <p role={toast.type === 'error' ? 'alert' : 'status'} className="flex-1 text-xs sm:text-sm font-medium leading-tight">{translateMessage(toast.message)}</p>
+            <button aria-label={t('Close', '关闭')}
               onClick={() => removeToast(toast.id)}
               className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
-            >
-              <X className="w-4 h-4" />
-            </button>
+            ><X className="w-4 h-4" /></button>
           </div>
         ))}
       </div>

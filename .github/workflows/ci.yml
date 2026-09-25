@@ -1,0 +1,35 @@
+name: Foundation checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test
+      - run: npm run test:emulator
+      - run: npm run build
+      - name: Production server smoke test
+        run: |
+          PORT=3100 NODE_ENV=production npm start > /tmp/career-os.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          curl --retry 15 --retry-connrefused --retry-delay 1 --fail http://localhost:3100/api/health | python3 -c 'import json,sys; assert json.load(sys.stdin) == {"status":"ok"}'
+          curl --fail http://localhost:3100/knowledge/example | grep -q '<div id="root">'
+          curl --fail http://localhost:3100/library/aris-ai-offer-attention-tutorial | grep -q '<div id="root">'
+          curl --fail http://localhost:3100/library/aris-ai-offer-attention-tutorial.md -o /tmp/career-os-article.md
+          grep -q '^#' /tmp/career-os-article.md
+          test "$(curl -s -o /tmp/ai-response.json -w '%{http_code}' -X POST http://localhost:3100/api/copilot/chat -H 'Content-Type: application/json' -d '{}')" = '401'

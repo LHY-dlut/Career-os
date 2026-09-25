@@ -1,0 +1,22 @@
+[
+  {
+    "id": "kamacoder",
+    "name": "卡码笔记 · 大模型面试",
+    "url": "https://notes.kamacoder.com/interview/llm/",
+    "author": "卡码笔记 / Carl",
+    "license": "未确认全文转载许可 · 原文导航",
+    "licenseUrl": "https://notes.kamacoder.com/interview/llm/",
+    "checkedAt": "2026-09-25",
+    "description": "按大模型应用与智能体面试方向组织的学习入口，正文在原站阅读。"
+  },
+  {
+    "id": "labuladong",
+    "name": "labuladong · 算法笔记",
+    "url": "https://labuladong.online/zh/algo/essential-technique/algorithm-summary/",
+    "author": "labuladong",
+    "license": "保留版权 · 原文导航",
+    "licenseUrl": "https://labuladong.online/zh/terms/",
+    "checkedAt": "2026-09-25",
+    "description": "算法基础与解题方法的原文入口。按原站条款，本站不存储其教程全文。"
+  }
+]

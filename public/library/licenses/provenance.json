@@ -1,0 +1,1214 @@
+{
+  "checkedAt": "2026-09-25",
+  "transformation": "frontmatter-to-catalog; attribution; local article links and matching heading anchors; absolute image/reference links; HTML img to Markdown; no code execution",
+  "resources": [
+    {
+      "id": "aiinfra-guide-ffa4ba1ba3a30f90",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/1.1-CUDA开发环境搭建.md",
+      "upstreamGitBlob": "999494efbce4205a1cc2f426175041c8b73f0103",
+      "storedSha256": "5eb8beb87d7f7426082e29eda2fb7f0eac75b0bdcb6acdf59ea24a847576fd32",
+      "bytes": 17344
+    },
+    {
+      "id": "aiinfra-guide-b63c2855eb476f26",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/1.2-CUDA编程模型.md",
+      "upstreamGitBlob": "880ece63999ec9af958f54ef6ada4609d58a6e34",
+      "storedSha256": "10efbbe924a4f6cc824eda4f7c0f8abe7d2e2524d3da3462d96343cdeb00d89a",
+      "bytes": 15871
+    },
+    {
+      "id": "aiinfra-guide-2384f3d79864e234",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/1.3-CUDA内存模型.md",
+      "upstreamGitBlob": "fb8862e67b8823e19a54ce7345e17a2fc9fe338b",
+      "storedSha256": "b2c5d68e52f8b4d164b946ae7b521fcfd6ab2151c621c739138fd40f3471c18c",
+      "bytes": 18814
+    },
+    {
+      "id": "aiinfra-guide-38a3659b2c74399f",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/1.4-第一个实用Kernel.md",
+      "upstreamGitBlob": "94ff203e69e98fe9e5a5dcf177c32d4c8392e2d6",
+      "storedSha256": "bd84cd9b8674fbc08c744510ada89429748fb911f3917df6167e9a1e8bf7397a",
+      "bytes": 18444
+    },
+    {
+      "id": "aiinfra-guide-53190fc47b5acfc1",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/2.1-Warp与执行模型.md",
+      "upstreamGitBlob": "51788165a1ba9e862b7193941d141789d6e98881",
+      "storedSha256": "9eef2f43d241d915e35a02dd8149cf1233e1b10a723ce4853d93268151d8e8c9",
+      "bytes": 17705
+    },
+    {
+      "id": "aiinfra-guide-8713bd12e9b3f1f0",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/2.2-内存访问优化.md",
+      "upstreamGitBlob": "0f666c31f5534e5d8cee133f2049475538297fff",
+      "storedSha256": "5d939901b69d2899e5405a4a05210cec8bbd5d6bd87e6794b02c70be11dfbd4c",
+      "bytes": 19959
+    },
+    {
+      "id": "aiinfra-guide-070ffcd06377bde4",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/2.3-Occupancy与资源分配.md",
+      "upstreamGitBlob": "914b10e0291c9d57ca5ad17c7914d1ac9dc89e90",
+      "storedSha256": "06d2caafdaee30d1d869950d0d80d96c843e3fe5c8de5c1e7d9e4d5ac936d435",
+      "bytes": 17898
+    },
+    {
+      "id": "aiinfra-guide-36ab5ec72a001b7c",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/2.4-同步与原子操作.md",
+      "upstreamGitBlob": "fc42628f8a105fecb9b6a12c2cfeca2285e35f61",
+      "storedSha256": "76324d577a3bcbb0140b36c0804c022de0f7907133bb1366f20879d2db5d42d6",
+      "bytes": 20832
+    },
+    {
+      "id": "aiinfra-guide-8a0a068ef51c6e70",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/3.1-CUDA Reduce算子优化.md",
+      "upstreamGitBlob": "5a6c039f9896cb1681996bda22d40c6691610b96",
+      "storedSha256": "c2b97261f02989562df199485a98ab9c5f3970797a3b2024b691afd0a9c01396",
+      "bytes": 30164
+    },
+    {
+      "id": "aiinfra-guide-d38c5461511d45a9",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/4.1-CUDA GEMM算子性能优化.md",
+      "upstreamGitBlob": "48c721b75d336ac630b3716f821a0fbad7653724",
+      "storedSha256": "48929ca40771c30e5f49c4a0a2c2553402df8b2c6471668bbfeec210f5bb1baa",
+      "bytes": 57643
+    },
+    {
+      "id": "aiinfra-guide-f50052476560609c",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/5.1-CUDA Softmax朴素实现优化.md",
+      "upstreamGitBlob": "1ef7e53f812596eea1af130962d0ba56e1b37250",
+      "storedSha256": "38668fec4a355ec5cdeb8c3c894c838281a5d0783067c2c90e5961933b006f33",
+      "bytes": 22558
+    },
+    {
+      "id": "aiinfra-guide-c212d16cb8f6b4bf",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/5.2-CUDA Online Softmax实现.md",
+      "upstreamGitBlob": "bdda80f653a2780c383bdf5f36c3cccfdeda8a23",
+      "storedSha256": "e60d53b917ceb02e943087f2c181587657125c679ceac79fa77a965a2e2c2a93",
+      "bytes": 27349
+    },
+    {
+      "id": "aiinfra-guide-b897c843c1fd7319",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/6.1-FlashAttention V1详解.md",
+      "upstreamGitBlob": "1ea4c277d8fedd8b8abc2605eb41aff8c61aa56e",
+      "storedSha256": "3a335c134b8ae4bdbd8c679a96eb4b60e9ecf1be952d00e8489f6225fa631719",
+      "bytes": 25417
+    },
+    {
+      "id": "aiinfra-guide-ef4b7c44988c470d",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/6.2-FlashAttention V2详解.md",
+      "upstreamGitBlob": "51bde4148f080fdfa483e262160215d133f8f3f2",
+      "storedSha256": "c68e4c9378768c6f883d6189454ed647024910664badc7c980c5f785226d3021",
+      "bytes": 17105
+    },
+    {
+      "id": "aiinfra-guide-4d2bc34f575f803c",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/第1章-CUDA编程入门.md",
+      "upstreamGitBlob": "68f4415a6b2ef14ffc701c18d0bcf17b7648b585",
+      "storedSha256": "77086a4ec4c2bf1320416616aaf315ac1d685dea99469a6886b489c9487170c0",
+      "bytes": 1228
+    },
+    {
+      "id": "aiinfra-guide-6c777c53f467c01a",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/第2章-CUDA性能优化基础.md",
+      "upstreamGitBlob": "ff307307a870bf813cb6b1cd20a4181a5907e6c5",
+      "storedSha256": "e00d4ef726eb27abda72aa1cd464fa5e3c5c57fd1160444b74d2143b56626b39",
+      "bytes": 1410
+    },
+    {
+      "id": "aiinfra-guide-13e4d6e802bd89bb",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/第3章-经典算子实现-Reduce.md",
+      "upstreamGitBlob": "b1aefddb143ebf5ae4ca4bbd998228a02b348f7c",
+      "storedSha256": "794b1dc6dc670fa5a497e8d6151e83110ad2a0a66702a02ff47598a4e4184717",
+      "bytes": 1329
+    },
+    {
+      "id": "aiinfra-guide-d410b3983ec48653",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/第4章-经典算子实现-GEMM.md",
+      "upstreamGitBlob": "ea8ae448965ea7bda8fb46d1de4f8196041f0e7f",
+      "storedSha256": "7a76c1ca54b17e47243cbfda37baa96a1a0d3ffc55e90e084d6cee1f2b41e7f5",
+      "bytes": 2512
+    },
+    {
+      "id": "aiinfra-guide-95295bdb7484b12a",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/第5章-经典算子实现-Softmax与算子融合.md",
+      "upstreamGitBlob": "040d024eb47dd3f762c8fca6969807b0a936ed9b",
+      "storedSha256": "f07797d846f6a2f268c53e74a5afbae5e620f47bd998bdbb73c49539555209e6",
+      "bytes": 1499
+    },
+    {
+      "id": "aiinfra-guide-1c62418efb0e0b12",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/第6章-Attention算子.md",
+      "upstreamGitBlob": "cffbdc51190ecfab30152ea3fd58cadfb217589e",
+      "storedSha256": "30a470577ed3ad1aaa38062b3d8d2ce93b8fb302dddc93b54d8bad1820650296",
+      "bytes": 1452
+    },
+    {
+      "id": "aiinfra-guide-0ebbf8fd466b028f",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/第7章-AI编译器.md",
+      "upstreamGitBlob": "bf8b629e3c125abb0cb4d059b11b409e1095a3b4",
+      "storedSha256": "b093b05e640f85012aa2658f4f62fbd9ff275f0117fd7c6ae7d35636a8e64fcc",
+      "bytes": 1318
+    },
+    {
+      "id": "aiinfra-guide-064ea7e3a78ce2be",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/第8章-性能分析工具链.md",
+      "upstreamGitBlob": "870ac404e71cb86a8294081a53bb5a57ecc25e8d",
+      "storedSha256": "bbe8ef9f64498cf368e3adc3e041adb55df1dab9823bdaa4b0fc320a4ef85e1f",
+      "bytes": 1393
+    },
+    {
+      "id": "aiinfra-guide-5a4442ccbbb8ee66",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块二-CUDA编程与算子优化/CUDA编程入门指南.md",
+      "upstreamGitBlob": "f38e47c8a6dc03c37bec5532914de56e125a3d80",
+      "storedSha256": "78fe5c6abc61f540a293bd91f2c90b92ae0ab6f75a5bce8273050d0acf6c8be1",
+      "bytes": 54226
+    },
+    {
+      "id": "aiinfra-guide-3b104677ecc6b9f9",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/1.1 分布式训练总论.md",
+      "upstreamGitBlob": "1ed7ed9a3873cbdfa59a6886dc2f416531cfe91d",
+      "storedSha256": "3d6b21c4272edd316d313d75d6e44c65760c92d97805be201dae9a74b583596d",
+      "bytes": 13813
+    },
+    {
+      "id": "aiinfra-guide-02aa2f02b41f11c4",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/1.2 环境搭建与分布式启动.md",
+      "upstreamGitBlob": "316bbaaddf96bd09e290b290232107c0d9951f6b",
+      "storedSha256": "ab1eb93a9fdeb1ba530f750c522831d505dcc88e1ff8ca26b210ab153874d5bd",
+      "bytes": 38969
+    },
+    {
+      "id": "aiinfra-guide-dbf7cc7e83039495",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/2.1 集合通信原语详解.md",
+      "upstreamGitBlob": "24d9177b40b6e08d319abdb1be91867a2de5421e",
+      "storedSha256": "352e048bf30a8f2909f98bad00ee4a051814295a98f72ad1b29ae4175de59627",
+      "bytes": 22862
+    },
+    {
+      "id": "aiinfra-guide-75295f91b48c5077",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/3.1 优化器原理与显存开销分析.md",
+      "upstreamGitBlob": "119d2bc0a76c24df6548b627c475e934ccc9cd37",
+      "storedSha256": "07f9f0801e8af31c7b72baaa3315f441cd0aababa3b86cd20dde418ab35d2a17",
+      "bytes": 18265
+    },
+    {
+      "id": "aiinfra-guide-86a8cd5f81e25e85",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/4.1 数据并行详解.md",
+      "upstreamGitBlob": "a98f175a2be5d7ba985fa92c1d484db34d0fb7f9",
+      "storedSha256": "a684829220c3da92c43636993c9b6c84bf6309f3082ca6fa1407b935a37b8169",
+      "bytes": 32362
+    },
+    {
+      "id": "aiinfra-guide-309996474ee3146a",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/4.2 PyTorch 数据并行从原理到实战.md",
+      "upstreamGitBlob": "a21de8d1c60807f48dd036829d264ab29a6d7856",
+      "storedSha256": "b2e7c2188812ded3ee10dfba1ab2c2d5a1e5dc659cf32ea9b32f54471ae7aed0",
+      "bytes": 26019
+    },
+    {
+      "id": "aiinfra-guide-c1be018fba7dae8d",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/第10章-MoE并行.md",
+      "upstreamGitBlob": "d6259e14799d2b7c19cbc963c910ceb4915968ce",
+      "storedSha256": "ab2a0b541ddec9617502e23d5391b98bee7e66a56eae89e205ad6450a101dea6",
+      "bytes": 2806
+    },
+    {
+      "id": "aiinfra-guide-3109a2178cd6c105",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/第11章-3D并行与混合并行策略.md",
+      "upstreamGitBlob": "c9177c119f8602090c160b867bcf86740d713ce1",
+      "storedSha256": "da7a0ef8c27cab1870153970849274b9f2afb084bff7f1af6b1b9c9ab2108293",
+      "bytes": 3005
+    },
+    {
+      "id": "aiinfra-guide-dbc5a207de4235ec",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/第1章-分布式训练总论.md",
+      "upstreamGitBlob": "4eb067eeee8cffa06fd8cb0c909c2c88a8b4864b",
+      "storedSha256": "2f8f38d6007cde036e22b905759326e78e231391813ce81a134130d3c62cc128",
+      "bytes": 5258
+    },
+    {
+      "id": "aiinfra-guide-9ca0abf1167948aa",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/第2章-集合通信原语.md",
+      "upstreamGitBlob": "88d30984ff3b74ff0e4e38dfaac0bad802247952",
+      "storedSha256": "a103d808c77d8f7d5a0d5cfa971b69e6150584de0aa77e815654981d9466464e",
+      "bytes": 3977
+    },
+    {
+      "id": "aiinfra-guide-916f84b7799c00ce",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/第3章-优化器.md",
+      "upstreamGitBlob": "dcd152a2046a4299ab237ba2626676d92ad8001c",
+      "storedSha256": "ddee10e0e810840b9b03ecc1e89df2476b1826ae02f6cd94c5f8d2a4c29107ed",
+      "bytes": 2194
+    },
+    {
+      "id": "aiinfra-guide-cdc72e9b5b44ea12",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/第4章-数据并行.md",
+      "upstreamGitBlob": "7eceea4837cbc311dc4f135c9e079d40b36d9bbf",
+      "storedSha256": "0a41ccbffb1fd9a296a3a406113e1c17556311bca11d40ecd25b4907d7601220",
+      "bytes": 4364
+    },
+    {
+      "id": "aiinfra-guide-f5937186e5c670a4",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/第5章-ZeRO系列.md",
+      "upstreamGitBlob": "d78ca70b388109c8b64f933f8f9c7c795f52b876",
+      "storedSha256": "808729a7085023fe9e9d6902b615e8b6a7b6304560e6d971a9ea75176883a94f",
+      "bytes": 4233
+    },
+    {
+      "id": "aiinfra-guide-83b4d1e12cd78b0f",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/第6章-张量并行与序列并行.md",
+      "upstreamGitBlob": "318ff0d8a970420e6031a149f73e9c3aefe81697",
+      "storedSha256": "d84b464647ecf09a746b4fa3697a237872f05d194eb9d5c7c26723784397799f",
+      "bytes": 4392
+    },
+    {
+      "id": "aiinfra-guide-69893ec55dd32d6c",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/第7章-流水线并行.md",
+      "upstreamGitBlob": "939c7e56146cf54d34598d8ae1eafb50bed572b3",
+      "storedSha256": "11fb96cf6afb8111b76eb1b98e45ceb833b83cef7b6c9b7b4a32cab23fa9cbaf",
+      "bytes": 4151
+    },
+    {
+      "id": "aiinfra-guide-e6638035b049d6d0",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/第8章-混合精度与显存优化.md",
+      "upstreamGitBlob": "7be4d16b450cfefefa0f0e5e843188cb4c7a7d33",
+      "storedSha256": "25a4e5bfc702c9093d288bcb5df514721d8303681a0a6ab8938ffbf4a4ae3380",
+      "bytes": 4374
+    },
+    {
+      "id": "aiinfra-guide-9bf99975fb280a9a",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块三-分布式训练/第9章-长序列训练与上下文并行.md",
+      "upstreamGitBlob": "66e483d575aea95e202f0bef7408ea8d15265e9d",
+      "storedSha256": "03579be6a37d964aa1489a7ee7d622b3d541e2e7e48bf69acb9f3270f4be038f",
+      "bytes": 2998
+    },
+    {
+      "id": "aiinfra-guide-cd16f93f214d33dd",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第10章-生产部署与运维.md",
+      "upstreamGitBlob": "181394b649967327fe871448c5b390f0b2915d66",
+      "storedSha256": "2a37b477a9afcc6abc98d3e34aa0075fa805fd067ece18f825c3e5d679fa6154",
+      "bytes": 2325
+    },
+    {
+      "id": "aiinfra-guide-a90a2ea9cffebb9a",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第11章-推理优化选型与端到端实战.md",
+      "upstreamGitBlob": "0d7ca80f6810f031d1962306fbb19e68af72f7a5",
+      "storedSha256": "68dd00bf73b7f4c09c4c005ba3c73881d626a49df10dccb911597b68919db37c",
+      "bytes": 2099
+    },
+    {
+      "id": "aiinfra-guide-4d726573bc20f994",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第12章-端侧推理.md",
+      "upstreamGitBlob": "605c8dd66abd284260c2ab904c22ed1b6817ad47",
+      "storedSha256": "c6519756d2632da363963d4c4193d4ea263c3c7cfa9b9791e24a9b0f10ca72dd",
+      "bytes": 1170
+    },
+    {
+      "id": "aiinfra-guide-171c911cb240dd4a",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第12章-端侧推理/12.1-端侧推理基础.md",
+      "upstreamGitBlob": "309973334fb327c2f1976bb98e97494957bddadb",
+      "storedSha256": "41f31f8e168782c7ea2149e5f62d3c4e3cd8f1bf74d53ba8979c79d2176b32d9",
+      "bytes": 20558
+    },
+    {
+      "id": "aiinfra-guide-f0eface59cad74d2",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第1章-LLM推理基础/1.1-LLM推理基础.md",
+      "upstreamGitBlob": "e07a63569d85f1f9f60b7271f90e291690c48304",
+      "storedSha256": "99b98ff3ad97ab8fecd2b1bf1bcdfbacb1585c7cd5f9eb2e5724270b6fb41fb3",
+      "bytes": 21383
+    },
+    {
+      "id": "aiinfra-guide-4394577e5c02ac38",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第1章-LLM推理基础/第1章-LLM推理基础.md",
+      "upstreamGitBlob": "f5d3252eac78a7d0d35023c0bd2e4a5c8489c377",
+      "storedSha256": "da1adf9f5da4c99dc7f9f4eddc91dde385a32ee7c83daf4d9f888bed54aede04",
+      "bytes": 2191
+    },
+    {
+      "id": "aiinfra-guide-a11e8dcbd510f4ee",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.1-PagedAttention.md",
+      "upstreamGitBlob": "c3ebba0e129d65879ec1188dc47e6fc9f748cfcf",
+      "storedSha256": "11bee791902cbb2562d76457f34122a997293aefa3c0fa2492276914f4c3c562",
+      "bytes": 24477
+    },
+    {
+      "id": "aiinfra-guide-90898ad09563dd17",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.2-Continuous Batching.md",
+      "upstreamGitBlob": "897ed480e565433308cc70df079a4770ac0d0ae3",
+      "storedSha256": "b96432812f6f09f26443490d035d35ed9da9574f65a30b1057594553b57a8159",
+      "bytes": 17164
+    },
+    {
+      "id": "aiinfra-guide-9e640615563bd93f",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.3-Prefix Cache 与 RadixAttention.md",
+      "upstreamGitBlob": "fdf0f7410ba84b5fdfe6e494f297d0f87caafac3",
+      "storedSha256": "2e68ea10e02fb6da9d534d6aeea131c63725bafce0bf63f1da63a9ba09388e2f",
+      "bytes": 17079
+    },
+    {
+      "id": "aiinfra-guide-09912231fb0cca75",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.4-Chunked Prefill 与统一调度.md",
+      "upstreamGitBlob": "e9231134e6970957526ab8ee14557729107420cc",
+      "storedSha256": "d139d378f6dae73ff75ba7de0d580f09ee2a04467c71c952d93d2fa6fedf6db8",
+      "bytes": 15115
+    },
+    {
+      "id": "aiinfra-guide-05fe47c72d61feb8",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.5-Attention 后端与图优化.md",
+      "upstreamGitBlob": "dc03fd6b1c9b8180e27bda6397117ad0add56e87",
+      "storedSha256": "7d0a815ff589f30d872826fe3116a87f248d4db3bcfc83529d14a8f049761b25",
+      "bytes": 16793
+    },
+    {
+      "id": "aiinfra-guide-dc2d1eeaa91368de",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/第2章-推理引擎核心技术.md",
+      "upstreamGitBlob": "bd86d084b57605ded3f9c127ff08ab7da89e5915",
+      "storedSha256": "463e44861cc0d910d20032aaced40add90ed28ed0f60cfff8753182aa79c4e31",
+      "bytes": 2362
+    },
+    {
+      "id": "aiinfra-guide-712f07a1d1f50185",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第3章-深入vLLM/第3章-深入vLLM.md",
+      "upstreamGitBlob": "7520021193037eb01627876fcaf4472bdbc9fce4",
+      "storedSha256": "3789c31bb63451fc144bdb637be7a78effd752ed41117a7b5afae1942517a9e7",
+      "bytes": 2569
+    },
+    {
+      "id": "aiinfra-guide-9136f9066c80dd2b",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第3章-深入vLLM/vllm快速入门.md",
+      "upstreamGitBlob": "d6603a1086f8fac58c97a0e2b12126715c4d9772",
+      "storedSha256": "9a4509458d52d9d654f72430057d7869ae3df671c4ae753951f03bdcc0929e71",
+      "bytes": 19524
+    },
+    {
+      "id": "aiinfra-guide-22b1f1e392b2da83",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第4章-量化.md",
+      "upstreamGitBlob": "96835bcb26a6c15ff6a1246e3502dcf3920d88fd",
+      "storedSha256": "3702f86c89eaf00d98212992f72c3dc1bf6a24e2d9172d2c25667af3dd931dca",
+      "bytes": 2107
+    },
+    {
+      "id": "aiinfra-guide-e9f43f168b250a35",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第5章-Speculative-Decoding.md",
+      "upstreamGitBlob": "a21ac4b5744bf3a36018ed578bb15c71f685f66a",
+      "storedSha256": "a93de6a1d7e7364cfa8e4f2f818ad3e3fc92bf57d80e892c673e50006f4b32a8",
+      "bytes": 2088
+    },
+    {
+      "id": "aiinfra-guide-d3794c6a90b371a8",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第6章-分布式推理.md",
+      "upstreamGitBlob": "982913d6bb2d506e063c9d009bdbe49d8bfa9aac",
+      "storedSha256": "0bcded5bc8833e4bde60d73561e09d9c26ddece5e7ea47d5531420c9acc8239b",
+      "bytes": 2432
+    },
+    {
+      "id": "aiinfra-guide-cca3ca4a454b0dd0",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第7章-PD解耦架构.md",
+      "upstreamGitBlob": "40c3964b125103325db845e53fdfb7073d038246",
+      "storedSha256": "bfad1ca4f77f050697b11da11c65fb59fc0063bb97fa732abca9d190bf2bf96b",
+      "bytes": 2160
+    },
+    {
+      "id": "aiinfra-guide-6d2dca9f35f04ed2",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第8章-生产级服务特性.md",
+      "upstreamGitBlob": "5b2ebf6fec45c486e12d686e66d57e6185f77480",
+      "storedSha256": "1d26ab4966a5e1f83b4ca19540535de7488abb744df24b06bad626df7b0043ac",
+      "bytes": 2412
+    },
+    {
+      "id": "aiinfra-guide-b188bdba46c4669f",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块四-推理优化/第9章-性能分析与Benchmark.md",
+      "upstreamGitBlob": "e9d496617ddfae0b4356e8e5e8ad40de36e0c816",
+      "storedSha256": "ab6fa7866f110dc286021aabaf7bdea9232cf15eddff43b05f64269b75f6e89d",
+      "bytes": 1976
+    },
+    {
+      "id": "aiinfra-guide-bf08fe797a94bda6",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/第1章-编程语言基础.md",
+      "upstreamGitBlob": "a31e7ba4c6477ffb57dfc5290da9af5598204c57",
+      "storedSha256": "13ad4fdfd85c3a4ef32f5e6f0f88d7f43c8b073453853f639aa3d81d29222b58",
+      "bytes": 53394
+    },
+    {
+      "id": "aiinfra-guide-a2f11c9bbc82d504",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/第2章-数学基础.md",
+      "upstreamGitBlob": "88a800e371df91a4238eca16148c98b229dc8092",
+      "storedSha256": "130566eeadba6a3abc54203d0cdc09ae8c37edb6611e3f84395f53cc3875ee45",
+      "bytes": 50760
+    },
+    {
+      "id": "aiinfra-guide-cc408d5cb153a180",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/第3章-Transformer架构详解.md",
+      "upstreamGitBlob": "3fd0ca204ab1d40b19601756dde65e1da0242c1c",
+      "storedSha256": "eccdeafe3d52a076cb5ac903cd828d40db69fd5f26955db7efd47f71b8202829",
+      "bytes": 1325
+    },
+    {
+      "id": "aiinfra-guide-1ceb81b628a5c29d",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/第4章-PyTorch框架.md",
+      "upstreamGitBlob": "617975366ae40fac8cea151bfc346da8fa31a793",
+      "storedSha256": "3044168c429e3daa13b3c33a4ccc744596ef5595176c37a328e44ddfd71672e2",
+      "bytes": 1270
+    },
+    {
+      "id": "aiinfra-guide-79a6f14b1e1f3916",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/第5章-GPU硬件概论.md",
+      "upstreamGitBlob": "19ca8bb196058144f57b39b048aeb5b02268aeb8",
+      "storedSha256": "e7a73fb3eedfede21a451181d389e8564ea4c5f99a910f67e02662964611d751",
+      "bytes": 1326
+    },
+    {
+      "id": "aiinfra-guide-3e92cabaaa4ab6c9",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/第6章-集合通信基础.md",
+      "upstreamGitBlob": "a2300c2dd30fd51477d11320fd23de5d31180abf",
+      "storedSha256": "6059910074acca7a5510957090225b39cf8fdd5b071efe51bab033f5d0cc1e2f",
+      "bytes": 1088
+    },
+    {
+      "id": "aiinfra-guide-f3b62304efd09fbb",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/communication/collective-communication-primer.md",
+      "upstreamGitBlob": "997b6b14f4108f6105228ba9bca7f2d3bca7e5cf",
+      "storedSha256": "98b954720ceee2fe854dc98a281fa49e834e74c4f4a0650d45e7e7a402635bb9",
+      "bytes": 29137
+    },
+    {
+      "id": "aiinfra-guide-3d7fd2516bf71971",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/gpu/gpu-basics.md",
+      "upstreamGitBlob": "3fb8220c9c099f3d0877ce732080e02a0a5c18eb",
+      "storedSha256": "18a10cfa90e539c30b01ebc4389261c2c1bdf3dc0d5d85c2ba627579b571601c",
+      "bytes": 24570
+    },
+    {
+      "id": "aiinfra-guide-76eb7c6696b0c573",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/gpu/nvidia-gpu-evolution.md",
+      "upstreamGitBlob": "ebbb8e531160e8b9652ddfe0f0f7a19bfac75444",
+      "storedSha256": "f14cd5751712c61ab928cfae67c5e72e1c41f749613dad06788acec25f6f6d85",
+      "bytes": 21286
+    },
+    {
+      "id": "aiinfra-guide-6b76589b9952fa4f",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/pyroch/PyTorch框架入门.md",
+      "upstreamGitBlob": "8015cd12b5448cfb99da2e04210aab068459cbe4",
+      "storedSha256": "8f9cb8e88fb22e09289fef46069650609ae148cb14852f9f05d162f53a56edb6",
+      "bytes": 24961
+    },
+    {
+      "id": "aiinfra-guide-57a12359e18c0eed",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/transformer/3.1 AI Infra工程师为什么必须懂Transformer.md",
+      "upstreamGitBlob": "600ce497959b01de5cf66563120863c7b73ff50f",
+      "storedSha256": "c9c0702e40656c10dea7de1a9c40fd505fdbd59b14fdfd8776403ec7c5ec0d24",
+      "bytes": 29115
+    },
+    {
+      "id": "aiinfra-guide-d949c63815a3183d",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/transformer/3.2 Transformer全貌及代码实现.md",
+      "upstreamGitBlob": "44779b450b9d56dfc17e34db90eab471838df582",
+      "storedSha256": "1e8b37084a13a52df5f6601c6842a85ea33ede67dafbb82046c05da4f83241ca",
+      "bytes": 48568
+    },
+    {
+      "id": "aiinfra-guide-5328322073d0c2f3",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/transformer/3.3 Self-Attention机制深入理解.md",
+      "upstreamGitBlob": "df1ab927560068a1e97a09be0db01d8dac111b05",
+      "storedSha256": "1e4b568ca371e0bab7b320a6a64fd9f65b0d72b6c933bf1a2d7c485cb3495adf",
+      "bytes": 42019
+    },
+    {
+      "id": "aiinfra-guide-8922413ce246bd71",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/transformer/3.4 Transformer前馈网络FFN深入理解.md",
+      "upstreamGitBlob": "5afbd898667eb67676a13b9961e964b130e0e917",
+      "storedSha256": "ed0df80a73ba4a774a70ce66122e711d331a49110e75e500a491115b9e6ea835",
+      "bytes": 38992
+    },
+    {
+      "id": "aiinfra-guide-c732a9479b9933b6",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/transformer/3.5 Transformer位置编码深入理解.md",
+      "upstreamGitBlob": "b6ca55e31b2843e3b12fb7a9a643acc5269bc348",
+      "storedSha256": "57bad9eb2065314593f61ce9f97ed8ab74668aa2efe020850b861de3b8e08253",
+      "bytes": 36611
+    },
+    {
+      "id": "aiinfra-guide-09d48d37033129c9",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/transformer/3.6 LayerNorm与残差连接深入理解.md",
+      "upstreamGitBlob": "ad048b92cca58984ad6a25e43810e2b3a479fd39",
+      "storedSha256": "c45deb13a170c5c8b7468058cfed13abdaaee8b84d3a89096cc105081feb1fa4",
+      "bytes": 35874
+    },
+    {
+      "id": "aiinfra-guide-a5865c19672660ac",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/transformer/3.7 Transformer Decoder Block完整解析.md",
+      "upstreamGitBlob": "936604f86040c16ef77826c8d432d2ec78ab8f35",
+      "storedSha256": "1d57554db303a2d1213186697120e17c44a31e70be613d17426cef378c762319",
+      "bytes": 37699
+    },
+    {
+      "id": "aiinfra-guide-6a491f1a225ce1da",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/transformer/3.8 从Transformer到LLM自回归生成深入理解.md",
+      "upstreamGitBlob": "c90d4633dd3cb2d79c1860adac66ef67b1658a72",
+      "storedSha256": "d238907d54088c8907faf13b05adf8d5fc1f342374c32fb9c2e4266c492f9baf",
+      "bytes": 30999
+    },
+    {
+      "id": "aiinfra-guide-bc9237c2c72b1d2b",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/transformer/3.9 Tokenization与词嵌入.md",
+      "upstreamGitBlob": "576bc2550e9881a4b3d6784f786e7ae724bc3e26",
+      "storedSha256": "df331abf39f429a0484ae94359725309e22a441b00ffc262d845789264bbf4cd",
+      "bytes": 13620
+    },
+    {
+      "id": "aiinfra-guide-cf55775eeac383aa",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/模块一-前置知识/transformer/Transformer架构快速入门.md",
+      "upstreamGitBlob": "50363c0b1f03520443b615b9462beaf5f32230f7",
+      "storedSha256": "320f7a89111c3ecd1f56a61a219d056663c80d5586979e768627c3aefb69199f",
+      "bytes": 45005
+    },
+    {
+      "id": "aiinfra-guide-9cd4fb51a163122a",
+      "sourceId": "aiinfra-guide",
+      "path": "docs/guides/AI Infra学习路线.md",
+      "upstreamGitBlob": "acbcb9e4c61075eb0488a0f06a0923dd29d17ff3",
+      "storedSha256": "d173ac19b0277b535dfd69742a82b9abf13d4979063c24a82bb2537c51b1d225",
+      "bytes": 50063
+    },
+    {
+      "id": "aris-ai-offer-3d-generation-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/3d_generation_tutorial.md",
+      "upstreamGitBlob": "8fa08549295a5b4135e46525f9ead5ec98fc62bc",
+      "storedSha256": "2a4de7b08093bcf97c2364af137361dd41862edd633a184831d73d6d011a26c4",
+      "bytes": 111814
+    },
+    {
+      "id": "aris-ai-offer-3d-generation-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/3d_generation_tutorial_en.md",
+      "upstreamGitBlob": "ed4a0ddb1b37d3752c61853fb80ef6034dd75638",
+      "storedSha256": "2773355e3c0ddac05d126e1e9b66efd85fa53b47a8b0057d7a45c99209629015",
+      "bytes": 123727
+    },
+    {
+      "id": "aris-ai-offer-agent-foundations-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/agent_foundations_tutorial.md",
+      "upstreamGitBlob": "c9a55760ff4916fa69f6b5b3413ba16416d2b895",
+      "storedSha256": "6c4bbc1f337914afebfaf2e39467f83398b677f73d6fa0e48db199840782f0ed",
+      "bytes": 78007
+    },
+    {
+      "id": "aris-ai-offer-agent-foundations-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/agent_foundations_tutorial_en.md",
+      "upstreamGitBlob": "088aba3ba1cb6878bc3de804d2d3444300894a6f",
+      "storedSha256": "281ad34c9da90c400f8c19324c03b0ed1c7567bbaec851331d6a32ae34e3a9cc",
+      "bytes": 84165
+    },
+    {
+      "id": "aris-ai-offer-agentic-rl-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/agentic_rl_tutorial.md",
+      "upstreamGitBlob": "ec2546f0dc03522900ac55308c1d012f0e0cdc7d",
+      "storedSha256": "7ad19cdd2d5a9692f349ea322b18f085be8d784ffb82cd4eb63a9cce86e9424f",
+      "bytes": 82397
+    },
+    {
+      "id": "aris-ai-offer-agentic-rl-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/agentic_rl_tutorial_en.md",
+      "upstreamGitBlob": "609d76f91239d612fd4f28a2eaceef728ac86e77",
+      "storedSha256": "46b55a26716e5dfdc2df455c25485c40aa258064a0c90a9fc55682a5606c10ee",
+      "bytes": 88295
+    },
+    {
+      "id": "aris-ai-offer-attention-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/attention_tutorial.md",
+      "upstreamGitBlob": "c3309eb8d9230d26ab48d6248a707a6763b34095",
+      "storedSha256": "fc99c031df9a7b64b261db53037c3aa9a49f1cb0e6dcc8dea63cc197901967e2",
+      "bytes": 35279
+    },
+    {
+      "id": "aris-ai-offer-attention-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/attention_tutorial_en.md",
+      "upstreamGitBlob": "c6c216ce18b6f3770a48320899abb58a524898ec",
+      "storedSha256": "9c4cc81193f8bed2f1c15521e409b2fe6bb2b02414fa2bf958c95433183d99b1",
+      "bytes": 38109
+    },
+    {
+      "id": "aris-ai-offer-diffusion-distillation-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/diffusion_distillation_tutorial.md",
+      "upstreamGitBlob": "2c6e3ede77846c2b93879a9ab167d8b9c0bf9db9",
+      "storedSha256": "3ced42892f96669e5525525031897d1c20e141173d6844a0887e31d6e98ec415",
+      "bytes": 93087
+    },
+    {
+      "id": "aris-ai-offer-diffusion-distillation-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/diffusion_distillation_tutorial_en.md",
+      "upstreamGitBlob": "eb867918565e8dee671c6cbf5fe080896802cb8e",
+      "storedSha256": "407eea1457821f85a6be7fa0e56c2087ae80bc5dbf9cd24a762d0f098691a9fc",
+      "bytes": 98465
+    },
+    {
+      "id": "aris-ai-offer-diffusion-foundations-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/diffusion_foundations_tutorial.md",
+      "upstreamGitBlob": "2b8cd80cf47f8b70b087e68770faa50fbd1b1982",
+      "storedSha256": "22ae0449b59f4ea5074de5c6c874ae4fc0239aa65e91b1ff9aedd7519fd326c9",
+      "bytes": 80106
+    },
+    {
+      "id": "aris-ai-offer-diffusion-foundations-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/diffusion_foundations_tutorial_en.md",
+      "upstreamGitBlob": "3beb0f0fadcb02383d51ac529f3533ac529b1378",
+      "storedSha256": "566a6dd950eb7f4ce328f4ca7783d3a3f44aa262e053f58d6c235fe86ff2f02e",
+      "bytes": 84749
+    },
+    {
+      "id": "aris-ai-offer-diffusion-post-training-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/diffusion_post_training_tutorial.md",
+      "upstreamGitBlob": "b129ef49aafdf2c80e3ad194152d518dca0f7340",
+      "storedSha256": "efb340c6e6c64ea52b2dcd87758a695ea0aa2b76d6f9d6aae55ef98f09e9c232",
+      "bytes": 76998
+    },
+    {
+      "id": "aris-ai-offer-diffusion-post-training-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/diffusion_post_training_tutorial_en.md",
+      "upstreamGitBlob": "d7b7876dfd9c81061af47d598f95b3680043da11",
+      "storedSha256": "47a6441b97478157be630484968f588dc237209576863a6749815c60528dc23c",
+      "bytes": 82606
+    },
+    {
+      "id": "aris-ai-offer-distributed-training-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/distributed_training_tutorial.md",
+      "upstreamGitBlob": "d6a122c4a4745aef6d2934623f0a85b24b137851",
+      "storedSha256": "8fc50cfcc58c4d216eacc589ae96caa27bd1282e076e7bff7d88bbb0b9b40b4a",
+      "bytes": 78966
+    },
+    {
+      "id": "aris-ai-offer-distributed-training-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/distributed_training_tutorial_en.md",
+      "upstreamGitBlob": "b00b331bf04204fadd5f884a759c79d3ed149a2b",
+      "storedSha256": "406fe0f8a5cd842d6d00a37b49b086324747d7cdf70ac8751e8488d44451c701",
+      "bytes": 82717
+    },
+    {
+      "id": "aris-ai-offer-flow-matching-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/flow_matching_tutorial.md",
+      "upstreamGitBlob": "b8d9ebdfec747b160fddb3afa5ad9804bfb71e7f",
+      "storedSha256": "616fdaf1e932e3c86d4d9cb8934e2c904cd25596b41bdefd457d46ae4d865956",
+      "bytes": 27590
+    },
+    {
+      "id": "aris-ai-offer-flow-matching-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/flow_matching_tutorial_en.md",
+      "upstreamGitBlob": "4ec0a020cbf2130f4226b852450d05ab2ddfae3a",
+      "storedSha256": "b637bd65c1839ada28c574aa5d8917d45d2397a3fc935e3703cc59c264b9ad24",
+      "bytes": 29307
+    },
+    {
+      "id": "aris-ai-offer-image-generation-systems-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/image_generation_systems_tutorial.md",
+      "upstreamGitBlob": "d1d6120b60c21af847d9b92553cb0b978d53a818",
+      "storedSha256": "59e109333128de693bfb7a188f80c87a8acbf49bbf1abe2108bcdda01597413a",
+      "bytes": 77526
+    },
+    {
+      "id": "aris-ai-offer-image-generation-systems-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/image_generation_systems_tutorial_en.md",
+      "upstreamGitBlob": "9dce0990a787b127ac4153cfd8a52c9c865d8ccb",
+      "storedSha256": "a4ac61615c20269c20717f1c7a3291b6b228ce00115cd5b89e986b0710b32dae",
+      "bytes": 82777
+    },
+    {
+      "id": "aris-ai-offer-kl-divergence-rlhf-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/kl_divergence_rlhf_tutorial.md",
+      "upstreamGitBlob": "91388e9528d3713029ca0036840ede5ca669b629",
+      "storedSha256": "d938cc0d756e6b689bac901301c728be0ca34c75627bb34a02dfc25ad0fd4984",
+      "bytes": 99227
+    },
+    {
+      "id": "aris-ai-offer-kl-divergence-rlhf-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/kl_divergence_rlhf_tutorial_en.md",
+      "upstreamGitBlob": "9a85212ee9a333da10ce35a58c83379db3ecce72",
+      "storedSha256": "38fc0694940ee23cdb6eb929380bb830e2b26d657499c09a78937864bc8475b5",
+      "bytes": 105328
+    },
+    {
+      "id": "aris-ai-offer-kv-cache-speculative-decoding-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/kv_cache_speculative_decoding_tutorial.md",
+      "upstreamGitBlob": "3015c2b01b57a6aebdcf25800fbf14f5f72b35a5",
+      "storedSha256": "fe716fca78afedf0d46c18096da80d006c90cf12bfd26ab97a3e3f00f9aa06d4",
+      "bytes": 73302
+    },
+    {
+      "id": "aris-ai-offer-kv-cache-speculative-decoding-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/kv_cache_speculative_decoding_tutorial_en.md",
+      "upstreamGitBlob": "c7d71f731a2b9de1b1fba1ce64749fbf34b5cad7",
+      "storedSha256": "e009a4edbd99efab29a58b52d95081da77b020a7ede86a7caecd3ef80f33f59d",
+      "bytes": 76847
+    },
+    {
+      "id": "aris-ai-offer-linear-sparse-attention-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/linear_sparse_attention_tutorial.md",
+      "upstreamGitBlob": "a00c6ce94807d593a28ddadab4c981c5dff071d1",
+      "storedSha256": "db61c8647deaf8fed5f6210b5fbd1b96297b291308446ffb46d9039b67a68196",
+      "bytes": 72254
+    },
+    {
+      "id": "aris-ai-offer-linear-sparse-attention-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/linear_sparse_attention_tutorial_en.md",
+      "upstreamGitBlob": "c7059502ec248d36a93da2b8f16ecf65f6706efd",
+      "storedSha256": "4644398fb93db9b6b76eadc523d10f11d3897970ee409de35e9d65b95c0d1613",
+      "bytes": 81916
+    },
+    {
+      "id": "aris-ai-offer-llm-evaluation-benchmarking-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/llm_evaluation_benchmarking_tutorial.md",
+      "upstreamGitBlob": "8b24559192ed4c4b0da8aa96d0ef8f462d5335f6",
+      "storedSha256": "2366d1f2e15cd2bd2d9e9bd32fe0509614851275f53ac2498f231611ef46c52a",
+      "bytes": 80389
+    },
+    {
+      "id": "aris-ai-offer-llm-evaluation-benchmarking-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/llm_evaluation_benchmarking_tutorial_en.md",
+      "upstreamGitBlob": "5e08113c410b760101082d5f0a258d44a4e502f1",
+      "storedSha256": "3dae60c3abb02bbfb3ffa9c37be43598a72fde8ad36edf6291f52dea4a448b7f",
+      "bytes": 92493
+    },
+    {
+      "id": "aris-ai-offer-llm-inference-serving-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/llm_inference_serving_tutorial.md",
+      "upstreamGitBlob": "2558d94c8badfefe081bdf8fc32f3007b99f9ef3",
+      "storedSha256": "84a6a275459c788564fb2cf2612f1d46ac876f209e7920a69fa0799daefb0f2d",
+      "bytes": 77435
+    },
+    {
+      "id": "aris-ai-offer-llm-inference-serving-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/llm_inference_serving_tutorial_en.md",
+      "upstreamGitBlob": "c52a40f2599dc5f9ac957ee6350b4f8c6dbd6b1d",
+      "storedSha256": "80695943ea248861a7a989bc22531f5a95d1710c1d789c4fb5564007df875331",
+      "bytes": 86857
+    },
+    {
+      "id": "aris-ai-offer-llm-opd-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/llm_opd_tutorial.md",
+      "upstreamGitBlob": "d60787a513e8692c6bec5773522776897495ba02",
+      "storedSha256": "af8da3cb3b17581fc5b6df61f7516fceec78caacb579e346f13905cfe30b60e5",
+      "bytes": 99220
+    },
+    {
+      "id": "aris-ai-offer-llm-opd-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/llm_opd_tutorial_en.md",
+      "upstreamGitBlob": "1c1c736fa50b8c2076afedd8207211f17376d767",
+      "storedSha256": "bb20fe329f24c7281ed12bd2aef68ffeaa5323f984372191cf00c20bb3594242",
+      "bytes": 107490
+    },
+    {
+      "id": "aris-ai-offer-llm-pretraining-pipeline-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/llm_pretraining_pipeline_tutorial.md",
+      "upstreamGitBlob": "8e843fbaab5eabb5561606f90469177c043c5bea",
+      "storedSha256": "2d7dc8cf86c5c867a1fd524d0058919d613f4473aea34c29c3097dce43cfc416",
+      "bytes": 83228
+    },
+    {
+      "id": "aris-ai-offer-llm-pretraining-pipeline-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/llm_pretraining_pipeline_tutorial_en.md",
+      "upstreamGitBlob": "515cada3c33a755c7ab25dcf9b4b827b650b38d6",
+      "storedSha256": "407f8b1520bb2284cfdd2121ec2c756047e543a4b7ef0232d45f51772b987410",
+      "bytes": 95636
+    },
+    {
+      "id": "aris-ai-offer-long-context-rope-yarn-mla-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/long_context_rope_yarn_mla_tutorial.md",
+      "upstreamGitBlob": "9aa367a952fd7c38e12daf1f00862571ec563d3c",
+      "storedSha256": "7fb875661f78eeb283d511fdcd292f05abdccab9f53451562e98b094722c473e",
+      "bytes": 67869
+    },
+    {
+      "id": "aris-ai-offer-long-context-rope-yarn-mla-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/long_context_rope_yarn_mla_tutorial_en.md",
+      "upstreamGitBlob": "3371a046ebd67448c07ae3dd57b1ff8d021bdb85",
+      "storedSha256": "7c3d01581fb03ca65057070599f4445c8aa967d97670614795192524b1323976",
+      "bytes": 76553
+    },
+    {
+      "id": "aris-ai-offer-lora-peft-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/lora_peft_tutorial.md",
+      "upstreamGitBlob": "73e3c45ef4902171c2b93b2d7a24143cbc1aa886",
+      "storedSha256": "566d43522c8bcb77c3687d7ddf4d1f3a8d3975e3b37c15de679ac88d99c1e514",
+      "bytes": 46667
+    },
+    {
+      "id": "aris-ai-offer-lora-peft-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/lora_peft_tutorial_en.md",
+      "upstreamGitBlob": "7613bc3204ced7725d6650c2050256ce4ba397a5",
+      "storedSha256": "db8a2754f4ccd7bc862ac76ddcdfd5e57c71690ee2d1c78e498f709dab65a613",
+      "bytes": 51152
+    },
+    {
+      "id": "aris-ai-offer-modern-diffusion-post-training-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/modern_diffusion_post_training_tutorial.md",
+      "upstreamGitBlob": "5fc7dd57935306f2a4968c7663d56ecbd523d851",
+      "storedSha256": "4d6617a3a1ad538637dae10ccbc7dab38adc41623c74947db4d61de9222a7f37",
+      "bytes": 41980
+    },
+    {
+      "id": "aris-ai-offer-modern-diffusion-post-training-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/modern_diffusion_post_training_tutorial_en.md",
+      "upstreamGitBlob": "fbc35ccad8a91580a5c6f335b0668ff1e07d4a42",
+      "storedSha256": "df955fe4afb64d261818cff9e1eeceba41cb730db8ea013d349fe2112883245d",
+      "bytes": 46748
+    },
+    {
+      "id": "aris-ai-offer-moe-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/moe_tutorial.md",
+      "upstreamGitBlob": "d9e124b2bf8f035549ddeee7d5e81439d3ee047f",
+      "storedSha256": "877a816092df5decda9e24e684e3255cc32f634fa18629373741c0e907f43348",
+      "bytes": 64100
+    },
+    {
+      "id": "aris-ai-offer-moe-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/moe_tutorial_en.md",
+      "upstreamGitBlob": "0e54faccd08cfe0d9ccdc6c04eae7a25aa7bc53e",
+      "storedSha256": "709e6f1271a073bfa49edc6cf105fd173305375fa5a0183c5b69cb206047617b",
+      "bytes": 70385
+    },
+    {
+      "id": "aris-ai-offer-multi-agent-long-horizon-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/multi_agent_long_horizon_tutorial.md",
+      "upstreamGitBlob": "78ce46c8006718bee30d3e726554ea183a10bab7",
+      "storedSha256": "d652830814b7cd30c8dec5daf0e87530dddafa9e1889a891e194a6e409fd7bec",
+      "bytes": 95967
+    },
+    {
+      "id": "aris-ai-offer-multi-agent-long-horizon-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/multi_agent_long_horizon_tutorial_en.md",
+      "upstreamGitBlob": "c206ff377ab124fbc6f0647c9cef44170bdf7930",
+      "storedSha256": "e4dcc48ca57f3ca7d8942863c557cd9717dcd59f052daa41c56267a5e4173f90",
+      "bytes": 102487
+    },
+    {
+      "id": "aris-ai-offer-normalization-init-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/normalization_init_tutorial.md",
+      "upstreamGitBlob": "4dcb0bad1197230b5464e512517ed96c00b95062",
+      "storedSha256": "1281f870f9c535374c9103a33e723251531d57b6c429d8ed183281a8268ad1dc",
+      "bytes": 69789
+    },
+    {
+      "id": "aris-ai-offer-normalization-init-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/normalization_init_tutorial_en.md",
+      "upstreamGitBlob": "57b77b1dbbc199d165f729feab6841b89aa0d5da",
+      "storedSha256": "753e691c9e8b2587ffdd922b1249558bcb7cbe1a1ccbc331f8dcb19af3a63851",
+      "bytes": 78128
+    },
+    {
+      "id": "aris-ai-offer-optimizer-lr-schedule-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/optimizer_lr_schedule_tutorial.md",
+      "upstreamGitBlob": "ccd9ebbe3e7373eff6b1a0d0df93c3ce18e10bab",
+      "storedSha256": "453dc545d1b5b471334c51b6cf314014a9c70212e5e63cb48a127456f2db6dd0",
+      "bytes": 59304
+    },
+    {
+      "id": "aris-ai-offer-optimizer-lr-schedule-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/optimizer_lr_schedule_tutorial_en.md",
+      "upstreamGitBlob": "f8646d236ad4c9f8df11417df174348733aa6793",
+      "storedSha256": "f531468aed087752b124cec73093b997d1064b5b1752889ad0f4c524a6504013",
+      "bytes": 67114
+    },
+    {
+      "id": "aris-ai-offer-quantization-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/quantization_tutorial.md",
+      "upstreamGitBlob": "239b55d03f8aeae8dfb127ff0765e4697f89d729",
+      "storedSha256": "88852ee5fdea3b5f356776e1d18e7c22f841a1da644533711fed2e6ecb55ff3c",
+      "bytes": 95505
+    },
+    {
+      "id": "aris-ai-offer-quantization-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/quantization_tutorial_en.md",
+      "upstreamGitBlob": "3bd4e4968a0eb824e3054ceb6c4821ecdd858d4e",
+      "storedSha256": "f291a4b95581205464118e59b0144279474e740cca25d7dae8c958c41691436b",
+      "bytes": 101848
+    },
+    {
+      "id": "aris-ai-offer-rag-embedding-retrieval-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/rag_embedding_retrieval_tutorial.md",
+      "upstreamGitBlob": "0e26c7827e7ddaed2696a0d2d5b99a1799f548ab",
+      "storedSha256": "70224a540afa9bafd5c73384a7f44a8d62860cbf2988cd61197ce2419f9d9beb",
+      "bytes": 39042
+    },
+    {
+      "id": "aris-ai-offer-rag-embedding-retrieval-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/rag_embedding_retrieval_tutorial_en.md",
+      "upstreamGitBlob": "5cfa548c7b65408faeae782475cbf871b7c5cf26",
+      "storedSha256": "c277ca5b3df9d23359327b028feaf1cb548181a3cd0466d9e050493ad5d9fc2e",
+      "bytes": 44367
+    },
+    {
+      "id": "aris-ai-offer-reasoning-models-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/reasoning_models_tutorial.md",
+      "upstreamGitBlob": "6c5e8fd54495e200136a4e9a15f5d159d6c55aad",
+      "storedSha256": "9fa1602e72ca92c10bda818c13776b00bb86f9cbb1ba4dc4e6f93cb7ff733ccd",
+      "bytes": 66358
+    },
+    {
+      "id": "aris-ai-offer-reasoning-models-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/reasoning_models_tutorial_en.md",
+      "upstreamGitBlob": "72586d882324f6c1cb89561ce9fc745450ecd0c2",
+      "storedSha256": "8b9d58e47f3361f171221f67f296c2e88d76b4ae7458a5af5232cc99da785564",
+      "bytes": 70777
+    },
+    {
+      "id": "aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/rlhf_dpo_grpo_ppo_tutorial.md",
+      "upstreamGitBlob": "21fb003356aa2478fada89b707e09380668c0fec",
+      "storedSha256": "dcf99c4600b95b9ec8969173dc96b7402d0560e32d49953d84b3f20f7a21d8e0",
+      "bytes": 64177
+    },
+    {
+      "id": "aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/rlhf_dpo_grpo_ppo_tutorial_en.md",
+      "upstreamGitBlob": "d041dc1957e79093021359e3311e88a85795e5ad",
+      "storedSha256": "6b8fc7e90ff34cdf5729e82f5576be4b86341e695059a1224735cd164b8e93d0",
+      "bytes": 69121
+    },
+    {
+      "id": "aris-ai-offer-self-evolving-agents-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/self_evolving_agents_tutorial.md",
+      "upstreamGitBlob": "c2764e8a59f61169e13cbe915a8674002b152b7a",
+      "storedSha256": "a6ccaf51367e30af0ff989228279cbd6fbadefafc3c269e176baabffaff1c9dc",
+      "bytes": 74769
+    },
+    {
+      "id": "aris-ai-offer-self-evolving-agents-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/self_evolving_agents_tutorial_en.md",
+      "upstreamGitBlob": "7b08a1c90bbb2a5379e6e4b4eb864749557f0139",
+      "storedSha256": "da261af1da40380841a7e8a0b3ff127b73056bc89fd6f44e587a60bb0fb80535",
+      "bytes": 79429
+    },
+    {
+      "id": "aris-ai-offer-tokenization-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/tokenization_tutorial.md",
+      "upstreamGitBlob": "798dc10babd6cf5c11b8e84e0ea298c38f646484",
+      "storedSha256": "db78a18becf1e466a4bc67e8d3a1deefc511e49efde8b98d2b2745cf5b448081",
+      "bytes": 77227
+    },
+    {
+      "id": "aris-ai-offer-tokenization-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/tokenization_tutorial_en.md",
+      "upstreamGitBlob": "59e1fba0b50032bbcc4bc6a75c0173de3c9028f1",
+      "storedSha256": "c23fa0e6b0f6d4c3a4c6dd3e5b7b4b2a1ff71794632be03cccc472a213514b9b",
+      "bytes": 86668
+    },
+    {
+      "id": "aris-ai-offer-transformer-block-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/transformer_block_tutorial.md",
+      "upstreamGitBlob": "7a3633b1cec0536110fe797fb8645ce00e42d368",
+      "storedSha256": "209ea9cc0e75386fb5dac4963fdb59ede1f57a15d639b015f2cf004c23c539cf",
+      "bytes": 66265
+    },
+    {
+      "id": "aris-ai-offer-transformer-block-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/transformer_block_tutorial_en.md",
+      "upstreamGitBlob": "16275a420e476af5ed80ea53498720d7b9fc1721",
+      "storedSha256": "f74e71a042e427ff258a0eb3f7ca7996f271bc114b397743e62dd58a07e77308",
+      "bytes": 73240
+    },
+    {
+      "id": "aris-ai-offer-vae-vqvae-vqgan-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/vae_vqvae_vqgan_tutorial.md",
+      "upstreamGitBlob": "3f2c74404c4e563561276040c8a226dcfadd464e",
+      "storedSha256": "e96c55ea0ce1c814e46413671d92a830a92b374b2f4723dccb4c4d132e057099",
+      "bytes": 66581
+    },
+    {
+      "id": "aris-ai-offer-vae-vqvae-vqgan-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/vae_vqvae_vqgan_tutorial_en.md",
+      "upstreamGitBlob": "ec81c901b83b01e52dbd759f6dc2c727bcc8db05",
+      "storedSha256": "5e8fd7b712460a79dc93b98a80efceb2efaac33b339d29e847292c671e379201",
+      "bytes": 70929
+    },
+    {
+      "id": "aris-ai-offer-video-generation-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/video_generation_tutorial.md",
+      "upstreamGitBlob": "afc49485a4e0fe54f4f9c9c98ca9f7d294b824fa",
+      "storedSha256": "4c71d8d8f672ba9fcdd4e8594d46b380e13f9fec306620329f3cf634be57c9c5",
+      "bytes": 68668
+    },
+    {
+      "id": "aris-ai-offer-video-generation-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/video_generation_tutorial_en.md",
+      "upstreamGitBlob": "cbfc56777f2ec0dbe80ef6b360e6156bca4dcd7a",
+      "storedSha256": "35fb14895adb96cba8e545868dd41db54588b78d1954ca1f4254441539f9ee41",
+      "bytes": 75866
+    },
+    {
+      "id": "aris-ai-offer-vlm-multimodal-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/vlm_multimodal_tutorial.md",
+      "upstreamGitBlob": "1c1a47c5570d155163c764aedb02a6740da1062f",
+      "storedSha256": "e37d6ad69a7e6cc85e357ef9366faca90be13e3cb0d56efb30f96b7443db6a8d",
+      "bytes": 81301
+    },
+    {
+      "id": "aris-ai-offer-vlm-multimodal-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/vlm_multimodal_tutorial_en.md",
+      "upstreamGitBlob": "94fc56dc7136dbbf9dce94655b69653cac6ad03f",
+      "storedSha256": "2c633421536f3302eaec3c820377a3c2e0243f7c9084c5b910db7a6be50f8d14",
+      "bytes": 88001
+    },
+    {
+      "id": "aris-ai-offer-world-models-tutorial",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/world_models_tutorial.md",
+      "upstreamGitBlob": "dc88170ddae60c237e48f0544628ce830fbb01ca",
+      "storedSha256": "b79e31bb26d3f98362e05e53c00f4b8d31edd93307cfa9c0f277e51e897f35d6",
+      "bytes": 78600
+    },
+    {
+      "id": "aris-ai-offer-world-models-tutorial-en",
+      "sourceId": "aris-ai-offer",
+      "path": "docs/tutorials/world_models_tutorial_en.md",
+      "upstreamGitBlob": "97b9fb037b8dba89dfdc8102c9dfe53112e220cb",
+      "storedSha256": "78bda06ec21dd72ba54bd36ddae6fa6344902923f7d751cb87c69126b102278c",
+      "bytes": 94908
+    }
+  ]
+}

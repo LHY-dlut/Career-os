@@ -1,3 +1,6 @@
+import { useI18n } from '../i18n/I18nProvider';
+import { Dialog } from '../components/common/Dialog';
+import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useState, useMemo } from 'react';
 import {
   Search,
@@ -27,7 +30,7 @@ import type {
 } from '../types';
 import { MarkdownRenderer } from '../components/common/MarkdownRenderer';
 import { useToast } from '../components/common/Toast';
-import { generateId } from '../services/db';
+import { generateId } from '../utils/id';
 
 interface QuestionsProps {
   questions: Question[];
@@ -69,6 +72,9 @@ export const Questions: React.FC<QuestionsProps> = ({
   onNavigateToCopilot,
   userId,
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { t, label } = useI18n();
   const { showToast } = useToast();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -76,12 +82,8 @@ export const Questions: React.FC<QuestionsProps> = ({
   const [selectedMastery, setSelectedMastery] = useState<string>('all');
 
   // Expanded detailed modal
-  const [activeQuestion, setActiveQuestion] = useState<Question | null>(() => {
-    if (selectedQuestionId) {
-      return questions.find((q) => q.id === selectedQuestionId) || null;
-    }
-    return null;
-  });
+  const activeQuestion = questions.find(q => q.id === selectedQuestionId) || null;
+  const setActiveQuestion = (q: Question | null) => navigate(q ? `/questions/${encodeURIComponent(q.id)}` : '/questions');
 
   // Edit / Add Modal
   const [isEditing, setIsEditing] = useState(false);
@@ -106,7 +108,7 @@ export const Questions: React.FC<QuestionsProps> = ({
       title: '',
       category: 'Transformer',
       difficulty: 'Medium',
-      tags: ['Algorithm', 'Interview'],
+      tags: [t('Algorithm', '算法'), t('Interview', '面试')],
       conciseAnswer: '',
       detailedAnswer: '',
       followUps: [],
@@ -125,14 +127,15 @@ export const Questions: React.FC<QuestionsProps> = ({
 
   const handleSave = async () => {
     if (!editFormData.title?.trim()) {
-      showToast('Question title is required', 'error');
+      showToast(t("Question title is required", "请输入题目标题"), 'error');
       return;
     }
     const id = editFormData.id || generateId();
     const toSave: Question = {
+      ...questions.find(q => q.id === id),
       id,
       userId,
-      title: editFormData.title || 'Untitled Question',
+      title: editFormData.title || t('Untitled Question', '未命名题目'),
       category: editFormData.category || 'Transformer',
       difficulty: (editFormData.difficulty as Difficulty) || 'Medium',
       tags: editFormData.tags || [],
@@ -147,13 +150,20 @@ export const Questions: React.FC<QuestionsProps> = ({
       updatedAt: new Date().toISOString(),
     };
 
-    await onSaveQuestion(toSave);
+    try { await onSaveQuestion(toSave); } catch { return; }
     if (activeQuestion?.id === id) {
       setActiveQuestion(toSave);
     }
     setIsEditing(false);
-    showToast('Question saved successfully');
+    showToast(t("Question saved successfully", "题目已保存"));
   };
+
+  React.useEffect(() => {
+    if (new URLSearchParams(location.search).get('new') === '1') {
+      handleOpenAdd();
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location.search]);
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8 space-y-6">
@@ -161,10 +171,10 @@ export const Questions: React.FC<QuestionsProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-            Interview Question Bank
+            {t("Interview Question Bank", "面试题库")}
           </h2>
           <p className="text-xs text-zinc-500">
-            Curated high-frequency AI algorithm engineering questions with 30-second pitches & in-depth derivations
+            {t("Curated high-frequency AI algorithm engineering questions with 30-second pitches & in-depth derivations", "整理高频 AI 算法工程面试题，配有 30 秒简答与深入推导")}
           </p>
         </div>
 
@@ -174,14 +184,14 @@ export const Questions: React.FC<QuestionsProps> = ({
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-xs font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-2xs"
           >
             <RotateCcw className="w-3.5 h-3.5 text-amber-500" />
-            <span>Spaced Review</span>
+            <span>{t("Spaced Review", "间隔复习")}</span>
           </button>
           <button
             onClick={handleOpenAdd}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition-colors"
           >
             <Plus className="w-4 h-4" />
-            <span>New Question</span>
+            <span>{t("New Question", "新建题目")}</span>
           </button>
         </div>
       </div>
@@ -196,7 +206,7 @@ export const Questions: React.FC<QuestionsProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search questions, tags, or 30-second answers..."
+              placeholder={t("Search questions, tags, or 30-second answers...", "搜索题目、标签或 30 秒简答...")}
               className="w-full pl-9 pr-4 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:border-indigo-500"
             />
           </div>
@@ -207,10 +217,10 @@ export const Questions: React.FC<QuestionsProps> = ({
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:border-indigo-500"
           >
-            <option value="all">All Categories ({questions.length})</option>
+            <option value="all">{t(`All Categories (${questions.length})`, `全部分类（${questions.length}）`)}</option>
             {CATEGORIES.map((c) => (
               <option key={c} value={c}>
-                {c}
+                {label(c)}
               </option>
             ))}
           </select>
@@ -221,10 +231,10 @@ export const Questions: React.FC<QuestionsProps> = ({
             onChange={(e) => setSelectedDifficulty(e.target.value)}
             className="px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:border-indigo-500"
           >
-            <option value="all">All Difficulties</option>
+            <option value="all">{t("All Difficulties", "全部难度")}</option>
             {DIFFICULTIES.map((d) => (
               <option key={d} value={d}>
-                {d}
+                {label(d)}
               </option>
             ))}
           </select>
@@ -235,10 +245,10 @@ export const Questions: React.FC<QuestionsProps> = ({
             onChange={(e) => setSelectedMastery(e.target.value)}
             className="px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:border-indigo-500"
           >
-            <option value="all">All Mastery Levels</option>
+            <option value="all">{t("All Mastery Levels", "全部掌握程度")}</option>
             {MASTERY_LEVELS.map((m) => (
               <option key={m} value={m}>
-                {m}
+                {label(m)}
               </option>
             ))}
           </select>
@@ -249,7 +259,7 @@ export const Questions: React.FC<QuestionsProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {filteredQuestions.length === 0 ? (
           <div className="col-span-full py-12 text-center text-zinc-400 text-sm bg-white dark:bg-[#12161f] rounded-xl border border-zinc-200 dark:border-zinc-800">
-            No interview questions match your filter criteria.
+            {t("No interview questions match your filter criteria.", "没有符合筛选条件的面试题。")}
           </div>
         ) : (
           filteredQuestions.map((q) => (
@@ -265,14 +275,14 @@ export const Questions: React.FC<QuestionsProps> = ({
 
       {/* QUESTION DETAIL MODAL */}
       {activeQuestion && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+        <Dialog onClose={() => setActiveQuestion(null)} aria-label={t("Question details", "题目详情")} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <div className="w-full max-w-3xl max-h-[90vh] bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95">
             {/* Modal Header */}
             <div className="flex items-start justify-between p-6 border-b border-zinc-200 dark:border-zinc-800 gap-4">
               <div className="space-y-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
-                    {activeQuestion.category}
+                    {label(activeQuestion.category)}
                   </span>
                   <span
                     className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
@@ -283,10 +293,10 @@ export const Questions: React.FC<QuestionsProps> = ({
                         : 'bg-rose-50 text-rose-700 dark:bg-rose-950 dark:text-rose-300'
                     }`}
                   >
-                    {activeQuestion.difficulty}
+                    {label(activeQuestion.difficulty)}
                   </span>
                   <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
-                    {activeQuestion.masteryLevel} (Interval: {activeQuestion.intervalDays}d)
+                    {label(activeQuestion.masteryLevel)} ({t(`Interval: ${activeQuestion.intervalDays}d`, `间隔：${activeQuestion.intervalDays} 天`)})
                   </span>
                 </div>
                 <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 mt-1">
@@ -298,29 +308,27 @@ export const Questions: React.FC<QuestionsProps> = ({
                 <button
                   onClick={() => handleOpenEdit(activeQuestion)}
                   className="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
-                  title="Edit Question"
+                  title={t("Edit Question", "编辑题目")}
                 >
                   <Edit3 className="w-4 h-4" />
                 </button>
                 <button
                   onClick={async () => {
-                    if (confirm(`Delete question "${activeQuestion.title}"?`)) {
-                      await onDeleteQuestion(activeQuestion.id);
+                    if (confirm(t(`Delete question "${activeQuestion.title}" and its review history? Interview notes will be kept without this link.`, `确定删除题目“${activeQuestion.title}”及其复习历史吗？面试笔记会保留，但会移除此题目的关联。`))) {
+                      try { await onDeleteQuestion(activeQuestion.id); } catch { return; }
                       setActiveQuestion(null);
-                      showToast('Question deleted');
+                      showToast(t("Question deleted", "题目已删除"));
                     }
                   }}
                   className="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40"
-                  title="Delete Question"
+                  title={t("Delete Question", "删除题目")}
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
-                <button
+                <button aria-label={t("Close", "关闭")}
                   onClick={() => setActiveQuestion(null)}
                   className="p-1.5 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                ><X className="w-5 h-5" /></button>
               </div>
             </div>
 
@@ -330,7 +338,7 @@ export const Questions: React.FC<QuestionsProps> = ({
               <div className="p-4 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/60 space-y-1.5">
                 <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-400">
                   <Clock className="w-3.5 h-3.5" />
-                  <span>30-Second Elevator Pitch Answer</span>
+                  <span>{t("30-Second Elevator Pitch Answer", "30 秒面试简答")}</span>
                 </div>
                 <p className="text-xs sm:text-sm text-zinc-800 dark:text-zinc-200 leading-relaxed font-medium">
                   {activeQuestion.conciseAnswer}
@@ -340,7 +348,7 @@ export const Questions: React.FC<QuestionsProps> = ({
               {/* Detailed Technical Answer */}
               <div className="space-y-2">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                  Detailed Technical Explanation
+                  {t("Detailed Technical Explanation", "详细技术解析")}
                 </h4>
                 <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800">
                   <MarkdownRenderer content={activeQuestion.detailedAnswer} />
@@ -351,7 +359,7 @@ export const Questions: React.FC<QuestionsProps> = ({
               {activeQuestion.followUps && activeQuestion.followUps.length > 0 && (
                 <div className="space-y-2">
                   <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                    Expected Interviewer Follow-Ups
+                    {t("Expected Interviewer Follow-Ups", "面试官可能追问")}
                   </h4>
                   <ul className="space-y-1.5">
                     {activeQuestion.followUps.map((fu, idx) => (
@@ -372,14 +380,13 @@ export const Questions: React.FC<QuestionsProps> = ({
                 activeQuestion.relatedKnowledgeArticles.length > 0 && (
                   <div className="space-y-2">
                     <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                      Linked Knowledge Theory
+                      {t("Linked Knowledge Theory", "关联知识文章")}
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {activeQuestion.relatedKnowledgeArticles.map((title) => (
                         <button
                           key={title}
                           onClick={() => {
-                            setActiveQuestion(null);
                             onNavigateToKnowledge(title);
                           }}
                           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 hover:border-indigo-400 bg-white dark:bg-zinc-800 text-xs text-indigo-600 dark:text-indigo-400 font-medium transition-colors"
@@ -399,12 +406,11 @@ export const Questions: React.FC<QuestionsProps> = ({
               <button
                 onClick={() => {
                   onNavigateToCopilot(activeQuestion.title, activeQuestion.conciseAnswer);
-                  setActiveQuestion(null);
                 }}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 text-xs font-medium hover:bg-indigo-100"
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Critique with AI Copilot</span>
+                <span>{t("Critique with AI Copilot", "AI 点评")}</span>
               </button>
 
               <div className="flex items-center gap-2">
@@ -412,60 +418,57 @@ export const Questions: React.FC<QuestionsProps> = ({
                   onClick={() => setActiveQuestion(null)}
                   className="px-3.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-600 dark:text-zinc-400"
                 >
-                  Close
+                  {t("Close", "关闭")}
                 </button>
                 <button
                   onClick={() => {
-                    setActiveQuestion(null);
                     onNavigateToReview(activeQuestion.id);
                   }}
                   className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Practice in Review</span>
+                  <span>{t("Practice in Review", "开始复习")}</span>
                 </button>
               </div>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
 
       {/* ADD / EDIT MODAL */}
       {isEditing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+        <Dialog onClose={() => setIsEditing(false)} aria-label={t("Question editor", "题目编辑器")} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <div className="w-full max-w-2xl max-h-[90vh] bg-white dark:bg-[#12161f] border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl flex flex-col overflow-hidden">
             <div className="flex items-center justify-between px-6 py-3.5 border-b border-zinc-200 dark:border-zinc-800">
               <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                {editFormData.id ? 'Edit Interview Question' : 'New Interview Question'}
+                {editFormData.id ? t("Edit Interview Question", "编辑面试题") : t("New Interview Question", "新建面试题")}
               </h3>
-              <button
+              <button aria-label={t("Close", "关闭")}
                 onClick={() => setIsEditing(false)}
                 className="p-1 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              ><X className="w-4 h-4" /></button>
             </div>
 
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
               <div>
-                <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                  Question Title
+                <label htmlFor="questions-field-0" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  {t("Question Title", "题目标题")}
                 </label>
-                <input
+                <input id="questions-field-0"
                   type="text"
                   value={editFormData.title || ''}
                   onChange={(e) => setEditFormData({ ...editFormData, title: e.target.value })}
-                  placeholder="e.g. Why does scaled dot-product attention divide by sqrt(d_k)?"
+                  placeholder={t("e.g. Why does scaled dot-product attention divide by sqrt(d_k)?", "例如：缩放点积注意力为什么要除以 sqrt(d_k)？")}
                   className="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                    Category
+                  <label htmlFor="questions-field-1" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                    {t("Category", "分类")}
                   </label>
-                  <select
+                  <select id="questions-field-1"
                     value={editFormData.category || 'Transformer'}
                     onChange={(e) =>
                       setEditFormData({ ...editFormData, category: e.target.value })
@@ -474,17 +477,17 @@ export const Questions: React.FC<QuestionsProps> = ({
                   >
                     {CATEGORIES.map((c) => (
                       <option key={c} value={c}>
-                        {c}
+                        {label(c)}
                       </option>
                     ))}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                    Difficulty
+                  <label htmlFor="questions-field-2" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                    {t("Difficulty", "难度")}
                   </label>
-                  <select
+                  <select id="questions-field-2"
                     value={editFormData.difficulty || 'Medium'}
                     onChange={(e) =>
                       setEditFormData({
@@ -496,7 +499,7 @@ export const Questions: React.FC<QuestionsProps> = ({
                   >
                     {DIFFICULTIES.map((d) => (
                       <option key={d} value={d}>
-                        {d}
+                        {label(d)}
                       </option>
                     ))}
                   </select>
@@ -504,10 +507,10 @@ export const Questions: React.FC<QuestionsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                  Tags (comma separated)
+                <label htmlFor="questions-field-3" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  {t("Tags (comma separated)", "标签（以英文逗号分隔）")}
                 </label>
-                <input
+                <input id="questions-field-3"
                   type="text"
                   value={editFormData.tags?.join(', ') || ''}
                   onChange={(e) =>
@@ -519,46 +522,46 @@ export const Questions: React.FC<QuestionsProps> = ({
                         .filter(Boolean),
                     })
                   }
-                  placeholder="Self-Attention, Math, Variance"
+                  placeholder={t("Self-Attention, Math, Variance", "自注意力, 数学, 方差")}
                   className="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                  30-Second Elevator Pitch Answer
+                <label htmlFor="questions-field-4" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  {t("30-Second Elevator Pitch Answer", "30 秒面试简答")}
                 </label>
-                <textarea
+                <textarea id="questions-field-4"
                   rows={3}
                   value={editFormData.conciseAnswer || ''}
                   onChange={(e) =>
                     setEditFormData({ ...editFormData, conciseAnswer: e.target.value })
                   }
-                  placeholder="The concise, high-impact verbal answer to give right away..."
+                  placeholder={t("The concise, high-impact verbal answer to give right away...", "面试时可直接表达的简洁回答...")}
                   className="w-full p-2.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                  Detailed Technical Answer (Markdown & LaTeX)
+                <label htmlFor="questions-field-5" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  {t("Detailed Technical Answer (Markdown & LaTeX)", "详细技术回答（Markdown 与 LaTeX）")}
                 </label>
-                <textarea
+                <textarea id="questions-field-5"
                   rows={8}
                   value={editFormData.detailedAnswer || ''}
                   onChange={(e) =>
                     setEditFormData({ ...editFormData, detailedAnswer: e.target.value })
                   }
-                  placeholder="Formulas, proofs, system memory calculations..."
+                  placeholder={t("Formulas, proofs, system memory calculations...", "公式、推导、系统内存计算...")}
                   className="w-full p-2.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono text-xs"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                  Interviewer Follow-ups (one per line)
+                <label htmlFor="questions-field-6" className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                  {t("Interviewer Follow-ups (one per line)", "面试官追问（每行一条）")}
                 </label>
-                <textarea
+                <textarea id="questions-field-6"
                   rows={3}
                   value={editFormData.followUps?.join('\n') || ''}
                   onChange={(e) =>
@@ -567,7 +570,7 @@ export const Questions: React.FC<QuestionsProps> = ({
                       followUps: e.target.value.split('\n').filter(Boolean),
                     })
                   }
-                  placeholder="How does this change with FlashAttention?\nWhat about FP8 quantization?"
+                  placeholder={t("How does this change with FlashAttention?\nWhat about FP8 quantization?", "使用 FlashAttention 后会有哪些变化？\nFP8 量化又会如何影响它？")}
                   className="w-full p-2.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs"
                 />
               </div>
@@ -578,17 +581,17 @@ export const Questions: React.FC<QuestionsProps> = ({
                 onClick={() => setIsEditing(false)}
                 className="px-4 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-600 dark:text-zinc-400"
               >
-                Cancel
+                {t("Cancel", "取消")}
               </button>
               <button
                 onClick={handleSave}
                 className="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold"
               >
-                Save Question
+                {t("Save Question", "保存题目")}
               </button>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
     </div>
   );
@@ -600,6 +603,7 @@ const QuestionCard: React.FC<{
   onSelect: () => void;
   onQuickReview: () => void;
 }> = ({ question, onSelect, onQuickReview }) => {
+  const { t, label } = useI18n();
   const [showPitch, setShowPitch] = useState(false);
 
   return (
@@ -607,7 +611,7 @@ const QuestionCard: React.FC<{
       <div className="space-y-2">
         <div className="flex items-center justify-between gap-2">
           <span className="text-[10px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-            {question.category}
+            {label(question.category)}
           </span>
           <div className="flex items-center gap-1.5">
             <span
@@ -619,10 +623,10 @@ const QuestionCard: React.FC<{
                   : 'bg-rose-50 text-rose-600 dark:bg-rose-950/50 dark:text-rose-400'
               }`}
             >
-              {question.difficulty}
+              {label(question.difficulty)}
             </span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-medium">
-              {question.masteryLevel}
+              {label(question.masteryLevel)}
             </span>
           </div>
         </div>
@@ -641,7 +645,7 @@ const QuestionCard: React.FC<{
             className="flex items-center gap-1 text-[11px] text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300 transition-colors font-medium"
           >
             {showPitch ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-            <span>{showPitch ? 'Hide 30s Pitch' : 'Show 30s Pitch'}</span>
+            <span>{showPitch ? t("Hide 30s Pitch", "收起 30 秒简答") : t("Show 30s Pitch", "查看 30 秒简答")}</span>
           </button>
 
           {showPitch && (
@@ -656,7 +660,7 @@ const QuestionCard: React.FC<{
       <div className="flex items-center justify-between pt-2 border-t border-zinc-100 dark:border-zinc-800/80 text-[11px] text-zinc-500">
         <div className="flex items-center gap-1">
           <Clock className="w-3 h-3" />
-          <span>Interval: {question.intervalDays}d</span>
+          <span>{t(`Interval: ${question.intervalDays}d`, `间隔：${question.intervalDays} 天`)}</span>
         </div>
 
         <div className="flex items-center gap-2">
@@ -665,13 +669,13 @@ const QuestionCard: React.FC<{
             className="text-xs text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1 font-medium"
           >
             <RotateCcw className="w-3 h-3" />
-            <span>Review</span>
+            <span>{t("Review", "复习")}</span>
           </button>
           <button
             onClick={onSelect}
             className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline font-semibold"
           >
-            Full Details →
+            {t("Full Details →", "完整详情 →")}
           </button>
         </div>
       </div>

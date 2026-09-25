@@ -1,0 +1,24 @@
+[
+  {
+    "id": "aiinfra-guide",
+    "name": "AIInfraGuide",
+    "url": "https://caomaolufei.github.io/AIInfraGuide/",
+    "author": "草帽路飞（caomaolufei）及 AIInfraGuide contributors",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/README.md#license",
+    "revision": "a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1",
+    "checkedAt": "2026-09-25",
+    "description": "AI Infra 学习路线、前置知识、CUDA、分布式训练与推理优化；含上游章节提纲。"
+  },
+  {
+    "id": "aris-ai-offer",
+    "name": "ARIS-in-AI-Offer",
+    "url": "https://wanshuiyin.github.io/ARIS-in-AI-Offer/",
+    "author": "Ruofeng Yang（杨若峰）及 ARIS contributors",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/LICENSE",
+    "revision": "22e73822f8636ee3b52de1da6f6d2e03d1f51d4e",
+    "checkedAt": "2026-09-25",
+    "description": "35 个 AI 面试主题的中文和英文教程，保留公式推导、代码与面试问答。"
+  }
+]

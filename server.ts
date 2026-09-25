@@ -1,23 +1,8 @@
-import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { apiRouter } from './src/server/apiRouter';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const app = express();
-const port = 3000;
-
-app.use('/api', apiRouter);
-
-// Serve production assets from dist directory
-app.use(express.static(path.join(__dirname, 'dist')));
-
-app.get('*', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
-app.listen(port, '0.0.0.0', () => {
-  console.log(`AI Career OS production server running at http://0.0.0.0:${port}`);
-});
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createApp } from './src/server/app.ts';
+const directory = path.dirname(fileURLToPath(import.meta.url));
+const staticDir = path.resolve(directory, directory.endsWith('dist-server') ? '../dist' : 'dist');
+const port = Number(process.env.PORT ?? 3000);
+if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('Invalid PORT.');
+createApp({ staticDir }).listen(port, '0.0.0.0', () => console.log(`AI Career OS listening on port ${port}`));

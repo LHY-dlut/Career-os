@@ -1,0 +1,70 @@
+# 第8章：混合精度与显存优化
+
+> 来源：[AIInfraGuide](https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E4%B8%89-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/%E7%AC%AC8%E7%AB%A0-%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6%E4%B8%8E%E6%98%BE%E5%AD%98%E4%BC%98%E5%8C%96.md) · 作者：草帽路飞（caomaolufei）及 AIInfraGuide contributors · [MIT 许可](/library/licenses/aiinfra-guide-MIT.txt)
+
+
+## 📖 本章概述
+
+并行策略解决了"切到多卡"的问题，但单卡内部还有大量显存可以省。本章聚焦三类与并行维度正交、几乎所有训练都会用到的显存优化技术：**混合精度**（用更低位宽算得更快更省）、**梯度累积**（小显存模拟大 batch）、**Activation Checkpointing**（用计算换显存）。它们是把硬件用到极致的基本功。
+
+
+---
+
+## 📑 章节结构
+
+### 1. 混合精度训练（本章重点）
+
+- **数据类型对比**：
+
+  | 类型 | 位宽 | 指数位 | 尾数位 | 数值范围 | 适用场景 |
+  |------|------|--------|--------|---------|---------|
+  | FP32 | 32 | 8 | 23 | 大 | Master weight、优化器 |
+  | FP16 | 16 | 5 | 10 | 小，易溢出 | 旧方案 |
+  | BF16 | 16 | 8 | 7 | 与 FP32 相同 | 大模型训练首选 |
+  | FP8 (E4M3) | 8 | 4 | 3 | 很小 | H100+ 的前向计算 |
+
+- **为什么混合精度能省显存又提速**：低位宽 → 显存减半 + Tensor Core 算力翻倍
+- **BF16 混合精度流程**：前向/反向用 BF16 计算，参数更新用 FP32 Master Weight（呼应第3章优化器状态）
+- **FP16 vs BF16**：FP16 范围小易溢出、BF16 范围同 FP32 但精度低，大模型为何普遍选 BF16
+- **Loss Scaling**：FP16 训练必须的梯度缩放技巧（静态 / 动态），BF16 因范围大通常不需要
+- **FP8 训练**：H100 Transformer Engine，前向用 FP8 + per-tensor 动态缩放，反向梯度用 BF16；适用场景与精度风险
+
+### 2. 梯度累积（Gradient Accumulation）
+
+- **目的**：在有限显存下模拟更大的 Effective Batch Size
+- **机制**：连续 $K$ 步前向+反向累积梯度，每 $K$ 步做一次参数更新
+- **Effective Batch Size** = 单卡 batch × world_size × accumulation_steps
+- **与 PP 的配合**：PP 的 micro-batch 本身就实现了类似效果；梯度累积进一步放大
+- **与 DDP 的配合**：累积期间用 `no_sync()` 跳过中间步的 AllReduce，省通信
+- **注意事项**：Loss 需要除以 $K$（或等价地梯度除以 $K$）
+
+### 3. Activation Checkpointing（激活重计算）
+
+- **问题**：前向保存的激活值随层数和 batch size 线性增长，大模型训练中激活显存可能超过参数显存
+- **核心思想**：只保存部分层的激活值（checkpoint），其余层反向时重新前向计算
+- **Full Checkpointing**：只保存每个 Transformer Block 的输入，反向时重算整个 Block
+  - 显存节省：激活显存从 $O(L)$ 降至 $O(\sqrt{L})$（每 $\sqrt{L}$ 层存一个 checkpoint）
+  - 计算代价：约增加 33% 的前向计算量
+- **Selective Checkpointing**：只重算计算量小但激活大的操作（如 Attention 的 softmax 输出），保留计算量大的操作的激活
+- **配合并行策略**：PP 天然每个 Stage 只需存自己的激活；TP 下 SP 已减少激活冗余（与第6/7章衔接）
+
+### 4. 显存优化技术全景与衔接
+
+本节梳理本系列涉及的所有"省显存"手段，建立统一视角：
+
+- **切分类**（多卡）：ZeRO/FSDP 切状态、TP 切权重、PP 切层、SP/CP 切激活 → 见第5-9章
+- **降精度类**：混合精度（本章第1节）
+- **时间换空间类**：梯度累积、Activation Checkpointing（本章第2-3节）
+- **卸载类**：ZeRO-Offload/Infinity（第5章）
+- 一张"显存四大组成 × 各优化技术作用对象"对照表，回扣第1章的显存账本
+
+---
+
+## 🎯 本章学习目标
+
+- 能解释 BF16 混合精度训练的完整流程（含 Master Weight）以及为何大模型偏好 BF16
+- 能说明 Loss Scaling 解决什么问题、BF16 为何通常不需要
+- 能用梯度累积计算 Effective Batch Size，并解释 `no_sync()` 的作用
+- 能分析 Activation Checkpointing 的显存节省量（$O(\sqrt{L})$）和计算代价（~33%）
+- 能画出"显存四大组成 × 各优化技术"的作用对照表
+

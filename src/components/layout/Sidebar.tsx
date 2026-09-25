@@ -1,3 +1,5 @@
+import { useI18n } from '../../i18n/I18nProvider';
+import { NavLink } from 'react-router-dom';
 import React from 'react';
 import {
   LayoutDashboard,
@@ -35,62 +37,63 @@ export const Sidebar: React.FC<SidebarProps> = ({
   masteredCount,
   totalQuestions,
 }) => {
+  const { t } = useI18n();
   const navItems = [
     {
       id: 'dashboard',
-      label: 'Dashboard',
+      label: t("Dashboard", "学习总览"),
       icon: LayoutDashboard,
       badge: null,
     },
     {
       id: 'knowledge',
-      label: 'Knowledge Base',
+      label: t("Knowledge Base", "知识库"),
       icon: BookOpen,
       badge: null,
     },
     {
       id: 'questions',
-      label: 'Question Bank',
+      label: t("Question Bank", "面试题库"),
       icon: HelpCircle,
       badge: totalQuestions > 0 ? `${totalQuestions}` : null,
       badgeColor: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60',
     },
     {
       id: 'review',
-      label: 'Spaced Review',
+      label: t("Spaced Review", "间隔复习"),
       icon: RotateCcw,
-      badge: reviewDueCount > 0 ? `${reviewDueCount} due` : null,
+      badge: reviewDueCount > 0 ? t(`${reviewDueCount} due`, `${reviewDueCount} 待复习`) : null,
       badgeColor: 'bg-amber-100 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300 font-semibold border border-amber-200 dark:border-amber-800/80',
     },
     {
       id: 'coding',
-      label: 'Coding Lab',
+      label: t("Coding Lab", "编程练习"),
       icon: Code2,
       badge: null,
     },
     {
       id: 'applications',
-      label: 'Applications CRM',
+      label: t("Applications CRM", "投递管理"),
       icon: Briefcase,
       badge: null,
     },
     {
       id: 'interviews',
-      label: 'Interviews & Retro',
+      label: t("Interviews & Retro", "面试与复盘"),
       icon: CalendarDays,
       badge: activeInterviewsCount > 0 ? `${activeInterviewsCount}` : null,
       badgeColor: 'bg-sky-100 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800/80',
     },
     {
       id: 'copilot',
-      label: 'AI Copilot',
+      label: t("AI Copilot", "AI 助手"),
       icon: Sparkles,
       badge: 'AI',
       badgeColor: 'bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 font-bold border border-indigo-200 dark:border-indigo-800/80',
     },
     {
       id: 'settings',
-      label: 'Settings & Sync',
+      label: t("Settings & Data", "设置与数据"),
       icon: Settings,
       badge: null,
     },
@@ -113,9 +116,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <span className="font-bold text-sm tracking-tight text-slate-900 dark:text-slate-100">
                 AI Career OS
               </span>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
-                Algorithm & LLM Prep
-              </span>
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 truncate">{t("Algorithm & LLM Prep", "算法与大模型求职准备")}</span>
             </div>
           </div>
         ) : (
@@ -127,7 +128,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <button
           onClick={onToggleCollapse}
           className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-          title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          title={collapsed ? t("Expand sidebar", "展开侧边栏") : t("Collapse sidebar", "收起侧边栏")}
         >
           {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
         </button>
@@ -140,9 +141,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           const Icon = item.icon;
 
           return (
-            <button
+            <NavLink
               key={item.id}
-              onClick={() => onNavigate(item.id)}
+              to={`/${item.id}`}
+              aria-label={item.label}
               className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-medium transition-all group ${
                 isActive
                   ? 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 font-semibold border border-sky-200/80 dark:border-sky-800/60 shadow-2xs'
@@ -172,7 +174,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   )}
                 </div>
               )}
-            </button>
+            </NavLink>
           );
         })}
       </nav>
@@ -181,7 +183,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {!collapsed && (
         <div className="p-3 border-t border-slate-200 dark:border-slate-800 m-2 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200/60 dark:border-slate-800/60 text-xs">
           <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 mb-1.5">
-            <span>Interview Readiness</span>
+            <span>{t("Interview Readiness", "面试准备进度")}</span>
             <span className="font-semibold text-slate-800 dark:text-slate-200 font-mono">
               {totalQuestions > 0 ? Math.round((masteredCount / totalQuestions) * 100) : 0}%
             </span>
@@ -195,8 +197,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             />
           </div>
           <div className="flex justify-between items-center mt-2 text-[11px] text-slate-500 dark:text-slate-400">
-            <span>{masteredCount} Mastered</span>
-            <span>{totalQuestions} Total</span>
+            <span>{t(`${masteredCount} Mastered`, `已掌握 ${masteredCount} 题`)}</span>
+            <span>{t(`${totalQuestions} Total`, `共 ${totalQuestions} 题`)}</span>
           </div>
         </div>
       )}

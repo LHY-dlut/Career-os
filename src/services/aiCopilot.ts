@@ -1,3 +1,4 @@
+import { apiFetch } from './apiClient';
 import type {
   AnswerImprovementResult,
   JDAnalysisResult,
@@ -5,17 +6,18 @@ import type {
   ChatMessage,
   GroundingSource,
   MultiTurnChatResult,
-} from '../server/geminiService';
+} from '../server/aiService';
 
 export type { ChatMessage, GroundingSource, MultiTurnChatResult };
+export type AIModelProfile = 'standard' | 'deep' | 'fast';
 
 export async function requestMultiTurnChat(params: {
   messages: ChatMessage[];
   systemInstruction?: string;
-  model?: 'gemini-3.5-flash' | 'gemini-3.1-pro-preview' | 'gemini-3.1-flash-lite';
+  model?: AIModelProfile;
   enableSearch?: boolean;
 }): Promise<MultiTurnChatResult> {
-  const res = await fetch('/api/copilot/chat', {
+  const res = await apiFetch('/api/copilot/chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(params),
@@ -32,7 +34,7 @@ export async function requestSearchResearch(topic: string): Promise<{
   groundingSources: GroundingSource[];
   webSearchQueries?: string[];
 }> {
-  const res = await fetch('/api/copilot/search-research', {
+  const res = await apiFetch('/api/copilot/search-research', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ topic }),
@@ -45,7 +47,7 @@ export async function requestSearchResearch(topic: string): Promise<{
 }
 
 export async function requestExplain(content: string, contextTitle?: string): Promise<string> {
-  const res = await fetch('/api/copilot/explain', {
+  const res = await apiFetch('/api/copilot/explain', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ content, contextTitle }),
@@ -62,7 +64,7 @@ export async function requestImproveAnswer(
   question: string,
   myAnswer: string
 ): Promise<AnswerImprovementResult> {
-  const res = await fetch('/api/copilot/improve', {
+  const res = await apiFetch('/api/copilot/improve', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ question, myAnswer }),
@@ -79,7 +81,7 @@ export async function requestJDAnalyze(
   availableKnowledgeTitles: string[] = [],
   availableQuestionTitles: string[] = []
 ): Promise<JDAnalysisResult> {
-  const res = await fetch('/api/copilot/jd-analyze', {
+  const res = await apiFetch('/api/copilot/jd-analyze', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -100,7 +102,7 @@ export async function requestMockInterviewTurn(
   history: Array<{ role: 'interviewer' | 'candidate'; content: string }>,
   candidateAnswer?: string
 ): Promise<MockInterviewTurnResult> {
-  const res = await fetch('/api/copilot/mock-interview', {
+  const res = await apiFetch('/api/copilot/mock-interview', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ topic, history, candidateAnswer }),
@@ -149,12 +151,9 @@ export async function generateMockQuestion(topic: string, _difficulty: string): 
   const turn = await requestMockInterviewTurn(topic, [], undefined);
   return {
     question: turn.nextQuestion,
-    conciseAnswer: turn.feedback || 'Provide a crisp high-level definition followed by hardware and mathematical trade-offs.',
-    detailedAnswer: 'Structure: 1. Core Principle 2. Mathematical formulation 3. Memory & GPU bottlenecks 4. Production standard choices (e.g. FlashAttention, vLLM, GQA).',
-    followUps: [
-      'What are the memory bandwidth vs compute saturation trade-offs?',
-      'How does this behave under FP8 or INT4 quantization in production?',
-    ],
+    conciseAnswer: '',
+    detailedAnswer: 'Answer this question before requesting feedback. No model answer has been generated.',
+    followUps: [],
   };
 }
 
