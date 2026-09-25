@@ -77,6 +77,8 @@
 }
 
 .markdown-body :is(h1,h2,h3,h4,h5,h6) { scroll-margin-top: 1.5rem; }
+.markdown-body .katex { display: inline-block; width: max-content; max-width: 100%; overflow-x: auto; overflow-y: hidden; white-space: nowrap; vertical-align: middle; }
+.markdown-body .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
 .hljs-keyword, .hljs-selector-tag { color: #c4b5fd; }
 .hljs-string, .hljs-attr { color: #86efac; }
 .hljs-number, .hljs-literal { color: #fbbf24; }

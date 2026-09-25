@@ -8,6 +8,7 @@ import {
 import { useI18n } from '../i18n/I18nProvider';
 import { getKnowledgeCategories, knowledgeCategoryPath, getCategoryDescription } from '../utils/knowledgeCatalog';
 import type { KnowledgeArticle, Question, Application, Interview, ReviewHistory, CodingProblem, CodingAttempt } from '../types';
+import { libraryResources, librarySources } from '../services/learningLibrary';
 
 interface DashboardProps {
   questions: Question[];
@@ -101,6 +102,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
       </section>
 
       <div className="mx-auto max-w-6xl space-y-16 px-5 py-14 sm:space-y-20 sm:px-8 sm:py-16">
+        <section aria-labelledby="learning-library-title">
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-4"><div><h2 id="learning-library-title" className="text-2xl font-bold">{t('Learning resources', '学习资料')}</h2><p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">{t('Collected tutorials and original reading links. Pick a source to begin.', '收录教程与原文导航，选一个来源开始学习。')}</p></div><Link to="/library" className={textLinkClass}>{t('Browse the library', '进入资料库')}<ArrowRight className="size-4" /></Link></div>
+          <div className="grid gap-4 sm:grid-cols-2">{librarySources.map(source => { const records = libraryResources.filter(resource => resource.sourceId === source.id); const full = records.filter(resource => resource.kind === 'article').length; return <Link key={source.id} to={`/library?source=${encodeURIComponent(source.id)}`} className={`${panelClass} transition-colors hover:border-indigo-400`}><div className="flex items-center justify-between gap-3"><h3 className="font-semibold">{source.name}</h3><ArrowRight className="size-4 shrink-0 text-indigo-500" /></div><p className="mt-3 text-sm leading-6 text-zinc-500 dark:text-zinc-400">{source.description}</p><p className="mt-4 text-xs text-indigo-600 dark:text-indigo-400">{full ? t(`${full} collected articles`, `${full} 篇站内教程`) : t(`${records.length} reading links`, `${records.length} 个原文入口`)}</p></Link>; })}</div>
+        </section>
         <section aria-labelledby="knowledge-catalog-title">
           <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
             <div>

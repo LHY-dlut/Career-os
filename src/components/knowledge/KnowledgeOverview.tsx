@@ -32,6 +32,8 @@ export function KnowledgeOverview({ articles, filteredArticles, selectedCategory
       </div>
     </header>
 
+    <Link to="/library" className="mb-8 flex items-center justify-between gap-4 rounded-xl border border-indigo-200 bg-indigo-50/60 p-4 text-sm text-indigo-700 dark:border-indigo-900 dark:bg-indigo-950/30 dark:text-indigo-300"><span><strong>{t('Learning library', '学习资料库')}</strong><span className="ml-2">{t('Read collected tutorials and keep your own notes.', '阅读收录教程，再沉淀自己的学习笔记。')}</span></span><ArrowRight className="size-4 shrink-0" /></Link>
+
     <div className="mb-8 flex flex-col gap-5">
       <div className="relative max-w-2xl">
         <Search className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-slate-400" />

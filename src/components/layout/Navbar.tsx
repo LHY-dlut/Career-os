@@ -24,6 +24,7 @@ export function Navbar({ currentView, onOpenCommandPalette, isDark, onToggleThem
   const location = useLocation();
   const links = [
     { view: 'dashboard', title: t('Dashboard', '学习总览') },
+    { view: 'library', title: t('Library', '学习资料') },
     { view: 'knowledge', title: t('Knowledge', '知识库') },
     { view: 'questions', title: t('Questions', '面试题库') },
     { view: 'coding', title: t('Coding', '编程练习') },

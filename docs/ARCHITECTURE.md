@@ -1,5 +1,11 @@
 # Architecture
 
+## 随网站发布的学习资料
+
+`src/content/library/*-catalog.json` 和 `*-sources.json` 保存轻量目录与许可来源，`public/library/*.md` 保存经许可的教程快照；`learningLibrary.ts` 提供搜索、按篇读取、HTML 回退检测与私人笔记模板。`/library` 和 `/library/:resourceId` 独立于个人知识文章路由，绕过身份恢复和个人数据加载的阅读遮挡；尚未就绪的个人工作区不能保存笔记。所有引用保留出处；未确认全文许可的条目只有原站链接和原创学习提示。
+
+公共资料不属于用户 Dataset，不进入 Firestore、备份、重置或访客 localStorage。用户主动选择“写学习笔记”才按现有 Repository 保存一条自己的笔记；稳定的独立笔记 ID 保证重复点击打开现有记录，不覆盖手写内容。完整 Markdown 不打入 JavaScript 首页包。
+
 ## 学习门户与阅读布局
 
 全站使用 `Navbar` 顶部导航；桌面求职菜单和手机抽屉保留九个业务页面入口、快速新增、搜索、主题、语言与账号操作。`Dashboard` 以知识分类和最近更新为主入口，下方继续展示真实复习、面试、投递和编程状态。

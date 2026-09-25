@@ -33,4 +33,8 @@ Node 22.12+；Firestore 模拟器需 Java 21+。本次 Windows 只在被忽略�
 
 ## 下一位维护者先处理
 
+资料库已收录 151 篇 MIT 教程快照和 29 个原文入口，维护范围、出处与更新命令见 CONTENT_SOURCES。全文在 `public/library` 按篇请求，不注入个人 Dataset；`/library` 在 Auth/Firestore 暂未就绪时也必须可读，但不能写个人笔记。保存笔记只保存个人模板与出处，已有笔记只打开不覆盖。更改收录正文必须同步导入脚本及 provenance，保留许可和原文链接。
+
+手机外网阅读尚需真实部署：本次查到 Firebase CLI 无已授权账号、无实际 `.env`，未确认用户控制的项目 ID，不可发布到原型遗留项目。先让用户登录并选择自己的 Firebase 项目，按 DEPLOYMENT 的纯阅读路径发布 Hosting；无需等 DeepSeek/Render 就能提供公网资料阅读。访客笔记不会因此变为跨设备同步。
+
 按 DEPLOYMENT 联通测试项目，在真实账号完成登录持久化、双账号隔离、云 CRUD、Admin 撤销验证、真实 DeepSeek 调用及错误处理；若启用 Gemini，另验收其 grounding 来源。`configured` 仅反映模型 Key 是否填写，不代表凭证已验证。再推进 v0.3，而不是提前搭高级 RAG。参考网站的三方面设计计划已在 ROADMAP 保留。

@@ -20,7 +20,8 @@ export function AppLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const view = location.pathname.split('/')[1] || 'dashboard';
-  const isGuide = view === 'dashboard' || view === 'knowledge';
+  const isLibrary = view === 'library';
+  const isGuide = view === 'dashboard' || view === 'knowledge' || isLibrary;
   const pageTitles: Record<string, string> = { questions: 'Question Bank', review: 'Spaced Review', coding: 'Coding Lab', applications: 'Applications CRM', interviews: 'Interviews & Retro', copilot: 'AI Copilot', settings: 'Settings & Data' };
   useEffect(() => { if (!location.hash) mainRef.current?.scrollTo?.(0, 0); }, [location.pathname, location.search]);
   useEffect(() => {
@@ -35,11 +36,11 @@ export function AppLayout() {
     <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
       <Navbar currentView={view} onOpenCommandPalette={() => setSearchOpen(true)} currentUser={user} onSignIn={signIn} onSignOut={signOut} isDark={isDark} onToggleTheme={toggleTheme} onQuickAdd={type => navigate(`/${{ article: 'knowledge', question: 'questions', application: 'applications', interview: 'interviews' }[type]}?new=1`)} />
       <div className="shrink-0 border-b border-slate-100 bg-slate-50/70 px-4 py-1.5 text-center text-[11px] text-slate-500 dark:border-slate-800/70 dark:bg-slate-900/40 dark:text-slate-400">
-        {user ? t('Cloud workspace · Saved to your account', '云端工作区 · 数据保存到你的账号') : t('Guest workspace · Saved in this browser', '访客工作区 · 数据保存在当前浏览器')}
+        {isLibrary ? t('Published learning library · Personal notes use your workspace storage', '学习资料随网站发布 · 个人笔记按工作区保存') : user ? t('Cloud workspace · Saved to your account', '云端工作区 · 数据保存到你的账号') : t('Guest workspace · Saved in this browser', '访客工作区 · 数据保存在当前浏览器')}
       </div>
       {!isGuide && <div className="shrink-0 border-b border-slate-100 bg-white px-6 py-4 dark:border-slate-800 dark:bg-slate-950"><div className="mx-auto max-w-7xl"><h1 className="text-lg font-bold">{pageTitles[view] ? label(pageTitles[view]) : t('Page not found', '页面不存在')}</h1></div></div>}
       <main ref={mainRef} id="main-content" tabIndex={-1} className={`flex-1 min-h-0 overflow-y-auto ${isGuide ? 'bg-white dark:bg-[#090d16]' : 'bg-slate-50 dark:bg-[#090d16]'}`}>
-        {loading ? <div role="status" className="p-12 text-center">{t("Loading your workspace…", "正在加载工作区…")}</div> : error ? <div role="alert" className="p-10 space-y-4"><p>{t('Could not load your workspace: ', '无法加载工作区：')}{translateMessage(error)}</p><button className="px-4 py-2 rounded-lg bg-sky-600 text-white" onClick={() => void refresh()}>{t("Retry", "重试")}</button>{!user && <button className="ml-3 underline" onClick={() => { if (confirm(t("Replace this guest workspace with starter study materials? Export any recoverable data first.", "用入门学习资料替换此访客工作区？请先导出仍可恢复的数据。"))) void reset().catch(cause => showToast(cause.message || t("Reset failed.", "重置失败。"), 'error')); }}>{t('Reset local demo data', '重置本地示例数据')}</button>}</div> : <Outlet />}
+        {isLibrary ? <Outlet /> : loading ? <div role="status" className="p-12 text-center">{t("Loading your workspace…", "正在加载工作区…")}</div> : error ? <div role="alert" className="p-10 space-y-4"><p>{t('Could not load your workspace: ', '无法加载工作区：')}{translateMessage(error)}</p><button className="px-4 py-2 rounded-lg bg-sky-600 text-white" onClick={() => void refresh()}>{t("Retry", "重试")}</button>{!user && <button className="ml-3 underline" onClick={() => { if (confirm(t("Replace this guest workspace with starter study materials? Export any recoverable data first.", "用入门学习资料替换此访客工作区？请先导出仍可恢复的数据。"))) void reset().catch(cause => showToast(cause.message || t("Reset failed.", "重置失败。"), 'error')); }}>{t('Reset local demo data', '重置本地示例数据')}</button>}</div> : <Outlet />}
       </main>
     </div>
     <CommandPalette isOpen={searchOpen} onClose={() => setSearchOpen(false)} {...data} onNavigate={(v, id) => navigate(pathFor(v, id))} />

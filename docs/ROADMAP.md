@@ -1,6 +1,6 @@
 # Roadmap
 
-每个版本以真实数据和可验证闭环为验收条件。第一轮完成 v0.2 工程基础；随后按用户偏好实现中英切换和 AIInfraGuide 风格的学习门户布局，业务闭环和检索工作继续按下列顺序推进。
+每个版本以真实数据和可验证闭环为验收条件。第一轮完成 v0.2 工程基础；随后按用户偏好实现中英切换、AIInfraGuide 风格的学习门户和有授权出处的静态资料库。当前资料收录范围见 [CONTENT_SOURCES.md](CONTENT_SOURCES.md)，公网发布仍需用户自己的 Firebase 项目和登录。业务闭环和检索工作继续按下列顺序推进。
 
 | 版本 | 范围 | 验收 |
 | --- | --- | --- |
@@ -22,8 +22,8 @@
 | [labuladong](https://labuladong.online/zh/algo/essential-technique/algorithm-summary/) | 章节导航、正文目录、代码框架、关联阅读 | 首轮共享 heading ID、公式/代码、前后篇；后续阅读列宽/目录定位与章节树完善 |
 | [ARIS in AI Offer](https://wanshuiyin.github.io/ARIS-in-AI-Offer/) | 主题卡片、难度筛选、搜索、阅读标记、明暗主题 | 首轮修复搜索与主题；后续速查卡、真实阅读历史、统一信息层级 |
 
-视觉方向保留 slate / sky / indigo，采用用户偏好的 AIInfraGuide 门户布局，增强留白、正文层级和移动端导航。内容来自用户积累或明确许可来源；不批量复制第三方文章。当前已覆盖学习首页与知识阅读，后续按实际使用反馈统一题库和求职页面的视觉细节。
+视觉方向保留 slate / sky / indigo，采用用户偏好的 AIInfraGuide 门户布局，增强留白、正文层级和移动端导航。内容来自用户积累或明确许可来源；MIT 允许复用的第一方教程按固定版本收录，其他来源仅建立原文导航。当前已覆盖学习首页与知识阅读，后续按实际使用反馈统一题库和求职页面的视觉细节。
 
 ## 下一轮建议
 
-优先在真实测试云项目完成 Auth/Firestore/Render/DeepSeek 联通，然后完成 v0.3 的 InterviewQuestion ↔ Question 双向闭环。学习门户布局已可本地验收；课程内容扩充与个性化路线独立推进。
+优先将资料阅读前端发布到用户自己的 Firebase Hosting，供手机通过公网阅读；个人笔记跨设备同步另需 Auth/Firestore 联通。随后验证 Render/DeepSeek 并完成 v0.3 的 InterviewQuestion ↔ Question 双向闭环。内容更新需先复核上游许可；阅读进度同步和个性化路线独立推进。

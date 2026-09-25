@@ -10,13 +10,14 @@ Knowledge → Question Bank → Review → Coding → Applications → Interview
 
 ## Features — 当前能力与边界
 
-- 学习门户：首页参考 [AIInfraGuide](https://caomaolufei.github.io/AIInfraGuide/) 的顶部导航、居中首屏与主题卡片组织；卡片数量、最近更新和下方工作台均来自当前工作区。知识库提供分类总览、章节树与三栏阅读，手机可展开导航与目录。保留 Career OS 自有内容，不导入参考站文章。
+- 学习门户：首页参考 [AIInfraGuide](https://caomaolufei.github.io/AIInfraGuide/) 的顶部导航、居中首屏与主题卡片组织；个人知识数量、最近更新和下方工作台来自当前工作区。知识库提供分类总览、章节树与三栏阅读，手机可展开导航与目录。
+- 学习资料库 `/library`：经核查许可的 AIInfraGuide、ARIS 教程作为固定快照随网站发布，正文按需加载；卡码与 labuladong 提供原文导航。支持来源/主题/标题标签搜索、目录、手机阅读与建立个人学习笔记。出处、许可证、收录范围和更新方式见 [资料来源](docs/CONTENT_SOURCES.md)。资料不会批量写入个人 localStorage 或 Firestore。
 - 知识文章：Markdown、GFM、KaTeX、代码高亮/复制、目录锚点、前后篇、编辑、导入/导出。
 - 题库与复习：搜索/筛选、CRUD、四档评分、原子保存复习历史。当前为简单间隔算法，不是完整 SM-2 / FSRS。
 - Coding Lab：题目与多次练习记录分离；不执行用户代码。
 - 投递与面试：看板/表格、阶段持久化、面试属于投递、真题加入题库时同时保存关联。关联已有题目等完整闭环见路线图。
 - URL 路由、前进/后退/刷新、实体直达、Ctrl/Cmd+K 搜索、按身份隔离的主题。
-- 中英文界面：默认简体中文，顶部语言按钮或设置页可随时切换 English；浏览器记住选择。导航、九个页面、表单、提示与日期随语言切换，用户文章和记录保留原文；AI 新请求按所选语言回答。
+- 中英文界面：默认简体中文，顶部语言按钮或设置页可随时切换 English；浏览器记住选择。导航、表单、提示与日期随语言切换，收录正文、用户文章和记录保留原文；AI 新请求按所选语言回答。
 - 访客仅保存到当前浏览器。Google 登录打开独立 Firestore 工作区；云端错误不会自动切换为本地成功状态。
 - AI 默认由 Express 调用 DeepSeek-V4.1-Flash；需要 Google 登录、服务端 UID 授权、Admin 凭证及 DeepSeek Key。未配置时显示真实错误，不生成假答案/引用。可显式切换回 Gemini。
 
@@ -48,6 +49,8 @@ npm run dev
 需要云功能时，将 `.env.example` 复制为 `.env`，按 [部署说明](docs/DEPLOYMENT.md) 填写配置。开发默认同域 `/api`；独立 API 可设置 `VITE_API_BASE_URL=http://localhost:3000`。所有 `VITE_*` 都公开进浏览器，绝不能放模型 API Key 或 Admin 私钥。
 
 新登录账号默认空白，可在 Settings 点击 **Load Starter Study Materials** 初始化学习资料；不会导入访客记录或制造职业活动。
+
+内置资料库不需要登录即可阅读，在个人工作区加载失败时也可使用。`localhost` 不能供外网手机访问；将前端发布到自己的 Firebase Hosting 后，任意设备可访问同一资料网址。个人笔记跨设备同步另需配置 Firebase Auth/Firestore；未登录时仍仅存本浏览器。见 [最短阅读上线步骤](docs/DEPLOYMENT.md#只发布学习资料的最短路径)。
 
 ## 检查与构建
 

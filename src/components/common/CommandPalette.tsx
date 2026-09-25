@@ -1,5 +1,6 @@
 import { useI18n } from '../../i18n/I18nProvider';
 import { Dialog } from './Dialog';
+import { filterLibrary } from '../../services/learningLibrary';
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Search,
@@ -65,6 +66,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   if (!isOpen) return null;
 
   const cleanQuery = query.trim().toLowerCase();
+  const filteredLibrary = cleanQuery ? filterLibrary(query).slice(0, 4) : [];
 
   const filteredArticles = articles
     .filter(
@@ -103,7 +105,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   const filteredInterviews = interviews.filter(i => `${i.companyName} ${i.position} ${i.roundName}`.toLowerCase().includes(cleanQuery)).slice(0, 3);
 
   const hasResults =
-    filteredArticles.length > 0 ||
+    filteredLibrary.length > 0 || filteredArticles.length > 0 ||
     filteredQuestions.length > 0 ||
     filteredCoding.length > 0 ||
     filteredApps.length > 0 || filteredInterviews.length > 0;
@@ -126,7 +128,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             aria-label={t("Search workspace", "搜索工作区")}
             onKeyDown={event => {
               if (event.key === 'Enter') {
-                const result = filteredArticles[0] ? ['knowledge', filteredArticles[0].id] : filteredQuestions[0] ? ['questions', filteredQuestions[0].id] : filteredCoding[0] ? ['coding', filteredCoding[0].id] : filteredApps[0] ? ['applications', filteredApps[0].id] : filteredInterviews[0] ? ['interviews', filteredInterviews[0].id] : null;
+                const result = filteredLibrary[0] ? ['library', filteredLibrary[0].id] : filteredArticles[0] ? ['knowledge', filteredArticles[0].id] : filteredQuestions[0] ? ['questions', filteredQuestions[0].id] : filteredCoding[0] ? ['coding', filteredCoding[0].id] : filteredApps[0] ? ['applications', filteredApps[0].id] : filteredInterviews[0] ? ['interviews', filteredInterviews[0].id] : null;
                 if (result) { onNavigate(result[0], result[1]); onClose(); }
               }
             }}
@@ -146,6 +148,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               <div className="grid grid-cols-2 gap-1.5">
                 {[
                   { label: t("Today Dashboard", "今日总览"), icon: Sparkles, view: 'dashboard' },
+                  { label: t('Learning Library', '学习资料库'), icon: BookOpen, view: 'library' },
                   { label: t("Knowledge Base", "知识库"), icon: BookOpen, view: 'knowledge' },
                   { label: t("Question Bank", "面试题库"), icon: HelpCircle, view: 'questions' },
                   { label: t("Spaced Review", "间隔复习"), icon: Sparkles, view: 'review' },
@@ -175,6 +178,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           )}
 
           {/* Articles Section */}
+          {filteredLibrary.length > 0 && <section aria-label={t('Learning library results', '学习资料搜索结果')}><h3 className="mb-1 px-2 text-[11px] font-semibold text-zinc-400">{t('Learning library', '学习资料库')}</h3>{filteredLibrary.map(resource => <button key={resource.id} onClick={() => { onNavigate('library', resource.id); onClose(); }} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-xs hover:bg-indigo-50 dark:hover:bg-indigo-950/30"><BookOpen className="size-4 shrink-0 text-indigo-500" /><span className="min-w-0 flex-1 truncate">{resource.title}</span><span className="shrink-0 text-[10px] text-zinc-400">{resource.kind === 'article' ? t('Collected', '站内教程') : t('Original site', '原文导航')}</span></button>)}</section>}
           {filteredArticles.length > 0 && (
             <div>
               <div className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider px-2 mb-1">

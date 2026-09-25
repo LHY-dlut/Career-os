@@ -16,6 +16,7 @@ const Applications = lazy(() => import('../pages/Applications').then(m => ({ def
 const Interviews = lazy(() => import('../pages/Interviews').then(m => ({ default: m.Interviews })));
 const AICopilot = lazy(() => import('../pages/AICopilot').then(m => ({ default: m.AICopilot })));
 const Settings = lazy(() => import('../pages/Settings').then(m => ({ default: m.Settings })));
+const Library = lazy(() => import('../pages/Library').then(m => ({ default: m.Library })));
 
 function Page({ view }: { view: string }) {
   const { t, label } = useI18n();
@@ -52,6 +53,8 @@ export function AppRoutes() {
       <Route index element={<Navigate to="/dashboard" replace />} />
       {['dashboard', 'knowledge', 'questions', 'review', 'coding', 'applications', 'interviews', 'copilot', 'settings'].map(view => <Route key={view} path={view} element={<Page view={view} />} />)}
       <Route path="knowledge/:articleId" element={<Page view="knowledge" />} />
+      <Route path="library" element={<Library />} />
+      <Route path="library/:resourceId" element={<Library />} />
       <Route path="questions/:questionId" element={<Page view="questions" />} />
       <Route path="coding/:problemId" element={<Page view="coding" />} />
       <Route path="applications/:applicationId" element={<Page view="applications" />} />

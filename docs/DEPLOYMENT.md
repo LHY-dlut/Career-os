@@ -2,6 +2,25 @@
 
 本轮提供部署配置与本地验证，未向真实 Firebase / Render 项目部署。先在测试项目联通登录、规则、跨域和 AI，再发布个人生产环境。
 
+## 只发布学习资料的最短路径
+
+内置 `/library` 的目录和获准收录的正文随 `dist` 一起发布，不需要 AI 密钥、Render 或登录即可阅读。读者只在打开一篇资料时请求该篇 Markdown；站外图片和原文链接仍依赖其原站网络。它是在线阅读站点，当前没有离线缓存功能。
+
+环境尚未配置真实 Firebase 项目或已授权 CLI 账号，不能把 `localhost:3100` 当作公网地址。用你控制的 Firebase 项目完成以下步骤：
+
+```sh
+npm run lint
+npm test
+npm run build
+npm exec --yes --package=firebase-tools@15.31.0 -- firebase login
+npm exec --yes --package=firebase-tools@15.31.0 -- firebase projects:list
+npm exec --yes --package=firebase-tools@15.31.0 -- firebase deploy --only hosting --project YOUR_PROJECT_ID
+```
+
+最后一个命令会实际发布公开内容，必须将 `YOUR_PROJECT_ID` 换成明确属于自己的项目。发布后使用命令返回的 HTTPS 地址，在手机蜂窝网络打开 `/library`、直接打开某篇并刷新，核对正文/公式/目录/来源链接；可使用浏览器的“添加到主屏幕”。以上命令仅为部署步骤，未在本轮执行发布。
+
+仅 Hosting 不会让访客笔记自动跨设备同步。需要自己的笔记和复习记录在手机、电脑间共享时，再按下节配置 Firebase Google Auth、Firestore 和安全规则，重建发布前端并在两台设备登录同一账号。不要在聊天、仓库或前端配置中放服务账号私钥或 DeepSeek Key。
+
 ## 1. Firebase
 
 1. 使用你自己的 Firebase 项目，创建 Web App，启用 Authentication → Google；在 Authorized domains 添加实际 Hosting 域名、自定义域名及本地调试的 localhost。

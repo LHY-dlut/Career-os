@@ -29,4 +29,7 @@ jobs:
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
           curl --retry 15 --retry-connrefused --retry-delay 1 --fail http://localhost:3100/api/health | python3 -c 'import json,sys; assert json.load(sys.stdin) == {"status":"ok"}'
           curl --fail http://localhost:3100/knowledge/example | grep -q '<div id="root">'
+          curl --fail http://localhost:3100/library/aris-ai-offer-attention-tutorial | grep -q '<div id="root">'
+          curl --fail http://localhost:3100/library/aris-ai-offer-attention-tutorial.md -o /tmp/career-os-article.md
+          grep -q '^#' /tmp/career-os-article.md
           test "$(curl -s -o /tmp/ai-response.json -w '%{http_code}' -X POST http://localhost:3100/api/copilot/chat -H 'Content-Type: application/json' -d '{}')" = '401'
