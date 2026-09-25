@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Sparkles, Calendar, RotateCcw, CheckCircle2, Briefcase, Code2,
@@ -10,6 +10,9 @@ import { getKnowledgeCategories, knowledgeCategoryPath, getCategoryDescription }
 import type { KnowledgeArticle, Question, Application, Interview, ReviewHistory, CodingProblem, CodingAttempt } from '../types';
 import { libraryResources, librarySources } from '../services/learningLibrary';
 import { localizeStarterArticle } from '../services/starterArticleLocalization';
+import { preferLibraryLanguage } from '../services/libraryLanguage';
+
+const TrainingWorkspace = lazy(() => import('../components/training/TrainingWorkspace').then(module => ({ default: module.TrainingWorkspace })));
 
 interface DashboardProps {
   questions: Question[];
@@ -77,36 +80,34 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <div className="min-w-0 bg-white text-zinc-900 dark:bg-[#0c1017] dark:text-zinc-100">
-      <section className="guide-hero relative flex min-h-[480px] items-center justify-center overflow-hidden border-b border-zinc-100 px-5 py-20 text-center dark:border-zinc-800/70 sm:min-h-[510px] sm:px-8" aria-labelledby="guide-title">
+      <section className="guide-hero relative flex items-center justify-center overflow-hidden border-b border-zinc-100 px-5 py-8 text-center dark:border-zinc-800/70 sm:px-8" aria-labelledby="guide-title">
         <div className="relative z-10 mx-auto w-full max-w-3xl">
-          <div className="mb-7 inline-flex max-w-full items-center gap-2 rounded-full border border-indigo-200/70 bg-white/80 px-4 py-1.5 text-xs font-medium text-indigo-700 dark:border-indigo-800/60 dark:bg-indigo-950/40 dark:text-indigo-300 sm:text-sm">
+          <div className="mb-3 inline-flex max-w-full items-center gap-2 text-xs font-medium text-indigo-700 dark:text-indigo-300">
             <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             {t('Your guide to AI learning & careers', '个人 AI 学习与求职指南')}
           </div>
-          <h1 id="guide-title" className="text-[42px] font-bold leading-tight tracking-[-0.045em] text-zinc-900 dark:text-white sm:text-[64px]">
+          <h1 id="guide-title" className="text-3xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
             AI Career <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-500 bg-clip-text text-transparent dark:from-blue-400 dark:via-indigo-400 dark:to-violet-400">OS</span>
           </h1>
-          <p className="mt-5 text-xl font-medium leading-relaxed tracking-tight text-zinc-700 dark:text-zinc-200 sm:text-2xl">
+          <p className="mt-3 text-base font-medium leading-relaxed text-zinc-700 dark:text-zinc-200">
             {t('Build your AI knowledge. Step into interviews with confidence.', '把 AI 知识，变成面试中的底气。')}
           </p>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-zinc-500 dark:text-zinc-400 sm:text-base">
-            {t('Explore core AI concepts, practice what you learn, and keep your interview preparation and career progress connected.', '从核心原理到动手实践，系统积累 AI 知识，让学习、面试准备与求职进展彼此连接。')}
-          </p>
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <Link to="/knowledge" className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm shadow-indigo-200/50 transition-colors hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-500 dark:shadow-none">
-              {t('Start learning', '开始学习')} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+            <Link to="/library" className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">
+              {t('Browse learning paths', '按路线学习')} <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
-            <Link to="/review" className="inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-white/90 px-6 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:border-indigo-300 hover:bg-indigo-50/50 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-200 dark:hover:bg-zinc-800">
+            <Link to="/review" className="inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-white/90 px-4 py-2 text-sm font-semibold text-zinc-700 hover:border-indigo-300 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-200">
               <RotateCcw className="h-4 w-4" aria-hidden="true" /> {t('Review today', '今日复习')}
             </Link>
           </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl space-y-16 px-5 py-14 sm:space-y-20 sm:px-8 sm:py-16">
+      <div className="mx-auto max-w-7xl space-y-10 px-4 py-7 sm:space-y-12 sm:px-8">
+        <Suspense fallback={<div role="status" className="rounded-2xl border border-slate-200 p-6 dark:border-slate-800">{t('Loading code training…', '正在加载代码训练…')}</div>}><TrainingWorkspace compact /></Suspense>
         <section aria-labelledby="learning-library-title">
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4"><div><h2 id="learning-library-title" className="text-2xl font-bold">{t('Learning resources', '学习资料')}</h2><p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">{t('Collected tutorials and original reading links. Pick a source to begin.', '收录教程与原文导航，选一个来源开始学习。')}</p></div><Link to="/library" className={textLinkClass}>{t('Browse the library', '进入资料库')}<ArrowRight className="size-4" /></Link></div>
-          <div className="grid gap-4 sm:grid-cols-2">{librarySources.map(source => { const records = libraryResources.filter(resource => resource.sourceId === source.id); const full = records.filter(resource => resource.kind === 'article').length; return <Link key={source.id} to={`/library?source=${encodeURIComponent(source.id)}`} className={`${panelClass} transition-colors hover:border-indigo-400`}><div className="flex items-center justify-between gap-3"><h3 className="font-semibold">{source.name}</h3><ArrowRight className="size-4 shrink-0 text-indigo-500" /></div><p className="mt-3 text-sm leading-6 text-zinc-500 dark:text-zinc-400">{source.description}</p><p className="mt-4 text-xs text-indigo-600 dark:text-indigo-400">{full ? t(`${full} collected articles`, `${full} 篇站内教程`) : t(`${records.length} reading links`, `${records.length} 个原文入口`)}</p></Link>; })}</div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{librarySources.map(source => { const records = preferLibraryLanguage(libraryResources.filter(resource => resource.sourceId === source.id), language); return <Link key={source.id} to={`/library?view=source&source=${encodeURIComponent(source.id)}`} className="rounded-xl border border-zinc-200 p-4 transition-colors hover:border-indigo-400 dark:border-zinc-800"><div className="flex items-center justify-between gap-3"><h3 className="text-sm font-semibold">{source.name}</h3><ArrowRight className="size-4 shrink-0 text-indigo-500" /></div><p className="mt-2 text-xs text-zinc-500">{t(`${records.length} independent topics · view content status`, `${records.length} 个独立主题 · 查看内容状态`)}</p></Link>; })}</div>
         </section>
         <section aria-labelledby="knowledge-catalog-title">
           <div className="mb-7 flex flex-wrap items-end justify-between gap-4">

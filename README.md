@@ -6,6 +6,8 @@ Knowledge → Question Bank → Review → Coding → Applications → Interview
 
 在线阅读：[Career OS 学习资料库](https://career-os-lhy-dlut.web.app/library)。2026-09-25 已发布中文默认界面及内置教程，手机浏览器可直接访问；当前线上版的个人记录保存在当前浏览器，账号同步和 DeepSeek 服务尚未启用。部署状态见 [DEPLOYMENT](docs/DEPLOYMENT.md)。
 
+2026-09-25 经用户明确要求，课程资料库与双轨训练已发布到同一站点：8 条学习路线、6 篇本站教学单元、Hot100 的 100 个可编辑骨架/10 个完整训练包、14 个 PyTorch 完整训练包，首页和 Coding Lab 共用草稿与历史。[打开首页训练](https://career-os-lhy-dlut.web.app/dashboard)。诊断、实测结果与发布记录见 [本轮交付报告](docs/LIBRARY_TRAINING_REPORT.md)。代码仍通过草稿 PR 审查，没有合并 main。
+
 ## Why
 
 把分散的学习资料、复习记录与真实面试反馈连接起来，形成每天能使用的个人系统。优先保证数据正确、可维护和失败可恢复，再逐步增加 AI 能力。
@@ -16,16 +18,16 @@ Knowledge → Question Bank → Review → Coding → Applications → Interview
 - 学习资料库 `/library`：经核查许可的 AIInfraGuide、ARIS 教程作为固定快照随网站发布，正文按需加载；卡码与 labuladong 提供原文导航。支持来源/主题/标题标签搜索、目录、手机阅读与建立个人学习笔记。出处、许可证、收录范围和更新方式见 [资料来源](docs/CONTENT_SOURCES.md)。资料不会批量写入个人 localStorage 或 Firestore。
 - 知识文章：Markdown、GFM、KaTeX、代码高亮/复制、目录锚点、前后篇、编辑、导入/导出。
 - 题库与复习：搜索/筛选、CRUD、四档评分、原子保存复习历史。当前为简单间隔算法，不是完整 SM-2 / FSRS。
-- Coding Lab：题目与多次练习记录分离；不执行用户代码。
+- Coding Lab 与首页共享选题、代码编辑、按身份与语言隔离的草稿、计时和练习历史。提供参考实现及测试文件下载，明确采用“编辑与记录模式”；不执行用户代码，不自动生成 Accepted。
 - 投递与面试：看板/表格、阶段持久化、面试属于投递、真题加入题库时同时保存关联。关联已有题目等完整闭环见路线图。
 - URL 路由、前进/后退/刷新、实体直达、Ctrl/Cmd+K 搜索、按身份隔离的主题。
 - 中英文界面与阅读：默认简体中文，顶部语言按钮或设置页可随时切换 English；浏览器记住选择。6 篇未编辑的入门知识文章有完整中文阅读稿，收录教程默认选择与界面语言对应的版本，也可单独选择资料语言。用户自写、导入或已修改的文章保留原文；AI 新请求按所选语言回答。
 - 访客仅保存到当前浏览器。Google 登录打开独立 Firestore 工作区；云端错误不会自动切换为本地成功状态。
 - AI 默认由 Express 调用 DeepSeek-V4.1-Flash；需要 Google 登录、服务端 UID 授权、Admin 凭证及 DeepSeek Key。未配置时显示真实错误，不生成假答案/引用。可显式切换回 Gemini。
 
-## Screenshots placeholder
+## 本轮预览验收
 
-TODO：在完整云端验收和下一轮阅读体验设计后补充 Dashboard / Knowledge / Interview Loop 的正式截图。当前不引用缺失的图片文件。
+课程资料、首页编辑器及 390px 手机深色布局截图、完整检查清单见 [交付报告](docs/LIBRARY_TRAINING_REPORT.md)。截图来自隔离的本地访客验收工作区，不代表云账号同步已经验收。
 
 ## Architecture
 
@@ -69,6 +71,8 @@ npm start
 
 构建输出 `dist/` 与 `dist-server/`。`npm start` 执行编译后的 JavaScript，默认监听 `0.0.0.0:3000`。健康检查：`GET /api/health` → `{"status":"ok"}`。GitHub Actions 检查安装、类型、测试、规则、构建和生产服务。
 
+训练内容检查：`python scripts/verify-hot100.py --run-references`。PyTorch 使用 Python 3.12 项目局部环境，安装 `public/training/pytorch/requirements.txt` 后运行 `python -X utf8 public/training/pytorch/validate_references.py --negative-checks --tutorial-checks`；CPU 数值与反例覆盖见 [验证记录](docs/PYTORCH_TRAINING_VALIDATION.md)。这些命令验证仓库教学内容，不运行网页输入的代码。
+
 ## Environment Variables
 
 变量模板在 `.env.example`。`VITE_FIREBASE_*`、`VITE_API_BASE_URL` 是公开构建配置；`DEEPSEEK_API_KEY`、可选 `GEMINI_API_KEY`、Admin 凭证、UID allowlist、CORS origins 仅在服务端。完整表格和构建/运行差异见 [环境配置](docs/DEPLOYMENT.md)。
@@ -85,7 +89,7 @@ DeepSeek 的 Standard / Deep / Fast 档位都使用同一个模型并关闭 thin
 
 ## Deployment
 
-前端 `npm run build` 后发布 Firebase Hosting；Render 构建 `npm ci --include=dev && npm run build`，启动 `npm start`，健康检查 `/api/health`。详细步骤、secret file、CORS 和上线验收见 [DEPLOYMENT](docs/DEPLOYMENT.md)。当前提供部署准备，本轮未发布到真实云服务。
+前端 `npm run build` 后发布 Firebase Hosting；Render 构建 `npm ci --include=dev && npm run build`，启动 `npm start`，健康检查 `/api/health`。详细步骤、secret file、CORS 和上线验收见 [DEPLOYMENT](docs/DEPLOYMENT.md)。当前静态站已包含课程和训练增量，Render API 仍未启用。
 
 ## 数据备份
 

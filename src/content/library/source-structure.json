@@ -1,0 +1,531 @@
+[
+  {
+    "id": "aiinfra-guide-ffa4ba1ba3a30f90",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/1.1-CUDA开发环境搭建.md",
+    "category": "cuda-optimization",
+    "order": 101,
+    "chapter": 1
+  },
+  {
+    "id": "aiinfra-guide-b63c2855eb476f26",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/1.2-CUDA编程模型.md",
+    "category": "cuda-optimization",
+    "order": 102,
+    "chapter": 1
+  },
+  {
+    "id": "aiinfra-guide-2384f3d79864e234",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/1.3-CUDA内存模型.md",
+    "category": "cuda-optimization",
+    "order": 103,
+    "chapter": 1
+  },
+  {
+    "id": "aiinfra-guide-38a3659b2c74399f",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/1.4-第一个实用Kernel.md",
+    "category": "cuda-optimization",
+    "order": 104,
+    "chapter": 1
+  },
+  {
+    "id": "aiinfra-guide-53190fc47b5acfc1",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/2.1-Warp与执行模型.md",
+    "category": "cuda-optimization",
+    "order": 201,
+    "chapter": 2
+  },
+  {
+    "id": "aiinfra-guide-8713bd12e9b3f1f0",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/2.2-内存访问优化.md",
+    "category": "cuda-optimization",
+    "order": 202,
+    "chapter": 2
+  },
+  {
+    "id": "aiinfra-guide-070ffcd06377bde4",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/2.3-Occupancy与资源分配.md",
+    "category": "cuda-optimization",
+    "order": 203,
+    "chapter": 2
+  },
+  {
+    "id": "aiinfra-guide-36ab5ec72a001b7c",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/2.4-同步与原子操作.md",
+    "category": "cuda-optimization",
+    "order": 204,
+    "chapter": 2
+  },
+  {
+    "id": "aiinfra-guide-8a0a068ef51c6e70",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/3.1-CUDA Reduce算子优化.md",
+    "category": "cuda-optimization",
+    "order": 301,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-d38c5461511d45a9",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/4.1-CUDA GEMM算子性能优化.md",
+    "category": "cuda-optimization",
+    "order": 401,
+    "chapter": 4
+  },
+  {
+    "id": "aiinfra-guide-f50052476560609c",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/5.1-CUDA Softmax朴素实现优化.md",
+    "category": "cuda-optimization",
+    "order": 501,
+    "chapter": 5
+  },
+  {
+    "id": "aiinfra-guide-c212d16cb8f6b4bf",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/5.2-CUDA Online Softmax实现.md",
+    "category": "cuda-optimization",
+    "order": 502,
+    "chapter": 5
+  },
+  {
+    "id": "aiinfra-guide-b897c843c1fd7319",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/6.1-FlashAttention V1详解.md",
+    "category": "cuda-optimization",
+    "order": 601,
+    "chapter": 6
+  },
+  {
+    "id": "aiinfra-guide-ef4b7c44988c470d",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/6.2-FlashAttention V2详解.md",
+    "category": "cuda-optimization",
+    "order": 602,
+    "chapter": 6
+  },
+  {
+    "id": "aiinfra-guide-4d2bc34f575f803c",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第1章-CUDA编程入门.md",
+    "category": "cuda-optimization",
+    "order": 10
+  },
+  {
+    "id": "aiinfra-guide-6c777c53f467c01a",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第2章-CUDA性能优化基础.md",
+    "category": "cuda-optimization",
+    "order": 11
+  },
+  {
+    "id": "aiinfra-guide-13e4d6e802bd89bb",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第3章-经典算子实现-Reduce.md",
+    "category": "cuda-optimization",
+    "order": 12
+  },
+  {
+    "id": "aiinfra-guide-d410b3983ec48653",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第4章-经典算子实现-GEMM.md",
+    "category": "cuda-optimization",
+    "order": 13
+  },
+  {
+    "id": "aiinfra-guide-95295bdb7484b12a",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第5章-经典算子实现-Softmax与算子融合.md",
+    "category": "cuda-optimization",
+    "order": 14
+  },
+  {
+    "id": "aiinfra-guide-1c62418efb0e0b12",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第6章-Attention算子.md",
+    "category": "cuda-optimization",
+    "order": 15
+  },
+  {
+    "id": "aiinfra-guide-0ebbf8fd466b028f",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第7章-AI编译器.md",
+    "category": "cuda-optimization",
+    "order": 16
+  },
+  {
+    "id": "aiinfra-guide-064ea7e3a78ce2be",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第8章-性能分析工具链.md",
+    "category": "cuda-optimization",
+    "order": 17
+  },
+  {
+    "id": "aiinfra-guide-5a4442ccbbb8ee66",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/CUDA编程入门指南.md",
+    "category": "cuda-optimization",
+    "order": 0
+  },
+  {
+    "id": "aiinfra-guide-3b104677ecc6b9f9",
+    "sourcePath": "docs/guides/模块三-分布式训练/1.1 分布式训练总论.md",
+    "category": "distributed-training",
+    "order": 101,
+    "chapter": 1
+  },
+  {
+    "id": "aiinfra-guide-02aa2f02b41f11c4",
+    "sourcePath": "docs/guides/模块三-分布式训练/1.2 环境搭建与分布式启动.md",
+    "category": "distributed-training",
+    "order": 102,
+    "chapter": 1
+  },
+  {
+    "id": "aiinfra-guide-dbf7cc7e83039495",
+    "sourcePath": "docs/guides/模块三-分布式训练/2.1 集合通信原语详解.md",
+    "category": "distributed-training",
+    "order": 201,
+    "chapter": 2
+  },
+  {
+    "id": "aiinfra-guide-75295f91b48c5077",
+    "sourcePath": "docs/guides/模块三-分布式训练/3.1 优化器原理与显存开销分析.md",
+    "category": "distributed-training",
+    "order": 301,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-86a8cd5f81e25e85",
+    "sourcePath": "docs/guides/模块三-分布式训练/4.1 数据并行详解.md",
+    "category": "distributed-training",
+    "order": 401,
+    "chapter": 4
+  },
+  {
+    "id": "aiinfra-guide-309996474ee3146a",
+    "sourcePath": "docs/guides/模块三-分布式训练/4.2 PyTorch 数据并行从原理到实战.md",
+    "category": "distributed-training",
+    "order": 402,
+    "chapter": 4
+  },
+  {
+    "id": "aiinfra-guide-c1be018fba7dae8d",
+    "sourcePath": "docs/guides/模块三-分布式训练/第10章-MoE并行.md",
+    "category": "distributed-training",
+    "order": 19
+  },
+  {
+    "id": "aiinfra-guide-3109a2178cd6c105",
+    "sourcePath": "docs/guides/模块三-分布式训练/第11章-3D并行与混合并行策略.md",
+    "category": "distributed-training",
+    "order": 20
+  },
+  {
+    "id": "aiinfra-guide-dbc5a207de4235ec",
+    "sourcePath": "docs/guides/模块三-分布式训练/第1章-分布式训练总论.md",
+    "category": "distributed-training",
+    "order": 10
+  },
+  {
+    "id": "aiinfra-guide-9ca0abf1167948aa",
+    "sourcePath": "docs/guides/模块三-分布式训练/第2章-集合通信原语.md",
+    "category": "distributed-training",
+    "order": 11
+  },
+  {
+    "id": "aiinfra-guide-916f84b7799c00ce",
+    "sourcePath": "docs/guides/模块三-分布式训练/第3章-优化器.md",
+    "category": "distributed-training",
+    "order": 12
+  },
+  {
+    "id": "aiinfra-guide-cdc72e9b5b44ea12",
+    "sourcePath": "docs/guides/模块三-分布式训练/第4章-数据并行.md",
+    "category": "distributed-training",
+    "order": 13
+  },
+  {
+    "id": "aiinfra-guide-f5937186e5c670a4",
+    "sourcePath": "docs/guides/模块三-分布式训练/第5章-ZeRO系列.md",
+    "category": "distributed-training",
+    "order": 14
+  },
+  {
+    "id": "aiinfra-guide-83b4d1e12cd78b0f",
+    "sourcePath": "docs/guides/模块三-分布式训练/第6章-张量并行与序列并行.md",
+    "category": "distributed-training",
+    "order": 15
+  },
+  {
+    "id": "aiinfra-guide-69893ec55dd32d6c",
+    "sourcePath": "docs/guides/模块三-分布式训练/第7章-流水线并行.md",
+    "category": "distributed-training",
+    "order": 16
+  },
+  {
+    "id": "aiinfra-guide-e6638035b049d6d0",
+    "sourcePath": "docs/guides/模块三-分布式训练/第8章-混合精度与显存优化.md",
+    "category": "distributed-training",
+    "order": 17
+  },
+  {
+    "id": "aiinfra-guide-9bf99975fb280a9a",
+    "sourcePath": "docs/guides/模块三-分布式训练/第9章-长序列训练与上下文并行.md",
+    "category": "distributed-training",
+    "order": 18
+  },
+  {
+    "id": "aiinfra-guide-cd16f93f214d33dd",
+    "sourcePath": "docs/guides/模块四-推理优化/第10章-生产部署与运维.md",
+    "category": "inference-optimization",
+    "order": 39
+  },
+  {
+    "id": "aiinfra-guide-a90a2ea9cffebb9a",
+    "sourcePath": "docs/guides/模块四-推理优化/第11章-推理优化选型与端到端实战.md",
+    "category": "inference-optimization",
+    "order": 40
+  },
+  {
+    "id": "aiinfra-guide-4d726573bc20f994",
+    "sourcePath": "docs/guides/模块四-推理优化/第12章-端侧推理.md",
+    "category": "inference-optimization",
+    "order": 41
+  },
+  {
+    "id": "aiinfra-guide-171c911cb240dd4a",
+    "sourcePath": "docs/guides/模块四-推理优化/第12章-端侧推理/12.1-端侧推理基础.md",
+    "category": "inference-optimization",
+    "order": 1201,
+    "chapter": 12
+  },
+  {
+    "id": "aiinfra-guide-f0eface59cad74d2",
+    "sourcePath": "docs/guides/模块四-推理优化/第1章-LLM推理基础/1.1-LLM推理基础.md",
+    "category": "inference-optimization",
+    "order": 101,
+    "chapter": 1
+  },
+  {
+    "id": "aiinfra-guide-4394577e5c02ac38",
+    "sourcePath": "docs/guides/模块四-推理优化/第1章-LLM推理基础/第1章-LLM推理基础.md",
+    "category": "inference-optimization",
+    "order": 30
+  },
+  {
+    "id": "aiinfra-guide-a11e8dcbd510f4ee",
+    "sourcePath": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.1-PagedAttention.md",
+    "category": "inference-optimization",
+    "order": 201,
+    "chapter": 2
+  },
+  {
+    "id": "aiinfra-guide-90898ad09563dd17",
+    "sourcePath": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.2-Continuous Batching.md",
+    "category": "inference-optimization",
+    "order": 202,
+    "chapter": 2
+  },
+  {
+    "id": "aiinfra-guide-9e640615563bd93f",
+    "sourcePath": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.3-Prefix Cache 与 RadixAttention.md",
+    "category": "inference-optimization",
+    "order": 203,
+    "chapter": 2
+  },
+  {
+    "id": "aiinfra-guide-09912231fb0cca75",
+    "sourcePath": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.4-Chunked Prefill 与统一调度.md",
+    "category": "inference-optimization",
+    "order": 204,
+    "chapter": 2
+  },
+  {
+    "id": "aiinfra-guide-05fe47c72d61feb8",
+    "sourcePath": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.5-Attention 后端与图优化.md",
+    "category": "inference-optimization",
+    "order": 205,
+    "chapter": 2
+  },
+  {
+    "id": "aiinfra-guide-dc2d1eeaa91368de",
+    "sourcePath": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/第2章-推理引擎核心技术.md",
+    "category": "inference-optimization",
+    "order": 31
+  },
+  {
+    "id": "aiinfra-guide-712f07a1d1f50185",
+    "sourcePath": "docs/guides/模块四-推理优化/第3章-深入vLLM/第3章-深入vLLM.md",
+    "category": "inference-optimization",
+    "order": 32
+  },
+  {
+    "id": "aiinfra-guide-9136f9066c80dd2b",
+    "sourcePath": "docs/guides/模块四-推理优化/第3章-深入vLLM/vllm快速入门.md",
+    "category": "inference-optimization",
+    "order": 1,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-22b1f1e392b2da83",
+    "sourcePath": "docs/guides/模块四-推理优化/第4章-量化.md",
+    "category": "inference-optimization",
+    "order": 33
+  },
+  {
+    "id": "aiinfra-guide-e9f43f168b250a35",
+    "sourcePath": "docs/guides/模块四-推理优化/第5章-Speculative-Decoding.md",
+    "category": "inference-optimization",
+    "order": 34
+  },
+  {
+    "id": "aiinfra-guide-d3794c6a90b371a8",
+    "sourcePath": "docs/guides/模块四-推理优化/第6章-分布式推理.md",
+    "category": "inference-optimization",
+    "order": 35
+  },
+  {
+    "id": "aiinfra-guide-cca3ca4a454b0dd0",
+    "sourcePath": "docs/guides/模块四-推理优化/第7章-PD解耦架构.md",
+    "category": "inference-optimization",
+    "order": 36
+  },
+  {
+    "id": "aiinfra-guide-6d2dca9f35f04ed2",
+    "sourcePath": "docs/guides/模块四-推理优化/第8章-生产级服务特性.md",
+    "category": "inference-optimization",
+    "order": 37
+  },
+  {
+    "id": "aiinfra-guide-b188bdba46c4669f",
+    "sourcePath": "docs/guides/模块四-推理优化/第9章-性能分析与Benchmark.md",
+    "category": "inference-optimization",
+    "order": 38
+  },
+  {
+    "id": "aiinfra-guide-bf08fe797a94bda6",
+    "sourcePath": "docs/guides/模块一-前置知识/第1章-编程语言基础.md",
+    "category": "prerequisites",
+    "order": 1
+  },
+  {
+    "id": "aiinfra-guide-a2f11c9bbc82d504",
+    "sourcePath": "docs/guides/模块一-前置知识/第2章-数学基础.md",
+    "category": "prerequisites",
+    "order": 2
+  },
+  {
+    "id": "aiinfra-guide-cc408d5cb153a180",
+    "sourcePath": "docs/guides/模块一-前置知识/第3章-Transformer架构详解.md",
+    "category": "prerequisites",
+    "order": 301,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-1ceb81b628a5c29d",
+    "sourcePath": "docs/guides/模块一-前置知识/第4章-PyTorch框架.md",
+    "category": "prerequisites",
+    "order": 4
+  },
+  {
+    "id": "aiinfra-guide-79a6f14b1e1f3916",
+    "sourcePath": "docs/guides/模块一-前置知识/第5章-GPU硬件概论.md",
+    "category": "prerequisites",
+    "order": 5
+  },
+  {
+    "id": "aiinfra-guide-3e92cabaaa4ab6c9",
+    "sourcePath": "docs/guides/模块一-前置知识/第6章-集合通信基础.md",
+    "category": "prerequisites",
+    "order": 6
+  },
+  {
+    "id": "aiinfra-guide-f3b62304efd09fbb",
+    "sourcePath": "docs/guides/模块一-前置知识/communication/collective-communication-primer.md",
+    "category": "prerequisites",
+    "order": 600,
+    "chapter": 6
+  },
+  {
+    "id": "aiinfra-guide-3d7fd2516bf71971",
+    "sourcePath": "docs/guides/模块一-前置知识/gpu/gpu-basics.md",
+    "category": "prerequisites",
+    "order": 500,
+    "chapter": 5
+  },
+  {
+    "id": "aiinfra-guide-76eb7c6696b0c573",
+    "sourcePath": "docs/guides/模块一-前置知识/gpu/nvidia-gpu-evolution.md",
+    "category": "prerequisites",
+    "order": 501,
+    "chapter": 5
+  },
+  {
+    "id": "aiinfra-guide-6b76589b9952fa4f",
+    "sourcePath": "docs/guides/模块一-前置知识/pyroch/PyTorch框架入门.md",
+    "category": "prerequisites",
+    "order": 400,
+    "chapter": 4
+  },
+  {
+    "id": "aiinfra-guide-57a12359e18c0eed",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.1 AI Infra工程师为什么必须懂Transformer.md",
+    "category": "prerequisites",
+    "order": 303,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-d949c63815a3183d",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.2 Transformer全貌及代码实现.md",
+    "category": "prerequisites",
+    "order": 304,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-5328322073d0c2f3",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.3 Self-Attention机制深入理解.md",
+    "category": "prerequisites",
+    "order": 305,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-8922413ce246bd71",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.4 Transformer前馈网络FFN深入理解.md",
+    "category": "prerequisites",
+    "order": 306,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-c732a9479b9933b6",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.5 Transformer位置编码深入理解.md",
+    "category": "prerequisites",
+    "order": 307,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-09d48d37033129c9",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.6 LayerNorm与残差连接深入理解.md",
+    "category": "prerequisites",
+    "order": 308,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-a5865c19672660ac",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.7 Transformer Decoder Block完整解析.md",
+    "category": "prerequisites",
+    "order": 309,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-6a491f1a225ce1da",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.8 从Transformer到LLM自回归生成深入理解.md",
+    "category": "prerequisites",
+    "order": 310,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-bc9237c2c72b1d2b",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.9 Tokenization与词嵌入.md",
+    "category": "prerequisites",
+    "order": 311,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-cf55775eeac383aa",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/Transformer架构快速入门.md",
+    "category": "prerequisites",
+    "order": 302,
+    "chapter": 3
+  },
+  {
+    "id": "aiinfra-guide-9cd4fb51a163122a",
+    "sourcePath": "docs/guides/AI Infra学习路线.md",
+    "category": "learning-path",
+    "order": 1
+  }
+]

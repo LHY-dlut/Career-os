@@ -1,13 +1,14 @@
 import { useData } from './DataProvider';
 import type { CollectionName, EntityMap, Mutation } from '../repositories/contracts';
-import type { InterviewQuestion, Question, ReviewRating } from '../types';
+import type { InterviewQuestion, Question, ReviewRating, CodingAttempt, CodingDraft } from '../types';
+import { trainingMutations, type WorkspaceTask } from '../services/trainingWorkspace';
 import { calculateNextReview } from '../utils/reviewScheduler';
 import { generateId } from '../utils/id';
 import { createStudyData } from '../repositories/local';
 import { useAuth } from './AuthProvider';
 
 export function useWorkspaceActions() {
-  const { data, commit } = useData();
+  const { data, generation, commit } = useData();
   const { user } = useAuth();
   const save = <K extends CollectionName>(collection: K, value: EntityMap[K]) => commit([{ collection, value } as Mutation]);
   const remove = async (collection: CollectionName, id: string) => {
@@ -39,5 +40,9 @@ export function useWorkspaceActions() {
     const changes = (['articles', 'questions', 'codingProblems'] as const).flatMap(collection => starter[collection].map(value => ({ collection, value } as Mutation)));
     await commit(changes);
   };
-  return { save, remove, recordReview, promoteQuestion, loadStarter };
+  const saveTraining = async (task: WorkspaceTask, draft: CodingDraft, attempt?: Omit<CodingAttempt, 'problemId' | 'userId' | 'problemTitle'>) => {
+    const changes = await trainingMutations(user?.uid || 'guest', task, data.codingProblems, draft, attempt);
+    await commit(changes, generation);
+  };
+  return { save, remove, recordReview, promoteQuestion, loadStarter, saveTraining };
 }

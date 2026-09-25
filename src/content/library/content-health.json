@@ -1,0 +1,1089 @@
+[
+  {
+    "id": "aiinfra-guide-ffa4ba1ba3a30f90",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. GPU 驱动与 CUDA Toolkit 的关系、2. 安装 NVIDIA 驱动、3. 安装 CUDA Toolkit等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/1.1-CUDA开发环境搭建.md"
+  },
+  {
+    "id": "aiinfra-guide-b63c2855eb476f26",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 异构计算模型概览、2. Grid/Block/Thread 三级线程层次、3. 线程索引计算等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/1.2-CUDA编程模型.md"
+  },
+  {
+    "id": "aiinfra-guide-2384f3d79864e234",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 为什么内存模型如此重要、2. 内存层次总览、3. 全局内存等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/1.3-CUDA内存模型.md"
+  },
+  {
+    "id": "aiinfra-guide-38a3659b2c74399f",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 从 CPU 到 GPU：一个完整的开发流程、2. 向量加法 Kernel 实现、3. 主机端完整代码等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/1.4-第一个实用Kernel.md"
+  },
+  {
+    "id": "aiinfra-guide-53190fc47b5acfc1",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 从硬件视角认识 Warp、2. SIMT 执行模型、3. Warp Divergence：分支的代价等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/2.1-Warp与执行模型.md"
+  },
+  {
+    "id": "aiinfra-guide-8713bd12e9b3f1f0",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 为什么内存访问是性能瓶颈、2. 全局内存与合并访问、3. 共享内存与 Bank Conflict等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/2.2-内存访问优化.md"
+  },
+  {
+    "id": "aiinfra-guide-070ffcd06377bde4",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. Occupancy 是什么、2. SM 的资源清单、3. 影响 Occupancy 的三大因素等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/2.3-Occupancy与资源分配.md"
+  },
+  {
+    "id": "aiinfra-guide-36ab5ec72a001b7c",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 为什么并行需要同步、2. Block 内同步：__syncthreads()、3. Warp 级同步等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/2.4-同步与原子操作.md"
+  },
+  {
+    "id": "aiinfra-guide-8a0a068ef51c6e70",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. Reduce 算子基础、2. 版本 V0：朴素并行规约、3. 版本 V1：消除 Warp Divergence等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/3.1-CUDA Reduce算子优化.md"
+  },
+  {
+    "id": "aiinfra-guide-d38c5461511d45a9",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 背景与问题定义、2. 性能分析方法论、3. 朴素实现：建立 Baseline等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/4.1-CUDA GEMM算子性能优化.md"
+  },
+  {
+    "id": "aiinfra-guide-f50052476560609c",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. Softmax 基础与数值问题、2. 版本 V0：朴素实现（单线程处理一行）、3. 版本 V1：Safe Softmax 三遍扫描等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/5.1-CUDA Softmax朴素实现优化.md"
+  },
+  {
+    "id": "aiinfra-guide-c212d16cb8f6b4bf",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 为什么需要 Online Softmax、2. Online Softmax 算法推导、3. 版本 V0：单线程 Online Softmax等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/5.2-CUDA Online Softmax实现.md"
+  },
+  {
+    "id": "aiinfra-guide-b897c843c1fd7319",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 标准 Attention 的性能瓶颈、2. FlashAttention 核心思想、3. Online Softmax 算法等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/6.1-FlashAttention V1详解.md"
+  },
+  {
+    "id": "aiinfra-guide-ef4b7c44988c470d",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. V1 的性能瓶颈回顾、2. 核心改进一：调换循环顺序、3. 核心改进二：减少非矩阵乘运算等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/6.2-FlashAttention V2详解.md"
+  },
+  {
+    "id": "aiinfra-guide-4d2bc34f575f803c",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第1章-CUDA编程入门.md"
+  },
+  {
+    "id": "aiinfra-guide-6c777c53f467c01a",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第2章-CUDA性能优化基础.md"
+  },
+  {
+    "id": "aiinfra-guide-13e4d6e802bd89bb",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第3章-经典算子实现-Reduce.md"
+  },
+  {
+    "id": "aiinfra-guide-d410b3983ec48653",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第4章-经典算子实现-GEMM.md"
+  },
+  {
+    "id": "aiinfra-guide-95295bdb7484b12a",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第5章-经典算子实现-Softmax与算子融合.md"
+  },
+  {
+    "id": "aiinfra-guide-1c62418efb0e0b12",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第6章-Attention算子.md"
+  },
+  {
+    "id": "aiinfra-guide-0ebbf8fd466b028f",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第7章-AI编译器.md"
+  },
+  {
+    "id": "aiinfra-guide-064ea7e3a78ce2be",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/第8章-性能分析工具链.md"
+  },
+  {
+    "id": "aiinfra-guide-5a4442ccbbb8ee66",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 环境配置、2. CUDA 编程模型、3. 内存模型等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块二-CUDA编程与算子优化/CUDA编程入门指南.md"
+  },
+  {
+    "id": "aiinfra-guide-3b104677ecc6b9f9",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 为什么需要分布式训练：装不下与跑不完、2. 训练显存账本：手算一遍就懂、3. 五大并行策略全景等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块三-分布式训练/1.1 分布式训练总论.md"
+  },
+  {
+    "id": "aiinfra-guide-02aa2f02b41f11c4",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 从单卡到多机：三种规模与硬件拓扑、2. 进程模型：为什么是\"一卡一进程\"、3. 核心概念：rank / local_rank / world_size等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块三-分布式训练/1.2 环境搭建与分布式启动.md"
+  },
+  {
+    "id": "aiinfra-guide-dbf7cc7e83039495",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 为什么要单独讲通信原语、2. 点对点通信：一切的基础、3. 集合通信原语详解等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块三-分布式训练/2.1 集合通信原语详解.md"
+  },
+  {
+    "id": "aiinfra-guide-75295f91b48c5077",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 优化器到底在训练里干什么、2. 优化器演进：从 SGD 到 AdamW、3. 优化器状态的显存开销等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块三-分布式训练/3.1 优化器原理与显存开销分析.md"
+  },
+  {
+    "id": "aiinfra-guide-86a8cd5f81e25e85",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 数据并行要解决什么问题、2. 数据并行的数学基础、3. 第一代：DataParallel（DP）等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块三-分布式训练/4.1 数据并行详解.md"
+  },
+  {
+    "id": "aiinfra-guide-309996474ee3146a",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. PyTorch 分布式通信基础、2. DDP：数据并行的标准方案、3. FSDP：参数分片的显存优化方案等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块三-分布式训练/4.2 PyTorch 数据并行从原理到实战.md"
+  },
+  {
+    "id": "aiinfra-guide-c1be018fba7dae8d",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以📖 本章概述、📑 章节结构、🎯 本章学习目标组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块三-分布式训练/第10章-MoE并行.md"
+  },
+  {
+    "id": "aiinfra-guide-3109a2178cd6c105",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以📖 本章概述、📑 章节结构、🎯 本章学习目标组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块三-分布式训练/第11章-3D并行与混合并行策略.md"
+  },
+  {
+    "id": "aiinfra-guide-dbc5a207de4235ec",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以📖 本章概述、📑 章节结构、🎯 本章学习目标组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块三-分布式训练/第1章-分布式训练总论.md"
+  },
+  {
+    "id": "aiinfra-guide-9ca0abf1167948aa",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以📖 本章概述、📑 章节结构、🎯 本章学习目标组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块三-分布式训练/第2章-集合通信原语.md"
+  },
+  {
+    "id": "aiinfra-guide-916f84b7799c00ce",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以📖 本章概述、📑 章节结构、🎯 本章学习目标组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块三-分布式训练/第3章-优化器.md"
+  },
+  {
+    "id": "aiinfra-guide-cdc72e9b5b44ea12",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以📖 本章概述、📑 章节结构、🎯 本章学习目标组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块三-分布式训练/第4章-数据并行.md"
+  },
+  {
+    "id": "aiinfra-guide-f5937186e5c670a4",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以📖 本章概述、📑 章节结构、🎯 本章学习目标组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块三-分布式训练/第5章-ZeRO系列.md"
+  },
+  {
+    "id": "aiinfra-guide-83b4d1e12cd78b0f",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以📖 本章概述、📑 章节结构、🎯 本章学习目标组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块三-分布式训练/第6章-张量并行与序列并行.md"
+  },
+  {
+    "id": "aiinfra-guide-69893ec55dd32d6c",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以📖 本章概述、📑 章节结构、🎯 本章学习目标组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块三-分布式训练/第7章-流水线并行.md"
+  },
+  {
+    "id": "aiinfra-guide-e6638035b049d6d0",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以📖 本章概述、📑 章节结构、🎯 本章学习目标组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块三-分布式训练/第8章-混合精度与显存优化.md"
+  },
+  {
+    "id": "aiinfra-guide-9bf99975fb280a9a",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以📖 本章概述、📑 章节结构、🎯 本章学习目标组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块三-分布式训练/第9章-长序列训练与上下文并行.md"
+  },
+  {
+    "id": "aiinfra-guide-cd16f93f214d33dd",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介、本章小节组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块四-推理优化/第10章-生产部署与运维.md"
+  },
+  {
+    "id": "aiinfra-guide-a90a2ea9cffebb9a",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介、本章小节组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块四-推理优化/第11章-推理优化选型与端到端实战.md"
+  },
+  {
+    "id": "aiinfra-guide-4d726573bc20f994",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介、本章小节组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块四-推理优化/第12章-端侧推理.md"
+  },
+  {
+    "id": "aiinfra-guide-171c911cb240dd4a",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 什么是端侧推理、2. 端侧设备的四类约束、3. 从模型到 App 的完整链路等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块四-推理优化/第12章-端侧推理/12.1-端侧推理基础.md"
+  },
+  {
+    "id": "aiinfra-guide-f0eface59cad74d2",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 自回归生成：Prefill 与 Decode 两阶段、2. KV Cache：用显存换计算、3. 关键性能指标：如何衡量\"快\"等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块四-推理优化/第1章-LLM推理基础/1.1-LLM推理基础.md"
+  },
+  {
+    "id": "aiinfra-guide-4394577e5c02ac38",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介、本章小节组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块四-推理优化/第1章-LLM推理基础/第1章-LLM推理基础.md"
+  },
+  {
+    "id": "aiinfra-guide-a11e8dcbd510f4ee",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 问题回顾：连续分配的两宗罪、2. 核心思想：借鉴操作系统的虚拟内存分页、3. Block Table：逻辑块到物理块的映射等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.1-PagedAttention.md"
+  },
+  {
+    "id": "aiinfra-guide-90898ad09563dd17",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 为什么要批处理、2. Static Batching 的致命短板、3. Continuous Batching：迭代级调度等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.2-Continuous Batching.md"
+  },
+  {
+    "id": "aiinfra-guide-9e640615563bd93f",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 重复的前缀有多浪费、2. 复用的物理基础：块级 KV 共享、3. vLLM 的 Automatic Prefix Caching等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.3-Prefix Cache 与 RadixAttention.md"
+  },
+  {
+    "id": "aiinfra-guide-09912231fb0cca75",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. Prefill 是怎么拖慢 Decode 的、2. Chunked Prefill：把长 Prefill 切块、3. Token Budget：调度的统一货币等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.4-Chunked Prefill 与统一调度.md"
+  },
+  {
+    "id": "aiinfra-guide-05fe47c72d61feb8",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 一个反直觉的瓶颈：CPU 拖了 GPU 的后腿、2. 可插拔的 Attention 后端、3. 后端如何处理 Prefill/Decode 混合批次等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/2.5-Attention 后端与图优化.md"
+  },
+  {
+    "id": "aiinfra-guide-dc2d1eeaa91368de",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介、本章小节组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块四-推理优化/第2章-推理引擎核心技术/第2章-推理引擎核心技术.md"
+  },
+  {
+    "id": "aiinfra-guide-712f07a1d1f50185",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介、本章小节组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块四-推理优化/第3章-深入vLLM/第3章-深入vLLM.md"
+  },
+  {
+    "id": "aiinfra-guide-9136f9066c80dd2b",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 什么是 vLLM、2. 核心原理：PagedAttention、3. 安装与环境准备等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块四-推理优化/第3章-深入vLLM/vllm快速入门.md"
+  },
+  {
+    "id": "aiinfra-guide-22b1f1e392b2da83",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介、本章小节组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块四-推理优化/第4章-量化.md"
+  },
+  {
+    "id": "aiinfra-guide-e9f43f168b250a35",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介、本章小节组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块四-推理优化/第5章-Speculative-Decoding.md"
+  },
+  {
+    "id": "aiinfra-guide-d3794c6a90b371a8",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介、本章小节组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块四-推理优化/第6章-分布式推理.md"
+  },
+  {
+    "id": "aiinfra-guide-cca3ca4a454b0dd0",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介、本章小节组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块四-推理优化/第7章-PD解耦架构.md"
+  },
+  {
+    "id": "aiinfra-guide-6d2dca9f35f04ed2",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介、本章小节组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块四-推理优化/第8章-生产级服务特性.md"
+  },
+  {
+    "id": "aiinfra-guide-b188bdba46c4669f",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介、本章小节组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块四-推理优化/第9章-性能分析与Benchmark.md"
+  },
+  {
+    "id": "aiinfra-guide-bf08fe797a94bda6",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 学习目标与开发全景、2. Python：从脚本到工程、3. Python 并发与性能分析等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/第1章-编程语言基础.md"
+  },
+  {
+    "id": "aiinfra-guide-a2f11c9bbc82d504",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 学习目标、符号与三类问题、2. 线性代数：张量、变换与分解、3. 分块矩阵与 GEMM 工程直觉等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/第2章-数学基础.md"
+  },
+  {
+    "id": "aiinfra-guide-cc408d5cb153a180",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块一-前置知识/第3章-Transformer架构详解.md"
+  },
+  {
+    "id": "aiinfra-guide-1ceb81b628a5c29d",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块一-前置知识/第4章-PyTorch框架.md"
+  },
+  {
+    "id": "aiinfra-guide-79a6f14b1e1f3916",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块一-前置知识/第5章-GPU硬件概论.md"
+  },
+  {
+    "id": "aiinfra-guide-3e92cabaaa4ab6c9",
+    "contentStatus": "outline",
+    "contentEvidence": "原文件以本章简介组织，内容列举待学要点与实验目标，未展开对应实验实现；保留提纲并连到已有详细小节。",
+    "sourcePath": "docs/guides/模块一-前置知识/第6章-集合通信基础.md"
+  },
+  {
+    "id": "aiinfra-guide-f3b62304efd09fbb",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 单机卡间通信：NVLink 与 NVSwitch、2. 多机间通信：InfiniBand 与 RoCE、3. 点对点通信：最基础的积木等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/communication/collective-communication-primer.md"
+  },
+  {
+    "id": "aiinfra-guide-3d7fd2516bf71971",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. CPU vs GPU：为什么深度学习选择了 GPU、2. GPU 硬件架构剖析、3. 显存层次与带宽等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/gpu/gpu-basics.md"
+  },
+  {
+    "id": "aiinfra-guide-76eb7c6696b0c573",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 为什么要了解 GPU 架构演进、2. 架构演进全景图、3. Volta 架构（2017）——AI 加速的开端等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/gpu/nvidia-gpu-evolution.md"
+  },
+  {
+    "id": "aiinfra-guide-6b76589b9952fa4f",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. Tensor：PyTorch 的基本数据单元、2. 自动微分（autograd）、3. nn.Module：模型的组织方式等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/pyroch/PyTorch框架入门.md"
+  },
+  {
+    "id": "aiinfra-guide-57a12359e18c0eed",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 什么是 AI Infra、2. Transformer 如何成为通用底座、3. AI Infra 各层级与 Transformer 模块的对应关系等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.1 AI Infra工程师为什么必须懂Transformer.md"
+  },
+  {
+    "id": "aiinfra-guide-d949c63815a3183d",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 为什么需要先看全貌、2. 原始 Transformer：Encoder-Decoder 架构、3. Encoder 内部结构详解等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.2 Transformer全貌及代码实现.md"
+  },
+  {
+    "id": "aiinfra-guide-5328322073d0c2f3",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. Attention 的历史演进、2. 从信息检索角度理解 QKV、3. Scaled Dot-Product Attention 详解等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.3 Self-Attention机制深入理解.md"
+  },
+  {
+    "id": "aiinfra-guide-8922413ce246bd71",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. FFN 在 Transformer 中的角色定位、2. FFN 的\"展开-压缩\"结构、3. 激活函数详解等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.4 Transformer前馈网络FFN深入理解.md"
+  },
+  {
+    "id": "aiinfra-guide-c732a9479b9933b6",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 为什么 Transformer 需要位置信息、2. 绝对位置编码 vs 相对位置编码、3. Sinusoidal 位置编码等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.5 Transformer位置编码深入理解.md"
+  },
+  {
+    "id": "aiinfra-guide-09d48d37033129c9",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 深度网络训练的根本挑战、2. 残差连接：梯度的高速公路、3. 归一化方法全景等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.6 LayerNorm与残差连接深入理解.md"
+  },
+  {
+    "id": "aiinfra-guide-a5865c19672660ac",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 架构选型：为什么 Decoder-only 成为主流、2. Decoder Block 完整数据流、3. Causal Mask：因果掩码详解等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.7 Transformer Decoder Block完整解析.md"
+  },
+  {
+    "id": "aiinfra-guide-6a491f1a225ce1da",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 语言模型的本质：预测下一个词、2. 自回归生成的工作机制、3. Token 采样策略等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.8 从Transformer到LLM自回归生成深入理解.md"
+  },
+  {
+    "id": "aiinfra-guide-bc9237c2c72b1d2b",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 为什么需要把文字变成向量、2. Tokenization：把文字切分成基本单元、3. 独热编码：第一次尝试的失败等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/3.9 Tokenization与词嵌入.md"
+  },
+  {
+    "id": "aiinfra-guide-cf55775eeac383aa",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的1. 为什么 AI Infra 工程师必须懂 Transformer、2. Transformer 网络结构全貌、3. Self-Attention 机制等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/模块一-前置知识/transformer/Transformer架构快速入门.md"
+  },
+  {
+    "id": "aiinfra-guide-9cd4fb51a163122a",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的🗺️ 全景概览：三层架构、📖 第零层：前置知识、💻 第一层：CUDA编程与算子优化等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/guides/AI Infra学习路线.md"
+  },
+  {
+    "id": "aris-ai-offer-3d-generation-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 三大表示的直觉对比、§2 NeRF：体渲染原理推导（必考）等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/3d_generation_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-3d-generation-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuitive comparison of the three representations、§2 NeRF: derivation of volume rendering (must-know)等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/3d_generation_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-agent-foundations-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Agent 的\"最小可玩\"心智模型、§2 ReAct：Reason + Act 的祖宗 prompt等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/agent_foundations_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-agent-foundations-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Minimal viable mental model of an agent、§2 ReAct: the ancestor prompt of Reason + Act等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/agent_foundations_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-agentic-rl-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉：从 RLHF 到 Agentic RL、§2 PPO / GRPO 在 agent 上的关键改造等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/agentic_rl_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-agentic-rl-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition: from RLHF to Agentic RL、§2 Key modifications PPO / GRPO need for agents等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/agentic_rl_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-attention-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Attention 直觉、§2 Scaled Dot-Product Attention等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/attention_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-attention-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Attention Intuition、§2 Scaled Dot-Product Attention等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/attention_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-diffusion-distillation-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉 & 为什么需要蒸馏、§2 Consistency Models 家族等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/diffusion_distillation_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-diffusion-distillation-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition & why distillation is needed、§2 Consistency Models family等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/diffusion_distillation_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-diffusion-foundations-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR、§1 直觉 & 三种视角、§2 DDPM Forward Process等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/diffusion_foundations_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-diffusion-foundations-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR、§1 Intuition & three views、§2 DDPM Forward Process等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/diffusion_foundations_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-diffusion-post-training-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR、§1 直觉：为何 diffusion post-training 难、§2 RL for Diffusion：DDPO 与 DPOK等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/diffusion_post_training_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-diffusion-post-training-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR、§1 Intuition: why diffusion post-training is hard、§2 RL for Diffusion: DDPO and DPOK等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/diffusion_post_training_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-distributed-training-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉 — 为什么模型大了一张卡装不下、§2 NCCL 通信原语与拓扑等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/distributed_training_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-distributed-training-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition — why one GPU cannot hold a large model、§2 NCCL communication primitives and topology等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/distributed_training_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-flow-matching-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR、§1 基本设定 & 直觉、§2 Flow Matching Loss等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/flow_matching_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-flow-matching-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR、§1 Basic setup and intuition、§2 Flow Matching Loss等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/flow_matching_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-image-generation-systems-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉与全景、§2 LDM 核心：VAE Compression + Latent Diffusion等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/image_generation_systems_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-image-generation-systems-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition and Big Picture、§2 LDM Core: VAE Compression + Latent Diffusion等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/image_generation_systems_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-kl-divergence-rlhf-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 KL 基础、§2 KL Estimators（k1 / k2 / k3）：面试核心等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/kl_divergence_rlhf_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-kl-divergence-rlhf-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 KL Fundamentals、§2 KL Estimators (k1 / k2 / k3): Interview Core等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/kl_divergence_rlhf_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-kv-cache-speculative-decoding-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉、§2 KV Cache 显存核算等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/kv_cache_speculative_decoding_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-kv-cache-speculative-decoding-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition、§2 KV Cache Memory Accounting等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/kv_cache_speculative_decoding_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-linear-sparse-attention-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉：softmax 注意力的二次瓶颈与三条逃逸路线、§2 线性注意力等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/linear_sparse_attention_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-linear-sparse-attention-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition: softmax attention's quadratic bottleneck and three escape routes、§2 Linear attention等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/linear_sparse_attention_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-llm-evaluation-benchmarking-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 评价决策表 + TL;DR Cheat Sheet、§1 Evaluation Contract 与复现协议、§2 Metrics 与 Evaluator Ladder等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/llm_evaluation_benchmarking_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-llm-evaluation-benchmarking-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 Evaluation Decision Table + TL;DR Cheat Sheet、§1 Evaluation Contract and Reproducibility Protocol、§2 Metrics and the Evaluator Ladder等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/llm_evaluation_benchmarking_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-llm-inference-serving-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 请求状态机 + TL;DR Cheat Sheet、§1 请求状态机：从 HTTP 到 token stream、§2 Serving 指标、SLO 与 Prefill/Decode Roofline等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/llm_inference_serving_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-llm-inference-serving-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 The Request State Machine + TL;DR Cheat Sheet、§1 The Request State Machine: From HTTP to Token Stream、§2 Serving Metrics, SLOs, and the Prefill/Decode Roofline等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/llm_inference_serving_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-llm-opd-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉：为什么需要 On-Policy Distillation、§2 OPD 的精确定义与核心公式等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/llm_opd_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-llm-opd-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition: Why On-Policy Distillation Is Needed、§2 Precise Definition and Core Formula of OPD等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/llm_opd_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-llm-pretraining-pipeline-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 总览、§1 训练预算与 scaling law、§2 corpus factory：从网页快照到训练分片等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/llm_pretraining_pipeline_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-llm-pretraining-pipeline-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 Overview、§1 Training budget and scaling laws、§2 The corpus factory: from web snapshots to training shards等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/llm_pretraining_pipeline_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-long-context-rope-yarn-mla-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Long Context 为什么难 — 一段直觉、§2 RoPE — 旋转位置编码等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/long_context_rope_yarn_mla_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-long-context-rope-yarn-mla-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Why Long Context Is Hard — One-Paragraph Intuition、§2 RoPE — Rotary Position Embedding等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/long_context_rope_yarn_mla_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-lora-peft-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉：为什么需要 PEFT、§2 LoRA 核心公式与推导等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/lora_peft_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-lora-peft-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition: why we need PEFT、§2 LoRA core formula and derivation等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/lora_peft_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-modern-diffusion-post-training-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉：三条路的一句话、§2 Convention（全文统一）等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/modern_diffusion_post_training_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-modern-diffusion-post-training-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition: the three roads in one sentence each、§2 Convention (used throughout)等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/modern_diffusion_post_training_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-moe-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉：稀疏激活 = 用\"参数容量\"换\"计算量\"、§2 路由：从 Top-k Token-Choice 到 Expert Choice 到 Loss-Free等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/moe_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-moe-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition: Sparse Activation = Trading \"Compute\" for \"Parameter Capacity\"、§2 Routing: From Top-k Token-Choice to Expert Choice to Loss-Free等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/moe_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-multi-agent-long-horizon-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉：从 single LLM 到 agent system、§2 multi-agent 协作核心范式等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/multi_agent_long_horizon_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-multi-agent-long-horizon-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition: from single LLM to agent system、§2 Core multi-agent collaboration paradigms等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/multi_agent_long_horizon_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-normalization-init-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 为什么要归一化 + 残差、§2 BatchNorm等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/normalization_init_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-normalization-init-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Why normalize + residuals、§2 BatchNorm等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/normalization_init_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-optimizer-lr-schedule-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 为什么需要 SGD 之外的优化器、§2 SGD / Momentum / Nesterov等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/optimizer_lr_schedule_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-optimizer-lr-schedule-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Why we need optimizers beyond SGD、§2 SGD / Momentum / Nesterov等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/optimizer_lr_schedule_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-quantization-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉：为什么 LLM 需要量化、为什么这么难、§2 量化数学基础等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/quantization_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-quantization-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition: why LLMs need quantization, and why it's so hard、§2 Quantization Math Foundations等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/quantization_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-rag-embedding-retrieval-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉：为什么需要 RAG、§2 文本嵌入：双塔 + 对比学习等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/rag_embedding_retrieval_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-rag-embedding-retrieval-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition: why we need RAG、§2 Text embeddings: bi-encoder + contrastive learning等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/rag_embedding_retrieval_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-reasoning-models-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 为什么这是 2024-2026 最大范式转移、§2 CoT 演进：从 Wei 2022 到 o1等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/reasoning_models_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-reasoning-models-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Why This Is the Biggest Paradigm Shift of 2024-2026、§2 CoT Evolution: from Wei 2022 to o1等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/reasoning_models_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Post-Training Alignment 直觉、§2 PPO 核心等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/rlhf_dpo_grpo_ppo_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Post-Training Alignment Intuition、§2 PPO Core等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/rlhf_dpo_grpo_ppo_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-self-evolving-agents-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Self-Evolving Agent 直觉、§2 三种 Self-Evolution 范式的形式化等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/self_evolving_agents_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-self-evolving-agents-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Self-Evolving Agent Intuition、§2 Formalizing the Three Self-Evolution Paradigms等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/self_evolving_agents_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-tokenization-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 Pipeline 心智模型 + TL;DR Cheat Sheet、§1 为什么需要 subword + 怎么度量 tokenizer、§2 三大算法：BPE / WordPiece / Unigram等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/tokenization_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-tokenization-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 Pipeline Mental Model + TL;DR Cheat Sheet、§1 Why Subword + How to Measure a Tokenizer、§2 The Three Core Algorithms: BPE / WordPiece / Unigram等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/tokenization_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-transformer-block-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 Block 的基本组成、§1 一个现代 block：前向、参数与代码、§2 原始 encoder-decoder等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/transformer_block_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-transformer-block-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 The Basic Parts of a Block、§1 A Modern Block: Forward, Parameters, and Code、§2 The Original Encoder-Decoder等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/transformer_block_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-vae-vqvae-vqgan-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉：为什么要 latent variable model、§2 VAE：核心公式与推导等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/vae_vqvae_vqgan_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-vae-vqvae-vqgan-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition: Why Latent Variable Models、§2 VAE: Core Formulas and Derivations等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/vae_vqvae_vqgan_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-video-generation-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉与全景、§2 3D Causal VAE — 视频压缩的基石等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/video_generation_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-video-generation-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition and Landscape、§2 3D Causal VAE — the foundation of video compression等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/video_generation_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-vlm-multimodal-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 直觉：VLM 在做什么？、§2 ViT：把图像变 token 序列等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/vlm_multimodal_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-vlm-multimodal-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 Intuition: what is a VLM doing?、§2 ViT: turning an image into a token sequence等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/vlm_multimodal_tutorial_en.md"
+  },
+  {
+    "id": "aris-ai-offer-world-models-tutorial",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 一个问题，三条谱系、§2 Convention（全文统一）等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/world_models_tutorial.md"
+  },
+  {
+    "id": "aris-ai-offer-world-models-tutorial-en",
+    "contentStatus": "complete",
+    "contentEvidence": "已保留固定来源的§0 TL;DR Cheat Sheet、§1 One question, three lineages、§2 Convention (used throughout)等实质章节及具体代码示例；路径、源码Git blob与发布SHA另行逐项核对。",
+    "sourcePath": "docs/tutorials/world_models_tutorial_en.md"
+  },
+  {
+    "id": "kamacoder-overview",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-agent-basics",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-agent-loop",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-agent-graph",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-agent-harness",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-agent-production",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-agent-communication",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-agent-orchestration",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-agent-observability",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-agent-skills",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-agent-frameworks",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-agent-routing",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-agent-drift",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-agent-evidence",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-rag-basics",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-rag-quality",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-graph-rag",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-model-tuning",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-transformer",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-ai-coding",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-ai-coding-quality",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-claude-code",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-ai-dev-tools",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-spec-driven",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-code-search",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-context-window",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-interview-agent",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "kamacoder-interview-intern",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "labuladong-algorithm-summary",
+    "contentStatus": "external",
+    "contentEvidence": "目录仅有原站入口，无全文转载授权；没有本地Markdown路径。"
+  },
+  {
+    "id": "career-tensor-shapes",
+    "contentStatus": "original-complete",
+    "contentEvidence": "本站原创完整教学单元；含目标、先修、公式与 shape、独立 CPU 示例、边界条件、面试自检、训练与一手参考链接。",
+    "sourcePath": "public/library/career-tensor-shapes.md"
+  },
+  {
+    "id": "career-scaled-attention",
+    "contentStatus": "original-complete",
+    "contentEvidence": "本站原创完整教学单元；含目标、先修、公式与 shape、独立 CPU 示例、边界条件、面试自检、训练与一手参考链接。",
+    "sourcePath": "public/library/career-scaled-attention.md"
+  },
+  {
+    "id": "career-mha-masks",
+    "contentStatus": "original-complete",
+    "contentEvidence": "本站原创完整教学单元；含目标、先修、公式与 shape、独立 CPU 示例、边界条件、面试自检、训练与一手参考链接。",
+    "sourcePath": "public/library/career-mha-masks.md"
+  },
+  {
+    "id": "career-rope",
+    "contentStatus": "original-complete",
+    "contentEvidence": "本站原创完整教学单元；含目标、先修、公式与 shape、独立 CPU 示例、边界条件、面试自检、训练与一手参考链接。",
+    "sourcePath": "public/library/career-rope.md"
+  },
+  {
+    "id": "career-decoder-block",
+    "contentStatus": "original-complete",
+    "contentEvidence": "本站原创完整教学单元；含目标、先修、公式与 shape、独立 CPU 示例、边界条件、面试自检、训练与一手参考链接。",
+    "sourcePath": "public/library/career-decoder-block.md"
+  },
+  {
+    "id": "career-gqa-kv-cache",
+    "contentStatus": "original-complete",
+    "contentEvidence": "本站原创完整教学单元；含目标、先修、公式与 shape、独立 CPU 示例、边界条件、面试自检、训练与一手参考链接。",
+    "sourcePath": "public/library/career-gqa-kv-cache.md"
+  }
+]

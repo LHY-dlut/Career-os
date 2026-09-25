@@ -328,3 +328,107 @@ it('finds a Chinese library title in global search and opens its Chinese edition
   expect(await screen.findByText('正在阅读中文教程。')).toBeTruthy();
   expect(new URL(screen.getByTestId('location').textContent!, 'https://career.test').pathname).toBe(libraryPath(getLibraryResourceForLanguage(englishPair, libraryResources, 'zh').id));
 });
+
+it('opens the source course from a source filter, expands the current chapter and preserves context through next and back', async () => {
+  const id = 'aiinfra-guide-5328322073d0c2f3';
+  const successor = 'aiinfra-guide-8922413ce246bd71';
+  const courseUrl = '/library?view=source&source=aiinfra-guide';
+  openLibrary(courseUrl);
+  expect(screen.getByRole('group', { name: '资料浏览方式' })).toBeTruthy();
+  expect(within(screen.getByLabelText('资料列表')).getByRole('heading', { name: 'AI Infra 前置基础' })).toBeTruthy();
+  const target = within(screen.getByLabelText('资料列表')).getByRole('heading', { name: '3.3 Self-Attention机制深入理解' });
+  fireEvent.click(target.closest('a')!);
+  await screen.findByText('The published article is readable independently of personal notes.');
+  const url = new URL(screen.getByTestId('location').textContent!, 'https://career.test');
+  expect(url.pathname).toBe(libraryPath(id));
+  expect(url.searchParams.get('view')).toBe('source');
+  expect(url.searchParams.get('course')).toBe('source-aiinfra-guide');
+  const crumbs = screen.getByRole('navigation', { name: '资料路径' });
+  expect(crumbs.textContent).toContain('AI Infra 前置基础');
+  expect(crumbs.textContent).toContain('第3章：AI Infra工程师学Transformer');
+  const tree = screen.getAllByRole('navigation', { name: '来源文档导航' })[0];
+  expect(within(tree).getByRole('button', { name: '收起第3章：AI Infra工程师学Transformer' }).getAttribute('aria-expanded')).toBe('true');
+  expect(within(tree).getByRole('link', { name: '3.3 Self-Attention机制深入理解' }).getAttribute('aria-current')).toBe('page');
+  const next = within(screen.getByRole('navigation', { name: '课程上下篇' })).getByRole('link', { name: /下一篇/ });
+  expect(next.getAttribute('href')).toContain(successor);
+  expect(next.getAttribute('href')).toContain('course=source-aiinfra-guide');
+  fireEvent.click(next);
+  await waitFor(() => expect(screen.getByTestId('location').textContent).toContain(successor));
+  fireEvent.click(screen.getByRole('button', { name: 'Browser back' }));
+  await waitFor(() => expect(screen.getByTestId('location').textContent).toContain(id));
+});
+
+it('keeps full course ancestry for a filtered detailed article and restores the filter after reading', async () => {
+  openLibrary('/library?view=source&source=aiinfra-guide&q=Self-Attention&lang=zh');
+  const list = screen.getByLabelText('资料列表');
+  expect(within(list).getAllByRole('link')).toHaveLength(1);
+  expect(within(list).getByRole('heading', { name: '第3章：AI Infra工程师学Transformer' })).toBeTruthy();
+  const before = screen.getByTestId('location').textContent;
+  fireEvent.click(within(list).getByRole('link'));
+  await screen.findByText('The published article is readable independently of personal notes.');
+  expect(screen.getByTestId('location').textContent).toContain('q=Self-Attention');
+  fireEvent.click(screen.getByRole('button', { name: 'Browser back' }));
+  await waitFor(() => expect(screen.getByTestId('location').textContent).toBe(before));
+  expect((screen.getByRole('textbox', { name: '搜索学习资料' }) as HTMLInputElement).value).toBe('Self-Attention');
+});
+
+it('marks an upstream outline clearly and keeps deeper article headings collapsed until their anchor is selected', async () => {
+  const markdown = '## Chapter scope\n\nA chapter introduction.\n\n### Core idea\n\nRead this section.\n\n#### Implementation detail\n\nDeep explanation.';
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(markdown)));
+  openLibrary('/library/aiinfra-guide-cc408d5cb153a180?view=source');
+  await screen.findByText('A chapter introduction.');
+  expect(screen.getByRole('region', { name: '提纲说明' }).textContent).toContain('原作者这页本身只介绍章节范围');
+  const contents = screen.getAllByRole('navigation', { name: '资料章节目录' })[0];
+  const deepLink = within(contents).getByRole('link', { name: 'Implementation detail', hidden: true });
+  const details = deepLink.closest('details')!;
+  expect(details.open).toBe(false);
+  fireEvent.click(deepLink);
+  await waitFor(() => expect(details.open).toBe(true));
+  expect(screen.getByTestId('location').textContent).toContain('heading-implementation-detail');
+  expect(screen.getByTestId('location').textContent).toContain('view=source');
+});
+
+it('offers real related training and saved interview questions without synthesizing or saving workspace records', async () => {
+  const now = new Date().toISOString();
+  workspace.data.questions = [{ id: 'my-attention-question', userId: 'guest', title: '我的注意力复盘问题', category: 'Transformer', difficulty: 'Medium', tags: [], conciseAnswer: '已写答案', detailedAnswer: '', followUps: [], masteryLevel: 'Learning', intervalDays: 1, reviewCount: 0, createdAt: now, updatedAt: now }];
+  openLibrary('/library/aiinfra-guide-5328322073d0c2f3');
+  await screen.findByText('The published article is readable independently of personal notes.');
+  const practice = screen.getByRole('region', { name: '本节关联练习' });
+  expect(within(practice).getByRole('link', { name: '缩放点积注意力' }).getAttribute('href')).toBe('/coding/torch-attention?track=pytorch');
+  expect(within(practice).getByRole('link', { name: '我的注意力复盘问题' }).getAttribute('href')).toBe('/questions/my-attention-question');
+  expect(workspace.save).not.toHaveBeenCalled();
+});
+
+it('remembers only the last reading location on this device and restores its course and anchor', async () => {
+  const route = `${libraryPath(article.id)}?view=source&course=source-aiinfra-guide&lang=zh#heading-test-learning-section`;
+  openLibrary(route);
+  await screen.findByText('The published article is readable independently of personal notes.');
+  await waitFor(() => expect(localStorage.getItem('ai_career_os:guest:library:last-read')).toContain(article.id));
+  const saved = JSON.parse(localStorage.getItem('ai_career_os:guest:library:last-read')!);
+  expect(Object.keys(saved).sort()).toEqual(['id', 'search']);
+  cleanup();
+  openLibrary();
+  const resume = screen.getByRole('link', { name: new RegExp('继续本机阅读') });
+  expect(resume.getAttribute('href')).toBe(route);
+});
+
+it('keeps course, language and filters when following original Markdown section and document links', async () => {
+  const first = 'career-scaled-attention', second = 'career-mha-masks';
+  const firstBody = `## First section\n\n[Jump within article](#heading-first-section)\n\n[Next tutorial](/library/${second}#heading-target-section)`;
+  vi.stubGlobal('fetch', vi.fn().mockImplementation(async (url: string) => new Response(url.includes(first) ? firstBody : '## Target section\n\nSecond tutorial content.')));
+  openLibrary(`/library/${first}?course=path-transformer&lang=zh&q=Attention`);
+  await screen.findByRole('link', { name: 'Jump within article' });
+  fireEvent.click(screen.getByRole('link', { name: 'Jump within article' }));
+  await waitFor(() => expect(screen.getByTestId('location').textContent).toContain('#heading-first-section'));
+  fireEvent.click(screen.getByRole('link', { name: 'Next tutorial' }));
+  await screen.findByText('Second tutorial content.');
+  const url = new URL(screen.getByTestId('location').textContent!, 'https://career.test');
+  expect(url.pathname).toBe(`/library/${second}`);
+  expect(url.searchParams.get('course')).toBe('path-transformer');
+  expect(url.searchParams.get('lang')).toBe('zh');
+  expect(url.searchParams.get('q')).toBe('Attention');
+  expect(url.hash).toBe('#heading-target-section');
+  fireEvent.click(screen.getByRole('button', { name: 'Browser back' }));
+  await waitFor(() => expect(screen.getByTestId('location').textContent).toContain(`${first}?`));
+  expect(screen.getByTestId('location').textContent).toContain('#heading-first-section');
+});

@@ -9,11 +9,12 @@
 | [AIInfraGuide](https://caomaolufei.github.io/AIInfraGuide/) | `docs/guides/**/*.md` 的 81 篇指南及章节提纲 | 固定版本 README 明示 MIT；完整保留该声明，随附 MIT 标准许可条款。 |
 | [ARIS-in-AI-Offer](https://wanshuiyin.github.io/ARIS-in-AI-Offer/) | 35 个第一方教程主题的中文、英文，共 70 篇 | 仓库 MIT LICENSE 明确允许复制、修改、分发，保留原版权与许可全文。 |
 | [卡码笔记 · 大模型面试](https://notes.kamacoder.com/interview/llm/) | 28 个目录及文章导航入口 | 未确认全文转载授权；本站不保存其教程正文。 |
+| Career OS 原创训练教材 | 六篇独立中文教学单元，关联十四项 PyTorch CPU 训练 | 本站原创教学补充；本轮未另行指定再分发许可。独立署名与许可状态说明，不混入上游 provenance。 |
 | [labuladong · 算法笔记](https://labuladong.online/zh/algo/essential-technique/algorithm-summary/) | 用户指定的算法总结文章入口 | [官方条款](https://labuladong.online/zh/terms/)限制未经许可的抓取与转载；本站不保存其教程正文。 |
 
-合计 151 篇站内全文、29 个原文入口。全文 Markdown 约 6.8 MB，单篇读取，不打进应用 JavaScript。这里的“全文”指所列固定版本 Markdown 文件的正文，不表示上游已经完成所有规划章节。
+合计 186 个资源版本、151 个独立主题。其中原有 151 份 Markdown 文件经逐条内容形态核查：116 份为完整原文文章、35 份是上游本身的章节提纲；另有 29 个原文入口和本轮 6 篇本站原创补充教程。所有正文按篇读取，不打进应用 JavaScript。详情及逐项证据见 [CONTENT_GAPS](CONTENT_GAPS.md)。
 
-目录默认跟随界面语言，为 ARIS 的每个主题选择一个对应版本；中文模式显示 116 篇站内文章及 29 个原文入口。可在“资料语言”选择中文、英文或全部版本，阅读页也可切换同篇的中英文。没有对应译文的来源继续保留原稿。选择只影响目录和阅读，不删减已保存的 151 个文件。
+目录默认跟随界面语言，为 ARIS 的每个主题选择一个对应版本；中文模式显示 81 篇完整原文、35 篇上游提纲、6 篇本站补充教程及 29 个原文入口，共 151 个条目。可在“资料语言”选择中文、英文或全部版本，阅读页也可切换同篇的中英文。没有对应译文的来源继续保留原稿。选择只影响目录和阅读，不删减已保存的原始文件。
 
 ## AIInfraGuide
 
@@ -37,7 +38,7 @@
 
 ## 图片、链接与正文转换
 
-- 每篇都有作者、固定版本的原文件链接、MIT 许可链接。
+- 每篇导入文章都有作者、固定版本的原文件链接、MIT 许可链接；本站补充另列自己的来源与许可状态。
 - 只将 YAML frontmatter 转为目录元数据、补充文档标题和来源说明、改写站内文章/章节链接，将 HTML `img` 改成 Markdown 图片；不改写、删减或生成替代教学正文。
 - 已收录教程之间的链接转为 `/library/<id>`，目录锚点适配本站 `heading-` 规则。未收录的相对代码/参考链接转为固定版本 GitHub 原文件链接。
 - 中文阅读时可显示中文主标题及通用目录标签，渲染器仍使用原正文生成的锚点 ID，因此原有章节链接继续有效。技术缩写、公式和代码保持原样。
@@ -63,3 +64,31 @@ node scripts/import-learning-library.mjs
 - 临时已校验下载缓存：忽略提交的 `output/library-upstream/`。
 
 更新时先审查新版本许可和导入范围，再显式更改脚本里的固定 commit 与核查日期，运行导入和学习库契约测试，并检查导入差异。脚本不跟踪浮动 `main`，不自动扩大收录目录，也不会修改个人学习数据。若未来删去资源，需要单独审查并移除对应的旧正文文件；导入器不会递归删除目录。
+
+## 本站补充与课程覆盖层
+
+- 原创目录与来源分别保存于 `supplemental-catalog.json`、`supplemental-sources.json`；正文为 `public/library/career-*.md`，授权说明为 `public/library/career-LICENSE.md`。作者为 Career OS 项目贡献者。
+- 六篇单元按 Tensor 形状 → 缩放点积注意力 → MHA 与 mask → RoPE → Decoder Block → GQA/KV Cache 排列；每篇正文中的训练链接和页尾关联使用 `/coding/<taskId>?track=pytorch` 稳定地址。
+- 初次交付核验了 151 份既有线上 Markdown；用户随后明确要求上线，现已发布应用提交 `f062d13`，包括新增六篇。部署后全部 157 篇正文均 HTTP 200、SHA-256 与构建一致；详见交付报告的追加发布记录。
+- `/library` 默认八条人工学习路线，`?view=source` 切换来源课程，`course` 指定课程；source/category/tag/q/lang/page 筛选保留在 URL。继续阅读仅保存按账号隔离的本机位置指针，不把公共文章复制进个人工作区。
+
+### 可追溯的课程顺序
+
+`learning-paths.json` 是本站人工编排，独立于导入；`source-courses.json` 与 `source-structure.json` 是固定来源结构的派生数据。AIInfra 使用原始 frontmatter 的 category/chapter/order、原作者章标题规则和 provenance 路径。ARIS 使用固定版本主页 `docs/index.html` 的真实分组与卡片顺序，并校验其 Git blob `8ac7c59af94bfdf062fc162ee9cb0b039c672d9f`。没有可靠依据的新增条目保留到待归类，不从排序后的资源 ID 猜测章节。
+
+重新生成来源课程（不会改人工路线、原正文或 provenance）：
+
+```sh
+node scripts/build-library-courses.mjs
+```
+
+脚本优先使用导入缓存；缓存缺失则只读取固定版本的原文件，验证 Git blob 后使用。AIInfra 编排依据：[原作者 chapterGrouping](https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/src/utils/chapterGrouping.ts)；ARIS 编排依据：[固定主页](https://github.com/wanshuiyin/ARIS-in-AI-Offer/blob/22e73822f8636ee3b52de1da6f6d2e03d1f51d4e/docs/index.html)。
+
+重新生成内容诊断及运行时状态覆盖层：
+
+```sh
+node scripts/audit-learning-library.mjs
+node scripts/audit-learning-library.mjs --online
+```
+
+不带 `--online` 使用上次线上核验的时间与结果；带该参数仅读取既有生产正文，不发布任何文件。Node 24 在需要系统代理时可结合 `HTTPS_PROXY` 与 `--use-env-proxy` 使用。`content-review.json` 保存逐篇形态复核结论，`content-health.json` 是诊断导出的展示状态。字数与 AST 标题/代码/公式数只作为检查线索，不是认定教程完整的唯一依据。

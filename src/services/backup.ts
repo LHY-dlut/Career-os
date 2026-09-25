@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { datasetSchema } from '../repositories/schemas';
 import { collections, type Dataset } from '../repositories/contracts';
 import { createStudyData, replaceLocalData, type StoragePort } from '../repositories/local';
+import { clearTrainingRecovery } from '../repositories/trainingRecovery';
 export const backupSchema = datasetSchema.extend({ version: z.enum(['1.0', '2.0']), exportDate: z.string().refine(s => Number.isFinite(Date.parse(s))) });
 export function validateBackup(json: string, identity = 'guest'): Dataset {
   if (json.length > 20_000_000) throw new Error('Backup exceeds 20 MB.');
@@ -22,7 +23,9 @@ export function exportBackup(data: Dataset): string {
 }
 export function restoreGuestBackup(storage: StoragePort, json: string) {
   replaceLocalData(storage, 'guest', validateBackup(json));
+  clearTrainingRecovery(storage, 'guest');
 }
 export function resetGuestData(storage: StoragePort) {
   replaceLocalData(storage, 'guest', createStudyData('guest'));
+  clearTrainingRecovery(storage, 'guest');
 }

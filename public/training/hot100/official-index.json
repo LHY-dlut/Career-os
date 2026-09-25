@@ -1,0 +1,2922 @@
+{
+  "source": {
+    "planUrl": "https://leetcode.cn/studyplan/top-100-liked/",
+    "metadataEndpoint": "https://leetcode.cn/graphql/",
+    "verifiedAt": "2026-09-25",
+    "retrievedAt": "2026-09-25T05:58:57.938Z",
+    "pageSha256": "4ae73eedcc608d5022755ee04b72588ce5e3cfbb50a110a4d537a915e150ae42",
+    "pageBuildId": "hQR1IhZetf_wHrNJQErbV",
+    "questionCount": 100,
+    "groupCount": 17
+  },
+  "requests": [
+    {
+      "querySha256": "042ef5a8bd971a50fadd1e6b8ea0b01490ffe5cadbe43a9d90c544f1865bb13e",
+      "responseSha256": "09cbfe6689d49f6aaebfcbfd173b9dfccb6b7f44dde7997cb0fae00a5d21e7dd",
+      "questionNumbers": [
+        1,
+        49,
+        128,
+        283,
+        11,
+        15,
+        42,
+        3,
+        438,
+        560
+      ]
+    },
+    {
+      "querySha256": "1f4826cbf6e51921c3759e2ea3fdc71ef576448120aa227c1e444c0d8209717a",
+      "responseSha256": "c9aec58147f050dcefc18ba741baa9c219480443f7bac00a85302b5257778be5",
+      "questionNumbers": [
+        239,
+        76,
+        53,
+        56,
+        189,
+        238,
+        41,
+        73,
+        54,
+        48
+      ]
+    },
+    {
+      "querySha256": "70cad68c31553b901ff301f736319cbe810252d606f2604b8bf98f8463d3e68d",
+      "responseSha256": "345ccf66ea5553fd4ab66901550bb6fec1515b69417f4b137bc159fbab2d633a",
+      "questionNumbers": [
+        240,
+        160,
+        206,
+        234,
+        141,
+        142,
+        21,
+        2,
+        19,
+        24
+      ]
+    },
+    {
+      "querySha256": "15e135ef3467a16a29a51d013df40d6655d42d06ad8822084a22659613772638",
+      "responseSha256": "0650398a8983b3b7fa500259c6d311fc9010592be4297a8e685615a9f7daf92e",
+      "questionNumbers": [
+        25,
+        138,
+        148,
+        23,
+        146,
+        94,
+        104,
+        226,
+        101,
+        543
+      ]
+    },
+    {
+      "querySha256": "303946da9ab0b9c13176954bfc64666eeb63521a8f2428cc84242aa70fbec415",
+      "responseSha256": "f89e47dc4ecabf516428883edda7a3c22ab25be89fa05844cd86ae35747a640f",
+      "questionNumbers": [
+        102,
+        108,
+        98,
+        230,
+        199,
+        114,
+        105,
+        437,
+        236,
+        124
+      ]
+    },
+    {
+      "querySha256": "1eac1c680826f295f545e0d1f9d546a46aad1a5c8cc18f671b5c1aade708b054",
+      "responseSha256": "56b1d9c3bdbdb47563b5b7a3d52f84f1dd68bdaf5c3dbcb37f8edbb13f4f3368",
+      "questionNumbers": [
+        200,
+        994,
+        207,
+        208,
+        46,
+        78,
+        17,
+        39,
+        22,
+        79
+      ]
+    },
+    {
+      "querySha256": "b4678f0dbbf801bedc16672ba6f8f05ea98d59619d9a3e62087d2360df8719a4",
+      "responseSha256": "7bf0adfe2be0c9cece3da5d543a02bd1ead2dff842f914ca3713ee104cb5ee6c",
+      "questionNumbers": [
+        131,
+        51,
+        35,
+        74,
+        34,
+        33,
+        153,
+        4,
+        20,
+        155
+      ]
+    },
+    {
+      "querySha256": "cf5933dccad0486dc0c746294e00a5b1e91058b74b3e107f08996fa47adf5be0",
+      "responseSha256": "7cd523e316b42ade50d4c564c274359545d5ef1b22da5f3a2ab63013ee3b7e1d",
+      "questionNumbers": [
+        394,
+        739,
+        84,
+        215,
+        347,
+        295,
+        121,
+        55,
+        45,
+        763
+      ]
+    },
+    {
+      "querySha256": "6fdc2ff52a3922dc57ca0f488bea2a99f48541b2a1658456f56a8414890101b6",
+      "responseSha256": "5f30552d932bce8fcf391381b2c12598ddcff7a5fa2ac96e4be085d0acca87aa",
+      "questionNumbers": [
+        70,
+        118,
+        198,
+        279,
+        322,
+        139,
+        300,
+        152,
+        416,
+        32
+      ]
+    },
+    {
+      "querySha256": "4e63739ee9bc094c8bbcfeb740b8f1481b0d6306851d393cc6904d81660f5fa5",
+      "responseSha256": "387c9fae7165b340bbd2d6d794fb0c4226eb83ad1c82177ce7912a40be90e3a5",
+      "questionNumbers": [
+        62,
+        64,
+        5,
+        1143,
+        72,
+        136,
+        169,
+        75,
+        31,
+        287
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "order": 1,
+      "name": "哈希",
+      "slug": "top-100-liked-80-r32o",
+      "questions": [
+        {
+          "number": 1,
+          "title": "两数之和",
+          "titleEn": "Two Sum",
+          "slug": "two-sum",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "twoSum",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              },
+              {
+                "name": "target",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer[]",
+              "size": 2
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def twoSum(self, nums: list[int], target: int) -> list[int]:"
+          ]
+        },
+        {
+          "number": 49,
+          "title": "字母异位词分组",
+          "titleEn": "Group Anagrams",
+          "slug": "group-anagrams",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "groupAnagrams",
+            "params": [
+              {
+                "name": "strs",
+                "type": "string[]"
+              }
+            ],
+            "return": {
+              "type": "list<list<string>>",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def groupAnagrams(self, strs: list[str]) -> list[list[str]]:"
+          ]
+        },
+        {
+          "number": 128,
+          "title": "最长连续序列",
+          "titleEn": "Longest Consecutive Sequence",
+          "slug": "longest-consecutive-sequence",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "longestConsecutive",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def longestConsecutive(self, nums: list[int]) -> int:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "name": "双指针",
+      "slug": "top-100-liked-81-kor1",
+      "questions": [
+        {
+          "number": 283,
+          "title": "移动零",
+          "titleEn": "Move Zeroes",
+          "slug": "move-zeroes",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "moveZeroes",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "void"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def moveZeroes(self, nums: list[int]) -> None:"
+          ]
+        },
+        {
+          "number": 11,
+          "title": "盛最多水的容器",
+          "titleEn": "Container With Most Water",
+          "slug": "container-with-most-water",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "maxArea",
+            "params": [
+              {
+                "name": "height",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def maxArea(self, height: list[int]) -> int:"
+          ]
+        },
+        {
+          "number": 15,
+          "title": "三数之和",
+          "titleEn": "3Sum",
+          "slug": "3sum",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "threeSum",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "list<list<integer>>",
+              "colsize": 3,
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def threeSum(self, nums: list[int]) -> list[list[int]]:"
+          ]
+        },
+        {
+          "number": 42,
+          "title": "接雨水",
+          "titleEn": "Trapping Rain Water",
+          "slug": "trapping-rain-water",
+          "difficulty": "Hard",
+          "signature": {
+            "name": "trap",
+            "params": [
+              {
+                "name": "height",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def trap(self, height: list[int]) -> int:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "name": "滑动窗口",
+      "slug": "top-100-liked-82-i464",
+      "questions": [
+        {
+          "number": 3,
+          "title": "无重复字符的最长子串",
+          "titleEn": "Longest Substring Without Repeating Characters",
+          "slug": "longest-substring-without-repeating-characters",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "lengthOfLongestSubstring",
+            "params": [
+              {
+                "name": "s",
+                "type": "string"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def lengthOfLongestSubstring(self, s: str) -> int:"
+          ]
+        },
+        {
+          "number": 438,
+          "title": "找到字符串中所有字母异位词",
+          "titleEn": "Find All Anagrams in a String",
+          "slug": "find-all-anagrams-in-a-string",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "findAnagrams",
+            "params": [
+              {
+                "name": "s",
+                "type": "string"
+              },
+              {
+                "name": "p",
+                "type": "string"
+              }
+            ],
+            "return": {
+              "type": "list<integer>"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def findAnagrams(self, s: str, p: str) -> List[int]:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "name": "子串",
+      "slug": "top-100-liked-83-shuv",
+      "questions": [
+        {
+          "number": 560,
+          "title": "和为 K 的子数组",
+          "titleEn": "Subarray Sum Equals K",
+          "slug": "subarray-sum-equals-k",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "subarraySum",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              },
+              {
+                "name": "k",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def subarraySum(self, nums: List[int], k: int) -> int:"
+          ]
+        },
+        {
+          "number": 239,
+          "title": "滑动窗口最大值",
+          "titleEn": "Sliding Window Maximum",
+          "slug": "sliding-window-maximum",
+          "difficulty": "Hard",
+          "signature": {
+            "name": "maxSlidingWindow",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              },
+              {
+                "name": "k",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer[]"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:"
+          ]
+        },
+        {
+          "number": 76,
+          "title": "最小覆盖子串",
+          "titleEn": "Minimum Window Substring",
+          "slug": "minimum-window-substring",
+          "difficulty": "Hard",
+          "signature": {
+            "name": "minWindow",
+            "params": [
+              {
+                "name": "s",
+                "type": "string"
+              },
+              {
+                "name": "t",
+                "type": "string"
+              }
+            ],
+            "return": {
+              "type": "string"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def minWindow(self, s: str, t: str) -> str:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "name": "普通数组",
+      "slug": "top-100-liked-84-4cqv",
+      "questions": [
+        {
+          "number": 53,
+          "title": "最大子数组和",
+          "titleEn": "Maximum Subarray",
+          "slug": "maximum-subarray",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "maxSubArray",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def maxSubArray(self, nums: list[int]) -> int:"
+          ]
+        },
+        {
+          "number": 56,
+          "title": "合并区间",
+          "titleEn": "Merge Intervals",
+          "slug": "merge-intervals",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "merge",
+            "params": [
+              {
+                "name": "intervals",
+                "type": "integer[][]"
+              }
+            ],
+            "return": {
+              "type": "integer[][]"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def merge(self, intervals: list[list[int]]) -> list[list[int]]:"
+          ]
+        },
+        {
+          "number": 189,
+          "title": "轮转数组",
+          "titleEn": "Rotate Array",
+          "slug": "rotate-array",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "rotate",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              },
+              {
+                "name": "k",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "void"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def rotate(self, nums: list[int], k: int) -> None:"
+          ]
+        },
+        {
+          "number": 238,
+          "title": "除了自身以外数组的乘积",
+          "titleEn": "Product of Array Except Self",
+          "slug": "product-of-array-except-self",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "productExceptSelf",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer[]"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def productExceptSelf(self, nums: List[int]) -> List[int]:"
+          ]
+        },
+        {
+          "number": 41,
+          "title": "缺失的第一个正数",
+          "titleEn": "First Missing Positive",
+          "slug": "first-missing-positive",
+          "difficulty": "Hard",
+          "signature": {
+            "name": "firstMissingPositive",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def firstMissingPositive(self, nums: list[int]) -> int:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "name": "矩阵",
+      "slug": "top-100-liked-85-8wlm",
+      "questions": [
+        {
+          "number": 73,
+          "title": "矩阵置零",
+          "titleEn": "Set Matrix Zeroes",
+          "slug": "set-matrix-zeroes",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "setZeroes",
+            "params": [
+              {
+                "name": "matrix",
+                "type": "integer[][]"
+              }
+            ],
+            "return": {
+              "type": "void"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def setZeroes(self, matrix: list[list[int]]) -> None:"
+          ]
+        },
+        {
+          "number": 54,
+          "title": "螺旋矩阵",
+          "titleEn": "Spiral Matrix",
+          "slug": "spiral-matrix",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "spiralOrder",
+            "params": [
+              {
+                "name": "matrix",
+                "type": "integer[][]"
+              }
+            ],
+            "return": {
+              "type": "list<integer>",
+              "size": "size_1 * col_size_1",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def spiralOrder(self, matrix: list[list[int]]) -> list[int]:"
+          ]
+        },
+        {
+          "number": 48,
+          "title": "旋转图像",
+          "titleEn": "Rotate Image",
+          "slug": "rotate-image",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "rotate",
+            "params": [
+              {
+                "name": "matrix",
+                "type": "integer[][]"
+              }
+            ],
+            "return": {
+              "type": "void"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def rotate(self, matrix: list[list[int]]) -> None:"
+          ]
+        },
+        {
+          "number": 240,
+          "title": "搜索二维矩阵 II",
+          "titleEn": "Search a 2D Matrix II",
+          "slug": "search-a-2d-matrix-ii",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "searchMatrix",
+            "params": [
+              {
+                "name": "matrix",
+                "type": "integer[][]"
+              },
+              {
+                "name": "target",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "boolean"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "name": "链表",
+      "slug": "top-100-liked-86-vpsb",
+      "questions": [
+        {
+          "number": 160,
+          "title": "相交链表",
+          "titleEn": "Intersection of Two Linked Lists",
+          "slug": "intersection-of-two-linked-lists",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "getIntersectionNode",
+            "params": [
+              {
+                "name": "intersectVal",
+                "type": "integer"
+              },
+              {
+                "name": "listA",
+                "type": "ListNode"
+              },
+              {
+                "name": "listB",
+                "type": "ListNode"
+              },
+              {
+                "name": "skipA",
+                "type": "integer"
+              },
+              {
+                "name": "skipB",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "ListNode"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:"
+          ]
+        },
+        {
+          "number": 206,
+          "title": "反转链表",
+          "titleEn": "Reverse Linked List",
+          "slug": "reverse-linked-list",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "reverseList",
+            "params": [
+              {
+                "name": "head",
+                "type": "ListNode",
+                "dealloc": false
+              }
+            ],
+            "return": {
+              "type": "ListNode",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def reverseList(self, head: ListNode | None) -> ListNode | None:"
+          ]
+        },
+        {
+          "number": 234,
+          "title": "回文链表",
+          "titleEn": "Palindrome Linked List",
+          "slug": "palindrome-linked-list",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "isPalindrome",
+            "params": [
+              {
+                "name": "head",
+                "type": "ListNode"
+              }
+            ],
+            "return": {
+              "type": "boolean"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def isPalindrome(self, head: Optional[ListNode]) -> bool:"
+          ]
+        },
+        {
+          "number": 141,
+          "title": "环形链表",
+          "titleEn": "Linked List Cycle",
+          "slug": "linked-list-cycle",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "hasCycle",
+            "params": [
+              {
+                "name": "head",
+                "type": "ListNode"
+              },
+              {
+                "name": "pos",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "boolean"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def hasCycle(self, head: Optional[ListNode]) -> bool:"
+          ]
+        },
+        {
+          "number": 142,
+          "title": "环形链表 II",
+          "titleEn": "Linked List Cycle II",
+          "slug": "linked-list-cycle-ii",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "detectCycle",
+            "params": [
+              {
+                "name": "head",
+                "type": "ListNode"
+              },
+              {
+                "name": "pos",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "ListNode"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:"
+          ]
+        },
+        {
+          "number": 21,
+          "title": "合并两个有序链表",
+          "titleEn": "Merge Two Sorted Lists",
+          "slug": "merge-two-sorted-lists",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "mergeTwoLists",
+            "params": [
+              {
+                "name": "list1",
+                "type": "ListNode",
+                "dealloc": false
+              },
+              {
+                "name": "list2",
+                "type": "ListNode",
+                "dealloc": false
+              }
+            ],
+            "return": {
+              "type": "ListNode",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def mergeTwoLists(self, list1: ListNode | None, list2: ListNode | None) -> ListNode | None:"
+          ]
+        },
+        {
+          "number": 2,
+          "title": "两数相加",
+          "titleEn": "Add Two Numbers",
+          "slug": "add-two-numbers",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "addTwoNumbers",
+            "params": [
+              {
+                "name": "l1",
+                "type": "ListNode",
+                "dealloc": false
+              },
+              {
+                "name": "l2",
+                "type": "ListNode",
+                "dealloc": false
+              }
+            ],
+            "return": {
+              "type": "ListNode",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def addTwoNumbers(self, l1: ListNode | None, l2: ListNode | None) -> ListNode | None:"
+          ]
+        },
+        {
+          "number": 19,
+          "title": "删除链表的倒数第 N 个结点",
+          "titleEn": "Remove Nth Node From End of List",
+          "slug": "remove-nth-node-from-end-of-list",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "removeNthFromEnd",
+            "params": [
+              {
+                "name": "head",
+                "type": "ListNode",
+                "dealloc": false
+              },
+              {
+                "name": "n",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "ListNode",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def removeNthFromEnd(self, head: ListNode | None, n: int) -> ListNode | None:"
+          ]
+        },
+        {
+          "number": 24,
+          "title": "两两交换链表中的节点",
+          "titleEn": "Swap Nodes in Pairs",
+          "slug": "swap-nodes-in-pairs",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "swapPairs",
+            "params": [
+              {
+                "name": "head",
+                "type": "ListNode"
+              }
+            ],
+            "return": {
+              "type": "ListNode"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def swapPairs(self, head: ListNode | None) -> ListNode | None:"
+          ]
+        },
+        {
+          "number": 25,
+          "title": "K 个一组翻转链表",
+          "titleEn": "Reverse Nodes in k-Group",
+          "slug": "reverse-nodes-in-k-group",
+          "difficulty": "Hard",
+          "signature": {
+            "name": "reverseKGroup",
+            "params": [
+              {
+                "name": "head",
+                "type": "ListNode"
+              },
+              {
+                "name": "k",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "ListNode"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def reverseKGroup(self, head: ListNode | None, k: int) -> ListNode | None:"
+          ]
+        },
+        {
+          "number": 138,
+          "title": "随机链表的复制",
+          "titleEn": "Copy List with Random Pointer",
+          "slug": "copy-list-with-random-pointer",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "copyRandomList",
+            "params": [
+              {
+                "name": "head",
+                "type": "ListNode"
+              }
+            ],
+            "return": {
+              "type": "ListNode"
+            }
+          },
+          "pythonDeclarations": [
+            "class Node:",
+            "    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):",
+            "class Solution:",
+            "    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':"
+          ]
+        },
+        {
+          "number": 148,
+          "title": "排序链表",
+          "titleEn": "Sort List",
+          "slug": "sort-list",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "sortList",
+            "params": [
+              {
+                "name": "head",
+                "type": "ListNode",
+                "dealloc": false
+              }
+            ],
+            "return": {
+              "type": "ListNode",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:"
+          ]
+        },
+        {
+          "number": 23,
+          "title": "合并 K 个升序链表",
+          "titleEn": "Merge k Sorted Lists",
+          "slug": "merge-k-sorted-lists",
+          "difficulty": "Hard",
+          "signature": {
+            "name": "mergeKLists",
+            "params": [
+              {
+                "name": "lists",
+                "type": "ListNode[]",
+                "dealloc": false
+              }
+            ],
+            "return": {
+              "type": "ListNode",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def mergeKLists(self, lists: list[ListNode | None]) -> ListNode | None:"
+          ]
+        },
+        {
+          "number": 146,
+          "title": "LRU 缓存",
+          "titleEn": "LRU Cache",
+          "slug": "lru-cache",
+          "difficulty": "Medium",
+          "signature": {
+            "params": [
+              {
+                "name": "inputs",
+                "type": "integer[]"
+              },
+              {
+                "name": "inputs",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "list<String>",
+              "dealloc": true
+            },
+            "classname": "LRUCache",
+            "constructor": {
+              "params": [
+                {
+                  "type": "integer",
+                  "name": "capacity"
+                }
+              ]
+            },
+            "methods": [
+              {
+                "name": "get",
+                "params": [
+                  {
+                    "type": "integer",
+                    "name": "key"
+                  }
+                ],
+                "return": {
+                  "type": "integer"
+                }
+              },
+              {
+                "name": "put",
+                "params": [
+                  {
+                    "type": "integer",
+                    "name": "key"
+                  },
+                  {
+                    "type": "integer",
+                    "name": "value"
+                  }
+                ],
+                "return": {
+                  "type": "void"
+                }
+              }
+            ],
+            "systemdesign": true
+          },
+          "pythonDeclarations": [
+            "class LRUCache:",
+            "    def __init__(self, capacity: int):",
+            "    def get(self, key: int) -> int:",
+            "    def put(self, key: int, value: int) -> None:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "name": "二叉树",
+      "slug": "top-100-liked-87-nx50",
+      "questions": [
+        {
+          "number": 94,
+          "title": "二叉树的中序遍历",
+          "titleEn": "Binary Tree Inorder Traversal",
+          "slug": "binary-tree-inorder-traversal",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "inorderTraversal",
+            "params": [
+              {
+                "name": "root",
+                "type": "TreeNode"
+              }
+            ],
+            "return": {
+              "type": "list<integer>",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def inorderTraversal(self, root: TreeNode | None) -> list[int]:"
+          ]
+        },
+        {
+          "number": 104,
+          "title": "二叉树的最大深度",
+          "titleEn": "Maximum Depth of Binary Tree",
+          "slug": "maximum-depth-of-binary-tree",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "maxDepth",
+            "params": [
+              {
+                "name": "root",
+                "type": "TreeNode"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def maxDepth(self, root: TreeNode | None) -> int:"
+          ]
+        },
+        {
+          "number": 226,
+          "title": "翻转二叉树",
+          "titleEn": "Invert Binary Tree",
+          "slug": "invert-binary-tree",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "invertTree",
+            "params": [
+              {
+                "name": "root",
+                "type": "TreeNode"
+              }
+            ],
+            "return": {
+              "type": "TreeNode"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:"
+          ]
+        },
+        {
+          "number": 101,
+          "title": "对称二叉树",
+          "titleEn": "Symmetric Tree",
+          "slug": "symmetric-tree",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "isSymmetric",
+            "params": [
+              {
+                "name": "root",
+                "type": "TreeNode"
+              }
+            ],
+            "return": {
+              "type": "boolean"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def isSymmetric(self, root: TreeNode | None) -> bool:"
+          ]
+        },
+        {
+          "number": 543,
+          "title": "二叉树的直径",
+          "titleEn": "Diameter of Binary Tree",
+          "slug": "diameter-of-binary-tree",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "diameterOfBinaryTree",
+            "params": [
+              {
+                "name": "root",
+                "type": "TreeNode"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:"
+          ]
+        },
+        {
+          "number": 102,
+          "title": "二叉树的层序遍历",
+          "titleEn": "Binary Tree Level Order Traversal",
+          "slug": "binary-tree-level-order-traversal",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "levelOrder",
+            "params": [
+              {
+                "name": "root",
+                "type": "TreeNode"
+              }
+            ],
+            "return": {
+              "type": "list<list<integer>>",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def levelOrder(self, root: TreeNode | None) -> list[list[int]]:"
+          ]
+        },
+        {
+          "number": 108,
+          "title": "将有序数组转换为二叉搜索树",
+          "titleEn": "Convert Sorted Array to Binary Search Tree",
+          "slug": "convert-sorted-array-to-binary-search-tree",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "sortedArrayToBST",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "TreeNode",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def sortedArrayToBST(self, nums: list[int]) -> TreeNode | None:"
+          ]
+        },
+        {
+          "number": 98,
+          "title": "验证二叉搜索树",
+          "titleEn": "Validate Binary Search Tree",
+          "slug": "validate-binary-search-tree",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "isValidBST",
+            "params": [
+              {
+                "name": "root",
+                "type": "TreeNode"
+              }
+            ],
+            "return": {
+              "type": "boolean"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def isValidBST(self, root: TreeNode | None) -> bool:"
+          ]
+        },
+        {
+          "number": 230,
+          "title": "二叉搜索树中第 K 小的元素",
+          "titleEn": "Kth Smallest Element in a BST",
+          "slug": "kth-smallest-element-in-a-bst",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "kthSmallest",
+            "params": [
+              {
+                "name": "root",
+                "type": "TreeNode"
+              },
+              {
+                "name": "k",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:"
+          ]
+        },
+        {
+          "number": 199,
+          "title": "二叉树的右视图",
+          "titleEn": "Binary Tree Right Side View",
+          "slug": "binary-tree-right-side-view",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "rightSideView",
+            "params": [
+              {
+                "name": "root",
+                "type": "TreeNode"
+              }
+            ],
+            "return": {
+              "type": "list<integer>",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:"
+          ]
+        },
+        {
+          "number": 114,
+          "title": "二叉树展开为链表",
+          "titleEn": "Flatten Binary Tree to Linked List",
+          "slug": "flatten-binary-tree-to-linked-list",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "flatten",
+            "params": [
+              {
+                "name": "root",
+                "type": "TreeNode"
+              }
+            ],
+            "return": {
+              "type": "void"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def flatten(self, root: TreeNode | None) -> None:"
+          ]
+        },
+        {
+          "number": 105,
+          "title": "从前序与中序遍历序列构造二叉树",
+          "titleEn": "Construct Binary Tree from Preorder and Inorder Traversal",
+          "slug": "construct-binary-tree-from-preorder-and-inorder-traversal",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "buildTree",
+            "params": [
+              {
+                "name": "preorder",
+                "type": "integer[]"
+              },
+              {
+                "name": "inorder",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "TreeNode",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def buildTree(self, preorder: list[int], inorder: list[int]) -> TreeNode | None:"
+          ]
+        },
+        {
+          "number": 437,
+          "title": "路径总和 III",
+          "titleEn": "Path Sum III",
+          "slug": "path-sum-iii",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "pathSum",
+            "params": [
+              {
+                "name": "root",
+                "type": "TreeNode"
+              },
+              {
+                "name": "targetSum",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:"
+          ]
+        },
+        {
+          "number": 236,
+          "title": "二叉树的最近公共祖先",
+          "titleEn": "Lowest Common Ancestor of a Binary Tree",
+          "slug": "lowest-common-ancestor-of-a-binary-tree",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "lowestCommonAncestor",
+            "params": [
+              {
+                "name": "root",
+                "type": "TreeNode"
+              },
+              {
+                "name": "p",
+                "type": "integer"
+              },
+              {
+                "name": "q",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "TreeNode"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':"
+          ]
+        },
+        {
+          "number": 124,
+          "title": "二叉树中的最大路径和",
+          "titleEn": "Binary Tree Maximum Path Sum",
+          "slug": "binary-tree-maximum-path-sum",
+          "difficulty": "Hard",
+          "signature": {
+            "name": "maxPathSum",
+            "params": [
+              {
+                "name": "root",
+                "type": "TreeNode"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def maxPathSum(self, root: TreeNode | None) -> int:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "name": "图论",
+      "slug": "top-100-liked-88-xwhw",
+      "questions": [
+        {
+          "number": 200,
+          "title": "岛屿数量",
+          "titleEn": "Number of Islands",
+          "slug": "number-of-islands",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "numIslands",
+            "params": [
+              {
+                "name": "grid",
+                "type": "character[][]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def numIslands(self, grid: List[List[str]]) -> int:"
+          ]
+        },
+        {
+          "number": 994,
+          "title": "腐烂的橘子",
+          "titleEn": "Rotting Oranges",
+          "slug": "rotting-oranges",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "orangesRotting",
+            "params": [
+              {
+                "name": "grid",
+                "type": "integer[][]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def orangesRotting(self, grid: List[List[int]]) -> int:"
+          ]
+        },
+        {
+          "number": 207,
+          "title": "课程表",
+          "titleEn": "Course Schedule",
+          "slug": "course-schedule",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "canFinish",
+            "params": [
+              {
+                "name": "numCourses",
+                "type": "integer"
+              },
+              {
+                "name": "prerequisites",
+                "type": "integer[][]"
+              }
+            ],
+            "return": {
+              "type": "boolean"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def canFinish(self, numCourses: int, prerequisites: list[list[int]]) -> bool:"
+          ]
+        },
+        {
+          "number": 208,
+          "title": "实现 Trie (前缀树)",
+          "titleEn": "Implement Trie (Prefix Tree)",
+          "slug": "implement-trie-prefix-tree",
+          "difficulty": "Medium",
+          "signature": {
+            "return": {
+              "type": "boolean"
+            },
+            "classname": "Trie",
+            "constructor": {
+              "params": []
+            },
+            "methods": [
+              {
+                "params": [
+                  {
+                    "type": "string",
+                    "name": "word"
+                  }
+                ],
+                "name": "insert",
+                "return": {
+                  "type": "void"
+                }
+              },
+              {
+                "params": [
+                  {
+                    "type": "string",
+                    "name": "word"
+                  }
+                ],
+                "name": "search",
+                "return": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "params": [
+                  {
+                    "type": "string",
+                    "name": "prefix"
+                  }
+                ],
+                "name": "startsWith",
+                "return": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "systemdesign": true
+          },
+          "pythonDeclarations": [
+            "class Trie:",
+            "    def __init__(self):",
+            "    def insert(self, word: str) -> None:",
+            "    def search(self, word: str) -> bool:",
+            "    def startsWith(self, prefix: str) -> bool:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "name": "回溯",
+      "slug": "top-100-liked-89-8b90",
+      "questions": [
+        {
+          "number": 46,
+          "title": "全排列",
+          "titleEn": "Permutations",
+          "slug": "permutations",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "permute",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "list<list<integer>>",
+              "colsize": "size_1",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def permute(self, nums: list[int]) -> list[list[int]]:"
+          ]
+        },
+        {
+          "number": 78,
+          "title": "子集",
+          "titleEn": "Subsets",
+          "slug": "subsets",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "subsets",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "list<list<integer>>",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def subsets(self, nums: list[int]) -> list[list[int]]:"
+          ]
+        },
+        {
+          "number": 17,
+          "title": "电话号码的字母组合",
+          "titleEn": "Letter Combinations of a Phone Number",
+          "slug": "letter-combinations-of-a-phone-number",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "letterCombinations",
+            "params": [
+              {
+                "name": "digits",
+                "type": "string"
+              }
+            ],
+            "return": {
+              "type": "list<string>"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def letterCombinations(self, digits: str) -> list[str]:"
+          ]
+        },
+        {
+          "number": 39,
+          "title": "组合总和",
+          "titleEn": "Combination Sum",
+          "slug": "combination-sum",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "combinationSum",
+            "params": [
+              {
+                "name": "candidates",
+                "type": "integer[]"
+              },
+              {
+                "name": "target",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "list<list<integer>>",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:"
+          ]
+        },
+        {
+          "number": 22,
+          "title": "括号生成",
+          "titleEn": "Generate Parentheses",
+          "slug": "generate-parentheses",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "generateParenthesis",
+            "params": [
+              {
+                "name": "n",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "list<string>"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def generateParenthesis(self, n: int) -> list[str]:"
+          ]
+        },
+        {
+          "number": 79,
+          "title": "单词搜索",
+          "titleEn": "Word Search",
+          "slug": "word-search",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "exist",
+            "params": [
+              {
+                "name": "board",
+                "type": "character[][]"
+              },
+              {
+                "name": "word",
+                "type": "string"
+              }
+            ],
+            "return": {
+              "type": "boolean"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def exist(self, board: list[list[str]], word: str) -> bool:"
+          ]
+        },
+        {
+          "number": 131,
+          "title": "分割回文串",
+          "titleEn": "Palindrome Partitioning",
+          "slug": "palindrome-partitioning",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "partition",
+            "params": [
+              {
+                "name": "s",
+                "type": "string"
+              }
+            ],
+            "return": {
+              "type": "list<list<string>>",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def partition(self, s: str) -> list[list[str]]:"
+          ]
+        },
+        {
+          "number": 51,
+          "title": "N 皇后",
+          "titleEn": "N-Queens",
+          "slug": "n-queens",
+          "difficulty": "Hard",
+          "signature": {
+            "name": "solveNQueens",
+            "params": [
+              {
+                "name": "n",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "list<list<string>>",
+              "colsize": "param_1",
+              "dealloc": true
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def solveNQueens(self, n: int) -> list[list[str]]:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "name": "二分查找",
+      "slug": "top-100-liked-90-eorx",
+      "questions": [
+        {
+          "number": 35,
+          "title": "搜索插入位置",
+          "titleEn": "Search Insert Position",
+          "slug": "search-insert-position",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "searchInsert",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              },
+              {
+                "name": "target",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def searchInsert(self, nums: list[int], target: int) -> int:"
+          ]
+        },
+        {
+          "number": 74,
+          "title": "搜索二维矩阵",
+          "titleEn": "Search a 2D Matrix",
+          "slug": "search-a-2d-matrix",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "searchMatrix",
+            "params": [
+              {
+                "name": "matrix",
+                "type": "integer[][]"
+              },
+              {
+                "name": "target",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "boolean"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def searchMatrix(self, matrix: list[list[int]], target: int) -> bool:"
+          ]
+        },
+        {
+          "number": 34,
+          "title": "在排序数组中查找元素的第一个和最后一个位置",
+          "titleEn": "Find First and Last Position of Element in Sorted Array",
+          "slug": "find-first-and-last-position-of-element-in-sorted-array",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "searchRange",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              },
+              {
+                "name": "target",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer[]"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def searchRange(self, nums: list[int], target: int) -> list[int]:"
+          ]
+        },
+        {
+          "number": 33,
+          "title": "搜索旋转排序数组",
+          "titleEn": "Search in Rotated Sorted Array",
+          "slug": "search-in-rotated-sorted-array",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "search",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              },
+              {
+                "name": "target",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def search(self, nums: list[int], target: int) -> int:"
+          ]
+        },
+        {
+          "number": 153,
+          "title": "寻找旋转排序数组中的最小值",
+          "titleEn": "Find Minimum in Rotated Sorted Array",
+          "slug": "find-minimum-in-rotated-sorted-array",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "findMin",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def findMin(self, nums: list[int]) -> int:"
+          ]
+        },
+        {
+          "number": 4,
+          "title": "寻找两个正序数组的中位数",
+          "titleEn": "Median of Two Sorted Arrays",
+          "slug": "median-of-two-sorted-arrays",
+          "difficulty": "Hard",
+          "signature": {
+            "name": "findMedianSortedArrays",
+            "params": [
+              {
+                "name": "nums1",
+                "type": "integer[]"
+              },
+              {
+                "name": "nums2",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "double"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def findMedianSortedArrays(self, nums1: list[int], nums2: list[int]) -> float:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 12,
+      "name": "栈",
+      "slug": "top-100-liked-91-0mdi",
+      "questions": [
+        {
+          "number": 20,
+          "title": "有效的括号",
+          "titleEn": "Valid Parentheses",
+          "slug": "valid-parentheses",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "isValid",
+            "params": [
+              {
+                "name": "s",
+                "type": "string"
+              }
+            ],
+            "return": {
+              "type": "boolean"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def isValid(self, s: str) -> bool:"
+          ]
+        },
+        {
+          "number": 155,
+          "title": "最小栈",
+          "titleEn": "Min Stack",
+          "slug": "min-stack",
+          "difficulty": "Medium",
+          "signature": {
+            "return": {
+              "type": "boolean"
+            },
+            "classname": "MinStack",
+            "constructor": {
+              "params": []
+            },
+            "methods": [
+              {
+                "params": [
+                  {
+                    "type": "integer",
+                    "name": "value"
+                  }
+                ],
+                "return": {
+                  "type": "void"
+                },
+                "name": "push"
+              },
+              {
+                "params": [],
+                "return": {
+                  "type": "void"
+                },
+                "name": "pop"
+              },
+              {
+                "params": [],
+                "return": {
+                  "type": "integer"
+                },
+                "name": "top"
+              },
+              {
+                "params": [],
+                "return": {
+                  "type": "integer"
+                },
+                "name": "getMin"
+              }
+            ],
+            "systemdesign": true
+          },
+          "pythonDeclarations": [
+            "class MinStack:",
+            "    def __init__(self):",
+            "    def push(self, value: int) -> None:",
+            "    def pop(self) -> None:",
+            "    def top(self) -> int:",
+            "    def getMin(self) -> int:"
+          ]
+        },
+        {
+          "number": 394,
+          "title": "字符串解码",
+          "titleEn": "Decode String",
+          "slug": "decode-string",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "decodeString",
+            "params": [
+              {
+                "name": "s",
+                "type": "string"
+              }
+            ],
+            "return": {
+              "type": "string"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def decodeString(self, s: str) -> str:"
+          ]
+        },
+        {
+          "number": 739,
+          "title": "每日温度",
+          "titleEn": "Daily Temperatures",
+          "slug": "daily-temperatures",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "dailyTemperatures",
+            "params": [
+              {
+                "name": "temperatures",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer[]"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def dailyTemperatures(self, temperatures: list[int]) -> list[int]:"
+          ]
+        },
+        {
+          "number": 84,
+          "title": "柱状图中最大的矩形",
+          "titleEn": "Largest Rectangle in Histogram",
+          "slug": "largest-rectangle-in-histogram",
+          "difficulty": "Hard",
+          "signature": {
+            "name": "largestRectangleArea",
+            "params": [
+              {
+                "name": "heights",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def largestRectangleArea(self, heights: list[int]) -> int:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 13,
+      "name": "堆",
+      "slug": "top-100-liked-92-lutp",
+      "questions": [
+        {
+          "number": 215,
+          "title": "数组中的第K个最大元素",
+          "titleEn": "Kth Largest Element in an Array",
+          "slug": "kth-largest-element-in-an-array",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "findKthLargest",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              },
+              {
+                "name": "k",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def findKthLargest(self, nums: List[int], k: int) -> int:"
+          ]
+        },
+        {
+          "number": 347,
+          "title": "前 K 个高频元素",
+          "titleEn": "Top K Frequent Elements",
+          "slug": "top-k-frequent-elements",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "topKFrequent",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              },
+              {
+                "name": "k",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer[]"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def topKFrequent(self, nums: list[int], k: int) -> list[int]:"
+          ]
+        },
+        {
+          "number": 295,
+          "title": "数据流的中位数",
+          "titleEn": "Find Median from Data Stream",
+          "slug": "find-median-from-data-stream",
+          "difficulty": "Hard",
+          "signature": {
+            "return": {
+              "type": "boolean"
+            },
+            "classname": "MedianFinder",
+            "constructor": {
+              "params": []
+            },
+            "methods": [
+              {
+                "params": [
+                  {
+                    "type": "integer",
+                    "name": "num"
+                  }
+                ],
+                "name": "addNum",
+                "return": {
+                  "type": "void"
+                }
+              },
+              {
+                "params": [],
+                "name": "findMedian",
+                "return": {
+                  "type": "double"
+                }
+              }
+            ],
+            "systemdesign": true
+          },
+          "pythonDeclarations": [
+            "class MedianFinder:",
+            "    def __init__(self):",
+            "    def addNum(self, num: int) -> None:",
+            "    def findMedian(self) -> float:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 14,
+      "name": "贪心算法",
+      "slug": "top-100-liked-93-mcze",
+      "questions": [
+        {
+          "number": 121,
+          "title": "买卖股票的最佳时机",
+          "titleEn": "Best Time to Buy and Sell Stock",
+          "slug": "best-time-to-buy-and-sell-stock",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "maxProfit",
+            "params": [
+              {
+                "name": "prices",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def maxProfit(self, prices: list[int]) -> int:"
+          ]
+        },
+        {
+          "number": 55,
+          "title": "跳跃游戏",
+          "titleEn": "Jump Game",
+          "slug": "jump-game",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "canJump",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "boolean"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def canJump(self, nums: list[int]) -> bool:"
+          ]
+        },
+        {
+          "number": 45,
+          "title": "跳跃游戏 II",
+          "titleEn": "Jump Game II",
+          "slug": "jump-game-ii",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "jump",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def jump(self, nums: list[int]) -> int:"
+          ]
+        },
+        {
+          "number": 763,
+          "title": "划分字母区间",
+          "titleEn": "Partition Labels",
+          "slug": "partition-labels",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "partitionLabels",
+            "params": [
+              {
+                "name": "s",
+                "type": "string"
+              }
+            ],
+            "return": {
+              "type": "list<integer>"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def partitionLabels(self, s: str) -> list[int]:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 15,
+      "name": "动态规划",
+      "slug": "top-100-liked-94-c8ic",
+      "questions": [
+        {
+          "number": 70,
+          "title": "爬楼梯",
+          "titleEn": "Climbing Stairs",
+          "slug": "climbing-stairs",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "climbStairs",
+            "params": [
+              {
+                "name": "n",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def climbStairs(self, n: int) -> int:"
+          ]
+        },
+        {
+          "number": 118,
+          "title": "杨辉三角",
+          "titleEn": "Pascal's Triangle",
+          "slug": "pascals-triangle",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "generate",
+            "params": [
+              {
+                "name": "numRows",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "list<list<integer>>",
+              "dealloc": true,
+              "rowsize": "param_1"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def generate(self, numRows: int) -> list[list[int]]:"
+          ]
+        },
+        {
+          "number": 198,
+          "title": "打家劫舍",
+          "titleEn": "House Robber",
+          "slug": "house-robber",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "rob",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def rob(self, nums: List[int]) -> int:"
+          ]
+        },
+        {
+          "number": 279,
+          "title": "完全平方数",
+          "titleEn": "Perfect Squares",
+          "slug": "perfect-squares",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "numSquares",
+            "params": [
+              {
+                "name": "n",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def numSquares(self, n: int) -> int:"
+          ]
+        },
+        {
+          "number": 322,
+          "title": "零钱兑换",
+          "titleEn": "Coin Change",
+          "slug": "coin-change",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "coinChange",
+            "params": [
+              {
+                "name": "coins",
+                "type": "integer[]"
+              },
+              {
+                "name": "amount",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def coinChange(self, coins: list[int], amount: int) -> int:"
+          ]
+        },
+        {
+          "number": 139,
+          "title": "单词拆分",
+          "titleEn": "Word Break",
+          "slug": "word-break",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "wordBreak",
+            "params": [
+              {
+                "name": "s",
+                "type": "string"
+              },
+              {
+                "name": "wordDict",
+                "type": "list<string>"
+              }
+            ],
+            "return": {
+              "type": "boolean"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def wordBreak(self, s: str, wordDict: List[str]) -> bool:"
+          ]
+        },
+        {
+          "number": 300,
+          "title": "最长递增子序列",
+          "titleEn": "Longest Increasing Subsequence",
+          "slug": "longest-increasing-subsequence",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "lengthOfLIS",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def lengthOfLIS(self, nums: list[int]) -> int:"
+          ]
+        },
+        {
+          "number": 152,
+          "title": "乘积最大子数组",
+          "titleEn": "Maximum Product Subarray",
+          "slug": "maximum-product-subarray",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "maxProduct",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def maxProduct(self, nums: list[int]) -> int:"
+          ]
+        },
+        {
+          "number": 416,
+          "title": "分割等和子集",
+          "titleEn": "Partition Equal Subset Sum",
+          "slug": "partition-equal-subset-sum",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "canPartition",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "boolean"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def canPartition(self, nums: List[int]) -> bool:"
+          ]
+        },
+        {
+          "number": 32,
+          "title": "最长有效括号",
+          "titleEn": "Longest Valid Parentheses",
+          "slug": "longest-valid-parentheses",
+          "difficulty": "Hard",
+          "signature": {
+            "name": "longestValidParentheses",
+            "params": [
+              {
+                "name": "s",
+                "type": "string"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def longestValidParentheses(self, s: str) -> int:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 16,
+      "name": "多维动态规划",
+      "slug": "top-100-liked-95-u30r",
+      "questions": [
+        {
+          "number": 62,
+          "title": "不同路径",
+          "titleEn": "Unique Paths",
+          "slug": "unique-paths",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "uniquePaths",
+            "params": [
+              {
+                "name": "m",
+                "type": "integer"
+              },
+              {
+                "name": "n",
+                "type": "integer"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def uniquePaths(self, m: int, n: int) -> int:"
+          ]
+        },
+        {
+          "number": 64,
+          "title": "最小路径和",
+          "titleEn": "Minimum Path Sum",
+          "slug": "minimum-path-sum",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "minPathSum",
+            "params": [
+              {
+                "name": "grid",
+                "type": "integer[][]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def minPathSum(self, grid: list[list[int]]) -> int:"
+          ]
+        },
+        {
+          "number": 5,
+          "title": "最长回文子串",
+          "titleEn": "Longest Palindromic Substring",
+          "slug": "longest-palindromic-substring",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "longestPalindrome",
+            "params": [
+              {
+                "name": "s",
+                "type": "string"
+              }
+            ],
+            "return": {
+              "type": "string"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def longestPalindrome(self, s: str) -> str:"
+          ]
+        },
+        {
+          "number": 1143,
+          "title": "最长公共子序列",
+          "titleEn": "Longest Common Subsequence",
+          "slug": "longest-common-subsequence",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "longestCommonSubsequence",
+            "params": [
+              {
+                "name": "text1",
+                "type": "string"
+              },
+              {
+                "type": "string",
+                "name": "text2"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def longestCommonSubsequence(self, text1: str, text2: str) -> int:"
+          ]
+        },
+        {
+          "number": 72,
+          "title": "编辑距离",
+          "titleEn": "Edit Distance",
+          "slug": "edit-distance",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "minDistance",
+            "params": [
+              {
+                "name": "word1",
+                "type": "string"
+              },
+              {
+                "name": "word2",
+                "type": "string"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def minDistance(self, word1: str, word2: str) -> int:"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 17,
+      "name": "技巧",
+      "slug": "top-100-liked-96-et6z",
+      "questions": [
+        {
+          "number": 136,
+          "title": "只出现一次的数字",
+          "titleEn": "Single Number",
+          "slug": "single-number",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "singleNumber",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def singleNumber(self, nums: List[int]) -> int:"
+          ]
+        },
+        {
+          "number": 169,
+          "title": "多数元素",
+          "titleEn": "Majority Element",
+          "slug": "majority-element",
+          "difficulty": "Easy",
+          "signature": {
+            "name": "majorityElement",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def majorityElement(self, nums: List[int]) -> int:"
+          ]
+        },
+        {
+          "number": 75,
+          "title": "颜色分类",
+          "titleEn": "Sort Colors",
+          "slug": "sort-colors",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "sortColors",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "void"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def sortColors(self, nums: list[int]) -> None:"
+          ]
+        },
+        {
+          "number": 31,
+          "title": "下一个排列",
+          "titleEn": "Next Permutation",
+          "slug": "next-permutation",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "nextPermutation",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "void"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def nextPermutation(self, nums: list[int]) -> None:"
+          ]
+        },
+        {
+          "number": 287,
+          "title": "寻找重复数",
+          "titleEn": "Find the Duplicate Number",
+          "slug": "find-the-duplicate-number",
+          "difficulty": "Medium",
+          "signature": {
+            "name": "findDuplicate",
+            "params": [
+              {
+                "name": "nums",
+                "type": "integer[]"
+              }
+            ],
+            "return": {
+              "type": "integer"
+            }
+          },
+          "pythonDeclarations": [
+            "class Solution:",
+            "    def findDuplicate(self, nums: list[int]) -> int:"
+          ]
+        }
+      ]
+    }
+  ]
+}

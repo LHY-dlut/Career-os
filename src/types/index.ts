@@ -81,6 +81,12 @@ export type CodingCategory =
   | 'ACM / Coding Interview'
   | 'Text-to-SQL';
 
+export interface CodingDraft {
+  code: string;
+  updatedAt: string;
+  elapsedSeconds: number;
+}
+
 export interface CodingProblem {
   id: string;
   userId: string;
@@ -94,6 +100,9 @@ export interface CodingProblem {
   complexityAnalysis: string;
   keyPitfalls: string[];
   interviewExplanation: string;
+  trainingTaskId?: string;
+  trainingTrack?: 'hot100' | 'pytorch';
+  drafts?: Record<string, CodingDraft>;
 }
 
 export interface CodingAttempt {
@@ -107,6 +116,9 @@ export interface CodingAttempt {
   status: 'Completed' | 'Struggled' | 'Partial' | 'Abandoned';
   selfRating: number; // 1-5
   notes: string;
+  language?: string;
+  errorReason?: string;
+  verification?: 'not-run' | 'local-samples-reported' | 'leetcode-accepted-reported';
 }
 
 export type ApplicationStage =

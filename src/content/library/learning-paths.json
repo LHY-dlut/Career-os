@@ -1,0 +1,327 @@
+[
+  {
+    "id": "foundations",
+    "title": "数学、机器学习与深度学习基础",
+    "titleEn": "Mathematics, ML & deep learning",
+    "description": "先建立线性代数、概率与优化直觉，再扩展到生成模型和多模态。",
+    "sections": [
+      {
+        "id": "math",
+        "title": "数学与训练基础",
+        "resourceIds": [
+          "aiinfra-guide-a2f11c9bbc82d504",
+          "aris-ai-offer-normalization-init-tutorial",
+          "aris-ai-offer-optimizer-lr-schedule-tutorial",
+          "aris-ai-offer-llm-evaluation-benchmarking-tutorial"
+        ]
+      },
+      {
+        "id": "generative",
+        "title": "生成模型与多模态扩展",
+        "resourceIds": [
+          "aris-ai-offer-3d-generation-tutorial",
+          "aris-ai-offer-diffusion-distillation-tutorial",
+          "aris-ai-offer-diffusion-foundations-tutorial",
+          "aris-ai-offer-diffusion-post-training-tutorial",
+          "aris-ai-offer-flow-matching-tutorial",
+          "aris-ai-offer-image-generation-systems-tutorial",
+          "aris-ai-offer-modern-diffusion-post-training-tutorial",
+          "aris-ai-offer-vae-vqvae-vqgan-tutorial",
+          "aris-ai-offer-video-generation-tutorial",
+          "aris-ai-offer-vlm-multimodal-tutorial",
+          "aris-ai-offer-world-models-tutorial"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "python-pytorch",
+    "title": "Python / PyTorch 基础",
+    "titleEn": "Python / PyTorch foundations",
+    "description": "从张量形状到自动微分与训练循环，先能写出可检查的小程序。",
+    "sections": [
+      {
+        "id": "tensor",
+        "title": "张量与编程基础",
+        "resourceIds": [
+          "career-tensor-shapes",
+          "aiinfra-guide-bf08fe797a94bda6",
+          "aiinfra-guide-1ceb81b628a5c29d",
+          "aiinfra-guide-6b76589b9952fa4f"
+        ]
+      },
+      {
+        "id": "input",
+        "title": "文本与输入表示",
+        "resourceIds": [
+          "aris-ai-offer-tokenization-tutorial",
+          "aiinfra-guide-bc9237c2c72b1d2b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "transformer",
+    "title": "Transformer 原理与手写实现",
+    "titleEn": "Transformer: concepts to code",
+    "description": "按张量、注意力、掩码、位置编码、Decoder、缓存依次构建最小实现。",
+    "sections": [
+      {
+        "id": "hands-on",
+        "title": "本站：从张量到增量推理",
+        "resourceIds": [
+          "career-tensor-shapes",
+          "career-scaled-attention",
+          "career-mha-masks",
+          "career-rope",
+          "career-decoder-block",
+          "career-gqa-kv-cache"
+        ]
+      },
+      {
+        "id": "architecture",
+        "title": "上游原理与完整架构",
+        "resourceIds": [
+          "aiinfra-guide-cc408d5cb153a180",
+          "aiinfra-guide-cf55775eeac383aa",
+          "aiinfra-guide-57a12359e18c0eed",
+          "aiinfra-guide-d949c63815a3183d",
+          "aiinfra-guide-5328322073d0c2f3",
+          "aiinfra-guide-8922413ce246bd71",
+          "aiinfra-guide-c732a9479b9933b6",
+          "aiinfra-guide-09d48d37033129c9",
+          "aiinfra-guide-a5865c19672660ac",
+          "aiinfra-guide-6a491f1a225ce1da",
+          "aiinfra-guide-bc9237c2c72b1d2b"
+        ]
+      },
+      {
+        "id": "interview",
+        "title": "注意力与架构面试对照",
+        "resourceIds": [
+          "aris-ai-offer-attention-tutorial",
+          "aris-ai-offer-transformer-block-tutorial",
+          "aris-ai-offer-linear-sparse-attention-tutorial",
+          "aris-ai-offer-long-context-rope-yarn-mla-tutorial",
+          "aris-ai-offer-kv-cache-speculative-decoding-tutorial",
+          "kamacoder-transformer"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "llm-training",
+    "title": "LLM 训练、微调与对齐",
+    "titleEn": "LLM training, fine-tuning & alignment",
+    "description": "连接预训练流水线、参数高效微调、偏好优化与推理模型。",
+    "sections": [
+      {
+        "id": "pretrain",
+        "title": "预训练与模型架构",
+        "resourceIds": [
+          "aris-ai-offer-llm-pretraining-pipeline-tutorial",
+          "aris-ai-offer-moe-tutorial"
+        ]
+      },
+      {
+        "id": "alignment",
+        "title": "微调、偏好优化与推理",
+        "resourceIds": [
+          "aris-ai-offer-lora-peft-tutorial",
+          "aris-ai-offer-kl-divergence-rlhf-tutorial",
+          "aris-ai-offer-rlhf-dpo-grpo-ppo-tutorial",
+          "aris-ai-offer-llm-opd-tutorial",
+          "aris-ai-offer-reasoning-models-tutorial",
+          "kamacoder-model-tuning"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "rag",
+    "title": "RAG 检索增强",
+    "titleEn": "Retrieval-augmented generation",
+    "description": "围绕嵌入、检索质量与知识图谱，建立可衡量的检索增强流程。",
+    "sections": [
+      {
+        "id": "retrieval",
+        "title": "检索原理与工程质量",
+        "resourceIds": [
+          "aris-ai-offer-rag-embedding-retrieval-tutorial",
+          "kamacoder-rag-basics",
+          "kamacoder-rag-quality",
+          "kamacoder-graph-rag"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "agents",
+    "title": "Agent 与 Text-to-SQL",
+    "titleEn": "Agents & Text-to-SQL",
+    "description": "先理解工具调用与状态治理，再学习多智能体。Text-to-SQL 暂无独立站内教程，后续补充会单独标明。",
+    "sections": [
+      {
+        "id": "basics",
+        "title": "智能体基础与长期任务",
+        "resourceIds": [
+          "aris-ai-offer-agent-foundations-tutorial",
+          "aris-ai-offer-agentic-rl-tutorial",
+          "aris-ai-offer-multi-agent-long-horizon-tutorial",
+          "aris-ai-offer-self-evolving-agents-tutorial"
+        ]
+      },
+      {
+        "id": "engineering",
+        "title": "Agent 工程专题与原文入口",
+        "resourceIds": [
+          "kamacoder-agent-basics",
+          "kamacoder-agent-loop",
+          "kamacoder-agent-graph",
+          "kamacoder-agent-harness",
+          "kamacoder-agent-production",
+          "kamacoder-agent-communication",
+          "kamacoder-agent-orchestration",
+          "kamacoder-agent-observability",
+          "kamacoder-agent-skills",
+          "kamacoder-agent-frameworks",
+          "kamacoder-agent-routing",
+          "kamacoder-agent-drift",
+          "kamacoder-agent-evidence"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ai-infra",
+    "title": "AI Infra：CUDA、推理优化、分布式训练",
+    "titleEn": "AI infrastructure: CUDA, inference & distributed training",
+    "description": "从硬件与通信基础出发，按算子、训练与推理三个层次逐步学习。",
+    "sections": [
+      {
+        "id": "roadmap",
+        "title": "全景与硬件基础",
+        "resourceIds": [
+          "aiinfra-guide-9cd4fb51a163122a",
+          "aiinfra-guide-79a6f14b1e1f3916",
+          "aiinfra-guide-3d7fd2516bf71971",
+          "aiinfra-guide-76eb7c6696b0c573",
+          "aiinfra-guide-3e92cabaaa4ab6c9",
+          "aiinfra-guide-f3b62304efd09fbb"
+        ]
+      },
+      {
+        "id": "cuda",
+        "title": "CUDA 与算子优化",
+        "resourceIds": [
+          "aiinfra-guide-5a4442ccbbb8ee66",
+          "aiinfra-guide-4d2bc34f575f803c",
+          "aiinfra-guide-ffa4ba1ba3a30f90",
+          "aiinfra-guide-b63c2855eb476f26",
+          "aiinfra-guide-2384f3d79864e234",
+          "aiinfra-guide-38a3659b2c74399f",
+          "aiinfra-guide-6c777c53f467c01a",
+          "aiinfra-guide-53190fc47b5acfc1",
+          "aiinfra-guide-8713bd12e9b3f1f0",
+          "aiinfra-guide-070ffcd06377bde4",
+          "aiinfra-guide-36ab5ec72a001b7c",
+          "aiinfra-guide-13e4d6e802bd89bb",
+          "aiinfra-guide-8a0a068ef51c6e70",
+          "aiinfra-guide-d410b3983ec48653",
+          "aiinfra-guide-d38c5461511d45a9",
+          "aiinfra-guide-95295bdb7484b12a",
+          "aiinfra-guide-f50052476560609c",
+          "aiinfra-guide-c212d16cb8f6b4bf",
+          "aiinfra-guide-1c62418efb0e0b12",
+          "aiinfra-guide-b897c843c1fd7319",
+          "aiinfra-guide-ef4b7c44988c470d",
+          "aiinfra-guide-0ebbf8fd466b028f",
+          "aiinfra-guide-064ea7e3a78ce2be"
+        ]
+      },
+      {
+        "id": "distributed",
+        "title": "分布式训练",
+        "resourceIds": [
+          "aiinfra-guide-dbc5a207de4235ec",
+          "aiinfra-guide-3b104677ecc6b9f9",
+          "aiinfra-guide-02aa2f02b41f11c4",
+          "aiinfra-guide-9ca0abf1167948aa",
+          "aiinfra-guide-dbf7cc7e83039495",
+          "aiinfra-guide-916f84b7799c00ce",
+          "aiinfra-guide-75295f91b48c5077",
+          "aiinfra-guide-cdc72e9b5b44ea12",
+          "aiinfra-guide-86a8cd5f81e25e85",
+          "aiinfra-guide-309996474ee3146a",
+          "aiinfra-guide-f5937186e5c670a4",
+          "aiinfra-guide-83b4d1e12cd78b0f",
+          "aiinfra-guide-69893ec55dd32d6c",
+          "aiinfra-guide-e6638035b049d6d0",
+          "aiinfra-guide-9bf99975fb280a9a",
+          "aiinfra-guide-c1be018fba7dae8d",
+          "aiinfra-guide-3109a2178cd6c105",
+          "aris-ai-offer-distributed-training-tutorial"
+        ]
+      },
+      {
+        "id": "inference",
+        "title": "推理优化与服务",
+        "resourceIds": [
+          "aiinfra-guide-4394577e5c02ac38",
+          "aiinfra-guide-f0eface59cad74d2",
+          "aiinfra-guide-dc2d1eeaa91368de",
+          "aiinfra-guide-a11e8dcbd510f4ee",
+          "aiinfra-guide-90898ad09563dd17",
+          "aiinfra-guide-9e640615563bd93f",
+          "aiinfra-guide-09912231fb0cca75",
+          "aiinfra-guide-05fe47c72d61feb8",
+          "aiinfra-guide-712f07a1d1f50185",
+          "aiinfra-guide-9136f9066c80dd2b",
+          "aiinfra-guide-22b1f1e392b2da83",
+          "aiinfra-guide-e9f43f168b250a35",
+          "aiinfra-guide-d3794c6a90b371a8",
+          "aiinfra-guide-cca3ca4a454b0dd0",
+          "aiinfra-guide-6d2dca9f35f04ed2",
+          "aiinfra-guide-b188bdba46c4669f",
+          "aiinfra-guide-cd16f93f214d33dd",
+          "aiinfra-guide-a90a2ea9cffebb9a",
+          "aiinfra-guide-4d726573bc20f994",
+          "aiinfra-guide-171c911cb240dd4a",
+          "aris-ai-offer-llm-inference-serving-tutorial",
+          "aris-ai-offer-quantization-tutorial"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "interview-algorithms",
+    "title": "面试专题与算法训练",
+    "titleEn": "Interviews & algorithm practice",
+    "description": "从原站面经理解真实考察方式，关联代码训练与自己的复盘笔记。",
+    "sections": [
+      {
+        "id": "coding",
+        "title": "AI 编程与算法方法",
+        "resourceIds": [
+          "kamacoder-ai-coding",
+          "kamacoder-ai-coding-quality",
+          "kamacoder-claude-code",
+          "kamacoder-ai-dev-tools",
+          "kamacoder-spec-driven",
+          "kamacoder-code-search",
+          "kamacoder-context-window",
+          "labuladong-algorithm-summary"
+        ]
+      },
+      {
+        "id": "interviews",
+        "title": "原站真实面试与复盘",
+        "resourceIds": [
+          "kamacoder-overview",
+          "kamacoder-interview-agent",
+          "kamacoder-interview-intern"
+        ]
+      }
+    ]
+  }
+]

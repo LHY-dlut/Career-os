@@ -5,6 +5,7 @@ import { AuthProvider, useAuth } from './app/AuthProvider';
 import { DataProvider } from './app/DataProvider';
 import { AppRoutes } from './app/AppRoutes';
 import { I18nProvider, useI18n } from './i18n/I18nProvider';
+import { TrainingBoundary } from './app/TrainingProvider';
 
 function Workspace() {
   const { t } = useI18n();
@@ -12,7 +13,7 @@ function Workspace() {
   const location = useLocation();
   const publicReading = location.pathname === '/library' || location.pathname.startsWith('/library/');
   if (loading && !publicReading) return <div role="status" className="p-12">{t('Restoring your session…', '正在恢复登录状态…')}</div>;
-  return <DataProvider key={user?.uid || 'guest'} uid={user?.uid || null}><AppRoutes /></DataProvider>;
+  return <DataProvider key={user?.uid || 'guest'} uid={user?.uid || null}><TrainingBoundary identity={user?.uid || 'guest'}><AppRoutes /></TrainingBoundary></DataProvider>;
 }
 export default function App() {
   return <I18nProvider><ErrorBoundary><ToastProvider><AuthProvider><BrowserRouter><Workspace /></BrowserRouter></AuthProvider></ToastProvider></ErrorBoundary></I18nProvider>;
