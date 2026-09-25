@@ -1,0 +1,4 @@
+# Keep imported document hashes reproducible across Windows and CI checkouts.
+public/library/** text eol=lf
+src/content/library/*.json text eol=lf
+scripts/import-learning-library.mjs text eol=lf

@@ -1,0 +1,28 @@
+# 第9章：性能分析与 Benchmark
+
+> 来源：[AIInfraGuide](https://github.com/caomaolufei/AIInfraGuide/blob/a3b63eeb81d6d36a3c42c8cfc5a1bdd96e36bab1/docs/guides/%E6%A8%A1%E5%9D%97%E5%9B%9B-%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/%E7%AC%AC9%E7%AB%A0-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E4%B8%8EBenchmark.md) · 作者：草帽路飞（caomaolufei）及 AIInfraGuide contributors · [MIT 许可](/library/licenses/aiinfra-guide-MIT.txt)
+
+
+## 本章简介
+
+优化效果需要量化验证，本章建立推理场景的完整性能评估体系，压测工具以 vLLM 自带的基准工具为主。
+
+**推理指标体系**定义完整指标集：QPS、TTFT(P50/P95)、TPOT(P50/P95)、Throughput、显存峰值、GPU 利用率，分析指标间的关联与 trade-off，强调单一指标无法反映全貌。
+
+**压测工具**覆盖 vLLM 自带的 `vllm bench serve` / `vllm bench latency` / `vllm bench throughput`、GenAI-Perf（LLM 指标一站式输出）、Triton Perf Analyzer，以及自定义压测脚本的设计要点和可复现的 Benchmark 配置管理。
+
+**性能分析工具**在推理场景下的最佳实践：torch.profiler 算子级分析、Nsight Systems 全链路分析、Nsight Compute Kernel 级下钻。
+
+**权威基准**介绍 MLPerf Inference（Datacenter）和 LLM Perf 评测趋势。
+
+**性能回归门禁**制定规则（如 TPOT P95 退化 > 5% 则 Block Merge）、CI 自动化集成和退化定位方法（git bisect + Nsight 对比）。
+
+**动手实验**：用 `vllm bench serve` 输出完整指标报告，模拟性能退化并用 Nsight Systems 定位。
+
+## 本章小节
+
+- **9.1 推理指标体系**：QPS、TTFT、TPOT、Throughput、显存与利用率的关联
+- **9.2 压测工具**：vllm bench、GenAI-Perf、可复现的压测配置
+- **9.3 性能分析工具**：torch.profiler、Nsight Systems/Compute
+- **9.4 权威基准**：MLPerf Inference 与评测趋势
+- **9.5 性能回归门禁**：门禁规则、CI 集成、退化定位

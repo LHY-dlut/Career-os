@@ -1,0 +1,381 @@
+[
+  {
+    "id": "kamacoder-overview",
+    "sourceId": "kamacoder",
+    "title": "大模型面试学习入口",
+    "category": "学习路线",
+    "tags": [
+      "LLM",
+      "Agent",
+      "面试"
+    ],
+    "summary": "按准备方向浏览原站目录，并为阅读安排建立自己的学习记录。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/#agent-%E6%99%BA%E8%83%BD%E4%BD%93%E7%AF%87"
+  },
+  {
+    "id": "kamacoder-agent-basics",
+    "sourceId": "kamacoder",
+    "title": "Agent 基础与工具调用",
+    "category": "Agent 工程",
+    "tags": [
+      "Agent 工程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/agent_interview.html"
+  },
+  {
+    "id": "kamacoder-agent-loop",
+    "sourceId": "kamacoder",
+    "title": "ReAct 与循环控制",
+    "category": "Agent 工程",
+    "tags": [
+      "Agent 工程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/loop_engineering_interview.html"
+  },
+  {
+    "id": "kamacoder-agent-graph",
+    "sourceId": "kamacoder",
+    "title": "智能体图编排",
+    "category": "Agent 工程",
+    "tags": [
+      "Agent 工程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/graph_engineering_interview.html"
+  },
+  {
+    "id": "kamacoder-agent-harness",
+    "sourceId": "kamacoder",
+    "title": "Agent 运行环境与治理",
+    "category": "Agent 工程",
+    "tags": [
+      "Agent 工程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/harness_interview.html"
+  },
+  {
+    "id": "kamacoder-agent-production",
+    "sourceId": "kamacoder",
+    "title": "生产级 Agent 架构",
+    "category": "Agent 工程",
+    "tags": [
+      "Agent 工程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/production_agent_architecture_harness_org_talent.html"
+  },
+  {
+    "id": "kamacoder-agent-communication",
+    "sourceId": "kamacoder",
+    "title": "多智能体通信",
+    "category": "Agent 工程",
+    "tags": [
+      "Agent 工程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/multi_agent_communication_interview.html"
+  },
+  {
+    "id": "kamacoder-agent-orchestration",
+    "sourceId": "kamacoder",
+    "title": "多智能体调度与状态",
+    "category": "Agent 工程",
+    "tags": [
+      "Agent 工程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/multi_agent_harness_interview.html"
+  },
+  {
+    "id": "kamacoder-agent-observability",
+    "sourceId": "kamacoder",
+    "title": "智能体可观测性",
+    "category": "Agent 工程",
+    "tags": [
+      "Agent 工程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/agent_harness_observability_interview.html"
+  },
+  {
+    "id": "kamacoder-agent-skills",
+    "sourceId": "kamacoder",
+    "title": "Agent 技能复用",
+    "category": "Agent 工程",
+    "tags": [
+      "Agent 工程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/agent_skill_interview.html"
+  },
+  {
+    "id": "kamacoder-agent-frameworks",
+    "sourceId": "kamacoder",
+    "title": "智能体框架比较",
+    "category": "Agent 工程",
+    "tags": [
+      "Agent 工程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/agent_framework_comparison.html"
+  },
+  {
+    "id": "kamacoder-agent-routing",
+    "sourceId": "kamacoder",
+    "title": "智能体请求路由",
+    "category": "Agent 工程",
+    "tags": [
+      "Agent 工程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/agent_hybrid_routing_interview.html"
+  },
+  {
+    "id": "kamacoder-agent-drift",
+    "sourceId": "kamacoder",
+    "title": "任务漂移与幻觉",
+    "category": "Agent 工程",
+    "tags": [
+      "Agent 工程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/agent_drift_hallucination_interview.html"
+  },
+  {
+    "id": "kamacoder-agent-evidence",
+    "sourceId": "kamacoder",
+    "title": "智能体输出约束",
+    "category": "Agent 工程",
+    "tags": [
+      "Agent 工程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/agent_hallucination_control_interview.html"
+  },
+  {
+    "id": "kamacoder-rag-basics",
+    "sourceId": "kamacoder",
+    "title": "RAG 面试准备",
+    "category": "RAG",
+    "tags": [
+      "RAG",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/rag_interview.html"
+  },
+  {
+    "id": "kamacoder-rag-quality",
+    "sourceId": "kamacoder",
+    "title": "RAG 工程质量",
+    "category": "RAG",
+    "tags": [
+      "RAG",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/rag_hardest_parts_interview.html"
+  },
+  {
+    "id": "kamacoder-graph-rag",
+    "sourceId": "kamacoder",
+    "title": "知识图谱检索",
+    "category": "RAG",
+    "tags": [
+      "RAG",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/graphrag_interview.html"
+  },
+  {
+    "id": "kamacoder-model-tuning",
+    "sourceId": "kamacoder",
+    "title": "模型微调与偏好对齐",
+    "category": "模型训练",
+    "tags": [
+      "模型训练",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/finetuning_sft_rlhf_interview.html"
+  },
+  {
+    "id": "kamacoder-transformer",
+    "sourceId": "kamacoder",
+    "title": "Transformer 面试准备",
+    "category": "Transformer",
+    "tags": [
+      "Transformer",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/transformer_interview.html"
+  },
+  {
+    "id": "kamacoder-ai-coding",
+    "sourceId": "kamacoder",
+    "title": "AI 编程能力自测",
+    "category": "AI 编程",
+    "tags": [
+      "AI 编程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/vibe_coding_interview.html"
+  },
+  {
+    "id": "kamacoder-ai-coding-quality",
+    "sourceId": "kamacoder",
+    "title": "AI 编程与交付质量",
+    "category": "AI 编程",
+    "tags": [
+      "AI 编程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/vibe_coding_backup_engineering.html"
+  },
+  {
+    "id": "kamacoder-claude-code",
+    "sourceId": "kamacoder",
+    "title": "Claude Code 工作方式",
+    "category": "AI 编程",
+    "tags": [
+      "AI 编程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/claude_code_deep_dive.html"
+  },
+  {
+    "id": "kamacoder-ai-dev-tools",
+    "sourceId": "kamacoder",
+    "title": "AI 开发工具协作",
+    "category": "AI 编程",
+    "tags": [
+      "AI 编程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/ai_enhanced_development_openspec_superpowers_gstack.html"
+  },
+  {
+    "id": "kamacoder-spec-driven",
+    "sourceId": "kamacoder",
+    "title": "基于规格的开发",
+    "category": "AI 编程",
+    "tags": [
+      "AI 编程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/spec_driven_development_interview.html"
+  },
+  {
+    "id": "kamacoder-code-search",
+    "sourceId": "kamacoder",
+    "title": "代码搜索与上下文",
+    "category": "AI 编程",
+    "tags": [
+      "AI 编程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/claude_code_grep_rag_interview.html"
+  },
+  {
+    "id": "kamacoder-context-window",
+    "sourceId": "kamacoder",
+    "title": "上下文窗口管理",
+    "category": "AI 编程",
+    "tags": [
+      "AI 编程",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/claude_code_context_window_interview.html"
+  },
+  {
+    "id": "kamacoder-interview-agent",
+    "sourceId": "kamacoder",
+    "title": "Agent 岗位面试复盘",
+    "category": "真实面试",
+    "tags": [
+      "真实面试",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/20260506bytedance.html"
+  },
+  {
+    "id": "kamacoder-interview-intern",
+    "sourceId": "kamacoder",
+    "title": "Agent 实习面试复盘",
+    "category": "真实面试",
+    "tags": [
+      "真实面试",
+      "原文导航"
+    ],
+    "summary": "原站学习入口。阅读后可在本站记录自己的理解、实验和复习问题。",
+    "kind": "link",
+    "sourceUrl": "https://notes.kamacoder.com/interview/llm/bytedance_fanqie_agent_intern_interview.html"
+  },
+  {
+    "id": "labuladong-algorithm-summary",
+    "sourceId": "labuladong",
+    "title": "算法学习：框架与方法",
+    "category": "算法与数据结构",
+    "tags": [
+      "算法",
+      "数据结构",
+      "原文导航"
+    ],
+    "summary": "打开用户指定的算法学习文章；可在本站保存阅读链接和自己的练习记录。",
+    "kind": "link",
+    "sourceUrl": "https://labuladong.online/zh/algo/essential-technique/algorithm-summary/"
+  }
+]
