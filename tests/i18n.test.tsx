@@ -24,7 +24,7 @@ const tree = () => <I18nProvider><MemoryRouter initialEntries={['/dashboard']}><
 it('switches the real navbar immediately and preserves drafts, enum values, records and the choice after remount', () => {
   localStorage.setItem('ai_career_os:guest:workspace', '{"title":"Original record"}');
   const app = render(tree());
-  expect(screen.getByRole('link', { name: '学习总览' })).toBeTruthy();
+  expect(screen.getByRole('link', { name: '我的工作台' })).toBeTruthy();
   expect(document.documentElement.lang).toBe('zh-CN');
   fireEvent.change(screen.getByLabelText('user draft'), { target: { value: '未保存的自写内容' } });
   fireEvent.click(screen.getByRole('button', { name: '切换为英文' }));
@@ -46,7 +46,7 @@ it('switches the real navbar immediately and preserves drafts, enum values, reco
 it('falls back from invalid preferences and follows changes made in another browser tab', () => {
   localStorage.setItem(LANGUAGE_STORAGE_KEY, 'unknown');
   render(tree());
-  expect(screen.getByRole('link', { name: '学习总览' })).toBeTruthy();
+  expect(screen.getByRole('link', { name: '我的工作台' })).toBeTruthy();
   act(() => window.dispatchEvent(new StorageEvent('storage', { key: LANGUAGE_STORAGE_KEY, newValue: 'en' })));
   expect(screen.getByRole('link', { name: 'Dashboard' })).toBeTruthy();
   expect(document.documentElement.lang).toBe('en');

@@ -32,11 +32,11 @@ export function LibraryTree({ resources, courses, course, current, search, onCou
     const isOpen = expanded.has(node.id);
     const title = courseNodeTitle(node, language);
     return <li key={node.id} className="min-w-0">
-      <div className={`flex items-start gap-1 rounded-lg ${isActive ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300' : 'text-slate-600 dark:text-slate-400'}`}>
+      <div className={`flex items-start gap-1 rounded-md border-l-2 ${isActive ? 'border-blue-600 bg-blue-50/80 text-blue-800 dark:border-sky-400 dark:bg-sky-950/30 dark:text-sky-300' : 'border-transparent text-slate-600 dark:text-slate-400'}`}>
         {node.children.length ? <button aria-label={t(`${isOpen ? 'Collapse' : 'Expand'} ${title}`, `${isOpen ? '收起' : '展开'}${title}`)} aria-expanded={isOpen} onClick={() => toggle(node.id)} className="mt-1 shrink-0 rounded p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800">{isOpen ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}</button> : <span className="w-4 shrink-0" />}
-        {resource ? <Link to={libraryCourseLink(resource.id, search, course, course.mode)} onClick={onNavigate} aria-current={isActive ? 'page' : undefined} className={`min-w-0 flex-1 break-words py-2 pr-2 text-xs leading-5 hover:text-indigo-600 ${isActive ? 'font-semibold' : ''}`}><span>{title}</span>{resource.contentStatus === 'outline' && <span className="ml-1 text-[9px] font-normal text-amber-600 dark:text-amber-400">{t('Outline', '提纲')}</span>}</Link> : <button onClick={() => toggle(node.id)} className={`min-w-0 flex-1 py-2 pr-2 text-left text-xs font-semibold leading-5 ${depth === 0 ? 'text-slate-800 dark:text-slate-200' : ''}`}>{title}</button>}
+        {resource ? <Link to={libraryCourseLink(resource.id, search, course, course.mode)} onClick={onNavigate} aria-current={isActive ? 'page' : undefined} className={`min-w-0 flex-1 break-words py-2 pr-2 text-[13px] leading-5 hover:text-blue-700 dark:hover:text-sky-300 ${isActive ? 'font-semibold' : ''}`}><span>{title}</span>{resource.contentStatus === 'outline' && <span className="ml-1 text-[9px] font-normal text-amber-600 dark:text-amber-400">{t('Outline', '提纲')}</span>}</Link> : <button onClick={() => toggle(node.id)} className={`min-w-0 flex-1 py-2 pr-2 text-left text-[13px] leading-5 ${depth === 0 ? 'font-semibold text-slate-800 dark:text-slate-200' : 'font-medium'}`}>{title}</button>}
       </div>
-      {node.children.length > 0 && isOpen && <ul className="ml-3 border-l border-slate-200 pl-1 dark:border-slate-800">{node.children.map(child => renderNode(child, depth + 1))}</ul>}
+      {node.children.length > 0 && isOpen && <ul className="ml-3 border-l border-slate-200 pl-2 dark:border-slate-800">{node.children.map(child => renderNode(child, depth + 1))}</ul>}
     </li>;
   };
   return <nav ref={navRef} aria-label={t('Source document navigation', '来源文档导航')} className="text-xs">

@@ -8,13 +8,15 @@ Knowledge → Question Bank → Review → Coding → Applications → Interview
 
 2026-09-25 经用户明确要求，课程资料库与双轨训练已发布到同一站点：8 条学习路线、6 篇本站教学单元、Hot100 的 100 个可编辑骨架/10 个完整训练包、14 个 PyTorch 完整训练包，首页和 Coding Lab 共用草稿与历史。[打开首页训练](https://career-os-lhy-dlut.web.app/dashboard)。诊断、实测结果与发布记录见 [本轮交付报告](docs/LIBRARY_TRAINING_REPORT.md)。代码仍通过草稿 PR 审查，没有合并 main。
 
+`codex/aiinfra-ui-refinement` 是**尚未发布**的界面预览分支：`/` 成为公开学习门户，保留可编辑的共享代码训练；`/dashboard` 是私人工作台；资料库阅读改为更清楚的三栏与长文排版。线上站点仍是上一段所述版本。见 [界面精修报告与截图](docs/AIINFRA_UI_REFINEMENT_REPORT.md)。
+
 ## Why
 
 把分散的学习资料、复习记录与真实面试反馈连接起来，形成每天能使用的个人系统。优先保证数据正确、可维护和失败可恢复，再逐步增加 AI 能力。
 
 ## Features — 当前能力与边界
 
-- 学习门户：首页参考 [AIInfraGuide](https://caomaolufei.github.io/AIInfraGuide/) 的顶部导航、居中首屏与主题卡片组织；个人知识数量、最近更新和下方工作台来自当前工作区。知识库提供分类总览、章节树与三栏阅读，手机可展开导航与目录。
+- 学习门户（预览分支 `/`）：参考 [AIInfraGuide](https://caomaolufei.github.io/AIInfraGuide/) 的留白、淡网格和文档阅读秩序；展示公开课程与来源核查信息，并直接使用共享代码训练。个人笔记、复习、投递和面试数据留在 `/dashboard` 工作台。
 - 学习资料库 `/library`：经核查许可的 AIInfraGuide、ARIS 教程作为固定快照随网站发布，正文按需加载；卡码与 labuladong 提供原文导航。支持来源/主题/标题标签搜索、目录、手机阅读与建立个人学习笔记。出处、许可证、收录范围和更新方式见 [资料来源](docs/CONTENT_SOURCES.md)。资料不会批量写入个人 localStorage 或 Firestore。
 - 知识文章：Markdown、GFM、KaTeX、代码高亮/复制、目录锚点、前后篇、编辑、导入/导出。
 - 题库与复习：搜索/筛选、CRUD、四档评分、原子保存复习历史。当前为简单间隔算法，不是完整 SM-2 / FSRS。

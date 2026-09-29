@@ -62,14 +62,15 @@ export function TrainingWorkspace({ compact = false }: { compact?: boolean }) {
   const completion = trackTasks.filter(item => statuses.get(item.id) === 'completed').length;
   const review = trackTasks.filter(item => statuses.get(item.id) === 'review').length;
   const total = trackTasks.length;
-  const fullParams = searchFor({ task: '' });
+  const fullParams = searchFor({ task: '', from: compact && location.pathname === '/' ? 'home' : '' });
+  const returnTo = params.get('from') === 'home' ? '/' : '/dashboard';
 
   return <section aria-label={t('Code training workspace', '代码训练工作区')} className={`min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-[#101722] ${compact ? '' : 'mx-auto max-w-[1440px]'}`}>
     <header className="border-b border-slate-200 px-4 py-5 sm:px-6 dark:border-slate-800">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div><h2 className="flex items-center gap-2 text-xl font-bold"><Code2 className="h-5 w-5 text-indigo-500" />{t(compact ? 'Today’s code training' : 'Code training', compact ? '今日代码训练' : '代码训练')}</h2><p className="mt-2 text-xs leading-6 text-slate-500">{t('Edit and record mode · Download your code and tests to run locally.', '编辑与记录模式 · 下载代码和测试文件，在本地运行验证。')}</p></div>
         {compact && task && <Link to={`/coding/${encodeURIComponent(task.id)}?${fullParams}`} className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 dark:text-indigo-300"><Expand className="h-4 w-4" />{t('Full workspace', '全屏训练')}</Link>}
-        {!compact && <Link to={`/dashboard?task=${encodeURIComponent(task?.id || '')}&track=${track}`} className="text-sm text-indigo-600 dark:text-indigo-300">{t('Continue on dashboard', '回首页继续草稿')}</Link>}
+        {!compact && <Link to={`${returnTo}?task=${encodeURIComponent(task?.id || '')}&track=${track}`} className="text-sm text-indigo-600 dark:text-indigo-300">{returnTo === '/' ? t('Continue on home', '回学习首页继续草稿') : t('Continue on dashboard', '回工作台继续草稿')}</Link>}
       </div>
       <div role="tablist" aria-label={t('Training tracks', '训练轨道')} className="mt-5 flex flex-wrap gap-2">
         {(['hot100', 'pytorch', ...(personal.length ? ['personal'] : [])] as const).map(item => <button key={item} role="tab" aria-selected={track === item} onClick={() => { const first = all.find(task => task.track === item); if (first) choose(first.id, item); }} className={`rounded-lg px-4 py-2 text-sm font-semibold ${track === item ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}>{item === 'hot100' ? 'LeetCode Hot100' : item === 'pytorch' ? 'Transformer / PyTorch' : t('My problems', '我的题目')}</button>)}

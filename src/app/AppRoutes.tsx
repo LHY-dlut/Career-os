@@ -1,6 +1,6 @@
 import { useI18n } from '../i18n/I18nProvider';
 import { lazy, Suspense } from 'react';
-import { Navigate, Route, Routes, useLocation, useNavigate, useParams, Link } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate, useParams, Link } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import { useData } from './DataProvider';
 import { useWorkspaceActions } from './WorkspaceActions';
@@ -8,6 +8,7 @@ import { pathFor } from './navigation';
 import { AppLayout } from '../layouts/AppLayout';
 
 const Dashboard = lazy(() => import('../pages/Dashboard').then(m => ({ default: m.Dashboard })));
+const Home = lazy(() => import('../pages/Home').then(m => ({ default: m.Home })));
 const Knowledge = lazy(() => import('../pages/Knowledge').then(m => ({ default: m.Knowledge })));
 const Questions = lazy(() => import('../pages/Questions').then(m => ({ default: m.Questions })));
 const Review = lazy(() => import('../pages/Review').then(m => ({ default: m.Review })));
@@ -50,7 +51,7 @@ export function AppRoutes() {
   const { t } = useI18n();
   return <Suspense fallback={<div role="status" className="p-12">{t("Loading page…", "正在加载页面…")}</div>}><Routes>
     <Route element={<AppLayout />}>
-      <Route index element={<Navigate to="/dashboard" replace />} />
+      <Route index element={<Home />} />
       {['dashboard', 'knowledge', 'questions', 'review', 'coding', 'applications', 'interviews', 'copilot', 'settings'].map(view => <Route key={view} path={view} element={<Page view={view} />} />)}
       <Route path="knowledge/:articleId" element={<Page view="knowledge" />} />
       <Route path="library" element={<Library />} />

@@ -87,19 +87,36 @@
 :focus-visible { outline: 2px solid #0ea5e9; outline-offset: 3px; }
 button:disabled { opacity: .55; cursor: wait; }
 
-.guide-hero {
+.learning-home-hero {
   background-image:
-    radial-gradient(ellipse at 50% 30%, rgba(99, 102, 241, .1), transparent 64%),
-    linear-gradient(rgba(148, 163, 184, .065) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, .065) 1px, transparent 1px);
-  background-size: auto, 60px 60px, 60px 60px;
+    radial-gradient(ellipse at 50% 54%, rgba(99, 102, 241, .115), transparent 58%),
+    linear-gradient(rgba(148, 163, 184, .07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, .07) 1px, transparent 1px);
+  background-size: auto, 48px 48px, 48px 48px;
+  background-color: #fbfcff;
 }
-.dark .guide-hero {
+.dark .learning-home-hero {
   background-image:
-    radial-gradient(ellipse at 50% 30%, rgba(99, 102, 241, .16), transparent 65%),
-    linear-gradient(rgba(148, 163, 184, .045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, .045) 1px, transparent 1px);
+    radial-gradient(ellipse at 50% 48%, rgba(99, 102, 241, .17), transparent 60%),
+    linear-gradient(rgba(148, 163, 184, .055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, .055) 1px, transparent 1px);
+  background-color: #090d16;
 }
+
+/* The long-form reading scale is local to published lessons. */
+.library-reading .markdown-body { font-size: inherit; line-height: 1.8; overflow-wrap: anywhere; }
+.library-reading .markdown-body :is(p, li) { line-height: 1.8; }
+.library-reading .markdown-body p { margin-bottom: 1.15rem; }
+.library-reading .markdown-body h1:not([aria-hidden="true"]) { font-size: clamp(2.125rem, 3vw, 2.4rem); line-height: 1.22; margin-top: 2rem; margin-bottom: 1.25rem; }
+.library-reading .markdown-body h2 { font-size: clamp(1.55rem, 2.2vw, 1.75rem); line-height: 1.35; margin-top: 2.3rem; margin-bottom: 1rem; }
+.library-reading .markdown-body h3 { font-size: clamp(1.25rem, 1.8vw, 1.4rem); line-height: 1.4; margin-top: 1.9rem; margin-bottom: .8rem; }
+.library-reading .markdown-body :is(h1,h2,h3,h4,h5,h6) { scroll-margin-top: 1.5rem; }
+.library-reading .markdown-body a { color: #1d4ed8; text-decoration: underline; text-underline-offset: 2px; }
+.dark .library-reading .markdown-body a { color: #7dd3fc; }
+.library-reading .markdown-body :is(img, video, svg) { max-width: 100%; height: auto; }
+.library-reading .markdown-body :is(pre, .katex-display) { max-width: 100%; overflow-x: auto; }
+.library-reading .markdown-body table { min-width: max-content; font-size: .875rem; }
+.library-reading .markdown-body blockquote { font-style: normal; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
