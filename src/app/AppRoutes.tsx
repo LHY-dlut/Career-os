@@ -6,6 +6,7 @@ import { useData } from './DataProvider';
 import { useWorkspaceActions } from './WorkspaceActions';
 import { pathFor } from './navigation';
 import { AppLayout } from '../layouts/AppLayout';
+import { useToast } from '../components/common/Toast';
 
 const Dashboard = lazy(() => import('../pages/Dashboard').then(m => ({ default: m.Dashboard })));
 const Home = lazy(() => import('../pages/Home').then(m => ({ default: m.Home })));
@@ -23,6 +24,11 @@ function Page({ view }: { view: string }) {
   const { t, label } = useI18n();
   const { user, signIn, signOut } = useAuth();
   const { data, refresh, exportData, restore, reset } = useData();
+  const { showToast } = useToast();
+  const signInAfterSaving = async () => {
+    try { await exportData(); await signIn(); }
+    catch (cause) { showToast(cause instanceof Error ? cause.message : t('Save your draft before signing in.', '请先保存草稿再登录。'), 'error'); }
+  };
   const { save, remove, recordReview, promoteQuestion, loadStarter } = useWorkspaceActions();
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,7 +49,7 @@ function Page({ view }: { view: string }) {
     case 'applications': return <Applications applications={data.applications} selectedAppId={id} onSaveApplication={value => save('applications', value)} onDeleteApplication={value => remove('applications', value)} onNavigateToCopilotJD={jd => copilot(t(`Analyze this job description:\n\n${jd}`, `请用中文分析这份岗位描述：\n\n${jd}`))} onQuickLogInterview={app => navigate(`/interviews?new=1&application=${encodeURIComponent(app.id)}`)} userId={userId} />;
     case 'interviews': return <Interviews interviews={data.interviews} interviewQuestions={data.interviewQuestions} applications={data.applications} selectedInterviewId={id} onSaveInterview={value => save('interviews', value)} onDeleteInterview={value => remove('interviews', value)} onSaveInterviewQuestion={value => save('interviewQuestions', value)} onAddToQuestionBank={promoteQuestion} userId={userId} />;
     case 'copilot': return <AICopilot initialPrompt={location.state?.prompt || ''} />;
-    case 'settings': return <Settings user={user} onSignIn={signIn} onSignOut={signOut} onRefreshData={refresh} onExport={exportData} onRestore={restore} onReset={reset} onLoadStarter={loadStarter} canLoadStarter={!data.articles.length && !data.questions.length && !data.codingProblems.length} />;
+    case 'settings': return <Settings user={user} onSignIn={signInAfterSaving} onSignOut={signOut} onRefreshData={refresh} onExport={exportData} onRestore={restore} onReset={reset} onLoadStarter={loadStarter} canLoadStarter={!data.articles.length && !data.questions.length && !data.codingProblems.length} />;
     default: return <div className="p-10"><h2>{t("Page not found", "页面不存在")}</h2><Link to="/dashboard">{t("Return to dashboard", "返回学习总览")}</Link></div>;
   }
 }

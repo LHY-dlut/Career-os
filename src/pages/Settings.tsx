@@ -159,7 +159,7 @@ export const Settings: React.FC<SettingsProps> = ({
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200/60 dark:border-zinc-800">
             <div>
               <div className="text-xs font-bold text-zinc-900 dark:text-zinc-100">{t("Guest Mode (Local Storage)", "访客模式（本地存储）")}</div>
-              <p className="text-[11px] text-zinc-500 mt-0.5">{t("Sign in to open your separate cloud workspace. Guest records stay in this browser.", "登录后将打开独立的云端工作区，访客记录仍保留在此浏览器。")}</p>
+              <p className="text-[11px] text-zinc-500 mt-0.5">{t("On first sign-in, guest records import to an empty cloud workspace. If your account already has records, you can merge without overwriting them. The local copy stays here.", "首次登录且云端为空时，访客记录会自动导入；若账号已有记录，可选择合并且不会覆盖云端内容。本地副本仍保留。")}</p>
             </div>
 
             <button

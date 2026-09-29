@@ -24,7 +24,7 @@ Knowledge → Question Bank → Review → Coding → Applications → Interview
 - 投递与面试：看板/表格、阶段持久化、面试属于投递、真题加入题库时同时保存关联。关联已有题目等完整闭环见路线图。
 - URL 路由、前进/后退/刷新、实体直达、Ctrl/Cmd+K 搜索、按身份隔离的主题。
 - 中英文界面与阅读：默认简体中文，顶部语言按钮或设置页可随时切换 English；浏览器记住选择。6 篇未编辑的入门知识文章有完整中文阅读稿，收录教程默认选择与界面语言对应的版本，也可单独选择资料语言。用户自写、导入或已修改的文章保留原文；AI 新请求按所选语言回答。
-- 访客仅保存到当前浏览器。Google 登录打开独立 Firestore 工作区；云端错误不会自动切换为本地成功状态。
+- 访客仅保存到当前浏览器。Google 登录打开 Firestore 工作区；首次登录且云端为空时自动导入本机已有访客记录，云端已有记录时可选择合并，冲突保留云端版本。访客副本始终保留在本机；云端错误不会自动切换为本地成功状态。
 - AI 默认由 Express 调用 DeepSeek-V4.1-Flash；需要 Google 登录、服务端 UID 授权、Admin 凭证及 DeepSeek Key。未配置时显示真实错误，不生成假答案/引用。可显式切换回 Gemini。
 
 ## 本轮预览验收
@@ -81,7 +81,7 @@ npm start
 
 ## Firebase Setup
 
-在自己的项目启用 Google 登录、配置 authorized domains、创建 Firestore、发布本仓库规则，并填写 Web App 的公开变量。新账号与访客独立，不能通过换登录身份共享本地缓存。
+在自己的项目启用 Google 登录、配置 authorized domains、创建 Firestore、发布本仓库规则，并填写 Web App 的公开变量。首次登录会检查当前浏览器访客数据；云端为空时自动导入，已有云端记录时提示安全合并。登录同一账号的其他设备随后读取云端记录；各设备原有的访客副本不会删除。
 
 ## AI Setup — 默认 DeepSeek
 
