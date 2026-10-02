@@ -8,13 +8,15 @@ Knowledge → Question Bank → Review → Coding → Applications → Interview
 
 2026-09-25 经用户明确要求，课程资料库与双轨训练已发布到同一站点：8 条学习路线、6 篇本站教学单元、Hot100 的 100 个可编辑骨架/10 个完整训练包、14 个 PyTorch 完整训练包，首页和 Coding Lab 共用草稿与历史。[打开首页训练](https://career-os-lhy-dlut.web.app/dashboard)。诊断、实测结果与发布记录见 [本轮交付报告](docs/LIBRARY_TRAINING_REPORT.md)。代码仍通过草稿 PR 审查，没有合并 main。
 
+`codex/aiinfra-ui-refinement` 是**尚未发布**的界面预览分支：`/` 成为公开学习门户，保留可编辑的共享代码训练；`/dashboard` 是私人工作台；资料库阅读改为更清楚的三栏与长文排版。线上站点仍是上一段所述版本。见 [界面精修报告与截图](docs/AIINFRA_UI_REFINEMENT_REPORT.md)。
+
 ## Why
 
 把分散的学习资料、复习记录与真实面试反馈连接起来，形成每天能使用的个人系统。优先保证数据正确、可维护和失败可恢复，再逐步增加 AI 能力。
 
 ## Features — 当前能力与边界
 
-- 学习门户：首页参考 [AIInfraGuide](https://caomaolufei.github.io/AIInfraGuide/) 的顶部导航、居中首屏与主题卡片组织；个人知识数量、最近更新和下方工作台来自当前工作区。知识库提供分类总览、章节树与三栏阅读，手机可展开导航与目录。
+- 学习门户（预览分支 `/`）：参考 [AIInfraGuide](https://caomaolufei.github.io/AIInfraGuide/) 的留白、淡网格和文档阅读秩序；展示公开课程与来源核查信息，并直接使用共享代码训练。个人笔记、复习、投递和面试数据留在 `/dashboard` 工作台。
 - 学习资料库 `/library`：经核查许可的 AIInfraGuide、ARIS 教程作为固定快照随网站发布，正文按需加载；卡码与 labuladong 提供原文导航。支持来源/主题/标题标签搜索、目录、手机阅读与建立个人学习笔记。出处、许可证、收录范围和更新方式见 [资料来源](docs/CONTENT_SOURCES.md)。资料不会批量写入个人 localStorage 或 Firestore。
 - 知识文章：Markdown、GFM、KaTeX、代码高亮/复制、目录锚点、前后篇、编辑、导入/导出。
 - 题库与复习：搜索/筛选、CRUD、四档评分、原子保存复习历史。当前为简单间隔算法，不是完整 SM-2 / FSRS。
@@ -22,7 +24,7 @@ Knowledge → Question Bank → Review → Coding → Applications → Interview
 - 投递与面试：看板/表格、阶段持久化、面试属于投递、真题加入题库时同时保存关联。关联已有题目等完整闭环见路线图。
 - URL 路由、前进/后退/刷新、实体直达、Ctrl/Cmd+K 搜索、按身份隔离的主题。
 - 中英文界面与阅读：默认简体中文，顶部语言按钮或设置页可随时切换 English；浏览器记住选择。6 篇未编辑的入门知识文章有完整中文阅读稿，收录教程默认选择与界面语言对应的版本，也可单独选择资料语言。用户自写、导入或已修改的文章保留原文；AI 新请求按所选语言回答。
-- 访客仅保存到当前浏览器。Google 登录打开独立 Firestore 工作区；云端错误不会自动切换为本地成功状态。
+- 访客仅保存到当前浏览器。Google 登录打开 Firestore 工作区；首次登录且云端为空时自动导入本机已有访客记录，云端已有记录时可选择合并，冲突保留云端版本。访客副本始终保留在本机；云端错误不会自动切换为本地成功状态。
 - AI 默认由 Express 调用 DeepSeek-V4.1-Flash；需要 Google 登录、服务端 UID 授权、Admin 凭证及 DeepSeek Key。未配置时显示真实错误，不生成假答案/引用。可显式切换回 Gemini。
 
 ## 本轮预览验收
@@ -79,7 +81,7 @@ npm start
 
 ## Firebase Setup
 
-在自己的项目启用 Google 登录、配置 authorized domains、创建 Firestore、发布本仓库规则，并填写 Web App 的公开变量。新账号与访客独立，不能通过换登录身份共享本地缓存。
+在自己的项目启用 Google 登录、配置 authorized domains、创建 Firestore、发布本仓库规则，并填写 Web App 的公开变量。首次登录会检查当前浏览器访客数据；云端为空时自动导入，已有云端记录时提示安全合并。登录同一账号的其他设备随后读取云端记录；各设备原有的访客副本不会删除。
 
 ## AI Setup — 默认 DeepSeek
 

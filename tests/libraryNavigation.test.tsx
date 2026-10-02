@@ -4,6 +4,7 @@ import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testi
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { MemoryRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { Library } from '../src/pages/Library';
+import { Home } from '../src/pages/Home';
 import { AppLayout } from '../src/layouts/AppLayout';
 import { ToastProvider } from '../src/components/common/Toast';
 import { I18nProvider, LANGUAGE_STORAGE_KEY, useI18n } from '../src/i18n/I18nProvider';
@@ -25,6 +26,7 @@ vi.mock('../src/app/DataProvider', () => ({ useData: () => workspace }));
 vi.mock('../src/app/AuthProvider', () => ({ useAuth: () => ({ user: null, loading: workspace.authLoading, signIn: vi.fn(), signOut: vi.fn() }) }));
 vi.mock('../src/app/WorkspaceActions', () => ({ useWorkspaceActions: () => ({ save: workspace.save }) }));
 vi.mock('../src/hooks/useTheme', () => ({ useTheme: () => ({ isDark: false, toggleTheme: vi.fn() }) }));
+vi.mock('../src/components/training/TrainingWorkspace', () => ({ TrainingWorkspace: () => <p>Training workspace fixture</p> }));
 
 const article = libraryResources.find(resource => resource.kind === 'article')!;
 const nextArticle = libraryResources.find(resource => resource.kind === 'article' && resource.id !== article.id)!;
@@ -49,6 +51,7 @@ function openLibrary(path = '/library') {
     <BrowserControls />
     <Routes>
       <Route element={<AppLayout />}>
+        <Route path="/" element={<Home />} />
         <Route path="/library" element={<Library />} />
         <Route path="/library/:resourceId" element={<Library />} />
         <Route path="/knowledge/:articleId" element={<p>Personal note opened</p>} />
@@ -70,6 +73,19 @@ beforeEach(() => {
   vi.stubGlobal('fetch', vi.fn().mockImplementation(async () => new Response(articleBody, { headers: { 'content-type': 'text/markdown' } })));
 });
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
+
+it('keeps the public portal and reading page visible while private workspace and auth are unavailable', async () => {
+  workspace.loading = true;
+  workspace.authLoading = true;
+  workspace.error = 'Offline workspace';
+  const app = openLibrary('/');
+  expect(screen.getByRole('heading', { name: 'AI Career OS' })).toBeTruthy();
+  expect(await screen.findByText('Training workspace fixture')).toBeTruthy();
+  expect(screen.queryByText('Offline workspace')).toBeNull();
+  app.unmount();
+  openLibrary(libraryPath(article.id));
+  expect(await screen.findByText('The published article is readable independently of personal notes.')).toBeTruthy();
+});
 
 it('restores source, category, and search after opening a result and using browser back', async () => {
   openLibrary();
@@ -310,7 +326,8 @@ it('uses Chinese heading labels while retaining the original source anchors', as
   expect(screen.getByRole('heading', { name: '要点速览 速查表' })).toBeTruthy();
   expect(screen.getByRole('heading', { name: '使用 Transformer 的示例' }).querySelector('code')?.textContent).toBe('Transformer');
   const contents = screen.getAllByRole('navigation', { name: '资料章节目录' });
-  expect(within(contents[0]).getByRole('link', { name: translatedTitle }).getAttribute('href')).toContain(encodeURIComponent(originalId));
+  expect(within(contents[0]).queryByRole('link', { name: translatedTitle })).toBeNull();
+  expect(within(contents[0]).getByRole('link', { name: '要点速览 速查表' }).getAttribute('href')).toContain('heading-tldr-cheat-sheet');
   expect(screen.getByTestId('location').textContent).toContain(originalId);
 });
 

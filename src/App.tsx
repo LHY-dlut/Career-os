@@ -11,8 +11,8 @@ function Workspace() {
   const { t } = useI18n();
   const { user, loading } = useAuth();
   const location = useLocation();
-  const publicReading = location.pathname === '/library' || location.pathname.startsWith('/library/');
-  if (loading && !publicReading) return <div role="status" className="p-12">{t('Restoring your session…', '正在恢复登录状态…')}</div>;
+  const publicRoute = location.pathname === '/' || location.pathname === '/library' || location.pathname.startsWith('/library/');
+  if (loading && !publicRoute) return <div role="status" className="p-12">{t('Restoring your session…', '正在恢复登录状态…')}</div>;
   return <DataProvider key={user?.uid || 'guest'} uid={user?.uid || null}><TrainingBoundary identity={user?.uid || 'guest'}><AppRoutes /></TrainingBoundary></DataProvider>;
 }
 export default function App() {

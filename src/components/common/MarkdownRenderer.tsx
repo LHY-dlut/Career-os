@@ -23,9 +23,10 @@ interface MarkdownRendererProps {
   content: string;
   className?: string;
   headingLabels?: Readonly<Record<string, string>>;
+  hiddenHeadingId?: string;
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className = '', headingLabels }) => {
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className = '', headingLabels, hiddenHeadingId }) => {
   // Labels may be translated, while IDs remain derived from the original Markdown.
   const headingContent = (id: string | undefined, children: React.ReactNode) => id ? headingLabels?.[id] ?? children : children;
   return (
@@ -41,7 +42,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, cla
           },
           code: ({ children }) => <code className="px-1 rounded bg-slate-100 dark:bg-slate-800 font-mono">{children}</code>,
           h1: ({ children, id }) => (
-            <h1 id={id} className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100 mt-6 mb-4 pb-2 border-b border-slate-200 dark:border-slate-800">
+            <h1 id={id} aria-hidden={id === hiddenHeadingId ? true : undefined} className={id === hiddenHeadingId ? 'block h-0 overflow-hidden' : 'text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100 mt-6 mb-4 pb-2 border-b border-slate-200 dark:border-slate-800'}>
               {headingContent(id, children)}
             </h1>
           ),

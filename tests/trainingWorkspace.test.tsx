@@ -8,6 +8,7 @@ import { TrainingBoundary } from '../src/app/TrainingProvider';
 import { I18nProvider } from '../src/i18n/I18nProvider';
 import { ToastProvider } from '../src/components/common/Toast';
 import { TrainingWorkspace } from '../src/components/training/TrainingWorkspace';
+import { Home } from '../src/pages/Home';
 import { createStudyData, storageKey } from '../src/repositories/local';
 import type { TrainingTask } from '../src/content/training/types';
 
@@ -31,6 +32,7 @@ function Pages() {
   const [exportError, setExportError] = useState('');
   if (loading) return <p>Loading</p>;
   return <><button onClick={() => void reset()}>Reset guest fixture</button><button onClick={() => { void exportData().then(setBackup, error => setExportError(error.message)); }}>Export fixture</button><output aria-label="backup">{backup}</output>{exportError && <p role="alert">{exportError}</p>}<Routes>
+    <Route path="/" element={<Home />} />
     <Route path="/dashboard" element={<TrainingWorkspace compact />} />
     <Route path="/coding/:problemId" element={<TrainingWorkspace />} />
     <Route path="/coding" element={<TrainingWorkspace />} />
@@ -60,7 +62,7 @@ it('shares drafts across home/full training, task changes and refresh without re
   fireEvent.change(screen.getByRole('combobox', { name: '选择训练题目' }), { target: { value: 'lc-1' } });
   await waitFor(() => expect(editor().value).toBe('# my first draft'));
   fireEvent.click(screen.getByRole('link', { name: '全屏训练' }));
-  await screen.findByRole('link', { name: '回首页继续草稿' });
+  await screen.findByRole('link', { name: '回工作台继续草稿' });
   expect(editor().value).toBe('# my first draft');
   fireEvent.click(screen.getByRole('button', { name: '查看题解' }));
   await screen.findByText(/# reference answer/);
@@ -72,6 +74,19 @@ it('shares drafts across home/full training, task changes and refresh without re
   await waitFor(() => expect(JSON.parse(localStorage.getItem(storageKey('guest', 'data'))!).codingProblems.find((problem: { trainingTaskId?: string }) => problem.trainingTaskId === 'lc-283')?.drafts.Python.code).toBe('# separate second draft'));
   const data = JSON.parse(localStorage.getItem(storageKey('guest', 'data'))!);
   expect(data.codingAttempts).toHaveLength(0);
+});
+
+it('keeps the same draft when leaving the public portal for full training and returning', async () => {
+  mount('guest', '/?task=lc-1&track=hot100');
+  await getEditor();
+  fireEvent.change(editor(), { target: { value: '# portal draft' } });
+  fireEvent.click(screen.getByRole('link', { name: '全屏训练' }));
+  const back = await screen.findByRole('link', { name: '回学习首页继续草稿' });
+  expect(editor().value).toBe('# portal draft');
+  fireEvent.click(back);
+  await getEditor();
+  expect(editor().value).toBe('# portal draft');
+  expect(screen.getByRole('heading', { name: 'AI Career OS' })).toBeTruthy();
 });
 
 it('records a private problem and history atomically, counts unique completion, and preserves historical code', async () => {
